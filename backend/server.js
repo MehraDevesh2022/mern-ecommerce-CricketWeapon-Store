@@ -1,10 +1,8 @@
 const app = require("./app");
 const dotenv = require("dotenv");
+const connectDB = require("./db/connectDB")
 
-
-app.get('/' , (req , res) =>{
-    res.send("hello")
-})
+connectDB();
 
 //config =>
 dotenv.config({path : "backend/config/config.env"})
