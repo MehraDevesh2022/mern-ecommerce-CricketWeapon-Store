@@ -32,7 +32,12 @@ const productSchema  = mongoose.Schema({
      }
     ],
     category :{
-        type : String ,
+        type : String, 
+        required : [true , "Please eneter Product Category"]
+
+    },
+    Stock :{
+        type : Number ,
         required : [true , "please Enter product stock"],
         maxLength : [4 , "Stock cannot exceed 4 characters"],
         default : 1,

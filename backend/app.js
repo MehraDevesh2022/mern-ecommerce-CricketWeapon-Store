@@ -3,7 +3,7 @@ const app  = express();
 const product  = require    ("./route/productRoute")
 
 
-
+app.use(express.json())
 
 
 
