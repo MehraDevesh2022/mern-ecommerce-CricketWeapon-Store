@@ -74,7 +74,7 @@ userSchema.methods.getJWTToken = function(){
 
 // cerating Compare Password method =>
 
-userSchema.method.comparePassword  = async function(password){
+userSchema.methods.comparePassword  = async function(password){
     return await bcrypt.compare(password, this.password); // this function will cheack when user login with palin password and bcrypt.compare will cheack that password with hashed password in DataBase.
 }
 
