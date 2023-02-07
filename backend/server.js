@@ -25,7 +25,7 @@ const server =app.listen(process.env.PORT, () =>{
 process.on("unhandledRejection" , (err) =>{ 
     console.log(`Error : ${err.message}`);
     console.log(`Shutting down the server due to Unhandled Promise Rejection`);
-
+// if there any issue occures eg : broken host link eg : then return msg and server will close
 server.close(() =>{
     process.exit(1);
 })
