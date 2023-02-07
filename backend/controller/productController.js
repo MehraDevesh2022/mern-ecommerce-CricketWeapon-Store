@@ -1,9 +1,10 @@
 const ProductModel = require("../model/ProductModel");
 const ErrorHandler = require("../utils/errorHandler");
-const asyncWrapper = require("../middleWare/asyncWrapper")
+const asyncWrapper = require("../middleWare/asyncWrapper");
+const ApiFeatures = require("../utils/apiFeatures");
 
 
-// >>>>>>>>>>>>>>>>>>>>>Admin route 
+// >>>>>>>>>>>>>>>>>>>>>  Admin route  >>>>>>>>>>>>>>>>>>>>>>>>
 exports.createProduct = asyncWrapper(async (req, res) => {
 
        const body = req.body;
@@ -17,18 +18,28 @@ exports.createProduct = asyncWrapper(async (req, res) => {
 
 
 exports.getAllProducts = asyncWrapper(async (req, res) => {
+       const resultPerPage  = 5; // per page products visibile
+     // const products = await ProductModel.find();
+       const productsCount  = await ProductModel.countDocuments(); // it returns product length
+       // ApiFeatures is class and we making here intsance of that . and passing 2 args : => agr : ProductModel.find() ==> reciving as  query in constructor , and   req.query ==> reciving as  queryString in constructor
+       const apiFeature = new ApiFeatures(ProductModel.find() , req.query).search().filter().Pagination(resultPerPage)
+     
 
-       const products = await ProductModel.find();
 
+       let products = await apiFeature.query;  // whatever data is return base on filter fetching here using apiFeature.query where apiFeature is complete object of ApiFeatures class with req data. and query is property form ApiFeatures class same like queryString , query storing req data here
+       // if  there is no value in query string then all prodcut is return here in apiFeature.query 
+          
        res.status(201).json({
               succes: true,
-              products: products
+              products: products,
+              productsCount : productsCount
+            
        })
 
 })
 
 
-//>>>>>>>>>>>>>>>>>> Update  Admin Route 
+//>>>>>>>>>>>>>>>>>> Update  Admin Route >>>>>>>>>>>>>>>>>>>>>>>
 exports.updateProduct = asyncWrapper(async (req, res, next) => {
 
        let Product = await ProductModel.findById(req.params.id);
