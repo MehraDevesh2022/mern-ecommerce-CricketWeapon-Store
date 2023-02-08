@@ -3,7 +3,8 @@ const asyncWrapper = require("../middleWare/asyncWrapper");
 const userModel = require("../model/userModel")
 const sendJWtToken = require("../utils/JwtToken");
 const sendEmail = require("../utils/sendEmail")
- 
+const crypto = require("crypto");
+
 
 // signUp controller>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.registerUser = asyncWrapper(async (req , res) =>{
@@ -18,7 +19,7 @@ exports.registerUser = asyncWrapper(async (req , res) =>{
             url: "myCloud.secure_url",
         }
      })
-
+ 
   // sending the res and staus code along with token using sendJWtToken method
   sendJWtToken(user , 201 , res);
 })
@@ -119,3 +120,60 @@ exports.forgotPassword = asyncWrapper(async(req , res , next) =>{
 });
 
 
+//>>>>>>>>>>>>>>> rset and update password :
+exports.resetPassword  = asyncWrapper(async (req , res , next) =>{
+  // creating token hash because we save resetPasswordToken  in hash form. and we send to user resetToken in hex bytes from in url . now converting that byte from to hex from for matching does user given reset token is same or not which one save in Database
+  // we will extract reset token from req.params.token because we sended that token inside nodemailer message url when user will click on that link he will redirect on that  url
+   console.log(req.params.token);
+  const resetPasswordToken =
+    crypto.createHash("sha256").update(req.params.token).toString("hex");
+
+
+    // now find that user with that hasg token in db
+  const user = await userModel.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() }, // if resetPasswordExpire {gt : => greater than} currDate  cheking is token expires or not
+  });
+
+  // if user not with that token or expire token
+  if (!user) {
+    return next(
+      new ErrorHandler(
+        "Reset Password Token is invalid or has been expired",
+        400
+      )
+    );
+  }
+
+  // when new pass or confirm pass are not same
+   
+  if (req.body.password !== req.body.confirmPassword) {
+    return next(new ErrorHandler("Password does not equal to confirmPassword", 400));
+  }
+
+ // set that new password
+  user.password = req.body.password;
+  //once pass set then no need token in data base untll user not reset the pass
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+ // savw change to db
+  await user.save();
+  // this will send new token to user  bcz user succesfully logged in with new pass
+  sendJWtToken(user, 200, res);
+ 
+}) 
+ 
+
+//// Get User Detail  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+exports.getUserDetails  = asyncWrapper( async(req , res) =>{
+
+  const user = await userModel.findById(req.user.id); // user.id because we set that user into as user.req when user gose autentiction. becauae all data of users set into req.user. only user when logged in then access this function
+  res.status(200).json({
+    success: true,
+    user, // profile details of user
+  });
+
+
+})
