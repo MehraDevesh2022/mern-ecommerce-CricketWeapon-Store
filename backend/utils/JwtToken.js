@@ -1,7 +1,7 @@
 // this method will take user Data status code and res =>  Then Create Token and will saving in cookie ans send
 
 const sendJWtToken  = (user , statusCode , res) =>{
-        console.log(user);
+        // console.log(user);
 
     console.log(process.env.COOKIE_EXPIRE);
     const token = user.getJWTToken(); //every user has access all userModel methods

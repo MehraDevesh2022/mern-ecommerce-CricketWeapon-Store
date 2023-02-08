@@ -120,7 +120,7 @@ exports.forgotPassword = asyncWrapper(async(req , res , next) =>{
 });
 
 
-//>>>>>>>>>>>>>>> rset and update password :
+//>>>>>>>>>>>>>>> reset and update password :
 exports.resetPassword  = asyncWrapper(async (req , res , next) =>{
   // creating token hash because we save resetPasswordToken  in hash form. and we send to user resetToken in hex bytes from in url . now converting that byte from to hex from for matching does user given reset token is same or not which one save in Database
   // we will extract reset token from req.params.token because we sended that token inside nodemailer message url when user will click on that link he will redirect on that  url
@@ -128,8 +128,7 @@ exports.resetPassword  = asyncWrapper(async (req , res , next) =>{
   const resetPasswordToken =
     crypto.createHash("sha256").update(req.params.token).toString("hex");
 
-
-    // now find that user with that hasg token in db
+  // now find that user with that hasg token in db
   const user = await userModel.findOne({
     resetPasswordToken,
     resetPasswordExpire: { $gt: Date.now() }, // if resetPasswordExpire {gt : => greater than} currDate  cheking is token expires or not
@@ -174,6 +173,127 @@ exports.getUserDetails  = asyncWrapper( async(req , res) =>{
     success: true,
     user, // profile details of user
   });
+})
+
+
+  // update User password>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+exports.updatePassword = asyncWrapper(async(req, res, next) =>{
+  const user = await userModel.findById(req.user.id).select("+password"); // + password because pass not allowed in shcema to acsess
+
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword); // user.comparePassword this method define in user Schema  for comapre given normal pass to savde hash pass
+
+
+   // when user not found
+  if (!isPasswordMatched) {
+    return next(new ErrorHandler("Old password is incorrect", 400));
+  } 
+
+
+  if (req.body.newPassword !== req.body.confirmPassword) {
+    return next(new ErrorHandler("password does not match", 400));
+     
+  }  
+ 
+  // now set the new pass
+  
+  user.password = req.body.newPassword;
+
+   await user.save();
+  // now send new token to user . becasue user loggedin with new pass
+  sendJWtToken(user , 200 , res);
+})
+
+
+
+//>>>>>> Update user Profile>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+exports.updateProfile = asyncWrapper(async (req, res, next) => {
+  
+   // object with user new data
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+ 
+  // set new value of user
+  const user = await userModel.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  }); 
+   
+  await user.save();
+  res.status(200).json({
+    success: true,
+    user
+  });
+})
+
+
+//>> Get single user (admin) Access only>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+exports.getSingleUser = asyncWrapper(async (req, res, next) => {
+  const user = await userModel.findById(req.params.id);
+  // if user not found with that id
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not exist with Id: ${req.params.id}`)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+//>>>> update User Role -- Admin {may admin can change any user to admin}>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+exports.updateUserRole = asyncWrapper(async (req, res, next) => {
+  
+  // add set new role of user
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+  await userModel.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true
+  });
+})
+
+
+// delete user --Admin(only admin can delete user)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+exports.deleteUser = asyncWrapper(async (req, res, next) => {
+  const user = await userModel.findById(req.params.id);
+ // when no user found with that id
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400)
+    );
+  }
+   // if user founded the just remove from database
+  await user.remove();
+
+  res.status(200).json({
+    success: true,
+    message: "User Deleted Successfully",
+  });
+});
+ 
+// getAll user Admin>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+exports.getAllUser = asyncWrapper(async (req , res , next) =>{
+  
+  const users = await userModel.find();
+
+  res.status(201).json({
+    success : true ,
+    users : users
+  })
 
 
 })
