@@ -3,6 +3,8 @@ const asyncWrapper = require("../middleWare/asyncWrapper");
 const userModel = require("../model/userModel")
 const sendJWtToken = require("../utils/JwtToken");
  
+
+// signUp controller
 exports.registerUser = asyncWrapper(async (req , res) =>{
 
       const {name , email , password}  = req.body ;
@@ -49,4 +51,20 @@ exports.loginUser = asyncWrapper(async (req , res , next) =>{
 });
 
 
+// logOut Controller =>
 
+exports.logoutUser  = asyncWrapper(async (req , res ) =>{
+
+
+  // delete token for logingOut user =>
+  res.cookie("token" , null ,{ // curr Token has null value
+    expires: new Date(Date.now()), // expires curent
+    httpOnly: true,
+  }) 
+
+  res.status(200).json({
+ success : true ,
+    message : "User logged out"
+  })
+
+})

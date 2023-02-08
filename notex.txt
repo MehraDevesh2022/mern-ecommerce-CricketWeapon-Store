@@ -1,3 +1,29 @@
+productModel  =>{
+
+}
+productController =>{
+
+}
+
+ErrorHandling  =>{
+
+}
+
+userModel {
+
+
+}
+
+userController =>{
+
+}
+
+authentication{
+
+
+
+}
+
 depnedency  =>
 {
 cookie-parser:cookie-parser parses cookies and populates req. cookies with objects bidden to cookie names
