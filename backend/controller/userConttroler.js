@@ -47,7 +47,7 @@ exports.loginUser = asyncWrapper(async (req , res , next) =>{
         return next(new ErrorHandler("Invalid email or password", 401));
     }
 
-    sendJWtToken(user, 200, res);
+    sendJWtToken(user, 200, res); 
 });
 
 

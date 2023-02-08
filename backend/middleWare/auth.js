@@ -24,3 +24,18 @@ if(!token){
     next();
 
 })
+
+// this function for access of routes and controle like => update product , delete product, createProduct. only admin can do this
+      // taking role as param and converting it into array using spread operator. for using array method
+exports.authorizeRoles = (...roles) =>{
+ return (req , res , next) =>{
+     if (roles.includes(req.user.role) ===false){  // before entering this route user done autehntciation and that time we add complete user into req.user so here we have req.user.role .
+        return next(
+            new ErrorHandler(`Role: ${req.user.role} is not allowed to access this resouce `,
+                403)
+        )
+     }
+     // if user has role as admin then go ahead.
+    next();
+ }
+}

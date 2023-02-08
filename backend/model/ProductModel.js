@@ -39,7 +39,7 @@ const productSchema  = mongoose.Schema({
     Stock :{
         type : Number ,
         required : [true , "please Enter product stock"],
-        maxLength : [4 , "Stock cannot exceed 4 characters"],
+        maxLength: [4, "Stock cannot exceed 4 characters"],
         default : 1,
     },
     numOfReviews:{
@@ -49,9 +49,10 @@ const productSchema  = mongoose.Schema({
     reviews :[
         {
             // user :{
-            //     type : String ,
-            //     required :true
-            // },
+            //     type: mongoose.Schema.ObjectId, // this will add user id who gonna add review on product
+            //     required :true,
+
+            // }, 
             name :{
                 type : String ,
                 required : true ,
@@ -66,6 +67,12 @@ const productSchema  = mongoose.Schema({
      }
     }
     ],
+    // when two admins are there. tab ye pta chalgea kiss admin ne product add kiya hai
+    user :{
+        type: mongoose.Schema.ObjectId, //  this is for admin who will add the prduct to the db 
+        ref: "User",
+        required: true,
+    },
     createdAt :{
          type : Date ,
          default : Date.now,
