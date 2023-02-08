@@ -50,7 +50,7 @@ role :{
     resetPasswordExpire: Date,
 });
 
-
+//password hash>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //  this is for user  password hashing . this function will run every time when user data will change 
 userSchema.pre("save" , async function(next) {
  // without this if statment password hashed each time when data modifeid . thereFore making this if loop
@@ -61,9 +61,8 @@ userSchema.pre("save" , async function(next) {
     this.password = await bcrypt.hash(this.password , 10);  // this points to individule user
 });
 
-
+//JWt>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // now make JWT TOKEN for User Who Will Logged int => JWT has three thing => Header{type of jwt , algo details} + payLoad{contain user data eg id , token expiry date , generated date so on} + Seceret{A seceret key in hashed form and keyStore in srever for verification}
-
 // making method using Mongoose method property => getJWTToken
 userSchema.methods.getJWTToken = function(){
  // we sending in payLoad : Toeknexpiry , userId , or Seceret key, Along with header has algo name , type of JWT
@@ -72,11 +71,24 @@ userSchema.methods.getJWTToken = function(){
 }
 
 
-// cerating Compare Password method =>
-
+// cerating Compare Password method >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 userSchema.methods.comparePassword  = async function(password){
     return await bcrypt.compare(password, this.password); // this function will cheack when user login with palin password and bcrypt.compare will cheack that password with hashed password in DataBase.
 }
+
+// Generating Password Reset Token>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+userSchema.methods.getResetPasswordToken = function(){
+      // Generating Token for reset password just like otp kinda of
+const resetPassToken = crypto.randomBytes(20).toString("hex"); // crypto.randomBytes will create random bytes of bufffer value toString("hex") will convert that buffer inot hex string
+  // Hashing and adding resetPasswordToken to userSchema
+
+  // resetPasswordToken and  resetPasswordExpire are user schema dfinde over now we adding value resetPassToken token  and expiry of that token . when user will try resetpass  then resetPasswordToken and resetPasswordExpire will store and also reset token send through nodmailer to user and when user add that token . if token will match then he will able to rseet pass
+    this.resetPasswordToken = 
+        crypto.createHash("sha256").update(resetPassToken).toString("hex");
+    this.resetPasswordExpire = Date.now() + 15 * 60 * 1000; //  resetPasswordExpire : it will make sure how much time this reset token will valid for reseting pass eg 5 min or 3min
+
+    return resetPassToken;
+};
 
 
 
