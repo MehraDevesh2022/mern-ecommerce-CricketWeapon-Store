@@ -48,13 +48,13 @@ const productSchema  = mongoose.Schema({
     },
     reviews :[
         {
-            // user :{
-            //     type: mongoose.Schema.ObjectId, // this will add user id who gonna add review on product
-            //     required :true,
-
-            // }, 
+            userId :{
+                type: mongoose.Schema.ObjectId, // this will add user id who gonna add review on product
+                  ref : 'user',
+                   required: true 
+            }, 
             name :{
-                type : String ,
+                type : String , 
                 required : true ,
             },
             ratings :{
