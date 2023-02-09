@@ -2,6 +2,7 @@ const  express = require("express");
 const app  = express();
 const product  = require    ("./route/productRoute")
 const user  = require("./route/userRoute");
+const order  = require("./route/orderRoute");
 const errorMiddleware   = require("./middleWare/error")
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -16,6 +17,7 @@ app.use(express.json())
 
 app.use("/api/v1" , product);
 app.use("/api/v1", user);
+app.use("/api/v1", order);
 
 
 
