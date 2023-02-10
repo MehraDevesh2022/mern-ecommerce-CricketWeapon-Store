@@ -79,3 +79,64 @@ exports.getAllOrders = asyncWrapper(async (req, res, next) => {
     orders,
   });
 });
+
+// update Order Status -- Admin
+exports.updateOrder = asyncWrapper(async (req , res , next)=>{
+  const order = await orderModel.findById(req.params.id);
+
+  if (!order) {
+    return next(new ErrorHandler("Order not found with this id", 400));
+  }
+  if (order.orderStatus === "Delivered") {
+    return next(new ErrorHandler("You have already delivered this order", 400));
+  }
+
+  // when orderd is shipped and need to update order status to deliverd then. pass order id updateStock function and also pass quantity of the product
+  // orderItems is the array of object in orderSchema with {name , productId , quantity , phoneNo .. so on}propoerty
+  order.orderItems.forEach(async (orderItem) => {
+    await updateStock(orderItem.productId, orderItem.quantity);
+  });
+
+  // once order quantity is reduced in productModel then update status as oredrStatus well
+  order.orderStatus = req.body.Status;
+
+  // now also set delivery time once order Delivered:
+  if (order.orderStatus === "Delivered") {
+    order.deliveredAt = Date.now();
+  }
+
+  // save to DataBase
+  await order.save({ validateBeforeSave: false });
+  res.status(200).json({
+    success: true,
+  });
+})
+
+// update status function with. productId and quantity params
+async function updateStock(id, quantity) {
+
+  const product = await prdoductModel.findById(id);
+  console.log(product);
+  // update the stock of the product using order quantity
+  product.Stock -= quantity;
+
+  await product.save({ validateBeforeSave: false });
+}
+
+
+
+//>>>>>>>>>>>>>>>>>>>>> delete Order -- Admin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+exports.deleteOrder = asyncWrapper(async(req , res , next) =>{
+  const order = await orderModel.findById(req.params.id);
+
+  if(!order){
+    return next(new ErrorHandler("Order not found with given Id" , 400));
+  }
+
+  await order.remove();
+  
+  res.status(200).json({
+    success : true,
+    message : "Order deleted successfully"
+  })
+})
