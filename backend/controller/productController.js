@@ -23,7 +23,8 @@ exports.createProduct = asyncWrapper(async (req, res) => {
 )
 // get all product >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.getAllProducts = asyncWrapper(async (req, res) => {
-       const resultPerPage  = 5; // per page products visibile
+      return (next(new ErrorHandler('error' ,200)))
+       const resultPerPage  = 8; // per page products visibile
      // const products = await ProductModel.find();
        const productsCount  = await ProductModel.countDocuments(); // it returns product length
        // ApiFeatures is class and we making here intsance of that . and passing 2 args : => agr : ProductModel.find() ==> reciving as  query in constructor , and   req.query ==> reciving as  queryString in constructor
