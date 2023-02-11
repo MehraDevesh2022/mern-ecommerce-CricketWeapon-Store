@@ -1,0 +1,27 @@
+.speedDial {
+  position: fixed;
+  right: 3vmax;
+  top: 3vmax;
+ 
+
+}
+
+.speedDialIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+}
+
+header{
+  margin-top: 0px;
+  display: flex;
+ position: relative;
+}
+.nav{
+  display: flex;
+  justify-content: space-around;
+   /* background-color: red; */
+   width: 100%;
+ position: fixed;
+
+}
