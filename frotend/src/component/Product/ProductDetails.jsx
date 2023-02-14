@@ -1,7 +1,7 @@
 import React ,{useEffect , useState}  from "react"
 import "./ProductDetails.css";
 import { useSelector , useDispatch } from "react-redux";
-import Carousel from "react-material-ui-carousel";
+import ReviewCard from "./ReviewCard";
 import { useRouteMatch } from "react-router-dom";
 import { clearErrors, getProductDetails } from "../../actions/productAction";
 import Loader from "../layouts/loader/Loader";
@@ -20,7 +20,6 @@ import ReactStars from "react-rating-stars-component";
 
  const ProductDetails  =(() =>{
     const match  = useRouteMatch();
-    console.log(match.params.id);
  const dispatch = useDispatch();
  const alert = useAlert();
  const { product, loading, error } = useSelector(
@@ -43,21 +42,18 @@ import ReactStars from "react-rating-stars-component";
        <Loader />
      ) : (
        <>
-         {console.log(product)}
          <MetaData title={`${product.name} --Ecart`} />
          <div className="ProductDetails">
-           <div>
-            
-               {product.images &&
-                 product.images.map((item, i) => (
-                   <img
-                     className="CarouselImage"
-                     key={i}
-                     src={item.url}
-                     alt={`${i} Slide`}
-                   />
-                 ))}
-           
+           <div className="CarouselImage ">
+             {product.images &&
+               product.images.map((item, i) => (
+                 <img
+                   className="CarouselImage"
+                   key={i}
+                   src={item.url}
+                   alt={`${i} Slide`}
+                 />
+               ))}
            </div>
 
            <div>
@@ -65,13 +61,14 @@ import ReactStars from "react-rating-stars-component";
                <h2>{product.name}</h2>
                <p>Product # {product._id}</p>
              </div>
+
              <div className="detailsBlock-2">
                <ReactStars {...firstExample} />
                <span className="detailsBlock-2-span">
-                 {" "}
                  ({product.numOfReviews} Reviews)
                </span>
              </div>
+
              <div className="detailsBlock-3">
                <h1>{`₹${product.price}`}</h1>
                <div className="detailsBlock-3-1">
@@ -84,6 +81,7 @@ import ReactStars from "react-rating-stars-component";
                    Add to Cart
                  </button>
                </div>
+
                <p>
                  Status:
                  <b className={product.Stock < 1 ? "redColor" : "greenColor"}>
@@ -99,6 +97,19 @@ import ReactStars from "react-rating-stars-component";
              <button className="submitReview">Submit Review</button>
            </div>
          </div>
+
+         {/* REVIEWS section */}
+         <h3 className="reviewsHeading">REVIEWS</h3>
+         {product.reviews && product.reviews ? (
+           <div className="reviews">
+             {product.reviews &&
+               product.reviews.map((review) => (
+                 <ReviewCard key={review._id} review={review} />
+               ))}
+           </div>
+         ) : (
+           <p className="noReviews">No Reviews Yet</p>
+         )}
        </>
      )}
    </>
