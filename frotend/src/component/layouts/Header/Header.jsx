@@ -1,57 +1,50 @@
-import React from "react";
-import { ReactNavbar } from "overlay-navbar";
+import React, { useContext } from "react";
+import "./Header.css";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import SearchIcon from "@mui/icons-material/Search";
+import { Link } from "react-router-dom";
 import logo from "../../../Image/logo.png";
-import "./Header.css"
-import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
-const options = {
-  
-  burgerColorHover: "#eb4034",
-  logo,
-  logoWidth: "20vmax",
-  navColor1: "white",
-  logoHoverSize: "10px",
-  logoHoverColor: "#eb4034",
-  link1Text: "Home",
-  link2Text: "Products",
-  link3Text: "Contact",
-  link4Text: "About",
-  link1Url: "/",
-  link2Url: "/products",
-  link3Url: "/contact",
-  link4Url: "/about",
-  link1Size: "1.3vmax",
-  link1Color: "rgba(35, 35, 35,0.8)",
-  nav1justifyContent: "flex-end",
-  nav2justifyContent: "flex-end",
-  nav3justifyContent: "flex-start",
-  nav4justifyContent: "flex-start",
-  link1ColorHover: "#eb4034",
-  link1Margin: "1vmax",
-  profileIconUrl: "/login",
-  profileIconColor: "black",
-  searchIconColor: "rgba(35, 35, 35,0.8)",
-  cartIconColor: "rgba(35, 35, 35,0.8)",
-  profileIconColorHover: "#eb4034",
-  searchIconColorHover: "#eb4034",
-  cartIconColorHover: "#eb4034",
-  cartIconMargin: "1vmax",
-  
-};
-
 function Header() {
   return (
-    <header>
-      <ReactNavbar {...options} />
-      <div className="nav">
-        <span className="cart">{<AiOutlineSearch/>}</span>
-        <span className="search">{<AiOutlineShoppingCart/>}</span>
-        <span className="profile">{<CgProfile/>}</span>
+    <div className="header">
+      {/* header-logo */}
+
+      <Link to="/">
+        <img src={logo} alt="Ecart-logo" className="header__logo" />
+      </Link>
+
+      {/* header-navbar */}
+      <div className="header__nav">
+        <ul>
+          <li>
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <a href="#">Product</a>
+          </li>
+          <li>
+            <a href="#">Contact</a>
+          </li>
+          <li>
+            <a href="#">About</a>
+          </li>
+        </ul>
       </div>
-    </header>
+
+      {/* header-input-box */}
+      <div className="header__search">
+        <input type="text" className="header__search_Input" />
+        <SearchIcon className="header__searchIcon" />
+      </div>
+
+      <Link to="/checkout" style={{ textDecoration: "none" }}>
+        <div className="header__optionBasket">
+          <ShoppingBasketIcon />
+          <span className="header__optionLineTwo header__basketCount">{5}</span>
+        </div>
+      </Link>
+    </div>
   );
-  
-  
 }
 
 export default Header;

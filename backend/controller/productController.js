@@ -22,8 +22,9 @@ exports.createProduct = asyncWrapper(async (req, res) => {
 }
 )
 // get all product >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-exports.getAllProducts = asyncWrapper(async (req, res) => {
-      return (next(new ErrorHandler('error' ,200)))
+exports.getAllProducts = asyncWrapper(async (req, res , next) => {
+  
+    
        const resultPerPage  = 8; // per page products visibile
      // const products = await ProductModel.find();
        const productsCount  = await ProductModel.countDocuments(); // it returns product length
@@ -91,9 +92,9 @@ exports.getProductDetails = asyncWrapper(async (req, res, next) => {
               return next(new ErrorHandler("Product not found", 404))
        }
        res.status(201).json({
-              succes: true,
-              message: Product
-       })
+         succes: true,
+         Product: Product,
+       });
 
 })
 

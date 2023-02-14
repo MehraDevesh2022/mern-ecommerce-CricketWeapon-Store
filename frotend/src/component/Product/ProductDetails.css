@@ -1,0 +1,16 @@
+.ProductDetails {
+ 
+   background-color: rgb(67, 58, 58);
+   border-radius: 2px solid red;
+   display: flex;
+   flex-direction: row;
+
+}
+.ProductDetails {
+  background-color: rgb(255, 255, 255);
+  width: 100vw;
+  max-width: 100%;
+  padding: 6vmax;
+  box-sizing: border-box;
+  display: flex;
+}

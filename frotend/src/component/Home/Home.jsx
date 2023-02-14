@@ -10,13 +10,14 @@ import { useAlert } from "react-alert";
 function Home() {
  // we provided all parameter for react-alert at index.js
   const alert = useAlert();
-
+   console.log(alert);
 const dispatch  = useDispatch();
 const { loading, error, products } = useSelector((state) => state.products);
     
 React.useEffect(() =>{
   if (error) {
       alert.error(error);
+      dispatch(clearErrors);
   }
   dispatch(getProduct());
 },[dispatch , error,alert])
