@@ -17,7 +17,7 @@ function App() {
           </Route>
 
           <Route exact path="/product/:id">
-            <ProductDetails />
+            {/* <ProductDetails /> */}
           </Route>
         </Switch>
         <Footer />
