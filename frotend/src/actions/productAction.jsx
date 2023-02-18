@@ -10,9 +10,9 @@ import {
 } from "../constants/productsConstatns"
 
 // get ALL Products
-export const getProduct = ()=> {
+export const getProduct = (keyword ="")=> {
     return( async(dispacth) =>{
-
+     console.log(keyword);
     try {
          // initial state :
         dispacth({
@@ -20,8 +20,10 @@ export const getProduct = ()=> {
         });
 
              // get product from backend
-             let link = `/api/v1/product`;
+             let link = `/api/v1/product?keyword =${keyword}`;
+
              const {data} = await axios.get(link);
+             console.log(data);
              dispacth ({
                 type : ALL_PRODUCT_SUCCESS ,
                 payload : data

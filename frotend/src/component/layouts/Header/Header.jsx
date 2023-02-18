@@ -1,10 +1,26 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./Header.css";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 import logo from "../../../Image/logo.png";
+import { useHistory } from "react-router-dom";
 function Header() {
+  const history  = useHistory();
+  const [keyword , setKeyWord] = React.useState("");
+
+   const searchSubmitHandler = (e)=>{
+    e.preventDefault();
+
+    if(keyword.trim()){
+       history.push(`/products/${keyword}`);
+
+    }else{
+      history.push("/products");
+    }
+
+   }
+
   return (
     <div className="header">
       {/* header-logo */}
@@ -19,9 +35,11 @@ function Header() {
           <li>
             <a href="#">Home</a>
           </li>
-          <li>
-            <a href="#">Product</a>
-          </li>
+          <Link to="/products">
+            <li>
+              <a href="#">Product</a>
+            </li>
+          </Link>
           <li>
             <a href="#">Contact</a>
           </li>
@@ -32,10 +50,18 @@ function Header() {
       </div>
 
       {/* header-input-box */}
-      <div className="header__search">
-        <input type="text" className="header__search_Input" />
-        <SearchIcon className="header__searchIcon" />
-      </div>
+      <form className="header__search" onSubmit={searchSubmitHandler}>
+        <input
+          type="text"
+          className="header__search_Input"
+          value={keyword}
+          placeholder="Search a Product ..."
+          onChange={(e) => setKeyWord(e.target.value)}
+        />
+        <button>
+          <SearchIcon className="header__searchIcon" />
+        </button>
+      </form>
 
       <Link to="/checkout" style={{ textDecoration: "none" }}>
         <div className="header__optionBasket">

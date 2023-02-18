@@ -1,4 +1,4 @@
-import React ,{useEffect , useState}  from "react"
+import React ,{useEffect }  from "react"
 import "./ProductDetails.css";
 import { useSelector , useDispatch } from "react-redux";
 import ReviewCard from "./ReviewCard";
@@ -18,14 +18,15 @@ import ReactStars from "react-rating-stars-component";
       isHalf : true
   }
 
- const ProductDetails  =(() =>{
-    const match  = useRouteMatch();
+function ProductDetails(){
+  
+  
+ const match  = useRouteMatch();
  const dispatch = useDispatch();
- const alert = useAlert();
- const { product, loading, error } = useSelector(
-   (state) => state.productDetails
- );
-
+const alert = useAlert();
+ 
+const { product, loading, error } = useSelector((state) => state.productDetails);
+ console.log(product);
  useEffect(() => {
    if (error) {
      alert.error(error);
@@ -35,7 +36,7 @@ import ReactStars from "react-rating-stars-component";
    dispatch(getProductDetails(match.params.id));
  }, [dispatch, error, alert]);
   
-//  console.log(product);
+
  return (
    <>
      {loading ? (
@@ -115,7 +116,7 @@ import ReactStars from "react-rating-stars-component";
    </>
  );
 
- })
+ }
 
 
 

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./component/Home/Home";
 import ProductDetails from "./component/Product/ProductDetails";
 import "./App.css"
+import Products from "./component/Product/Products";
 
 function App() {
   return (
@@ -17,7 +18,13 @@ function App() {
           </Route>
 
           <Route exact path="/product/:id">
-            {/* <ProductDetails /> */}
+            <ProductDetails />
+          </Route>
+          <Route exact path="/products">
+            <Products />
+          </Route>
+          <Route path="/products/:keyword">
+            <Products />
           </Route>
         </Switch>
         <Footer />

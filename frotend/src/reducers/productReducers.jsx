@@ -44,7 +44,7 @@ export const productsReducer  =  (state ={products : []} , action) =>{
   }
 
   
-   // product detalis error :
+   // product detalis  :
    export const productDetailsReducer = (state = { product: {} }, action) =>{
     switch (action.type) {
       case PRODUCT_DETAILS_REQUEST: {

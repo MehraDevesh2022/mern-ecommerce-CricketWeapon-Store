@@ -14,7 +14,7 @@ class ApiFeatures {
              ? { 
                  name: {
                      $regex: this.queryString.keyword,
-                     $options: "i",
+                     $options: "i", // for case insenstiveness 
                  },
              }
              : {};

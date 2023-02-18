@@ -6,9 +6,9 @@ import ReactStars from "react-rating-stars-component";
 function ReviewCard({review}) {
    console.log(review);
   const firstExample = {
-    value: review.rating || 1 ,
+    value: review.rating || 1 ,                               
     edit: false,
-    size: window.innerWidth < 600 ? 18 : 20,
+    size: window.innerWidth < 600 ? 18 : 20,     
     isHalf: true,
   };
 
