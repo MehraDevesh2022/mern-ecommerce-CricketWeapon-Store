@@ -12,7 +12,7 @@ import {
 // get ALL Products
 export const getProduct = (keyword ="")=> {
     return( async(dispacth) =>{
-     console.log(keyword);
+     console.log(keyword, keyword);
     try {
          // initial state :
         dispacth({
@@ -20,7 +20,7 @@ export const getProduct = (keyword ="")=> {
         });
 
              // get product from backend
-             let link = `/api/v1/product?keyword =${keyword}`;
+             let link = `/api/v1/product?keyword=${keyword}`;
 
              const {data} = await axios.get(link);
              console.log(data);

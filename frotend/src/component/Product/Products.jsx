@@ -10,22 +10,24 @@ import ProductCard from "../Home/ProductCard"
 
 function Products(){
 const match = useRouteMatch();
-console.log(match);
-const keyword = match.params.keyword;
-//   console.log(keyword , "product keyword");
 
+let keyword = match.params.keyword;
+//    if(!keyword){
+//    keyword =" "
+//    }
+  console.log(keyword);
 const dispatch = useDispatch();
 const {products , loading ,  productsCount , error} = useSelector(state => state.products)
 const alert = useAlert();
 console.log(products);
-useEffect(() =>{
-    if(error){
-        alert.error(error);
-        dispatch(clearErrors())
-    }
-    dispatch(getProduct(keyword));
 
-},[dispatch , keyword])
+useEffect(() => {
+  if (error) {
+    alert.error(error);
+    dispatch(clearErrors());
+  }
+  dispatch(getProduct(keyword));
+}, [dispatch, keyword]);
 
 
 return (
