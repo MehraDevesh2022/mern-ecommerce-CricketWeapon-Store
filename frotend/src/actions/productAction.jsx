@@ -10,9 +10,9 @@ import {
 } from "../constants/productsConstatns"
 
 // get ALL Products
-export const getProduct = (keyword ="")=> {
+export const getProduct = (keyword ="" , currentPage =1)=> {
     return( async(dispacth) =>{
-     console.log(keyword, keyword);
+    console.log(currentPage , "currentPage");
     try {
          // initial state :
         dispacth({
@@ -20,7 +20,7 @@ export const getProduct = (keyword ="")=> {
         });
 
              // get product from backend
-             let link = `/api/v1/product?keyword=${keyword}`;
+             let link = `/api/v1/product?keyword=${keyword}&page=${currentPage}`;
 
              const {data} = await axios.get(link);
              console.log(data);

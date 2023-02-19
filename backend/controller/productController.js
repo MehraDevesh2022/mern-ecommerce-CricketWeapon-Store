@@ -25,7 +25,7 @@ exports.createProduct = asyncWrapper(async (req, res) => {
 exports.getAllProducts = asyncWrapper(async (req, res , next) => {
   
     
-       const resultPerPage  = 10; // per page products visibile
+       const resultPerPage  = 5; // per page products visibile
      // const products = await ProductModel.find();
        const productsCount  = await ProductModel.countDocuments(); // it returns product length
        // ApiFeatures is class and we making here intsance of that . and passing 2 args : => agr : ProductModel.find() ==> reciving as  query in constructor , and   req.query ==> reciving as  queryString in constructor
@@ -39,7 +39,8 @@ exports.getAllProducts = asyncWrapper(async (req, res , next) => {
        res.status(201).json({
               succes: true,
               products: products,
-              productsCount : productsCount
+              productsCount : productsCount,
+              resultPerPage : resultPerPage
             
        })
 
