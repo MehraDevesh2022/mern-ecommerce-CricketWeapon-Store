@@ -40,7 +40,7 @@ class ApiFeatures {
           queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);   // key is given price as qurey {"price":{"gt":"200","lt":"255"}}  : 200 to 245 in btew product require.
                                                                                    // now mongoose use $ as opretaor so converting it in line 40 : and it will return {"price":{"$gt":"200","$lt":"255"}} $ is for mongoose operator in regex
     this.query = this.query.find(JSON.parse(queryStr)); // now find product in given range : and first convert it string to json using parse
-
+    
     return this;
 
       }

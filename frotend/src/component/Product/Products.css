@@ -66,3 +66,63 @@
 .pageLinkActive {
   color: white;
 }
+.filterBox {
+  width: 10vmax;
+  position: absolute;
+  top: 10vmax;
+  left: 4vmax;
+}
+
+.css-187mznn-MuiSlider-root {
+  
+    color: #170f05 !important;
+   
+    height: 1.2px !important;
+   
+}
+.css-eg0mwd-MuiSlider-thumb {
+  width: 10px    !important;
+  height: 10px      !important;
+}
+
+.css-ahj2mt-MuiTypography-root{
+  text-align: center;
+}
+
+
+.categoryBox {
+  padding: 0%;
+}
+
+.category-link {
+  list-style: none;
+  color: rgba(0, 0, 0, 0.61);
+  font: 400 0.8vmax "Roboto";
+  margin: 0.4vmax;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.category-link:hover {
+  color: tomato;
+}
+
+
+
+.filterBox > fieldset {
+  border: 1px solid rgba(0, 0, 0, 0.329);
+}
+
+@media screen and (max-width: 600px) {
+  .filterBox {
+    width: 20vmax;
+    position: static;
+    margin: auto;
+  }
+
+  .page-link {
+    font: 300 1.7vmax "Roboto";
+  }
+  .category-link {
+    font: 400 1.8vmax "Roboto";
+  }
+}

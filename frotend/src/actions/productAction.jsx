@@ -10,7 +10,7 @@ import {
 } from "../constants/productsConstatns"
 
 // get ALL Products
-export const getProduct = (keyword ="" , currentPage =1)=> {
+export const getProduct = (keyword ="" , currentPage =1 , price=[0,30000])=> {
     return( async(dispacth) =>{
     console.log(currentPage , "currentPage");
     try {
@@ -20,7 +20,7 @@ export const getProduct = (keyword ="" , currentPage =1)=> {
         });
 
              // get product from backend
-             let link = `/api/v1/product?keyword=${keyword}&page=${currentPage}`;
+             let link = `/api/v1/product?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
 
              const {data} = await axios.get(link);
              console.log(data);
@@ -53,7 +53,7 @@ export const getProductDetails   = (id) => {
      });
 
      const { data } = await axios.get(`/api/v1/product/${id}`);
-      console.log(data.Product.name);
+
      dispacth({
        type: PRODUCT_DETAILS_SUCCESS,
        payload: data.Product,
