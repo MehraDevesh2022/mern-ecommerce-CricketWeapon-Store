@@ -5,6 +5,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 import logo from "../../../Image/logo.png";
 import { useHistory } from "react-router-dom";
+import { BiUserCircle } from "react-icons/bi";
+import { color } from "@mui/system";
 function Header() {
   const history  = useHistory();
   const [keyword , setKeyWord] = React.useState("");
@@ -67,6 +69,11 @@ function Header() {
         <div className="header__optionBasket">
           <ShoppingBasketIcon />
           <span className="header__optionLineTwo header__basketCount">{5}</span>
+          <Link to="/login" style={{ textDecoration: "none"  ,color : "white"}}>
+            <span className="header__login">
+              <BiUserCircle />
+            </span>
+          </Link>
         </div>
       </Link>
     </div>
