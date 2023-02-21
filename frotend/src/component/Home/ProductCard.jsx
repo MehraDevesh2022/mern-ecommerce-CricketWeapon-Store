@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import ReactStars from "react-rating-stars-component";
 function ProductCard({product}) {
     const firstExample = {
-      value: 2.5,
+      value: product.ratings,
       edit: false,
       size: window.innerWidth < 600 ? 18 : 20,
-      isHalf : true
+      isHalf: true,
     };
   
   return (

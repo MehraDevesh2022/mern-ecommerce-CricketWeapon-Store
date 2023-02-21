@@ -10,11 +10,23 @@ import ProductCard from "../Home/ProductCard"
 import Pagination from "react-js-pagination";
 import Slider from "@mui/material/Slider";
   import { Typography } from "@mui/material";
-// import { withStyles } from "@mui/material/styles";
+
+
+
+const categories = [
+  "Laptop",
+  "Footwear",
+  "Bottom",
+  "Tops",
+  "Attire",
+  "Camera",
+  "SmartPhones",
+];
 
 
 
 function Products(){
+
 const match = useRouteMatch();
 let keyword = match.params.keyword;
 const dispatch = useDispatch();
@@ -31,14 +43,16 @@ const alert = useAlert();
 
  const [currentPage , setCurrentPage] = React.useState();
  const [price , setPrice] = React.useState([0 ,100000]);// intial limit from min=0  to max =30000
+ const [category, setCategory] = React.useState("");
+ const [ratings , setRatings] = React.useState(0);
 
 useEffect(() => {
   if (error) {
     alert.error(error);
     dispatch(clearErrors());
   }
-  dispatch(getProduct(keyword , currentPage , price));
-}, [dispatch, keyword, currentPage ,price]);
+  dispatch(getProduct(keyword, currentPage, price, category, ratings));
+}, [dispatch, keyword, currentPage, price, ratings,category]);
 
 
  const setCurrentPageNoHandler =(e) =>{
@@ -47,13 +61,16 @@ useEffect(() => {
  } 
 
 // these parameter come from Slider and its inbuild component so newPrice is here new Range here in between 0--->30000 
-function valuetext(value) {
-  return `${value}°C`;
-}
-
  const priceHandler =(event , newPrice) =>{
    setPrice(newPrice);
  }
+
+ // rating handler 
+ const rantingHandler = (event, newRating) => {
+
+   setRatings(newRating);
+ 
+ };
 
 return (
   <>
@@ -62,7 +79,6 @@ return (
     ) : (
       <>
         <MetaData title="PRODUCTS --Ecart" />
-
         <h2 className="productsHeading">Products</h2>
         <div className="products">
           {products &&
@@ -70,9 +86,7 @@ return (
               <ProductCard key={product._id} product={product} />
             ))}
         </div>
-
         {/* slider for price filter */}
-
         <div className="filterBox">
           {/* Typography => just like paragraph tag but with matrial ui css inbuild*/}
           <Typography>Price</Typography>
@@ -84,6 +98,33 @@ return (
             min={0}
             max={100000}
           />
+          {/* Categories */}
+
+          <Typography>Categories</Typography>
+          <ul className="categoryBox">
+            {categories.map((mycategoery, index) => (
+              <li
+                className="category-link"
+                key={index}
+                onClick={() => setCategory(mycategoery)}
+              >
+                {mycategoery}
+              </li>
+            ))}
+          </ul>
+
+          {/* Ratnings */}
+          <fieldset>
+            <Typography component="legend">Ratings Above</Typography>
+            <Slider
+              value={ratings}
+              onChange={rantingHandler}
+              aria-labelledby="continuous-slider"
+              valueLabelDisplay="auto"
+              min={0}
+              max={5}
+            />
+          </fieldset>
         </div>
 
         {/* pagination */}
