@@ -7,6 +7,7 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
 import { useDispatch , useSelector } from "react-redux";
 import { useAlert } from "react-alert";
+import profile from "../../Image/./Profile.png";
 
 function LoginSignUp() {
 
@@ -15,7 +16,75 @@ function LoginSignUp() {
 
     const loginTab  = useRef(null);
     const registerTab  = useRef(null);
-    const switchTab = useRef(null);
+    const switcherTab = useRef(null);
+
+     const [signUpUser , setSignUpUser] = useState({
+      name : "",
+      email : "",
+      password : ""
+     })
+       
+     // destructure  all signUpUser property for easy use
+        const {name  , email , password} = signUpUser
+
+        const [avatar, setAvatar] = useState(profile);
+        const [avatarPreview, setAvatarPreview] = useState(profile);
+
+        function handleLoginSubmit(e){
+           e.preventDefault();
+           console.log("logged in");
+
+        }
+
+        function handleSignUpSubmit(e) {
+            e.preventDefault();
+            console.log("signed Up");
+
+        }
+
+         // this is from signup from onChange method for its object
+        function registerDataChange(e){
+          
+          if(e.target.name ==="avatar"){
+              const reader = new FileReader(); // used when we upalod and drag and drop file directly not work on path. it return 3 {redayState} => 0 : not upload || 1 : while uploading || 2 : uploaded
+                // async function
+              reader.onload =() =>{
+                if(reader.readyState ===2){ // while file uploaded done
+                  setAvatarPreview(reader.result); 
+                  setAvatar(reader.result);
+                }
+              }
+                reader.readAsDataURL(e.target.files[0]);  // reading first file from given file by user
+            }
+            else{
+              setSignUpUser({
+                ...signUpUser ,[e.target.name] : e.target.value // this is for signUp user : name , passowrd , email onChange handler
+              })
+            }
+        }
+
+
+
+        // swicthTab for login || register user switching ui in same page with css trasnform
+        function switchTabs( tabName) {
+          if (tabName === "login") {
+            switcherTab.current.classList.add("shiftToNeutral");
+            switcherTab.current.classList.remove("shiftToRight");
+
+                 
+            registerTab.current.classList.remove("shiftToNeutralForm");
+            loginTab.current.classList.remove("shiftToLeft");
+
+          }
+          // we will add or remove classes here just apposite of login tab block
+          if(tabName ==="register"){
+            switcherTab.current.classList.add("shiftToRight");
+            switcherTab.current.classList.remove("shiftToNeutral");
+
+            registerTab.current.classList.add("shiftToNeutralForm");
+            loginTab.current.classList.add("shiftToLeft");
+          }
+        }
 
   return (
     <>
@@ -23,10 +92,10 @@ function LoginSignUp() {
         <div className="LoginSignUpBox">
           <div>
             <div className="login_signUp_toggle">
-              <p>LOGIN</p>
-              <p>REGISTER</p>
+              <p onClick={(e) => switchTabs("login")}>LOGIN</p>
+              <p onClick={(e) => switchTabs("register")}>REGISTER</p>
             </div>
-            <button ref={switchTab}></button>
+            <button ref={switcherTab}></button>
           </div>
 
           <form
