@@ -1,13 +1,19 @@
 const  express = require("express");
 const app  = express();
-const product  = require    ("./route/productRoute")
-const user  = require("./route/userRoute");
-const order  = require("./route/orderRoute");
 const errorMiddleware   = require("./middleWare/error")
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-app.use(express.json())
+const fileUpload = require("express-fileupload"); // used for image and other files
 
+// routes
+const product = require("./route/productRoute");
+const user = require("./route/userRoute");
+const order = require("./route/orderRoute");
+
+
+
+app.use(express.json())
+app.use(fileUpload());
 // Middleware for Errors
 app.use(errorMiddleware);
 // for req.cookie to get token while autentication 

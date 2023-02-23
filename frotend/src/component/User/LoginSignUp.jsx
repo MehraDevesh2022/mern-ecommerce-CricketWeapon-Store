@@ -13,7 +13,7 @@ import { login ,signUp , clearErrors} from "../../actions/userAction";
 import { useHistory } from "react-router-dom";
 
 function LoginSignUp() {
-   const {history} = useHistory();
+   const history = useHistory();
   const dispacth  = useDispatch();
    const alert = useAlert();
  

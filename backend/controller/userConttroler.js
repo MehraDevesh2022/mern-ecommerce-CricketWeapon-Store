@@ -4,22 +4,30 @@ const userModel = require("../model/userModel")
 const sendJWtToken = require("../utils/JwtToken");
 const sendEmail = require("../utils/sendEmail")
 const crypto = require("crypto");
-
+const cloudinary = require("cloudinary");
 
 // signUp controller>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.registerUser = asyncWrapper(async (req , res) =>{
 
+ const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+   folder: "avatar", // this folder cloudainry data base manage by us 
+   width: 150,
+   crop: "scale",
+ });
+
+
       const {name , email , password}  = req.body ;
     const user = await userModel.create({
-        name ,
-        password ,
-        email, 
-        avatar :{
-            public_id: "myCloud.public_id",
-            url: "myCloud.secure_url",
-        }
-     })
+      name,
+      password,
+      email,
+      avatar: {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      },
+    });
  
+    console.log(user);
   // sending the res and staus code along with token using sendJWtToken method
   sendJWtToken(user , 201 , res);
 })

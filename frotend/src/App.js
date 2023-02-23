@@ -7,7 +7,7 @@ import ProductDetails from "./component/Product/ProductDetails";
 import "./App.css"
 import Products from "./component/Product/Products";
 import LoginSignUp from "./component/User/LoginSignUp";
-
+import Profile from "./component/User/Profile";
 function App() {
   return (
     <>
@@ -29,6 +29,9 @@ function App() {
           </Route>
           <Route exact path="/login">
             <LoginSignUp />
+          </Route>
+          <Route exact path  ="/account">
+                         <Profile/>
           </Route>
         </Switch>
         <Footer />

@@ -1,7 +1,7 @@
 const app = require("./app");
 const dotenv = require("dotenv");
 const connectDB = require("./db/connectDB")
-
+const cloudinary = require("cloudinary");
 
 // Handling Uncaught Execption => anything not defind Uncaught Execption 
 
@@ -16,6 +16,15 @@ process.on("uncaughtException" , (err) =>{
  dotenv.config({path : "backend/config/config.env"})
 // Connect With MongoDB
 connectDB();
+
+
+// conncet with cloudinary
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 
 const server =app.listen(process.env.PORT, () =>{
     console.log(`Server is listening on PORT ${process.env.PORT }`);
