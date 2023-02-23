@@ -9,17 +9,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import profile from "../../Image/./Profile.png";
 
-import { login ,signUp , clearErrors} from "../../actions/userAction";
+import {
+  login,
+  signUp,
+  clearErrors,
+  load_UserProfile,
+} from "../../actions/userAction";
 import { useHistory } from "react-router-dom";
 
 function LoginSignUp() {
-   const history = useHistory();
-  const dispacth  = useDispatch();
-   const alert = useAlert();
- 
- const { isAuthenticated, loading, error } = useSelector(
-   (state) => state.userData
- );
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const alert = useAlert();
+
+
+
+  const { isAuthenticated, loading, error } = useSelector(
+    (state) => state.userData
+  );
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassWord] = useState("");
@@ -39,7 +46,7 @@ function LoginSignUp() {
 
   function handleLoginSubmit(e) {
     e.preventDefault();
-      dispacth(login(loginEmail ,loginPassword))
+    dispatch(login(loginEmail, loginPassword));
   }
 
   // destructure  all signUpUser property for easy use
@@ -52,7 +59,7 @@ function LoginSignUp() {
     myForm.set("email", email); //  or adds the key/value if it does not already exist.
     myForm.set("password", password);
     myForm.set("avatar", avatar);
-     dispacth(signUp(myForm));
+    dispatch(signUp(myForm));
   }
 
   // this is from signup from onChange method for its object
@@ -75,21 +82,21 @@ function LoginSignUp() {
       });
     }
   }
-  
 
-  useEffect(() =>{
-    console.log("hello");    
-    if(error){
-            alert.error(error)
-            console.log(error ,"error");
-            dispacth(clearErrors())
-          }
-          if(isAuthenticated){
-                history.push("/account")
+  useEffect(() => {
+    // this is for user data load for profile section if user logged in
+    dispatch(load_UserProfile());
 
-          }
-  },[dispacth , isAuthenticated, loading , error , alert])
- 
+    if (error) {
+      alert.error(error);
+      console.log(error, "error");
+      dispatch(clearErrors());
+    }
+    if (isAuthenticated) {
+      history.push("/account");
+    }
+  }, [dispatch, isAuthenticated, loading, error, alert, load_UserProfile]);
+
   // swicthTab for login || register user switching ui in same page with css trasnform
   function switchTabs(tabName) {
     if (tabName === "login") {

@@ -8,36 +8,41 @@ import "./App.css"
 import Products from "./component/Product/Products";
 import LoginSignUp from "./component/User/LoginSignUp";
 import Profile from "./component/User/Profile";
+import { load_UserProfile } from "./actions/userAction";
+import  store  from "./store";
 function App() {
-  return (
-    <>
-      <Router>
-        <Header />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
+                 // this is for user data load for profile section if user logged in
+                //  store.dispatch(load_UserProfile());
 
-          <Route exact path="/product/:id">
-            <ProductDetails />
-          </Route>
-          <Route exact path="/products">
-            <Products />
-          </Route>
-          <Route path="/products/:keyword">
-            <Products />
-          </Route>
-          <Route exact path="/login">
-            <LoginSignUp />
-          </Route>
-          <Route exact path  ="/account">
-                         <Profile/>
-          </Route>
-        </Switch>
-        <Footer />
-      </Router>
-    </>
-  );
-}
+                 return (
+                   <>
+                     <Router>
+                       <Header />
+                       <Switch>
+                         <Route exact path="/">
+                           <Home />
+                         </Route>
+
+                         <Route exact path="/product/:id">
+                           <ProductDetails />
+                         </Route>
+                         <Route exact path="/products">
+                           <Products />
+                         </Route>
+                         <Route path="/products/:keyword">
+                           <Products />
+                         </Route>
+                         <Route exact path="/login">
+                           <LoginSignUp />
+                         </Route>
+                         <Route exact path="/account">
+                           <Profile />
+                         </Route>
+                       </Switch>
+                       <Footer />
+                     </Router>
+                   </>
+                 );
+               }
 
 export default App;
