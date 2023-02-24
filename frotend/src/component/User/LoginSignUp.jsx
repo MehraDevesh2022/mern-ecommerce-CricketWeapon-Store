@@ -84,9 +84,7 @@ function LoginSignUp() {
   }
 
   useEffect(() => {
-    // this is for user data load for profile section if user logged in
-    dispatch(load_UserProfile());
-
+   
     if (error) {
       alert.error(error);
       console.log(error, "error");
@@ -95,7 +93,7 @@ function LoginSignUp() {
     if (isAuthenticated) {
       history.push("/account");
     }
-  }, [dispatch, isAuthenticated, loading, error, alert, load_UserProfile]);
+  }, [dispatch, isAuthenticated, loading, error, alert]);
 
   // swicthTab for login || register user switching ui in same page with css trasnform
   function switchTabs(tabName) {

@@ -32,7 +32,8 @@ export function login(email, password) {
 
       dispatch({ type: LOGIN_SUCCESS, payload: data.user });
     } catch (error) {
-      dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
+       
+      dispatch({ type: LOGIN_FAIL, payload: error.message });
     }
   };
 }
@@ -57,7 +58,7 @@ export function signUp(signupData){
          
 
        } catch (error) {
-           dispatch({type : REGISTER_USER_FAIL , payload : error.response.data.message})
+           dispatch({type : REGISTER_USER_FAIL , payload : error.message})
        }
 
     }
@@ -70,13 +71,14 @@ export const load_UserProfile = () => async (dispatch) =>{
 
  try {
   dispatch({ type: LOAD_USER_REQUEST });
-
+ 
   const { data } = await axios.get("api/v1/profile");
-
+   
   dispatch({type : LOAD_USER_SUCCESS , payload : data.user})
   
  } catch (error) {
-    dispatch({type : LOAD_USER_FAIL , payload : error.response.data.message})
+
+    dispatch({type : LOAD_USER_FAIL , payload : error.message})
  }
 
 }
@@ -89,7 +91,7 @@ export  function logout (){
    dispatch({ type: LOGOUT_SUCCESS });
 
    } catch (error) {
-      dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
+      dispatch({ type: LOGOUT_FAIL, payload: error.message });
    }
   }
 }

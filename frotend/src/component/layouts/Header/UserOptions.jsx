@@ -60,11 +60,13 @@ function account(){
 
   return (
     <>
+    {/* if click the drop down-menu profile option section the backround color of the page will change */}
+      <Backdrop open={open} style={{ zIndex: "10" }} />
       <SpeedDial
         ariaLabel="SpeedDial tooltip example"
         onClose={() => setOpen(false)} // when click after open
         onOpen={() => setOpen(true)} // for open option dropdown menu
-        style={{ zIndex: "20" }}
+        style={{ zIndex: "11" }}
         open={open}
         direction="down" // in which direction open deom down menu
         className="speedDial"
