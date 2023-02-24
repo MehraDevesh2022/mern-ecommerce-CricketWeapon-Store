@@ -10,6 +10,8 @@ import {
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
   LOAD_USER_FAIL,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
 } from "../constants/userConstanat";
 
 
@@ -79,6 +81,18 @@ export const load_UserProfile = () => async (dispatch) =>{
 
 }
 
+// logout user 
+export  function logout (){
+  return async function(dispatch){
+   try {
+     await axios.get(`/api/v1/logout`); // token will expired from cookies and no more user data access
+   dispatch({ type: LOGOUT_SUCCESS });
+
+   } catch (error) {
+      dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
+   }
+  }
+}
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {
