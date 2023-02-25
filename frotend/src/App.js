@@ -7,12 +7,12 @@ import ProductDetails from "./component/Product/ProductDetails";
 import "./App.css";
 import Products from "./component/Product/Products";
 import LoginSignUp from "./component/User/LoginSignUp";
-import Profile from "./component/User/Profile"
+import Profile from "./component/User/Profile";
 import { load_UserProfile } from "./actions/userAction";
 import store from "./store";
 import { useSelector } from "react-redux";
 import UserOptions from "./component/layouts/Header/UserOptions";
-
+import PrivateRoute from "./component/Route/PrivateRoute";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
 
@@ -44,9 +44,7 @@ function App() {
             <LoginSignUp />
           </Route>
 
-          <Route exact path="/account">
-            <Profile />
-          </Route>
+          <PrivateRoute exact path="/account" component={Profile} />
         </Switch>
         <Footer />
       </Router>

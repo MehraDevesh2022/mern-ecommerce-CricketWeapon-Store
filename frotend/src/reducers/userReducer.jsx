@@ -12,7 +12,10 @@ import {
   LOAD_USER_REQUEST,
   LOGOUT_FAIL,
   LOGOUT_SUCCESS,
-  
+  UPDATE_PROFILE_REQUEST,
+  UPDATE_PROFILE_SUCCESS,
+  UPDATE_PROFILE_FAIL,
+  UPDATE_PROFILE_RESET,
 } from "../constants/userConstanat";
 
 
@@ -78,3 +81,44 @@ export const userReducer = (state = { user: {} }, action) => {
         return state;
     }
        };
+
+       export const profileRedcuer = (state = {} , action) =>{
+
+            switch(action.type){
+
+          case UPDATE_PROFILE_REQUEST :
+            return {
+            ...state,
+            loading : true
+
+            }
+
+            case UPDATE_PROFILE_SUCCESS : 
+            return{
+              ...state ,
+              loading : false,
+              isUpdated : action.payload // payLoad has success
+            }
+
+            case UPDATE_PROFILE_FAIL :
+              return {
+                ...state,
+                loading : false,
+                error : action.payload // error message
+              }
+            
+            case UPDATE_PROFILE_RESET :
+              return{
+                ...state,
+                isUpdated : false,
+                loading : false
+              }
+            
+            case CLEAR_ERRORS :
+              return {
+                ...state,
+                error : null
+              }
+             default : return state
+            }
+       }

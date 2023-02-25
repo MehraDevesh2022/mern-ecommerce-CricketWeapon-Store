@@ -11,6 +11,12 @@ function Profile() {
     const { user, loading, isAuthenticated } = useSelector(
       (state) => state.userData
     );
+    useEffect(() =>{
+      // if user not logged in
+      if(isAuthenticated ===false){
+        history.push("/login");
+      }
+    },[history , isAuthenticated])
 
     return (
       <>
@@ -23,7 +29,7 @@ function Profile() {
               <div>
                 <h1>My Profile</h1>
                 <img src={user.avatar.url} alt={user.name} />
-                <Link to="/me/update">Edit Profile</Link>
+                <Link to="/profile/update">Edit Profile</Link>
               </div>
 
               <div>

@@ -12,6 +12,10 @@ import {
   LOAD_USER_FAIL,
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
+   UPDATE_PROFILE_REQUEST, 
+ UPDATE_PROFILE_SUCCESS,
+ UPDATE_PROFILE_RESET ,
+ UPDATE_PROFILE_FAIL,
 } from "../constants/userConstanat";
 
 
@@ -95,6 +99,27 @@ export  function logout (){
    }
   }
 }
+
+
+// Update Profile => 
+
+export function updateProfile(userData) {
+         return async function(dispatch){
+            try {
+                 dispatch({type : UPDATE_PROFILE_REQUEST})
+
+                 dispatch({type : UPDATE_PROFILE_RESET })
+                 
+             const config  = {headers : {"Content-Type" : "multipart/form-data"}};
+             const { data } = await axios.put("api/v1/profile/update" , userData , config);
+           
+             dispatch({type : UPDATE_PROFILE_SUCCESS , payload : data.success})
+
+            } catch (error) {
+                dispatch({type : UPDATE_PROFILE_FAIL , payload : error.data.message})
+            }
+         }
+       }
 
 // Clearing Errors
 export const clearErrors = () => async (dispatch) => {
