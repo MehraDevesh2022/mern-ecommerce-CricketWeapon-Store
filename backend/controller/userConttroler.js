@@ -70,7 +70,7 @@ exports.logoutUser  = asyncWrapper(async (req , res ) =>{
 
 
   // delete token for logingOut user =>
-  res.cookie("token" , null ,{ // curr Token has null value
+   res.cookie("token" , null ,{ // curr Token has null value
     expires: new Date(Date.now()), // expires curent
     httpOnly: true,
   }) 
@@ -95,7 +95,7 @@ exports.forgotPassword = asyncWrapper(async(req , res , next) =>{
 
 
   // Get ResetPassword Token
-  const resetToken = user.getResetPasswordToken(); // we made this method into userModel for hash resetToken
+  const resetToken = user.getResetPassword(); // we made this method into userModel for hash resetToken
  //when we call this metod  getResetPasswordToken  . so in userModel resetPasswordToken has reset token added and resetPasswordExprie also exprie value added but not saved to data base
   await user.save({ validateBeforeSave: false });  // now save
 

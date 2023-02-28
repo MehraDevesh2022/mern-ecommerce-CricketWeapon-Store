@@ -2,7 +2,7 @@ import {createStore ,combineReducers , applyMiddleware} from "redux"
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { productsReducer , productDetailsReducer } from "./reducers/productReducers";
-import { profileReducer, userReducer } from "./reducers/userReducer";
+import { profileReducer, userReducer , forgetPasswordReducer } from "./reducers/userReducer";
 
  
 const rootReducer = combineReducers({
@@ -10,6 +10,7 @@ const rootReducer = combineReducers({
   productDetails: productDetailsReducer,
   userData: userReducer,
   profileData: profileReducer,
+  forgetPassword: forgetPasswordReducer,
 });
 
 

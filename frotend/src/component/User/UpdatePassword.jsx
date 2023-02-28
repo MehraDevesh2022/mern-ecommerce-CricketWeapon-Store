@@ -12,7 +12,7 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import {useHistory} from "react-router-dom"
 
 function UpdatePassword() {
-    console.log("hello password");
+ 
 const history  = useHistory();
 const dispatch = useDispatch();
 const {loading , isUpdated , error } = useSelector(state => state.profileData);
