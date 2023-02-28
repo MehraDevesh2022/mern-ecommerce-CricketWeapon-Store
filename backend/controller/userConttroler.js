@@ -8,13 +8,15 @@ const cloudinary = require("cloudinary");
 
 // signUp controller>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.registerUser = asyncWrapper(async (req , res) =>{
-
+console.log("api");
  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-   folder: "avatar", // this folder cloudainry data base manage by us 
+   folder: "Avatar", // this folder cloudainry data base manage by us 
    width: 150,
    crop: "scale",
  });
 
+ 
+  
 
       const {name , email , password}  = req.body ;
     const user = await userModel.create({
@@ -27,7 +29,8 @@ exports.registerUser = asyncWrapper(async (req , res) =>{
       },
     });
  
-    console.log(user);
+    console.log("hello", "cloud");
+    console.log(user ,"user");
   // sending the res and staus code along with token using sendJWtToken method
   sendJWtToken(user , 201 , res);
 })
@@ -101,7 +104,7 @@ exports.forgotPassword = asyncWrapper(async(req , res , next) =>{
     "host"
   )}/password/reset/${resetToken}`;
 
-
+  
   const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 
 
@@ -130,13 +133,14 @@ exports.forgotPassword = asyncWrapper(async(req , res , next) =>{
 
 //>>>>>>>>>>>>>>> reset and update password :
 exports.resetPassword  = asyncWrapper(async (req , res , next) =>{
-  // creating token hash because we save resetPasswordToken  in hash form. and we send to user resetToken in hex bytes from in url . now converting that byte from to hex from for matching does user given reset token is same or not which one save in Database
+
+  // creating token hash because we save resetPasswordToken  in hash form. and we send to user resetToken in hex bytes form in url . now converting that byte form to hex form for matching does user given reset token is same or not which one save in Database
   // we will extract reset token from req.params.token because we sended that token inside nodemailer message url when user will click on that link he will redirect on that  url
    console.log(req.params.token);
   const resetPasswordToken =
     crypto.createHash("sha256").update(req.params.token).toString("hex");
 
-  // now find that user with that hasg token in db
+  // now find that user with that hash token in db
   const user = await userModel.findOne({
     resetPasswordToken,
     resetPasswordExpire: { $gt: Date.now() }, // if resetPasswordExpire {gt : => greater than} currDate  cheking is token expires or not
@@ -149,9 +153,9 @@ exports.resetPassword  = asyncWrapper(async (req , res , next) =>{
         "Reset Password Token is invalid or has been expired",
         400
       )
-    );
+    );  
   }
-
+  
   // when new pass or confirm pass are not same
    
   if (req.body.password !== req.body.confirmPassword) {
@@ -170,12 +174,11 @@ exports.resetPassword  = asyncWrapper(async (req , res , next) =>{
   sendJWtToken(user, 200, res);
  
 }) 
- 
+  
 
 //// Get User Detail  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 exports.getUserDetails  = asyncWrapper( async(req , res) =>{
-
+  console.log("user");
   const user = await userModel.findById(req.user.id); // user.id because we set that user into as user.req when user gose autentiction. becauae all data of users set into req.user. only user when logged in then access this function
   res.status(200).json({
     success: true,
@@ -184,33 +187,31 @@ exports.getUserDetails  = asyncWrapper( async(req , res) =>{
 })
 
 
+
+
+
   // update User password>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.updatePassword = asyncWrapper(async(req, res, next) =>{
   const user = await userModel.findById(req.user.id).select("+password"); // + password because pass not allowed in shcema to acsess
 
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword); // user.comparePassword this method define in user Schema  for comapre given normal pass to savde hash pass
-
-
-   // when user not found
+ // when user not found
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Old password is incorrect", 400));
   } 
-
-
-  if (req.body.newPassword !== req.body.confirmPassword) {
+if (req.body.newPassword !== req.body.confirmPassword) {
     return next(new ErrorHandler("password does not match", 400));
      
   }  
- 
   // now set the new pass
-  
-  user.password = req.body.newPassword;
-
-   await user.save();
+   user.password = req.body.newPassword;
+      await user.save();
   // now send new token to user . becasue user loggedin with new pass
   sendJWtToken(user , 200 , res);
-})
+})  
 
+
+ 
 
 
 //>>>>>> Update user Profile>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -222,6 +223,30 @@ exports.updateProfile = asyncWrapper(async (req, res, next) => {
     email: req.body.email,
   };
  
+  // if avatar not empty then
+   if (req.body.avatar !== "") {
+
+     const user = await userModel.findById(req.user.id);
+     const imageId = user.avatar.public_id;
+
+     //  await cloudinary.v2.uploader.destroy(imageId); // delete old Image from cloudnairy
+     await cloudinary.v2.uploader.destroy(imageId);
+
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "Avatar", // this folder cloudainry data base manage by us
+      width: 150,
+      crop: "scale",
+    });
+
+     newUserData.avatar = {
+       public_id: myCloud.public_id, // id for img
+       url: myCloud.secure_url, // new User data
+     };
+   }
+
+
+
+
   // set new value of user
   const user = await userModel.findByIdAndUpdate(req.user.id, newUserData, {
     new: true,
@@ -235,6 +260,8 @@ exports.updateProfile = asyncWrapper(async (req, res, next) => {
     user
   });
 })
+
+
 
 
 //>> Get single user (admin) Access only>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -252,6 +279,10 @@ exports.getSingleUser = asyncWrapper(async (req, res, next) => {
     user,
   });
 });
+
+
+
+
 
 //>>>> update User Role -- Admin {may admin can change any user to admin}>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.updateUserRole = asyncWrapper(async (req, res, next) => {
@@ -274,6 +305,9 @@ exports.updateUserRole = asyncWrapper(async (req, res, next) => {
 })
 
 
+
+
+
 // delete user --Admin(only admin can delete user)>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 exports.deleteUser = asyncWrapper(async (req, res, next) => {
@@ -292,6 +326,10 @@ exports.deleteUser = asyncWrapper(async (req, res, next) => {
     message: "User Deleted Successfully",
   });
 });
+
+
+
+
  
 // getAll user Admin>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.getAllUser = asyncWrapper(async (req , res , next) =>{

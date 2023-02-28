@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
  
- 
+    
 const { registerUser, loginUser, logoutUser, forgotPassword, resetPassword, getUserDetails, updatePassword, updateProfile, getAllUser, getSingleUser, deleteUser, updateUserRole,  } = require("../controller/userConttroler");
 const { isAuthentictedUser, authorizeRoles } = require("../middleWare/auth");
 

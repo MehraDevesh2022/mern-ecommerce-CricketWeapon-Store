@@ -5,11 +5,11 @@ import { Redirect, Route } from "react-router-dom";
 // Where component is Component which one render using Private Route and ..rest will props path and all
 function PrivateRoute({ component: Component, ...rest }) {
   const { loading, isAuthenticated, user } = useSelector(
-   
+ 
     (state) => state.userData
   );
 
- 
+   console.log(Component);
    
   return (
     <>

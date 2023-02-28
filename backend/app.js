@@ -7,6 +7,9 @@ const fileUpload = require("express-fileupload"); // used for image and other fi
 
 // routes
 const product = require("./route/productRoute");
+ app.use("api/v1/profile/update" , (req , res) =>{
+    console.log(req.body);
+ })
 const user = require("./route/userRoute");
 const order = require("./route/orderRoute");
 

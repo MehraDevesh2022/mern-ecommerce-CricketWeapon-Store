@@ -12,10 +12,12 @@ import {
   LOAD_USER_FAIL,
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
-   UPDATE_PROFILE_REQUEST, 
+  UPDATE_PROFILE_REQUEST, 
  UPDATE_PROFILE_SUCCESS,
- UPDATE_PROFILE_RESET ,
  UPDATE_PROFILE_FAIL,
+ UPDATE_PASSWORD_FAIL,
+ UPDATE_PASSWORD_SUCCESS,
+ UPDATE_PASSWORD_REQUEST,
 } from "../constants/userConstanat";
 
 
@@ -43,7 +45,7 @@ export function login(email, password) {
 }
 // resgister user
 export function signUp(signupData){
-    
+   
     return async function(dispatch){
        try {
             dispatch({ type: REGISTER_USER_REQUEST });
@@ -56,12 +58,13 @@ export function signUp(signupData){
                signupData,
                config
              );
-
+              console.log(data);
              dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
 
          
 
        } catch (error) {
+        console.log(error);
            dispatch({type : REGISTER_USER_FAIL , payload : error.message})
        }
 
@@ -106,17 +109,56 @@ export  function logout (){
 export function updateProfile(userData) {
          return async function(dispatch){
             try {
-                 dispatch({type : UPDATE_PROFILE_REQUEST})
+                  dispatch({ type: UPDATE_PROFILE_REQUEST });
 
-                 dispatch({type : UPDATE_PROFILE_RESET })
-                 
-             const config  = {headers : {"Content-Type" : "multipart/form-data"}};
-             const { data } = await axios.put("api/v1/profile/update" , userData , config);
-           
-             dispatch({type : UPDATE_PROFILE_SUCCESS , payload : data.success})
+                    const config = {
+                      headers: { "Content-Type": "multipart/form-data" },
+                    };
 
-            } catch (error) {
-                dispatch({type : UPDATE_PROFILE_FAIL , payload : error.data.message})
+                  
+                 const { data } = await axios.put(
+                   `/api/v1/profile/update`,
+                   userData,
+                   config
+                 );
+
+
+                  dispatch({
+                    type: UPDATE_PROFILE_SUCCESS,
+                    payload: data.success,
+                  });
+                } catch (error) {
+              console.log(error);
+                dispatch({type : UPDATE_PROFILE_FAIL , payload : error.message})
+            }
+         }
+       }
+
+
+export function updatePassword(userPassWord) {
+         return async function(dispatch){
+            try {
+                  dispatch({ type: UPDATE_PASSWORD_REQUEST });
+
+                    const config = {
+                      headers: { "Content-Type": "application/json" },
+                    };
+
+                  
+                 const { data } = await axios.put(
+                   `/api/v1/password/update`,
+                   userPassWord,
+                   config
+                 );
+
+
+                  dispatch({
+                    type: UPDATE_PASSWORD_SUCCESS,
+                    payload: data.success,
+                  });
+                } catch (error) {
+         
+                dispatch({type : UPDATE_PROFILE_FAIL , payload : error.message})
             }
          }
        }

@@ -13,27 +13,30 @@ import {
   login,
   signUp,
   clearErrors,
-  load_UserProfile,
 } from "../../actions/userAction";
 import { useHistory } from "react-router-dom";
+
 
 function LoginSignUp() {
   const history = useHistory();
   const dispatch = useDispatch();
   const alert = useAlert();
 
-
-
   const { isAuthenticated, loading, error } = useSelector(
     (state) => state.userData
   );
 
+
+
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassWord] = useState("");
+
+
 
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
+
 
   const [signUpUser, setSignUpUser] = useState({
     name: "",
@@ -41,8 +44,11 @@ function LoginSignUp() {
     password: "",
   });
 
+
   const [avatar, setAvatar] = useState(profile);
   const [avatarPreview, setAvatarPreview] = useState(profile);
+
+
 
   function handleLoginSubmit(e) {
     e.preventDefault();
@@ -52,6 +58,7 @@ function LoginSignUp() {
   // destructure  all signUpUser property for easy use
   const { name, email, password } = signUpUser;
 
+  
   function handleSignUpSubmit(e) {
     e.preventDefault();
     const myForm = new FormData(); // it will create a form intsnce for posting form data with multiple property
@@ -87,13 +94,13 @@ function LoginSignUp() {
    
     if (error) {
       alert.error(error);
-      console.log(error, "error");
       dispatch(clearErrors());
     }
     if (isAuthenticated) {
       history.push("/account");
     }
   }, [dispatch, isAuthenticated, loading, error, alert]);
+
 
   // swicthTab for login || register user switching ui in same page with css trasnform
   function switchTabs(tabName) {
@@ -120,8 +127,8 @@ function LoginSignUp() {
         <div className="LoginSignUpBox">
           <div>
             <div className="login_signUp_toggle">
-              <p onClick={(e) => switchTabs("login")}>LOGIN</p>
-              <p onClick={(e) => switchTabs("register")}>REGISTER</p>
+              <p onClick={() => switchTabs("login")}>LOGIN</p>
+              <p onClick={() => switchTabs("register")}>REGISTER</p>
             </div>
             <button ref={switcherTab}></button>
           </div>
