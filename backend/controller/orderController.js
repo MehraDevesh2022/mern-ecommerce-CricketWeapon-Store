@@ -7,13 +7,12 @@ const ErrorHandler = require("../utils/errorHandler");
 
 //>>>>>>>>>>>>>>>  create a order    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
 exports.newOrder = asyncWrapper(async (req, res, next) => {
-     console.log(req.body);
+  
   const { shippingInfo, orderItems, paymentInfo, itemsPrice, taxPrice,
     shippingPrice,
     totalPrice }  = req.body;
 
     // create order :
-  console.log(req.user._id, "user");
    const order = await orderModel.create({
     shippingInfo, orderItems, paymentInfo, itemsPrice, taxPrice,
     shippingPrice,

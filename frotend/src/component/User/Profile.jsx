@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import MetaData from "../../component/layouts/MataData/MataData"
 import Loader from "../layouts/loader/Loader";

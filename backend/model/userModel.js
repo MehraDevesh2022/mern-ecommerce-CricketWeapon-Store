@@ -82,7 +82,7 @@ userSchema.methods.getResetPasswordToken = function(){
 const resetPassToken = crypto.randomBytes(20).toString("hex"); // crypto.randomBytes will create random bytes of bufffer value toString("hex") will convert that buffer inot hex string
   // Hashing and adding resetPasswordToken to userSchema
 
-  // resetPasswordToken and  resetPasswordExpire are user schema dfinde over now we adding value resetPassToken token  and expiry of that token . when user will try resetpass  then resetPasswordToken and resetPasswordExpire will store and also reset token send through nodmailer to user and when user add that token . if token will match then he will able to rseet pass
+  // resetPasswordToken and  resetPasswordExpire are user schema definde over now we adding value resetPassToken token  and expiry of that token . when user will try resetpass  then resetPasswordToken and resetPasswordExpire will store and also reset token send through nodmailer to user and when user add that token . if token will match then he will able to rseet pass
     this.resetPasswordToken = 
         crypto.createHash("sha256").update(resetPassToken).toString("hex");
     this.resetPasswordExpire = Date.now() + 15 * 60 * 1000; //  resetPasswordExpire : it will make sure how much time this reset token will valid for reseting pass eg 5 min or 3min

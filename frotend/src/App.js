@@ -16,6 +16,7 @@ import PrivateRoute from "./component/Route/PrivateRoute";
 import UpdateProfile from "./component/User/UpdateProfile";
 import UpdatePassword from "./component/User/UpdatePassword";
 import ForgetPassword from "./component/User/ForgetPassword";
+import ResetPassword from "./component/User/ResetPassword";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
 
@@ -45,7 +46,12 @@ function App() {
           <Route exact path="/login">
             <LoginSignUp />
           </Route>
-          <Route exact path="/password/forgot"><ForgetPassword/></Route>
+          <Route exact path="/password/forgot">
+            <ForgetPassword />
+          </Route>
+          <Route exact path="/password/reset/:token">
+            <ResetPassword />
+          </Route>
           <PrivateRoute exact path="/account" component={Profile} />
           <PrivateRoute
             exact

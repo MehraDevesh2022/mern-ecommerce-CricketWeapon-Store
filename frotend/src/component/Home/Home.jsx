@@ -1,29 +1,27 @@
-import React from 'react'
+import React from "react";
 import "./Home.css";
-import ProductCard from './ProductCard';
+import ProductCard from "./ProductCard";
 import { CgMouse } from "react-icons/cg";
-import MataData from '../layouts/MataData/MataData';
+import MataData from "../layouts/MataData/MataData";
 import { clearErrors, getProduct } from "../../actions/productAction";
-import { useSelector ,useDispatch } from 'react-redux';
-import Loader from '../layouts/loader/Loader';
+import { useSelector, useDispatch } from "react-redux";
+import Loader from "../layouts/loader/Loader";
 import { useAlert } from "react-alert";
 function Home() {
- // we provided all parameter for react-alert at index.js
+  // we provided all parameter for react-alert at index.js
   const alert = useAlert();
 
-const dispatch  = useDispatch();
-const { loading, error, products } = useSelector((state) => state.products);
-    
-React.useEffect(() =>{
-  if (error) {
+  const dispatch = useDispatch();
+  const { loading, error, products } = useSelector((state) => state.products);
+
+  React.useEffect(() => {
+    if (error) {
       alert.error(error);
       dispatch(clearErrors);
-  }
-  dispatch(getProduct());
-},[dispatch , error,alert])
+    }
+    dispatch(getProduct());
+  }, [dispatch, error, alert]);
 
-
- 
   return (
     <>
       {loading ? (
@@ -57,5 +55,4 @@ React.useEffect(() =>{
   );
 }
 
-export default Home
-
+export default Home;

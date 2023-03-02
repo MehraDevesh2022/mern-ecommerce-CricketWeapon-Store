@@ -4,7 +4,7 @@ const asyncWrapper = require("../middleWare/asyncWrapper");
 const ApiFeatures = require("../utils/apiFeatures");
 
    
-// >>>>>>>>>>>>>>>>>>>>> createProduct  Admin route  >>>>>>>>>>>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>>>>>>> createProduct Admin route  >>>>>>>>>>>>>>>>>>>>>>>>
 exports.createProduct = asyncWrapper(async (req, res) => {
 
        const body = req.body;
@@ -16,12 +16,11 @@ exports.createProduct = asyncWrapper(async (req, res) => {
     
        res.status(200).json({ succes: true, data: data })
 
-       
-        
-
 }
 )
-// get all product >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> get all product >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.getAllProducts = asyncWrapper(async (req, res , next) => {
   const resultPerPage = 5; // per page products visibile
   // const products = await ProductModel.find();
@@ -48,7 +47,7 @@ exports.getAllProducts = asyncWrapper(async (req, res , next) => {
 })
 
 
-//>>>>>>>>>>>>>>>>>> Update  Admin Route >>>>>>>>>>>>>>>>>>>>>>>
+//>>>>>>>>>>>>>>>>>> Update Admin Route >>>>>>>>>>>>>>>>>>>>>>>
 exports.updateProduct = asyncWrapper(async (req, res, next) => {
 
        let Product = await ProductModel.findById(req.params.id);
@@ -69,7 +68,7 @@ exports.updateProduct = asyncWrapper(async (req, res, next) => {
        })
 })
 
-// delete product --admin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  delete product --admin  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.deleteProduct = asyncWrapper(async (req, res, next) => {
 
        let product = await ProductModel.findById(req.params.id);
@@ -100,7 +99,7 @@ exports.getProductDetails = asyncWrapper(async (req, res, next) => {
 
 })
 
-//>>>>>>>>>>>>> Create New Review or Update the review >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//>>>>>>>>>>>>> Create New Review or Update the review >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 exports.createProductReview = asyncWrapper(async (req, res, next) => {
        const { rating, comment, productId } = req.body;
@@ -155,7 +154,7 @@ exports.createProductReview = asyncWrapper(async (req, res, next) => {
 });
 
 
-// >>>>>>>>>>>>>>>>>>>>>>Get All Reviews of a product>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// >>>>>>>>>>>>>>>>>>>>>> Get All Reviews of a product>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.getProductReviews = asyncWrapper(async (req, res, next) => {
       // we need product id for all reviews of the product
       
@@ -171,7 +170,7 @@ exports.getProductReviews = asyncWrapper(async (req, res, next) => {
        });
 });
 
-//>>>>>>>>>>>>>>>>>>>>>> delete review>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//>>>>>>>>>>>>>>>>>>>>>> delete review >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.deleteReview = asyncWrapper(async (req, res, next) => {
       // we have review id and product id here in req object
       // find thr product with product id
