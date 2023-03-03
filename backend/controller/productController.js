@@ -29,7 +29,7 @@ exports.getAllProducts = asyncWrapper(async (req, res , next) => {
   const apiFeature = new ApiFeatures(ProductModel.find(), req.query)
     .search()
     .filter();
-
+ 
   let products = await apiFeature.query; // whatever data is return base on filter fetching here using apiFeature.query where apiFeature is complete object of ApiFeatures class with req data. and query is property form ApiFeatures class same like queryString , query storing req data here
   // if  there is no value in query string then all prodcut is return here in apiFeature.query
 

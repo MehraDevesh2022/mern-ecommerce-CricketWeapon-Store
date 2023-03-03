@@ -9,6 +9,8 @@ import { useAlert } from "react-alert";
 import MetaData from "../layouts/MataData/MataData";
 import ReactStars from "react-rating-stars-component";
 
+
+import { addItemToCart } from "../../actions/cartAction";
 const firstExample = {
   value: 2.5,
   edit: false,
@@ -49,6 +51,11 @@ function ProductDetails() {
       return;
     }
     setQuantity((prv) => prv-1);
+  }
+
+  const addToCartHandler =() =>{
+    dispatch(addItemToCart(match.params.id , quantity));
+       alert.success("Item Added To Cart");
   }
 
   return (
@@ -92,7 +99,10 @@ function ProductDetails() {
                     <input readOnly type="number" value={quantity} />
                     <button onClick={increaseQuantityHandler}>+</button>
                   </div>
-                  <button disabled={product.Stock < 1 ? true : false}>
+                  <button
+                    disabled={product.Stock < 1 ? true : false}
+                    onClick={addToCartHandler}
+                  >
                     Add to Cart
                   </button>
                 </div>
