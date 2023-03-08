@@ -8,8 +8,6 @@ import Loader from "../layouts/loader/Loader";
 import { useAlert } from "react-alert";
 import MetaData from "../layouts/MataData/MataData";
 import ReactStars from "react-rating-stars-component";
-
-
 import { addItemToCart } from "../../actions/cartAction";
 const firstExample = {
   value: 2.5,
@@ -54,7 +52,7 @@ function ProductDetails() {
   }
 
   const addToCartHandler =() =>{
-    dispatch(addItemToCart(match.params.id , quantity));
+    dispatch(addItemToCart(match.params.id, quantity));
        alert.success("Item Added To Cart");
   }
 

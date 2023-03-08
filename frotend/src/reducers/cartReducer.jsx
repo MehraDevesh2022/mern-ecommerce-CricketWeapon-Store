@@ -12,24 +12,27 @@ switch (action.type) {
 
  })
 
-
+ console.log(action.payload);
  // if exist alerady then replace same product 
  if(isExist){
     return {
-        ...state,
-        cartItem : state.cartItems.map(cartItem=>{
-            return item.productId === isExist.productId ? item : cartItem
-        })
-    }
+ 
+      cartItems: state.cartItems.map((cartItem) => {
+    
+        return item.productId === cartItem.productId ? item : cartItem;
+      }),
+    };
  }
  // if not exist then add new item value into cartItem
  else{
     return {
         ...state ,
-        cartItems : [...state , item]
+        cartItems : [...state.cartItems ,item]
     }
  }
+ default : return state
 }
+
 
 }
 

@@ -12,23 +12,23 @@ const rootReducer = combineReducers({
   userData: userReducer,
   profileData: profileReducer,
   forgetPassword: forgetPasswordReducer,
-  // cart: cartReducer,
+  cart: cartReducer,
 });
 
 // get all Cart values from local storage and pass this initial state into store
 let initialState = {
-  cartData: {
-    cartItems: localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : []
+  cart: {
+    cartItems: localStorage.getItem("cartItem")
+      ? JSON.parse(localStorage.getItem("cartItem"))
+      : [],
   },
 };
-
-
 const middleware = [thunk];
 
 const store = createStore(
-    rootReducer,
-    initialState,
-    composeWithDevTools(applyMiddleware(...middleware))
-)
+  rootReducer,
+  initialState,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
 
 export default store

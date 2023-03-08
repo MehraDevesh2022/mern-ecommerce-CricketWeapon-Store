@@ -4,7 +4,7 @@ import ReactStars from "react-rating-stars-component";
 
 
 function ReviewCard({review}) {
-   console.log(review);
+
   const firstExample = {
     value: review.rating || 1 ,                               
     edit: false,
