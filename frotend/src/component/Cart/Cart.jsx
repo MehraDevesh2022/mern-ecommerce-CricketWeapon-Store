@@ -6,8 +6,11 @@ import { addItemToCart, removeItemFromCart } from "../../actions/cartAction";
 import { Typography } from "@material-ui/core";
 import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 import { Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const Cart = ({ history }) => {
+const Cart = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
   console.log(cartItems);
@@ -35,7 +38,8 @@ const Cart = ({ history }) => {
   };
 
   const checkoutHandler = () => {
-    history.push("/checkout");
+    // this url redirect us to loging page . if there if user authenticated(means logged in) then we will redirect to the shipping page else login form
+    history.push("/login?redirect=/shipping");
   };
 
   return (

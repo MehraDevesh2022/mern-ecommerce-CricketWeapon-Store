@@ -9,16 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import profile from "../../Image/./Profile.png";
 
-import {
-  login,
-  signUp,
-  clearErrors,
-} from "../../actions/userAction";
-import { useHistory } from "react-router-dom";
-
+import { login, signUp, clearErrors } from "../../actions/userAction";
+import { useHistory, useLocation } from "react-router-dom";
 
 function LoginSignUp() {
   const history = useHistory();
+  const loaction = useLocation();
+
   const dispatch = useDispatch();
   const alert = useAlert();
 
@@ -26,17 +23,12 @@ function LoginSignUp() {
     (state) => state.userData
   );
 
-
-
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassWord] = useState("");
-
-
 
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
-
 
   const [signUpUser, setSignUpUser] = useState({
     name: "",
@@ -44,11 +36,8 @@ function LoginSignUp() {
     password: "",
   });
 
-
   const [avatar, setAvatar] = useState(profile);
   const [avatarPreview, setAvatarPreview] = useState(profile);
-
-
 
   function handleLoginSubmit(e) {
     e.preventDefault();
@@ -58,7 +47,6 @@ function LoginSignUp() {
   // destructure  all signUpUser property for easy use
   const { name, email, password } = signUpUser;
 
-  
   function handleSignUpSubmit(e) {
     e.preventDefault();
     const myForm = new FormData(); // it will create a form intsnce for posting form data with multiple property
@@ -90,17 +78,19 @@ function LoginSignUp() {
     }
   }
 
+  //  location.serach => http://localhost:3000/login?redirect=/shipping --> this route is at cart when click on cheakout button using this if user is loggend in then we se render direct shipping
+  // console.log(loaction.search.split("=")[1]); serach property in loction provide params value we will get ["login?redirect" ,"/shipping"] using this (search.split("=")[1]) and then first index value if there is no param and user logged in so profile page using '/account
+  const redirect = loaction.search ? loaction.search.split("=")[1] : "/account";
   useEffect(() => {
-   
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
+
     if (isAuthenticated) {
-      history.push("/account");
+      history.push(redirect);
     }
   }, [dispatch, isAuthenticated, loading, error, alert]);
-
 
   // swicthTab for login || register user switching ui in same page with css trasnform
   function switchTabs(tabName) {

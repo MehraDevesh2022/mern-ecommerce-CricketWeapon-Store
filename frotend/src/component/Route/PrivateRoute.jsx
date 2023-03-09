@@ -9,7 +9,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     (state) => state.userData
   );
 
-   console.log(Component);
+  //  console.log(Component);
    
   return (
     <>

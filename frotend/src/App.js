@@ -17,6 +17,7 @@ import UpdateProfile from "./component/User/UpdateProfile";
 import UpdatePassword from "./component/User/UpdatePassword";
 import ForgetPassword from "./component/User/ForgetPassword";
 import ResetPassword from "./component/User/ResetPassword";
+import Shipping from "./component/Cart/Shipping";
 import Cart from "./component/Cart/Cart";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
@@ -65,6 +66,7 @@ function App() {
             path="/password/update"
             component={UpdatePassword}
           />
+          <PrivateRoute exact path  ="/shipping" component={Shipping}/>
         </Switch>
         <Footer />
       </Router>
