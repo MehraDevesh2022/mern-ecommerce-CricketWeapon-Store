@@ -2,7 +2,7 @@ import React from "react";
 import "./Cart.css";
 import CartItemCard from "./CartItemCard";
 import { useSelector, useDispatch } from "react-redux";
-import { addItemToCart } from "../../actions/cartAction";
+import { addItemToCart, removeItemFromCart } from "../../actions/cartAction";
 import { Typography } from "@material-ui/core";
 import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 import { Link } from "react-router-dom";
@@ -15,10 +15,9 @@ const Cart = ({ history }) => {
     const newQty = quantity + 1;
     if (stock <= quantity) {
       return;
-    }else{
-               dispatch(addItemToCart(id, newQty));
+    } else {
+      dispatch(addItemToCart(id, newQty));
     }
-    
   };
 
   const decreaseQuantity = (id, quantity) => {
@@ -27,16 +26,16 @@ const Cart = ({ history }) => {
       console.log("hello");
       return;
     }
-     console.log("hello");
+    console.log("hello");
     dispatch(addItemToCart(id, newQty));
   };
 
   const deleteCartItems = (id) => {
-    // dispatch(removeItemsFromCart(id));
+    dispatch(removeItemFromCart(id));
   };
 
   const checkoutHandler = () => {
-    history.push("/login?redirect=shipping");
+    history.push("/checkout");
   };
 
   return (
@@ -63,7 +62,7 @@ const Cart = ({ history }) => {
                   <CartItemCard item={item} deleteCartItems={deleteCartItems} />
                   <div className="cartInput">
                     <button
-                      // disabled={item.quantity < 1 ? true : false}
+                      disabled={item.quantity < 1 ? true : false}
                       onClick={() =>
                         decreaseQuantity(item.productId, item.quantity)
                       }

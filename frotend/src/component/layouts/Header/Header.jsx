@@ -65,7 +65,7 @@ function Header() {
         </button>
       </form>
 
-      <Link to="/checkout" style={{ textDecoration: "none" }}>
+      <Link to="/cart" style={{ textDecoration: "none" }}>
         <div className="header__optionBasket">
           <ShoppingBasketIcon />
           <span className="header__optionLineTwo header__basketCount">{5}</span>

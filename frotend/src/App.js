@@ -53,7 +53,7 @@ function App() {
           <Route exact path="/password/reset/:token">
             <ResetPassword />
           </Route>
-          <Route exact path="/checkout"><Cart/></Route>
+          <Route exact path="/cart"><Cart/></Route>
           <PrivateRoute exact path="/account" component={Profile} />
           <PrivateRoute
             exact

@@ -30,6 +30,13 @@ switch (action.type) {
         cartItems : [...state.cartItems ,item]
     }
  }
+
+ case REMOVE_CART_ITEM : 
+ return {
+   ...state ,
+   cartItems : state.cartItems.filter(item => item.productId !== action.payload)
+ }
+
  default : return state
 }
 

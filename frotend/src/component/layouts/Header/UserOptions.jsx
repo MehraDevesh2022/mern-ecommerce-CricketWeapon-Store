@@ -8,23 +8,32 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
 import profile from "../../../Image/Profile.png";
 import { logout } from '../../../actions/userAction';
 
 function UserOptions({user}) {
-
+  const {cartItems} = useSelector(state => state.cart)
  const [open, setOpen] = useState(false);
   const history = useHistory();
     const alert = useAlert();
       const dispatch = useDispatch();
 
 const options = [
-    // these all are from matrial ui
+  // these all are from matrial ui
   { icon: <ListAltIcon />, name: "Orders", func: orders },
   { icon: <PersonIcon />, name: "Profile", func: account },
   { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
-
+  {
+    icon: (
+      <ShoppingCartIcon
+        style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+      />
+    ),
+    name : `Cart(${cartItems.length})`,
+    func : cart
+  },
 ];
 
 if(user.role === "admin"){
@@ -56,6 +65,10 @@ function account(){
     function logoutUser() {
       dispatch(logout());
       alert.success("Logout Successfully");
+    }
+
+    function cart(){
+       history.push("/cart");
     }
 
   return (
