@@ -5,7 +5,7 @@ const sendJWtToken = require("../utils/JwtToken");
 const sendEmail = require("../utils/sendEmail")
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
-
+ 
 // signUp controller>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.registerUser = asyncWrapper(async (req , res) =>{
 console.log("api");
@@ -29,8 +29,7 @@ console.log("api");
       },
     });
  
-    console.log("hello", "cloud");
-    console.log(user ,"user");
+  
   // sending the res and staus code along with token using sendJWtToken method
   sendJWtToken(user , 201 , res);
 })
@@ -102,7 +101,7 @@ exports.forgotPassword = asyncWrapper(async(req , res , next) =>{
 
     // for local host =>
     const resetPasswordUrl  = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
-    
+   
   // this will send to user for reset pass at the route where : req.protocol ==> http|| https, or req.get(Host) is host eg : google.co || github.in || fb.com  and reset token generted by us
   // const resetPasswordUrl = `${req.protocol}://${req.get(
   //   "host"

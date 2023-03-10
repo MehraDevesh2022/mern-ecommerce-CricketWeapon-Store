@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState , useEffect} from "react";
 import Footer from "./component/layouts/Footer/Footer";
 import Header from "./component/layouts/Header/Header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -20,19 +20,50 @@ import ResetPassword from "./component/User/ResetPassword";
 import Shipping from "./component/Cart/Shipping";
 import Cart from "./component/Cart/Cart";
 import ConfirmOrder from "./component/Cart/ConfirmOrder";
+import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import Payment from "./component/Cart/Payment";
+
+
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
+     const [stripeApiKey, setStripeApiKey] = useState("");
+
+
+
+     // get STRIPE_API_KEY for payment from backend for cnnection to stripe payment gateWaY
+   async function getStripeApiKey(){
+      const { data } = await axios.get("/api/v1/stripeapikey");
+         setStripeApiKey(data.stripeApiKey);
+    
+     }
 
   React.useEffect(() => {
     // this is for user data load for profile section if user logged in
     store.dispatch(load_UserProfile());
-  }, []);
+
+    getStripeApiKey();
+   
+  }, [stripeApiKey]);
+
+
+
+
+
   return (
     <>
       <Router>
         <Header />
-        {/* if user lggedin the show UserOptions component for user options  */}
+        {/* if user loggedin then show UserOptions component for user options  */}
         {isAuthenticated && <UserOptions user={user} />}
+
+        {stripeApiKey && (
+          <Elements stripe={loadStripe(stripeApiKey)}>
+            <PrivateRoute exact path="/process/payment" component={Payment} />
+          </Elements>
+        )}
+
         <Switch>
           <Route exact path="/">
             <Home />
@@ -70,7 +101,7 @@ function App() {
             component={UpdatePassword}
           />
           <PrivateRoute exact path="/shipping" component={Shipping} />
-          <PrivateRoute exact path="/order/confirm"  component={ConfirmOrder}/>
+          <PrivateRoute exact path="/order/confirm" component={ConfirmOrder} />
         </Switch>
         <Footer />
       </Router>
