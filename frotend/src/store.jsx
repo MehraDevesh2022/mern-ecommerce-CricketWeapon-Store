@@ -11,6 +11,7 @@ import {
   forgetPasswordReducer,
 } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
+import { newOrderReducer } from "./reducers/orderReducer";
 
 const rootReducer = combineReducers({
   products: productsReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   profileData: profileReducer,
   forgetPassword: forgetPasswordReducer,
   cart: cartReducer,
+  newOrder : newOrderReducer
 });
 
 // get all Cart values from local storage and pass this initial state into store

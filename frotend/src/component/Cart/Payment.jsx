@@ -5,7 +5,7 @@ import MetaData from "../layouts/MataData/MataData";
 import { Typography } from "@material-ui/core";
 import { useAlert } from "react-alert";
 import axios from "axios";
-import { clearErrors } from "../../actions/productAction";
+import { clearErrors, createOrder } from "../../actions/orderAction";
 // for cardDetails for card detials input section and hooks for accessing strip and element from App.js route
 import {
   CardNumberElement,
@@ -20,11 +20,12 @@ import CreditCardIcon from "@material-ui/icons/CreditCard";
 import EventIcon from "@material-ui/icons/Event";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import { useHistory } from "react-router-dom";
+import { Certificate } from "crypto";
 
 function Payment() {
   // stored at Confirm order Component action
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-  const history  = useHistory();
+  const history = useHistory();
   const alert = useAlert();
   const stripe = useStripe();
   const elements = useElements();
@@ -33,7 +34,7 @@ function Payment() {
   const dispatch = useDispatch();
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.userData);
-
+  const { error } = useSelector((state) => state.newOrder);
   const paymentData = {
     // stripe takes payment in pese there for multiply with 100 bcz 1rs == 100 pese
     ammount: Math.round(orderInfo.totalFinalPrice * 100),
@@ -44,6 +45,7 @@ function Payment() {
     orderItems: cartItems,
     itemsPrice: orderInfo.subTotal,
     taxPrice: orderInfo.gst,
+    shippingPrice: orderInfo.shippingPrice,
     totalPrice: orderInfo.totalFinalPrice,
   };
 
@@ -59,7 +61,7 @@ function Payment() {
         paymentData,
         config
       );
-  
+
       // client_secret is key from STRIPE  while making payement post req at backend
       const client_secret = data.client_secret;
 
@@ -86,17 +88,20 @@ function Payment() {
       if (result.error) {
         // if error then again enable the button on
         payBtn.current.disabled = false;
-       
+
         alert.error(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
           // add new property inside order object
-           order.paymentInfo = {
+          order.paymentInfo = {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
           };
           alert.success(result.paymentIntent.status);
-        history.push("/success");
+
+          dispatch(createOrder(order));
+
+          history.push("/success");
         } else {
           alert.error("There's some issue while processing payment");
         }
@@ -104,17 +109,17 @@ function Payment() {
     } catch (error) {
       // if error while payment then again enable payment button
       payBtn.current.disabled = false;
-      console.log(error , "error");
+      console.log(error, "error");
       alert.error(error.response.data.message);
     }
   }
 
   useEffect(() => {
-    // if (error) {
-    //   alert.error(error);
-    //   dispatch(clearErrors());
-    // }
-  }, [dispatch, alert]);
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, alert, error]);
 
   return (
     <>

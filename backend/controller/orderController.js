@@ -3,40 +3,45 @@ const orderModel = require("../model/orderModel");
 const prdoductModel = require("../model/ProductModel");
 const ErrorHandler = require("../utils/errorHandler");
 
-
-
-//>>>>>>>>>>>>>>>  create a order    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+//>>>>>>>>>>>>>>>  create a order    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.newOrder = asyncWrapper(async (req, res, next) => {
-  
-  const { shippingInfo, orderItems, paymentInfo, itemsPrice, taxPrice,
+  const {
+    shippingInfo,
+    orderItems,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
     shippingPrice,
-    totalPrice }  = req.body;
+    totalPrice,
+  } = req.body;
 
-    // create order :
-   const order = await orderModel.create({
-    shippingInfo, orderItems, paymentInfo, itemsPrice, taxPrice,
+  // create order :
+  const order = await orderModel.create({
+    shippingInfo,
+    orderItems,
+    paymentInfo,
+    itemsPrice,
+    taxPrice,
     shippingPrice,
-    totalPrice ,
-    user : req.user._id, // from authenticated user 
-    paitAt : Date.now()
-   })
+    totalPrice,
+    user: req.user._id, // from authenticated user
+    paidtAt: Date.now(),
+  });
 
-   res.status(201).json({
-    success : true ,
-    order
-   });
-
-})
-
+  res.status(201).json({
+    success: true,
+    order,
+  });
+});
 
 //>>>>>>>>>>>> getSingleOrder >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.getSingleOrder = asyncWrapper(async (req, res, next) => {
-  const order = await orderModel.findById(req.params.id)
-//   .populate(
-//     // populate cheack for user id orderModel and will visit to userModel and bring from there user name and email as well with the help of user id in order
-//     "user",
-//     "name email"
-//   );
+  const order = await orderModel.findById(req.params.id);
+  //   .populate(
+  //     // populate cheack for user id orderModel and will visit to userModel and bring from there user name and email as well with the help of user id in order
+  //     "user",
+  //     "name email"
+  //   );
 
   if (!order) {
     return next(new ErrorHandler("Order not found with this Id", 404));
@@ -50,16 +55,14 @@ exports.getSingleOrder = asyncWrapper(async (req, res, next) => {
 
 // >>>>>>>>>>>>>>>> getUsers all orders >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-exports.myOrders = asyncWrapper(async (req , res) =>{
+exports.myOrders = asyncWrapper(async (req, res) => {
+  const userOrders = await orderModel.find({ user: req.user._id }); // this id from authentictaion user.req
 
- const userOrders = await orderModel.find({user : req.user._id}); // this id from authentictaion user.req
-
- res.status(200).json({
-   success: true,
-   userOrders
- });
-
-})
+  res.status(200).json({
+    success: true,
+    userOrders,
+  });
+});
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>> get all Orders -- Admin>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -67,7 +70,7 @@ exports.getAllOrders = asyncWrapper(async (req, res, next) => {
   const orders = await orderModel.find();
 
   let totalAmount = 0;
-// count total price of all order for dashbord
+  // count total price of all order for dashbord
   orders.forEach((order) => {
     totalAmount += order.totalPrice;
   });
@@ -80,7 +83,7 @@ exports.getAllOrders = asyncWrapper(async (req, res, next) => {
 });
 
 // update Order Status -- Admin
-exports.updateOrder = asyncWrapper(async (req , res , next)=>{
+exports.updateOrder = asyncWrapper(async (req, res, next) => {
   const order = await orderModel.findById(req.params.id);
 
   if (!order) {
@@ -109,11 +112,10 @@ exports.updateOrder = asyncWrapper(async (req , res , next)=>{
   res.status(200).json({
     success: true,
   });
-})
+});
 
 // update status function with. productId and quantity params
 async function updateStock(id, quantity) {
-
   const product = await prdoductModel.findById(id);
   console.log(product);
   // update the stock of the product using order quantity
@@ -122,20 +124,18 @@ async function updateStock(id, quantity) {
   await product.save({ validateBeforeSave: false });
 }
 
-
-
 //>>>>>>>>>>>>>>>>>>>>> delete Order -- Admin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-exports.deleteOrder = asyncWrapper(async(req , res , next) =>{
+exports.deleteOrder = asyncWrapper(async (req, res, next) => {
   const order = await orderModel.findById(req.params.id);
 
-  if(!order){
-    return next(new ErrorHandler("Order not found with given Id" , 400));
+  if (!order) {
+    return next(new ErrorHandler("Order not found with given Id", 400));
   }
 
   await order.remove();
-  
+
   res.status(200).json({
-    success : true,
-    message : "Order deleted successfully"
-  })
-})
+    success: true,
+    message: "Order deleted successfully",
+  });
+});

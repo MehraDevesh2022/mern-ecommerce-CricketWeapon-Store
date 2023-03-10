@@ -24,6 +24,7 @@ import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Payment from "./component/Cart/Payment";
+import OrderSuccess from "./component/Cart/OrderSuccess";
 
 
 function App() {
@@ -102,6 +103,7 @@ function App() {
           />
           <PrivateRoute exact path="/shipping" component={Shipping} />
           <PrivateRoute exact path="/order/confirm" component={ConfirmOrder} />
+          <PrivateRoute exact path ="/success" component={OrderSuccess}/>
         </Switch>
         <Footer />
       </Router>
