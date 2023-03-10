@@ -19,6 +19,7 @@ import ForgetPassword from "./component/User/ForgetPassword";
 import ResetPassword from "./component/User/ResetPassword";
 import Shipping from "./component/Cart/Shipping";
 import Cart from "./component/Cart/Cart";
+import ConfirmOrder from "./component/Cart/ConfirmOrder";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
 
@@ -54,7 +55,9 @@ function App() {
           <Route exact path="/password/reset/:token">
             <ResetPassword />
           </Route>
-          <Route exact path="/cart"><Cart/></Route>
+          <Route exact path="/cart">
+            <Cart />
+          </Route>
           <PrivateRoute exact path="/account" component={Profile} />
           <PrivateRoute
             exact
@@ -66,7 +69,8 @@ function App() {
             path="/password/update"
             component={UpdatePassword}
           />
-          <PrivateRoute exact path  ="/shipping" component={Shipping}/>
+          <PrivateRoute exact path="/shipping" component={Shipping} />
+          <PrivateRoute exact path="/order/confirm"  component={ConfirmOrder}/>
         </Switch>
         <Footer />
       </Router>
