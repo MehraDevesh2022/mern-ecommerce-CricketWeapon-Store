@@ -3,9 +3,9 @@ const asyncWrapper = require("../middleWare/asyncWrapper");
 const userModel = require("../model/userModel")
 const sendJWtToken = require("../utils/JwtToken");
 const sendEmail = require("../utils/sendEmail")
-const crypto = require("crypto");
+const crypto = require("crypto"); 
 const cloudinary = require("cloudinary");
- 
+    
 // signUp controller>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.registerUser = asyncWrapper(async (req , res) =>{
 console.log("api");

@@ -19,9 +19,9 @@ function PrivateRoute({ component: Component, ...rest }) {
             {...rest} // this is path passed as paramatre in PrivateRoute
             render={(props) => {
               if (isAuthenticated === false) {
-                return <Redirect to="/login" />;
+                return <Redirect to="/login" />
               }
-              return <Component {...props} />; //  props are value passed along with Component  at PrivateRoute
+              return <Component {...props} /> //  props are value passed along with Component  at PrivateRoute
             }}
           ></Route>
         </>

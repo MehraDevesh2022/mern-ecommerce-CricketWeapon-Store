@@ -25,7 +25,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Payment from "./component/Cart/Payment";
 import OrderSuccess from "./component/Cart/OrderSuccess";
-
+import MyOrder from "./component/order/MyOrder";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
@@ -90,6 +90,7 @@ function App() {
           <Route exact path="/cart">
             <Cart />
           </Route>
+         
           <PrivateRoute exact path="/account" component={Profile} />
           <PrivateRoute
             exact
@@ -103,7 +104,8 @@ function App() {
           />
           <PrivateRoute exact path="/shipping" component={Shipping} />
           <PrivateRoute exact path="/order/confirm" component={ConfirmOrder} />
-          <PrivateRoute exact path ="/success" component={OrderSuccess}/>
+          <PrivateRoute exact path="/success" component={OrderSuccess} />
+          <PrivateRoute exact path  ="/orders" component={MyOrder}/>
         </Switch>
         <Footer />
       </Router>

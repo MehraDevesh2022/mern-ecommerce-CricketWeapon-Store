@@ -113,100 +113,104 @@ function LoginSignUp() {
 
   return (
     <>
-      <div className="LoginSignUpContainer">
-        <div className="LoginSignUpBox">
-          <div>
-            <div className="login_signUp_toggle">
-              <p onClick={() => switchTabs("login")}>LOGIN</p>
-              <p onClick={() => switchTabs("register")}>REGISTER</p>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="LoginSignUpContainer">
+          <div className="LoginSignUpBox">
+            <div>
+              <div className="login_signUp_toggle">
+                <p onClick={() => switchTabs("login")}>LOGIN</p>
+                <p onClick={() => switchTabs("register")}>REGISTER</p>
+              </div>
+              <button ref={switcherTab}></button>
             </div>
-            <button ref={switcherTab}></button>
+
+            <form
+              className="loginForm"
+              ref={loginTab}
+              onSubmit={handleLoginSubmit}
+            >
+              <div className="loginEmail">
+                <MailOutlineIcon />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  required
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                />
+              </div>
+              <div className="loginPassword">
+                <LockOpenIcon />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  required
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassWord(e.target.value)}
+                />
+              </div>
+              <Link to="/password/forgot">Forget Password ?</Link>
+              <button className="loginBtn">Login</button>
+            </form>
+
+            {/* signUp box */}
+
+            <form
+              ref={registerTab}
+              onSubmit={handleSignUpSubmit}
+              className="signUpForm"
+              encType="multipart/form-data" // this is for file upLoad
+            >
+              <div className="signUpName">
+                <FaceIcon />
+                <input
+                  type="text"
+                  placeholder="Name"
+                  name="name"
+                  value={name}
+                  onChange={registerDataChange}
+                />
+              </div>
+              <div className="signUpEmail">
+                <MailOutlineIcon />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  required
+                  name="email"
+                  value={email}
+                  onChange={registerDataChange}
+                />
+              </div>
+
+              <div className="signUpPassword">
+                <LockOpenIcon />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  required
+                  value={password}
+                  name="password"
+                  onChange={registerDataChange}
+                />
+              </div>
+
+              <div id="registerImage">
+                <img src={avatarPreview} alt="Avatar Preview" />
+                <input
+                  type="file"
+                  name="avatar"
+                  accept="image/*" // all type image
+                  onChange={registerDataChange}
+                />
+              </div>
+              <button className="signUpBtn">Register</button>
+            </form>
           </div>
-
-          <form
-            className="loginForm"
-            ref={loginTab}
-            onSubmit={handleLoginSubmit}
-          >
-            <div className="loginEmail">
-              <MailOutlineIcon />
-              <input
-                type="email"
-                placeholder="Email"
-                required
-                value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
-              />
-            </div>
-            <div className="loginPassword">
-              <LockOpenIcon />
-              <input
-                type="password"
-                placeholder="Password"
-                required
-                value={loginPassword}
-                onChange={(e) => setLoginPassWord(e.target.value)}
-              />
-            </div>
-            <Link to="/password/forgot">Forget Password ?</Link>
-            <button className="loginBtn">Login</button>
-          </form>
-
-          {/* signUp box */}
-
-          <form
-            ref={registerTab}
-            onSubmit={handleSignUpSubmit}
-            className="signUpForm"
-            encType="multipart/form-data" // this is for file upLoad
-          >
-            <div className="signUpName">
-              <FaceIcon />
-              <input
-                type="text"
-                placeholder="Name"
-                name="name"
-                value={name}
-                onChange={registerDataChange}
-              />
-            </div>
-            <div className="signUpEmail">
-              <MailOutlineIcon />
-              <input
-                type="email"
-                placeholder="Email"
-                required
-                name="email"
-                value={email}
-                onChange={registerDataChange}
-              />
-            </div>
-
-            <div className="signUpPassword">
-              <LockOpenIcon />
-              <input
-                type="password"
-                placeholder="Password"
-                required
-                value={password}
-                name="password"
-                onChange={registerDataChange}
-              />
-            </div>
-
-            <div id="registerImage">
-              <img src={avatarPreview} alt="Avatar Preview" />
-              <input
-                type="file"
-                name="avatar"
-                accept="image/*" // all type image
-                onChange={registerDataChange}
-              />
-            </div>
-            <button className="signUpBtn">Register</button>
-          </form>
         </div>
-      </div>
+      )}
     </>
   );
 }

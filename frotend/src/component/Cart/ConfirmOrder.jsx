@@ -6,13 +6,13 @@ import "./ConfirmOrder.css";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-
+import Loader from "../layouts/loader/Loader"
 function ConfirmOrder() {
   const history = useHistory();
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
 
-  const { user } = useSelector((state) => state.userData);
+  const { user , loading} = useSelector((state) => state.userData);
 
   const subTotal = cartItems.reduce((acc, currItem) => {
     return acc + currItem.quantity * currItem.price;
@@ -41,85 +41,93 @@ function ConfirmOrder() {
 
   return (
     <>
-      <MetaData title="Confirm Order" />
-      <CheckoutSteps activeStep={1} />
-      <div className="confirmOrderPage">
-        {/* left container  */}
-        <div>
-          {/* Shoping area container  */}
-          <div className="confirmshippingArea">
-            <Typography>Shipping Info</Typography>
-            <div className="confirmshippingAreaBox">
-              <div>
-                <p>Name:</p>
-                <span>{user.name}</span>
-              </div>
-
-              <div>
-                <p>Phone:</p>
-                <span>{shippingInfo.phoneNo}</span>
-              </div>
-
-              <div>
-                <p>Address:</p>
-                <span>{address}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* confirm cartItem  */}
-
-          <div className="confirmCartItems">
-            <Typography>Your Cart Items:</Typography>
-            <div className="confirmCartItemsContainer">
-              {cartItems &&
-                cartItems.map((item) => (
-                  <div key={item.productId}>
-                 
-                    <img src={item.image} alt="product" />
-                    <Link to={`/product/${item.productId}`}> {item.name}</Link>
-                    <span>
-                      {item.quantity} X ₹{item.price}={" "}
-                      <b>₹{item.price * item.quantity}</b>
-                    </span>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <MetaData title="Confirm Order" />
+          <CheckoutSteps activeStep={1} />
+          <div className="confirmOrderPage">
+            {/* left container  */}
+            <div>
+              {/* Shoping area container  */}
+              <div className="confirmshippingArea">
+                <Typography>Shipping Info</Typography>
+                <div className="confirmshippingAreaBox">
+                  <div>
+                    <p>Name:</p>
+                    <span>{user.name}</span>
                   </div>
-                ))}
+
+                  <div>
+                    <p>Phone:</p>
+                    <span>{shippingInfo.phoneNo}</span>
+                  </div>
+
+                  <div>
+                    <p>Address:</p>
+                    <span>{address}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* confirm cartItem  */}
+
+              <div className="confirmCartItems">
+                <Typography>Your Cart Items:</Typography>
+                <div className="confirmCartItemsContainer">
+                  {cartItems &&
+                    cartItems.map((item) => (
+                      <div key={item.productId}>
+                        <img src={item.image} alt="product" />
+                        <Link to={`/product/${item.productId}`}>
+                          {" "}
+                          {item.name}
+                        </Link>
+                        <span>
+                          {item.quantity} X ₹{item.price}={" "}
+                          <b>₹{item.price * item.quantity}</b>
+                        </span>
+                      </div>
+                    ))}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Order Summery --> right side */}
-
-        <div>
-          <div className="orderSummary">
-            <Typography>Order Summery</Typography>
+            {/* Order Summery --> right side */}
 
             <div>
-              <div>
-                <p>Subtotal : </p>
-                <span>₹{subTotal}</span>
-              </div>
+              <div className="orderSummary">
+                <Typography>Order Summery</Typography>
 
-              <div>
-                <p>Shipping Charges:</p>
-                <span>₹{shippingCharges}</span>
-              </div>
+                <div>
+                  <div>
+                    <p>Subtotal : </p>
+                    <span>₹{subTotal}</span>
+                  </div>
 
-              <div>
-                <p>GST :</p>
-                <span>₹{gst}</span>
+                  <div>
+                    <p>Shipping Charges:</p>
+                    <span>₹{shippingCharges}</span>
+                  </div>
+
+                  <div>
+                    <p>GST :</p>
+                    <span>₹{gst}</span>
+                  </div>
+                </div>
+                <div className="orderSummaryTotal">
+                  <p>
+                    <b>Total:</b>
+                  </p>
+                  <span>₹{totalFinalPrice}</span>
+                </div>
+                <button onClick={proceedToPayment}>Proceed To Payment</button>
               </div>
             </div>
-            <div className="orderSummaryTotal">
-              <p>
-                <b>Total:</b>
-              </p>
-              <span>₹{totalFinalPrice}</span>
-            </div>
-            <button onClick={proceedToPayment}>Proceed To Payment</button>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 }
