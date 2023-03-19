@@ -36,13 +36,9 @@ exports.newOrder = asyncWrapper(async (req, res, next) => {
 
 //>>>>>>>>>>>> getSingleOrder >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.getSingleOrder = asyncWrapper(async (req, res, next) => {
-  const order = await orderModel.findById(req.params.id);
-  //   .populate(
-  //     // populate cheack for user id orderModel and will visit to userModel and bring from there user name and email as well with the help of user id in order
-  //     "user",
-  //     "name email"
-  //   ); 
-
+  const order = await orderModel
+    .findById(req.params.id)
+    .populate({ path: "user", select: "name email" });
   if (!order) {
     return next(new ErrorHandler("Order not found with this Id", 404));
   }
@@ -81,7 +77,7 @@ exports.getAllOrders = asyncWrapper(async (req, res, next) => {
     orders,
   });
 });
-
+   
 // update Order Status -- Admin
 exports.updateOrder = asyncWrapper(async (req, res, next) => {
   const order = await orderModel.findById(req.params.id);

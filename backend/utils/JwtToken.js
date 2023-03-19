@@ -3,7 +3,7 @@
 const sendJWtToken  = (user , statusCode , res) =>{
         // console.log(user);
 
-    console.log(process.env.COOKIE_EXPIRE);
+;
     const token = user.getJWTToken(); //every user has access all userModel methods
 
      // options for cookie
@@ -14,7 +14,9 @@ const sendJWtToken  = (user , statusCode , res) =>{
         ),
         httpOnly: true,
     };
+    
     // wrapping all data into cookie eg token and options data
+    
     res.status(statusCode).cookie("token", token, options).json({
         success: true,
         user,

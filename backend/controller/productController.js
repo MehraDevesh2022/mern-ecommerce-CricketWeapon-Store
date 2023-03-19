@@ -9,8 +9,8 @@ exports.createProduct = asyncWrapper(async (req, res) => {
 
        const body = req.body;
 
-       // when we have muliple admin . to ishe ye pta chlgea kiss admin ne konsa product cretae kiya hai. q ki product schema main user section main usg user ki id add ho jayegi.
-       req.body.user = req.user.id // req.user created by us.. user all data store in this object from there we are adding user id to the products user section
+       // when we have multiple admin . to ishe ye pta chlgea kiss admin ne konsa product cretae kiya hai. q ki product schema main user section main  user ki id add ho jayegi.
+       // req.body.user = req.user.id // req.user created by us.. user all data store in this object from there we are adding user id to the products user section
 
        const data = await ProductModel.create(body)
     
@@ -44,7 +44,7 @@ exports.getAllProducts = asyncWrapper(async (req, res , next) => {
     resultPerPage: resultPerPage,
     filterdProductCount: filterdProductCount,
   });
-})
+})  
 
 
 //>>>>>>>>>>>>>>>>>> Update Admin Route >>>>>>>>>>>>>>>>>>>>>>>

@@ -8,14 +8,16 @@ const cloudinary = require("cloudinary");
     
 // signUp controller>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.registerUser = asyncWrapper(async (req , res) =>{
-console.log("api");
+ 
+  console.log("register");
  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-   folder: "Avatar", // this folder cloudainry data base manage by us 
+   folder: "Avatar", // this folder cloudainry data base manage by us
    width: 150,
    crop: "scale",
  });
 
- 
+ console.log(myCloud.public_id);
+ console.log(myCloud.secure_url);
   
 
       const {name , email , password}  = req.body ;
@@ -24,12 +26,11 @@ console.log("api");
       password,
       email,
       avatar: {
-        public_id: myCloud.public_id,
+        public_id:myCloud.public_id,
         url: myCloud.secure_url,
       },
     });
- 
-  
+
   // sending the res and staus code along with token using sendJWtToken method
   sendJWtToken(user , 201 , res);
 })

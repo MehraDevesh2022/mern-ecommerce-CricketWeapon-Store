@@ -7,9 +7,10 @@ const ErrorHandler = require("../utils/errorHandler");
 
 exports.isAuthentictedUser = asyncWrapper(async (req , res , next) =>{
  // grab the token from cookie . while user logedin token sended inside cookie from server . so if user want to access somthing then cookie also sended from clint side in req object for authentication
- console.log(req.body)
- ;
+
+ 
     const { token } = req.cookies; // import cookieParser for using req.cookies same like for json data  app.use(express.json()); for this app.use(cookieParser());
+
 // if there is no token found
 if(!token){
     return next(new ErrorHandler("Please Login to access this resource", 401)); // 401 when server no what req wants but denied that req
