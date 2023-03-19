@@ -38,6 +38,27 @@ export const myOrders = () => async (dispatch) => {
   }
 };
 
+
+
+// get single order 
+
+export const getOrderDetails  = (id)=> async (dispatch) =>{
+    
+  try {
+      dispatch({type : ORDER_DETAILS_REQUEST})
+
+
+
+      const { data } = await axios.get(`/order/:${id}`);
+
+      dispatch({type : ORDER_DETAILS_SUCCESS , payload : data.order})
+
+
+  } catch (error) {
+      dispatch({type : ORDER_DETAILS_FAIL , payload : error.message})
+  }
+}
+
 // clear errors
 
 export const clearErrors = () => async (dispatch) => {
