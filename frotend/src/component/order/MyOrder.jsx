@@ -16,7 +16,7 @@ function MyOrder() {
   const dispatch = useDispatch();
   const { orders, loading, error } = useSelector((state) => state.myOrder);
   const { user } = useSelector((state) => state.userData);
-  console.log(orders);
+
   const alert = useAlert();
 
   useEffect(() => {

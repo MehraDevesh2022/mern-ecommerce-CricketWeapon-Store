@@ -26,7 +26,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import Payment from "./component/Cart/Payment";
 import OrderSuccess from "./component/Cart/OrderSuccess";
 import MyOrder from "./component/order/MyOrder";
-
+import OrderDetails from "./component/order/OrderDetails";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
      const [stripeApiKey, setStripeApiKey] = useState("");
@@ -90,7 +90,7 @@ function App() {
           <Route exact path="/cart">
             <Cart />
           </Route>
-         
+
           <PrivateRoute exact path="/account" component={Profile} />
           <PrivateRoute
             exact
@@ -105,7 +105,8 @@ function App() {
           <PrivateRoute exact path="/shipping" component={Shipping} />
           <PrivateRoute exact path="/order/confirm" component={ConfirmOrder} />
           <PrivateRoute exact path="/success" component={OrderSuccess} />
-          <PrivateRoute exact path  ="/orders" component={MyOrder}/>
+          <PrivateRoute exact path="/orders" component={MyOrder} />
+          <PrivateRoute exact path="/order/:id" component={OrderDetails} />
         </Switch>
         <Footer />
       </Router>

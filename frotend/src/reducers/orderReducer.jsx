@@ -8,6 +8,7 @@ import {
   MY_ORDER_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_FAIL,
+  ORDER_DETAILS_SUCCESS,
 } from "../constants/orderConstant";
 
 export const newOrderReducer = (state = {}, action) => {
@@ -76,7 +77,7 @@ export const orderDetialsReducer = (state = { order: {} }, action) => {
         loading: true,
       };
 
-    case ORDER_DETAILS_REQUEST:
+    case ORDER_DETAILS_SUCCESS:
       return {
   
         loading: false,
