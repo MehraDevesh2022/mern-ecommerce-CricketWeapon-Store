@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
   newOrder : newOrderReducer,
  myOrder : myOrderReducer,
  orderDetails : orderDetialsReducer,
- newReview  : newReviewReducer
+ addNewReview  : newReviewReducer
 });
 
 // get all Cart values from local storage and pass this initial state into store

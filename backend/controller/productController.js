@@ -51,12 +51,12 @@ exports.getAllProducts = asyncWrapper(async (req, res , next) => {
 exports.updateProduct = asyncWrapper(async (req, res, next) => {
 
        let Product = await ProductModel.findById(req.params.id);
-       console.log(Product);
+       // console.log(Product);
        if (!Product) {
               return next(new ErrorHandler("Product not found", 404))
        }
 
-       console.log(Product);
+       // console.log(Product);
        Product = await Product.findByIdAndUpdate(req.params.id, req.body, {
               new: true,
               runValidators: true,
@@ -102,13 +102,13 @@ exports.getProductDetails = asyncWrapper(async (req, res, next) => {
 //>>>>>>>>>>>>> Create New Review or Update the review >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 exports.createProductReview = asyncWrapper(async (req, res, next) => {
-       const { rating, comment, productId } = req.body;
-   console.log(rating);
+       const { ratings, comment, productId } = req.body;
+//    console.log(ratings);
        const review = {
-              userId: req.user._id,  // user id who is adding review in prodcut. user must login .. there req.user has all info about user(from authentication);
-              name: req.user.name,
-              rating: rating,
-              comment : comment 
+         userId: req.user._id, // user id who is adding review in prodcut. user must login .. there req.user has all info about user(from authentication);
+         name: req.user.name,
+         ratings: ratings, 
+         comment: comment,  
        };
  
        // find product by product id.
@@ -126,12 +126,13 @@ exports.createProductReview = asyncWrapper(async (req, res, next) => {
               // find that user in reviews array 
               product.reviews.forEach((rev) => {
                      if (rev.userId.toString() === req.user._id.toString())
-                          rev.rating = rating;
+                          rev.ratings = ratings;
                          rev.comment = comment;
               });
        } else {
               // if isReviewed false that mean user not did any reviwe in that product so add new one and push it into product.reviews array
               product.reviews.push(review);
+              console.log(product.reviews.length);  
               product.numOfReviews = product.reviews.length;
        }
 
@@ -139,7 +140,7 @@ exports.createProductReview = asyncWrapper(async (req, res, next) => {
        let avg = 0;
     // caluclate all reviews sum of  all ratings then calculate avg of that review
        product.reviews.forEach((rev) => {
-              avg += rev.rating;
+              avg += rev.ratings;
        });
 
          // update rating avg

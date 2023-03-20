@@ -1,13 +1,10 @@
 import { ADD_TO_CART, REMOVE_CART_ITEM ,SAVE_SHIPPING_INFO } from "../constants/cartConstant";
 import axios from "axios";
-import { json } from "body-parser";
 
 // Add to Cart
-
 export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
   //getState method used for getting state value at action action
   const { data } = await axios.get(`/api/v1/product/${id}`);
-  console.log(data);
   dispatch({
     type: ADD_TO_CART,
     payload: {
@@ -25,16 +22,20 @@ export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
   localStorage.setItem("cartItem", JSON.stringify(getState().cart.cartItems));
 };
 
-// remove item action =>
 
+
+
+
+// remove item action =>
 export const removeItemFromCart = (id) => async (dispatch, getState) => {
   dispatch({ type: REMOVE_CART_ITEM, payload: id });
 
   localStorage.setItem("cartItem", JSON.stringify(getState().cart.cartItems));
 };
 
-// Shipping info =>
 
+
+// Shipping info =>
 export const saveShippingInfo = (data) => async (dispatch, getState) => {
          dispatch({
            type: SAVE_SHIPPING_INFO,
