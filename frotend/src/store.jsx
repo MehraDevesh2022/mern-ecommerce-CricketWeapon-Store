@@ -4,6 +4,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   productsReducer,
   productDetailsReducer,
+  newReviewReducer,
 } from "./reducers/productReducers";
 import {
   profileReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   newOrder : newOrderReducer,
  myOrder : myOrderReducer,
  orderDetails : orderDetialsReducer,
+ newReview  : newReviewReducer
 });
 
 // get all Cart values from local storage and pass this initial state into store

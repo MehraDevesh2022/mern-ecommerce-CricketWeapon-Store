@@ -126,7 +126,8 @@ exports.createProductReview = asyncWrapper(async (req, res, next) => {
               // find that user in reviews array 
               product.reviews.forEach((rev) => {
                      if (rev.userId.toString() === req.user._id.toString())
-                          (rev.rating = rating), (rev.comment = comment);
+                          rev.rating = rating;
+                         rev.comment = comment;
               });
        } else {
               // if isReviewed false that mean user not did any reviwe in that product so add new one and push it into product.reviews array
@@ -136,15 +137,15 @@ exports.createProductReview = asyncWrapper(async (req, res, next) => {
 
        // now find total ratings for that product. based on all reviews
        let avg = 0;
-    // caluclate all reviews sum of  all ratings then calcculate avg of that review
+    // caluclate all reviews sum of  all ratings then calculate avg of that review
        product.reviews.forEach((rev) => {
               avg += rev.rating;
        });
 
          // update rating avg
-         console.log(avg);
+   
        product.ratings = avg / product.reviews.length;
-       console.log(product.ratings);
+     
   // save to db
        await product.save({ validateBeforeSave: false });
 
