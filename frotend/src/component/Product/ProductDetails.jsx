@@ -3,7 +3,6 @@ import "./ProductDetails.css";
 import { useSelector, useDispatch } from "react-redux";
 import ReviewCard from "./ReviewCard";
 import { useRouteMatch } from "react-router-dom";
-
 import {
   clearErrors,
   getProductDetails,
@@ -12,7 +11,6 @@ import {
 import Loader from "../layouts/loader/Loader";
 import { useAlert } from "react-alert";
 import MetaData from "../layouts/MataData/MataData";
-import ReactStars from "react-rating-stars-component";
 import { addItemToCart } from "../../actions/cartAction";
 import {
   Dialog,
@@ -42,12 +40,10 @@ function ProductDetails() {
 
   // get review from addNewReview
   //  changing error name to reviewError because error also using from productDetails state .
-   
-const { success, error: reviewError } = useSelector((state) => {
-  console.log(state.addNewReview);
-  return state.addNewReview;
-}); 
 
+  const { success, error: reviewError } = useSelector((state) => {
+    return state.addNewReview;
+  });
 
   // options for Rating of matrial ui component
   const options = {
@@ -73,7 +69,7 @@ const { success, error: reviewError } = useSelector((state) => {
     }
 
     dispatch(getProductDetails(match.params.id));
-  }, [dispatch, error, alert , success , reviewError]);
+  }, [dispatch, error, alert, success, reviewError]);
 
   function increaseQuantityHandler() {
     if (product.Stock <= quantity) {
@@ -101,13 +97,13 @@ const { success, error: reviewError } = useSelector((state) => {
   };
 
   // review handler
-  function reviewSubmitHandler(){
-    const myForm  = new FormData();
-    myForm.set("ratings" , rating);
-    myForm.set("comment" , comment);
-    myForm.set("productId" , match.params.id);
+  function reviewSubmitHandler() {
+    const myForm = new FormData();
+    myForm.set("ratings", rating);
+    myForm.set("comment", comment);
+    myForm.set("productId", match.params.id);
     dispatch(newReview(myForm));
-     setOpen(false);
+    setOpen(false);
   }
 
   return (
@@ -187,7 +183,7 @@ const { success, error: reviewError } = useSelector((state) => {
               <Rating
                 onChange={(e) => setRating(e.target.value)}
                 value={rating}
-                size="large"
+                precision={0.5}
               />
 
               <textarea
@@ -201,10 +197,20 @@ const { success, error: reviewError } = useSelector((state) => {
             </DialogContent>
 
             <DialogActions>
-              <button onClick={submitReviewToggle} color="secondary">
+              <Button
+                variant="outlined"
+                size="medium"
+                color="secondary"
+                onClick={submitReviewToggle}
+              >
                 Cancel
-              </button>
-              <Button onClick={reviewSubmitHandler} color="primary">
+              </Button>
+              <Button
+                onClick={reviewSubmitHandler}
+                variant="contained"
+                size="medium"
+                color="primary"
+              >
                 Submit
               </Button>
             </DialogActions>
@@ -219,7 +225,7 @@ const { success, error: reviewError } = useSelector((state) => {
                   <ReviewCard
                     key={review._id}
                     review={review}
-                    ratings={product.ratings}
+                    ratings={review.ratings}
                   />
                 ))}
             </div>

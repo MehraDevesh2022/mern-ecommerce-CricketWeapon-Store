@@ -8,7 +8,7 @@ exports.createProduct = asyncWrapper(async (req, res) => {
   const body = req.body;
 
   // when we have multiple admin . to ishe ye pta chlgea kiss admin ne konsa product cretae kiya hai. q ki product schema main user section main  user ki id add ho jayegi.
-  req.body.user = req.user.id // req.user created by us.. user all data store in this object from there we are adding user id to the products user section
+  req.body.user = req.user.id; // req.user created by us.. user all data store in this object from there we are adding user id to the products user section
 
   const data = await ProductModel.create(body);
 
@@ -103,32 +103,34 @@ exports.createProductReview = asyncWrapper(async (req, res, next) => {
 
   // check if user di review already
   const isReviewed = product.reviews.find((rev) => {
-    return rev.userId.toString() === req.user._id.toString(); 
+    return rev.userId.toString() === req.user._id.toString();
   });
 
   // agar  isReviewd ==true iska mtlv user ne pehle review kiya then update. else add new
   if (isReviewed) {
     // find that user in reviews array
     product.reviews.forEach((rev) => {
-      if (rev.userId.toString() === req.user._id.toString()){
-         rev.ratings = ratings;
-         rev.comment = comment;
+      if (rev.userId.toString() === req.user._id.toString()) {
+        rev.ratings = ratings;
+        rev.comment = comment;
+         product.numOfReviews = product.reviews.length;
       }
-     });
-     // not reviewd  before then add new one
+    });
+    // not reviewd  before then add new one
   } else {
     product.reviews.push(review);
-    console.log(product.reviews.length);
     product.numOfReviews = product.reviews.length;
+    console.log(product.reviews.length);
   }
 
   // now find total ratings for that product. based on all reviews
   let avg = 0;
+
   // caluclate all reviews sum of  all ratings then calculate avg of that review
   product.reviews.forEach((rev) => {
     avg += rev.ratings;
   });
-
+// console.log(avg);
   // update rating avg
 
   product.ratings = avg / product.reviews.length;
@@ -173,15 +175,13 @@ exports.deleteReview = asyncWrapper(async (req, res, next) => {
     (rev) => rev._id.toString() !== req.query.id.toString()
   );
   // once review filterd then update new rating from prdoduct review
-  let avg = 0;
-  console.log(reviews);
-  reviews.forEach((rev) => {
+   let avg = 0;
+   reviews.forEach((rev) => {
     console.log(rev.ratings, " rev");
     avg += rev.ratings;
   });
 
   let ratings = 0;
-
   if (reviews.length === 0) {
     ratings = 0;
   } else {

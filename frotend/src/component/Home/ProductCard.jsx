@@ -3,12 +3,12 @@ import StarsRating from "stars-rating";
 import { render } from "react-dom";
 import { Link } from 'react-router-dom';
 import ReactStars from "react-rating-stars-component";
+import { Rating } from "@material-ui/lab";
 function ProductCard({product}) {
-    const firstExample = {
+    const options = {
       value: product.ratings,
-      edit: false,
-      size: window.innerWidth < 600 ? 18 : 20,
-      isHalf: true,
+      readOnly: true,
+      precision: 0.5,
     };
   
   return (
@@ -17,7 +17,7 @@ function ProductCard({product}) {
       <p>{product.name}</p>
 
       <div>
-        <ReactStars {...firstExample} />
+        <Rating {...options} />
         <span className="productCardSpan">({product.numOfReviews})</span>
       </div>
       <span>{`₹${product.price}`}</span>
