@@ -22,18 +22,19 @@ function UserOptions({user}) {
 
 const options = [
   // these all are from matrial ui
-  { icon: <ListAltIcon />, name: "Orders", func: orders },
+
   { icon: <PersonIcon />, name: "Profile", func: account },
-  { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
+  { icon: <ListAltIcon />, name: "Orders", func: orders },
   {
     icon: (
       <ShoppingCartIcon
         style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
       />
     ),
-    name : `Cart(${cartItems.length})`,
-    func : cart
+    name: `Cart(${cartItems.length})`,
+    func: cart,
   },
+  { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
 ];
 
 if(user.role === "admin"){
@@ -47,8 +48,7 @@ if(user.role === "admin"){
 }
 
 function dashboard(){
-    // history.push("/admin/dashboard");
-    console.alert("/admin/dashboard");
+    history.push("/admin/dashboard");
 }
 
 

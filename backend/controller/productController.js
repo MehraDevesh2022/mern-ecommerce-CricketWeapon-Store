@@ -41,20 +41,37 @@ exports.getAllProducts = asyncWrapper(async (req, res, next) => {
   });
 });
 
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> get all product admin route>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+exports.getAllProductsAdmin  = asyncWrapper(async (req , res) =>{
+
+  const products = await ProductModel.find();
+
+  res.status(201).json({
+    succes : true,
+    products 
+  })  
+
+
+})
+
+
 //>>>>>>>>>>>>>>>>>> Update Admin Route >>>>>>>>>>>>>>>>>>>>>>>
 exports.updateProduct = asyncWrapper(async (req, res, next) => {
   let Product = await ProductModel.findById(req.params.id);
-  // console.log(Product);
   if (!Product) {
     return next(new ErrorHandler("Product not found", 404));
   }
 
-  // console.log(Product);
+
   Product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
   });
+  
   res.status(201).json({
     succes: true,
     message: Product,

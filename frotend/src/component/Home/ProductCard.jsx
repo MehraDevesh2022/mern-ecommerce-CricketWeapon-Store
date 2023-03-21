@@ -1,8 +1,5 @@
 import React from 'react'
-import StarsRating from "stars-rating";
-import { render } from "react-dom";
 import { Link } from 'react-router-dom';
-import ReactStars from "react-rating-stars-component";
 import { Rating } from "@material-ui/lab";
 function ProductCard({product}) {
     const options = {

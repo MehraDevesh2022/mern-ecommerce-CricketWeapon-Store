@@ -8,20 +8,18 @@ import { useHistory } from "react-router-dom";
 import { BiUserCircle } from "react-icons/bi";
 
 function Header() {
-  const history  = useHistory();
-  const [keyword , setKeyWord] = React.useState("");
+  const history = useHistory();
+  const [keyword, setKeyWord] = React.useState("");
 
-   const searchSubmitHandler = (e)=>{
+  const searchSubmitHandler = (e) => {
     e.preventDefault();
 
-    if(keyword.trim()){
-       history.push(`/products/${keyword}`);
-
-    }else{
+    if (keyword.trim()) {
+      history.push(`/products/${keyword}`);
+    } else {
       history.push("/products");
     }
-
-   }
+  };
 
   return (
     <div className="header">
@@ -34,9 +32,10 @@ function Header() {
       {/* header-navbar */}
       <div className="header__nav">
         <ul>
-          <li>
+          <li style={{ textDecoration: "none" }}>
             <a href="#">Home</a>
           </li>
+
           <Link to="/products">
             <li>
               <a href="#">Product</a>
@@ -69,7 +68,7 @@ function Header() {
         <div className="header__optionBasket">
           <ShoppingBasketIcon />
           <span className="header__optionLineTwo header__basketCount">{5}</span>
-          <Link to="/login" style={{ textDecoration: "none"  ,color : "white"}}>
+          <Link to="/login" style={{ textDecoration: "none", color: "white" }}>
             <span className="header__login">
               <BiUserCircle />
             </span>
