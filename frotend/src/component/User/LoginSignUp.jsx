@@ -49,11 +49,13 @@ function LoginSignUp() {
 
   function handleSignUpSubmit(e) {
     e.preventDefault();
+
     const myForm = new FormData(); // it will create a form intsnce for posting form data with multiple property
     myForm.set("name", name); //  FormData.set() Sets a new value for an existing key inside a FormData object,
     myForm.set("email", email); //  or adds the key/value if it does not already exist.
     myForm.set("password", password);
     myForm.set("avatar", avatar);
+
     dispatch(signUp(myForm));
   }
 
@@ -201,6 +203,7 @@ function LoginSignUp() {
                 <img src={avatarPreview} alt="Avatar Preview" />
                 <input
                   type="file"
+                  required
                   name="avatar"
                   accept="image/*" // all type image
                   onChange={registerDataChange}

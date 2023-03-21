@@ -8,8 +8,7 @@ const cloudinary = require("cloudinary");
     
 // signUp controller>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.registerUser = asyncWrapper(async (req , res) =>{
- 
-  console.log("register");
+   
  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
    folder: "Avatar", // this folder cloudainry data base manage by us
    width: 150,
