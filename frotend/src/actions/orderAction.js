@@ -25,7 +25,7 @@ export const createOrder = (order) => async (dispatch) => {
   }
 };
 
-
+// get all orders
 export const myOrders = () => async (dispatch) => {
   try {
     dispatch({ type: MY_ORDER_REQUEST });
