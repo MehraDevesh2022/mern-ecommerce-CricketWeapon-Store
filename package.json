@@ -11,10 +11,12 @@
   "author": "itsCodeWithDEv",
   "license": "ISC",
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@material-ui/data-grid": "^4.0.0-alpha.37",
     "@strapi/provider-upload-cloudinary": "^4.6.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
+    "chart.js": "^4.2.1",
     "cloudinary": "^1.34.0",
     "cookie-parser": "^1.4.6",
     "crypto": "^1.0.1",
@@ -28,6 +30,7 @@
     "mongoose": "^6.9.0",
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.20",
+    "react-chartjs-2": "^5.2.0",
     "react-js-pagination": "^3.0.3",
     "stripe": "^11.14.0",
     "validator": "^13.9.0"

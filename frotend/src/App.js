@@ -27,6 +27,7 @@ import Payment from "./component/Cart/Payment";
 import OrderSuccess from "./component/Cart/OrderSuccess";
 import MyOrder from "./component/order/MyOrder";
 import OrderDetails from "./component/order/OrderDetails";
+import Dashboard from "./component/Admin/Dashboard";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
      const [stripeApiKey, setStripeApiKey] = useState("");
@@ -107,6 +108,7 @@ function App() {
           <PrivateRoute exact path="/success" component={OrderSuccess} />
           <PrivateRoute exact path="/orders" component={MyOrder} />
           <PrivateRoute exact path="/order/:id" component={OrderDetails} />
+          <PrivateRoute isAdmin={true} exact path="/admin/dashboard" component={Dashboard} />
         </Switch>
         <Footer />
       </Router>
