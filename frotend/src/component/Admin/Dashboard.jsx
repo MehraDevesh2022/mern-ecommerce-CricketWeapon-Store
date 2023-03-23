@@ -102,7 +102,7 @@ function Dashboard() {
               <div className="dashboardSummary">
                 <div>
                   <p>
-                    Total Amount <br /> ₹{22000}
+                    Total Amount <br /> ₹{7777}
                   </p>
                 </div>
                 <div className="dashboardSummaryBox2">
@@ -112,11 +112,11 @@ function Dashboard() {
                   </Link>
                   <Link to="/admin/orders">
                     <p>Orders</p>
-                    <p>{1000}</p>
+                    <p>{44}</p>
                   </Link>
                   <Link to="/admin/users">
                     <p>Users</p>
-                    <p>{1000}</p>
+                    <p>{11}</p>
                   </Link>
                 </div>
               </div>
@@ -143,3 +143,6 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+
+
