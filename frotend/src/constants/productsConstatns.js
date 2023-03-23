@@ -6,10 +6,16 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
 
 // admin product request
-
 export const ADMIN_PRODUCT_REQUEST = "ADMIN_PRODUCT_REQUEST";
 export const ADMIN_PRODUCT_SUCCESS = "ADMIN_PRODUCT_SUCCESS";
 export const ADMIN_PRODUCT_FAIL = "ADMIN_PRODUCT_FAIL";
+
+// create new Product
+
+export const NEW_PRODUCT_REQUEST = "NEW_PRODUCT_SUCCESS";
+export const NEW_PRODUCT_SUCCESS = "NEW_PRODUCT_SUCCESS";
+export const NEW_PRODUCT_RESET = "NEW_PRODUCT_RESET";
+export const NEW_PRODUCT_FAIL = "NEW_PRODUCT_FAIL";
 
 // Product details -->
 export const PRODUCT_DETAILS_REQUEST = "PRODUCT_DETAILS_REQUEST";

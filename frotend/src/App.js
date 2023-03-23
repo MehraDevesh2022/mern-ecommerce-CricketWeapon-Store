@@ -29,7 +29,7 @@ import MyOrder from "./component/order/MyOrder";
 import OrderDetails from "./component/order/OrderDetails";
 import Dashboard from "./component/Admin/Dashboard";
 import ProductList from "./component/Admin/ProductList"; 
-
+import NewProduct from "./component/Admin/NewProduct";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
@@ -44,7 +44,7 @@ function App() {
     
      }
 
-  React.useEffect(() => {
+  useEffect(() => {
     // this is for user data load for profile section if user logged in
     store.dispatch(load_UserProfile());
 
@@ -111,8 +111,21 @@ function App() {
           <PrivateRoute exact path="/success" component={OrderSuccess} />
           <PrivateRoute exact path="/orders" component={MyOrder} />
           <PrivateRoute exact path="/order/:id" component={OrderDetails} />
-          <PrivateRoute isAdmin={true} exact path="/admin/dashboard" component={Dashboard} />
-          <PrivateRoute isAdmin={true} exact path ="/admin/products" component={ProductList}/>
+          <PrivateRoute
+            isAdmin={true}
+            exact
+            path="/admin/dashboard"
+            component={Dashboard}
+          />
+          <PrivateRoute
+            isAdmin={true}
+            exact
+            path="/admin/products"
+            component={ProductList}
+          />
+          <PrivateRoute isAdmin={true} exact path="/admin/new/product"  
+           component={NewProduct}
+          />
         </Switch>
         <Footer />
       </Router>

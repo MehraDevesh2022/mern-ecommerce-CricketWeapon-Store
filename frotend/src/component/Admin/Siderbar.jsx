@@ -40,7 +40,7 @@ function Sidebar() {
                 <TreeItem nodeId="2" label="All" icon={<PostAddIcon />} />
               </Link>
 
-              <Link to="/admin/product">
+              <Link to="/admin/new/product">
                 <TreeItem
                   nodeId="3"
                   label="Create"
