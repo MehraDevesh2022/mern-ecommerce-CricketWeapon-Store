@@ -6,39 +6,39 @@ const cloudinary = require("cloudinary");
 
 // >>>>>>>>>>>>>>>>>>>>> createProduct Admin route  >>>>>>>>>>>>>>>>>>>>>>>>
 exports.createProduct = asyncWrapper(async (req, res) => {
-  let images = [];
+  // let images = [];
+  // console.log(req.body.images);
+  // /**
+  //  * !if user add 1 pic to product data then req.body.images has only 1 url as string form else array of images url were stored
+  //  * @images will store all image of product from clint side
+  //  * */
+  // if (typeof req.body.images === "string") {
+  //   images.push(req.body.images);
+  // } else {
+  //   images = req.body.images; // when more than 1 image it is from of array of img url string
+  // }
 
-  /**
-   * !if user add 1 pic to product data then req.body.images has only 1 url as string form else array of images url were stored
-   * @images will store all image of product from clint side
-   * */
-  if (typeof req.body.images === "string") {
-    images.push(req.body.images);
-  } else {
-    images = req.body.images; // when more than 1 image it is from of array of img url string
-  }
+  // // for cloudinary url and public_id of each image
+  // const imagesLinks = [];
 
-  // for cloudinary url and public_id of each image
-  const imagesLinks = [];
-
-  for (let i = 0; i < images.length; i++) {
-    // store every image of product in cloud
-    let result = await cloudinary.v2.uploader.upload(images[i], {
-      folder: "Products",
-    });
-    // now add each id and url from cloud for product db
-    imagesLinks.push({
-      public_id: result.public_id,
-      url: result.secure_url,
-    });
-  }
+  // for (let i = 0; i < images.length; i++) {
+  //   // store every image of product in cloud
+  //   let result = await cloudinary.v2.uploader.upload(images[i], {
+  //     folder: "Products",
+  //   });
+  //   // now add each id and url from cloud for product db  
+  //   imagesLinks.push({
+  //     public_id: result.public_id,
+  //     url: result.secure_url,
+  //   });
+  // }
 
   // ! When we have multiple admin .
   req.body.user = req.user.id; // will ref to products to there respected admin
-  req.body.images = imagesLinks; // now add cloud images link and id to image for db
+  // req.body.images = imagesLinks; // now add cloud images link and id to image for db
   const data = await ProductModel.create(req.body);
 
-  res.status(200).json({ succes: true, data: data });
+  res.status(200).json({ success: true, data: data });
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> get all product >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

@@ -12,15 +12,11 @@ import {
   ADMIN_PRODUCT_FAIL,
   ADMIN_PRODUCT_REQUEST,
   ADMIN_PRODUCT_SUCCESS,
-  NEW_PRODUCT_FAIL,
-  NEW_PRODUCT_RESET, 
-  NEW_PRODUCT_SUCCESS,
   NEW_PRODUCT_REQUEST,
+  NEW_PRODUCT_SUCCESS,
+  NEW_PRODUCT_FAIL,
   CLEAR_ERRORS,
 } from "../constants/productsConstatns";
-
-
-
 
 // get ALL Products
 export const getProduct = (
@@ -58,9 +54,6 @@ export const getProduct = (
   };
 };
 
-
-
-
 // Get Products Details
 export const getProductDetails = (id) => {
   return async (dispatch) => {
@@ -92,7 +85,7 @@ export const newReview = (reviewData) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.put(`/api/v1/review/new`, reviewData, config);
-   console.log(data.success);
+    console.log(data.success);
     dispatch({ type: NEW_REVIEW_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({ type: NEW_REVIEW_FAIL, payload: error.message });
@@ -100,47 +93,50 @@ export const newReview = (reviewData) => async (dispatch) => {
 };
 
 
-// Create new Product 
-export const addNewProduct  = (productData) => async(dispatch) =>{
+// admin product request :
+export const getAdminProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: ADMIN_PRODUCT_REQUEST });
 
-   try {
-    dispatch({type : NEW_PRODUCT_REQUEST})
+    const { data } = await axios.get("/api/v1/admin/products");
 
-    const config = {headers : {"Content-Type" : "application/json"}}
+    dispatch({ type: ADMIN_PRODUCT_SUCCESS, payload: data.products });
+  } catch (error) {
+    dispatch({ type: ADMIN_PRODUCT_FAIL, payload: error.message });
+  }
+};
+
+
+// add new Product =>
+
+// Create Product
+export const createProduct = (productData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_PRODUCT_REQUEST });
+      console.log("action");
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
 
     const { data } = await axios.post(
-      "/api/v1/admin/product/new",
+      `/api/v1/admin/product/new`,
       productData,
       config
     );
-    
-      dispatch({type : NEW_PRODUCT_SUCCESS , payload : data})
-   } catch (error) {
-      dispatch({type : NEW_PRODUCT_FAIL ,  payload : error.message})
-   }
+console.log("data" , data);
+    dispatch({
+      type: NEW_PRODUCT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+
 }
-
-
-// admin product request :
-export const getAdminProducts = () => async (dispatch) =>{
-
- try {
-   dispatch({type : ADMIN_PRODUCT_REQUEST })
-
-   const {data} = await axios.get("/api/v1/admin/products");
-
-   dispatch({type :ADMIN_PRODUCT_SUCCESS ,  payload : data.products})
-
-
- } catch (error) {
-     dispatch({type : ADMIN_PRODUCT_FAIL ,  payload : error.message});
- }
-
-} 
-
 // clear error
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
 };
-
-

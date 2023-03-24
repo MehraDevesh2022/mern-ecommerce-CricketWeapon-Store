@@ -7,7 +7,7 @@ import { Link, useRouteMatch } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import { getOrderDetails, clearErrors } from "../../actions/orderAction";
 import { useAlert } from "react-alert";
-  console.log("hello world");
+
 function OrderDetails() {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
   const dispatch = useDispatch();

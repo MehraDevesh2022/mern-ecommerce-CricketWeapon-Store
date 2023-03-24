@@ -18,7 +18,7 @@ function Dashboard() {
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
   const alert = useAlert();
-  console.log("render");
+
   let OutOfStock = 0;
   products &&
     products.forEach((element) => {
@@ -33,7 +33,7 @@ function Dashboard() {
       alert.error(error);
       dispatch(clearErrors);
     }
-    console.log(loading);
+
     dispatch(getAdminProducts());
   }, [dispatch, error, alert]);
 
