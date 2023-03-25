@@ -1,7 +1,7 @@
 const nodeMailer = require("nodemailer");
 // options are pass as arg from userController
 const sendEmail = async (options) => {
-    console.log(options);
+
     const transporter = nodeMailer.createTransport({
           //Simple Mail Transfer Protocol (SMTP) (write any thing but that make sense. its env fi)
         host: process.env.SMTP_HOST, // "smtp.gmail.com"

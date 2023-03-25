@@ -11,18 +11,18 @@ import StorageIcon from "@material-ui/icons/Storage";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import Sidebar from "./Siderbar";
-import { createProduct , clearErrors } from "../../actions/productAction";
+import { createProduct, clearErrors } from "../../actions/productAction";
 import { useHistory } from "react-router-dom";
 import { NEW_PRODUCT_RESET } from "../../constants/productsConstatns";
 
-
-
 function NewProduct() {
-   const dispatch = useDispatch();
-   const history = useHistory()
+  const dispatch = useDispatch();
+  const history = useHistory();
   const alert = useAlert();
 
-const { loading, error, success } = useSelector((state) => state.newProduct);
+  const { loading, error, success } = useSelector(
+    (state) => state.addNewProduct
+  );
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
@@ -64,34 +64,29 @@ const { loading, error, success } = useSelector((state) => state.newProduct);
     myForm.set("description", description);
     myForm.set("category", category);
     myForm.set("Stock", Stock);
-    
-    dispatch(createProduct(myForm))
-    // images.forEach((image) => {
-    //   myForm.append("images", image);
-    // });
+     images.forEach((currImg) => {
+      myForm.append("images", currImg);
+    });
 
+    dispatch(createProduct(myForm));
   };
 
   const createProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
-
     setImages([]);
     setImagesPreview([]);
 
     files.forEach((file) => {
       const reader = new FileReader();
-
       reader.onload = () => {
         if (reader.readyState === 2) {
           setImagesPreview((old) => [...old, reader.result]);
           setImages((old) => [...old, reader.result]);
         }
       };
-
       reader.readAsDataURL(file);
     });
   };
-
 
   return (
     <>
@@ -134,7 +129,7 @@ const { loading, error, success } = useSelector((state) => state.newProduct);
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 cols="30"
-                rows="1"
+                rows="1"   
               ></textarea>
             </div>
 
@@ -188,5 +183,5 @@ const { loading, error, success } = useSelector((state) => state.newProduct);
       </div>
     </>
   );
-};
+}
 export default NewProduct;

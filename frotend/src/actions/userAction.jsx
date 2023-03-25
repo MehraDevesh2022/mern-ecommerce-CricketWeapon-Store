@@ -64,13 +64,13 @@ export function signUp(signupData) {
         signupData,
         config
       );
-      console.log(data);
+
       dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
 
 
 
     } catch (error) {
-      console.log(error);
+  
       dispatch({ type: REGISTER_USER_FAIL, payload: error.message })
     }
 

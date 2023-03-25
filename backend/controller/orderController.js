@@ -2,7 +2,7 @@ const asyncWrapper = require("../middleWare/asyncWrapper");
 const orderModel = require("../model/orderModel");
 const prdoductModel = require("../model/ProductModel");
 const ErrorHandler = require("../utils/errorHandler");
-
+   
 //>>>>>>>>>>>>>>>  create a order    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.newOrder = asyncWrapper(async (req, res, next) => {
   const {

@@ -85,13 +85,12 @@ export const newReview = (reviewData) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.put(`/api/v1/review/new`, reviewData, config);
-    console.log(data.success);
+
     dispatch({ type: NEW_REVIEW_SUCCESS, payload: data.success });
   } catch (error) {
     dispatch({ type: NEW_REVIEW_FAIL, payload: error.message });
   }
 };
-
 
 // admin product request :
 export const getAdminProducts = () => async (dispatch) => {
@@ -106,36 +105,37 @@ export const getAdminProducts = () => async (dispatch) => {
   }
 };
 
-
-// add new Product =>
-
 // Create Product
-export const createProduct = (productData) => async (dispatch) => {
-  try {
-    dispatch({ type: NEW_PRODUCT_REQUEST });
-      console.log("action");
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
+export function createProduct(productData) {
+  return async function(dispatch) {
+    try {
+      dispatch({
+        type: NEW_PRODUCT_REQUEST,
+      });
 
-    const { data } = await axios.post(
-      `/api/v1/admin/product/new`,
-      productData,
-      config
-    );
-console.log("data" , data);
-    dispatch({
-      type: NEW_PRODUCT_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: NEW_PRODUCT_FAIL,
-      payload: error.response.data.message,
-    });
-  }
+      const config = {
+        headers: { "Content-Type": "multipart/form-data" },
+      };
 
+      const { data } = await axios.post(
+        `/api/v1/admin/product/new`,
+        productData,
+        config
+      );
+
+      dispatch({
+        type: NEW_PRODUCT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: NEW_PRODUCT_FAIL,
+        payload: error.message,
+      });
+    }
+  };
 }
+
 // clear error
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });

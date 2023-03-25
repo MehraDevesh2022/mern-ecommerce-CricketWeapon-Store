@@ -16,7 +16,7 @@ import {
   NEW_PRODUCT_REQUEST,
   NEW_PRODUCT_SUCCESS,
   NEW_PRODUCT_FAIL,
-  NEW_PRODUCT_RESET
+  NEW_PRODUCT_RESET,
 } from "../constants/productsConstatns";
 
 export const productsReducer = (state = { products: [] }, action) => {
@@ -97,17 +97,13 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
 
 // new Review Reducer
 export const newReviewReducer = (state = {}, action) => {
- 
- 
- 
   switch (action.type) {
     case NEW_REVIEW_REQUEST:
-     return {
+      return {
         ...state,
         loading: true,
       };
     case NEW_REVIEW_SUCCESS:
-     
       return {
         loading: false,
         success: action.payload,
@@ -136,40 +132,42 @@ export const newReviewReducer = (state = {}, action) => {
   }
 };
 
-// 
+//
 
-export const newProductReducer = (state = {}, action) => {
+export const newProductReducer = (state = { newProductData: [] }, action) => {
   switch (action.type) {
-    
-    case NEW_PRODUCT_REQUEST:
-      return {
-    
-        loading: true,  
-      };
+    case NEW_PRODUCT_REQUEST: {
+      return { loading: true };
+    }
+
     case NEW_PRODUCT_SUCCESS:
-      console.log("req" ,action.type);
-      console.log("res" ,action.payload);
-      return {
-        loading: false,
-        success: action.payload.success,
-        product: action.payload.data,
-      };
-    case NEW_PRODUCT_FAIL:
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        success: action.payload.success,
+        newProductData: action.payload.data,
       };
+
+    case NEW_PRODUCT_FAIL:
+      {
+        console.log(action.type);
+        return {
+          loading: false,
+          error: action.payload,
+        };
+      }
     case NEW_PRODUCT_RESET:
       return {
         ...state,
         success: false,
       };
-    case CLEAR_ERRORS:
-      return {
+    case CLEAR_ERRORS: {
+     return {
         ...state,
         error: null,
       };
+    }
+
     default:
       return state;
   }
