@@ -17,6 +17,10 @@ import {
   NEW_PRODUCT_SUCCESS,
   NEW_PRODUCT_FAIL,
   NEW_PRODUCT_RESET,
+  DELETE_PRODUCT_REQUEST,
+  DELETE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_RESET,
+  DELETE_PRODUCT_FAIL,
 } from "../constants/productsConstatns";
 
 export const productsReducer = (state = { products: [] }, action) => {
@@ -132,7 +136,7 @@ export const newReviewReducer = (state = {}, action) => {
   }
 };
 
-//
+//cretae a product reducer
 
 export const newProductReducer = (state = { newProductData: [] }, action) => {
   switch (action.type) {
@@ -172,3 +176,43 @@ export const newProductReducer = (state = { newProductData: [] }, action) => {
       return state;
   }
 };
+
+
+// delte and Upadate reducer :
+
+export function deleteUpdateReducer(state ={product : {}} , action){
+
+  switch (action.type) {
+    case DELETE_PRODUCT_REQUEST:
+      return{
+        ...state,
+        loading : true
+      }
+      
+      case DELETE_PRODUCT_SUCCESS : 
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+      case DELETE_PRODUCT_FAIL :
+        return {
+          
+          loading : false,
+          error : action.payload
+        }
+        case DELETE_PRODUCT_RESET : 
+        return {
+          ...state,
+          isDeleted: false,
+        };
+        
+        case CLEAR_ERRORS :
+          return{
+            ...state,
+            error : null
+          }
+          default : return state
+  }
+
+}

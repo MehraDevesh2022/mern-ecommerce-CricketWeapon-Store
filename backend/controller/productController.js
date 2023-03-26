@@ -4,9 +4,6 @@ const asyncWrapper = require("../middleWare/asyncWrapper");
 const ApiFeatures = require("../utils/apiFeatures");
 const cloudinary = require("cloudinary");
 
-
-
-
 // >>>>>>>>>>>>>>>>>>>>> createProduct Admin route  >>>>>>>>>>>>>>>>>>>>>>>>
 exports.createProduct = asyncWrapper(async (req, res) => {
   let images = [];
@@ -26,8 +23,8 @@ exports.createProduct = asyncWrapper(async (req, res) => {
     // for cloudinary url and public_id of each image
     const imagesLinks = [];
 
-    for (let i = 0; i < images.length; i++) {
-      const result = await cloudinary.v2.uploader.upload(images[i], {
+    for (let img of images) {
+      const result = await cloudinary.v2.uploader.upload(img, {
         folder: "Products",
       });
 
@@ -37,6 +34,7 @@ exports.createProduct = asyncWrapper(async (req, res) => {
       });
     }
     // ! When we have multiple admin .
+    // console.log(imagesLinks);
     req.body.user = req.user.id; // will ref to products to there respected admin
     req.body.images = imagesLinks; // now add cloud images link and id to image for db
   }
@@ -45,10 +43,6 @@ exports.createProduct = asyncWrapper(async (req, res) => {
 
   res.status(200).json({ success: true, data: data });
 });
-
-
-
-
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> get all product >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.getAllProducts = asyncWrapper(async (req, res, next) => {
@@ -82,7 +76,7 @@ exports.getAllProductsAdmin = asyncWrapper(async (req, res) => {
   const products = await ProductModel.find();
 
   res.status(201).json({
-    succes: true,
+    success: true,
     products,
   });
 });
@@ -114,10 +108,15 @@ exports.deleteProduct = asyncWrapper(async (req, res, next) => {
     return next(new ErrorHandler("Product not found", 404));
   }
 
+  // Deleting Images From Cloudinary
+  // for (let i = 0; i < product.images.length; i++) {
+  //   await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+  // }
+
   await product.remove();
 
   res.status(201).json({
-    succes: true,
+    success: true,
     message: "Product delete successfully",
   });
 });

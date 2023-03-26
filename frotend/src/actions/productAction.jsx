@@ -15,6 +15,9 @@ import {
   NEW_PRODUCT_REQUEST,
   NEW_PRODUCT_SUCCESS,
   NEW_PRODUCT_FAIL,
+  DELETE_PRODUCT_REQUEST,
+  DELETE_PRODUCT_SUCCESS,
+  DELETE_PRODUCT_FAIL,
   CLEAR_ERRORS,
 } from "../constants/productsConstatns";
 
@@ -132,6 +135,22 @@ export function createProduct(productData) {
         type: NEW_PRODUCT_FAIL,
         payload: error.message,
       });
+    }
+  };
+}
+
+// Delete Product request
+
+export function deleteProduct(id) {
+  return async function(dispatch) {
+    try {
+      dispatch({ type: DELETE_PRODUCT_REQUEST });
+
+      const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
+      console.log(data);
+      dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: data.success });
+    } catch (error) {
+      dispatch({ type: DELETE_PRODUCT_FAIL, payload: error.message });
     }
   };
 }
