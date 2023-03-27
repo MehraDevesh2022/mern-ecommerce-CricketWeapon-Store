@@ -30,6 +30,8 @@ import OrderDetails from "./component/order/OrderDetails";
 import Dashboard from "./component/Admin/Dashboard";
 import ProductList from "./component/Admin/ProductList"; 
 import NewProduct from "./component/Admin/NewProduct";
+import UpdateProduct from "./component/Admin/UpdateProduct";
+
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
@@ -123,8 +125,18 @@ function App() {
             path="/admin/products"
             component={ProductList}
           />
-          <PrivateRoute isAdmin={true} exact path="/admin/new/product"  
-           component={NewProduct}
+          <PrivateRoute
+            isAdmin={true}
+            exact
+            path="/admin/new/product"
+            component={NewProduct}
+          />
+
+          <PrivateRoute
+            isAdmin={true}
+            exact
+            path="/admin/product/:id"
+            component={UpdateProduct}
           />
         </Switch>
         <Footer />

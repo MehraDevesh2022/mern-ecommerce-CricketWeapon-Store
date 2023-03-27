@@ -7,10 +7,9 @@ const cloudinary = require("cloudinary");
 // >>>>>>>>>>>>>>>>>>>>> createProduct Admin route  >>>>>>>>>>>>>>>>>>>>>>>>
 exports.createProduct = asyncWrapper(async (req, res) => {
   let images = [];
-
   /**
-   * !if user add 1 pic to product data then req.body.images has only 1 url as string form else array of images url were stored
-   * @images will store all image of product from clint side
+   * !if user add 1 pic to Product data then req.body.images has only 1 url as string form else array of images url were stored
+   * @images will store all image of Product from clint side
    * */
 
   if (req.body.images) {
@@ -81,24 +80,70 @@ exports.getAllProductsAdmin = asyncWrapper(async (req, res) => {
   });
 });
 
+  
+
+
 //>>>>>>>>>>>>>>>>>> Update Admin Route >>>>>>>>>>>>>>>>>>>>>>>
 exports.updateProduct = asyncWrapper(async (req, res, next) => {
+
   let Product = await ProductModel.findById(req.params.id);
+ 
   if (!Product) {
     return next(new ErrorHandler("Product not found", 404));
   }
 
-  Product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+
+
+  if (images !== undefined) {
+    // Deleting Images From Cloudinary
+    for (let i = 0; i < Product.images.length; i++) {
+
+      await cloudinary.v2.uploader.destroy(Product.images[i].product_id);
+    }
+
+    const imagesLinks = [];
+  
+    for (let img of images) {
+      const result = await cloudinary.v2.uploader.upload(img, {
+        folder: "Products",
+      });
+
+      imagesLinks.push({
+        product_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+    
+   
+    req.body.images = imagesLinks;
+  }
+  
+
+
+  Product = await ProductModel.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
   });
 
+
   res.status(201).json({
-    succes: true,
-    message: Product,
+    success: true,
+    product: Product,
   });
+
 });
+
+
+
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  delete product --admin  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.deleteProduct = asyncWrapper(async (req, res, next) => {
@@ -109,9 +154,9 @@ exports.deleteProduct = asyncWrapper(async (req, res, next) => {
   }
 
   // Deleting Images From Cloudinary
-  // for (let i = 0; i < product.images.length; i++) {
-  //   await cloudinary.v2.uploader.destroy(product.images[i].public_id);
-  // }
+  for (let i = 0; i < product.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(product.images[i].product_id);
+  }
 
   await product.remove();
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { config } from "dotenv";
 import {
   ALL_PRODUCT_REQUEST,
   ALL_PRODUCT_SUCCESS,
@@ -18,6 +19,10 @@ import {
   DELETE_PRODUCT_REQUEST,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAIL,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_RESET,
+  UPDATE_PRODUCT_FAIL,
   CLEAR_ERRORS,
 } from "../constants/productsConstatns";
 
@@ -154,6 +159,34 @@ export function deleteProduct(id) {
     }
   };
 }
+
+//Update Product request =>
+// updateProduct;
+export const updateProduct = (id, productData) => async (dispatch) => {
+         try {
+           dispatch({ type: UPDATE_PRODUCT_REQUEST });
+
+           const config = {
+             headers: { "Content-Type": "application/json" },
+           };
+
+           const { data } = await axios.put(
+             `/api/v1/admin/product/${id}`,
+             productData,
+             config
+           );
+
+           dispatch({
+             type: UPDATE_PRODUCT_SUCCESS,
+             payload: data.success,
+           });
+         } catch (error) {
+           dispatch({
+             type: UPDATE_PRODUCT_FAIL,
+             payload: error.message,
+           });
+         }
+       };
 
 // clear error
 export const clearErrors = () => async (dispatch) => {

@@ -12,9 +12,10 @@ require("dotenv").config({ path: "./config/config.env" });
 
 
 
-app.use(helmet());
+
 
 // routes
+
 const user = require("./route/userRoute");
 const order = require("./route/orderRoute");
 const product = require("./route/productRoute")
@@ -28,7 +29,7 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(fileUpload());
 app.use(errorMiddleware);
-
+app.use(helmet());
 
 
 app.use("/api/v1", product);

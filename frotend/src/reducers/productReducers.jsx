@@ -20,6 +20,10 @@ import {
   DELETE_PRODUCT_REQUEST,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_RESET,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAIL,
+  UPDATE_PRODUCT_RESET,
   DELETE_PRODUCT_FAIL,
 } from "../constants/productsConstatns";
 
@@ -152,21 +156,20 @@ export const newProductReducer = (state = { newProductData: [] }, action) => {
         newProductData: action.payload.data,
       };
 
-    case NEW_PRODUCT_FAIL:
-      {
-        console.log(action.type);
-        return {
-          loading: false,
-          error: action.payload,
-        };
-      }
+    case NEW_PRODUCT_FAIL: {
+      console.log(action.type);
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    }
     case NEW_PRODUCT_RESET:
       return {
         ...state,
         success: false,
       };
     case CLEAR_ERRORS: {
-     return {
+      return {
         ...state,
         error: null,
       };
@@ -177,42 +180,55 @@ export const newProductReducer = (state = { newProductData: [] }, action) => {
   }
 };
 
-
 // delte and Upadate reducer :
 
-export function deleteUpdateReducer(state ={product : {}} , action){
-
+export function deleteUpdateReducer(state = { product: {} }, action) {
   switch (action.type) {
     case DELETE_PRODUCT_REQUEST:
-      return{
+    case UPDATE_PRODUCT_REQUEST:
+      return {
         ...state,
-        loading : true
-      }
-      
-      case DELETE_PRODUCT_SUCCESS : 
+        loading: true,
+      };
+
+    case UPDATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: action.payload,
+      };
+    case DELETE_PRODUCT_SUCCESS:
       return {
         ...state,
         loading: false,
         isDeleted: action.payload,
       };
-      case DELETE_PRODUCT_FAIL :
-        return {
-          
-          loading : false,
-          error : action.payload
-        }
-        case DELETE_PRODUCT_RESET : 
-        return {
-          ...state,
-          isDeleted: false,
-        };
-        
-        case CLEAR_ERRORS :
-          return{
-            ...state,
-            error : null
-          }
-          default : return state
-  }
+    case DELETE_PRODUCT_FAIL:
+    case UPDATE_PRODUCT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
+    case UPDATE_PRODUCT_RESET:
+      return {
+        ...state,
+        isUpdated: false,
+      };
+
+    case DELETE_PRODUCT_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
 }

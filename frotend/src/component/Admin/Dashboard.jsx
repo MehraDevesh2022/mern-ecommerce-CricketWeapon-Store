@@ -18,7 +18,7 @@ function Dashboard() {
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
   const alert = useAlert();
-
+  console.log(products);
   let OutOfStock = 0;
   products &&
     products.forEach((element) => {
@@ -79,6 +79,7 @@ function Dashboard() {
           {
             name: "In Stock",
             y: products.length - OutOfStock,
+            // y: 0 - OutOfStock,
             color: "#6800B4",
           },
         ],
