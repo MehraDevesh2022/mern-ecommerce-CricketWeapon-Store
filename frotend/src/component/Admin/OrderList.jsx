@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllOrders, clearErrors  , deleteOrder} from "../../actions/orderAction";
 import { useAlert } from "react-alert";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import MetaData from "../layouts/MataData/MataData";
 import Loader from "../layouts/loader/Loader";
 import { Button } from "@material-ui/core";
@@ -16,7 +16,6 @@ import { DELETE_ORDER_RESET } from "../../constants/orderConstant";
 function OrderList() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const match = useRouteMatch();
   const alert = useAlert();
   const { error, laoding, orders } = useSelector((state) => state.allOrders);
   const { error: deleteError, isDeleted } = useSelector(
@@ -106,9 +105,10 @@ function OrderList() {
 
   const rows =[];
   orders && orders.forEach(item =>{
+
     rows.push({
       id: item._id,
-      itemQty: item.orderItems.length,
+      itemsQty: item.orderItems.length,
       amount: item.totalPrice,
       status: item.orderStatus,
     });

@@ -1,4 +1,4 @@
-import React,{useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "./component/layouts/Footer/Footer";
 import Header from "./component/layouts/Header/Header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -28,35 +28,27 @@ import OrderSuccess from "./component/Cart/OrderSuccess";
 import MyOrder from "./component/order/MyOrder";
 import OrderDetails from "./component/order/OrderDetails";
 import Dashboard from "./component/Admin/Dashboard";
-import ProductList from "./component/Admin/ProductList"; 
+import ProductList from "./component/Admin/ProductList";
 import NewProduct from "./component/Admin/NewProduct";
 import UpdateProduct from "./component/Admin/UpdateProduct";
 import OrderList from "./component/Admin/OrderList";
-
+import ProcessOrder from "./component/Admin/ProcessOrder";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
-     const [stripeApiKey, setStripeApiKey] = useState("");
+  const [stripeApiKey, setStripeApiKey] = useState("");
 
-
-
-     // get STRIPE_API_KEY for payment from backend for cnnection to stripe payment gateWaY
-   async function getStripeApiKey(){
-      const { data } = await axios.get("/api/v1/stripeapikey");
-         setStripeApiKey(data.stripeApiKey);
-    
-     }
+  // get STRIPE_API_KEY for payment from backend for cnnection to stripe payment gateWaY
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeapikey");
+    setStripeApiKey(data.stripeApiKey);
+  }
 
   useEffect(() => {
     // this is for user data load for profile section if user logged in
     store.dispatch(load_UserProfile());
 
     getStripeApiKey();
-   
   }, [stripeApiKey]);
-
-
-
-
 
   return (
     <>
@@ -144,6 +136,12 @@ function App() {
             exact
             path="/admin/orders"
             component={OrderList}
+          />
+          <PrivateRoute
+            isAdmin={true}
+            exact
+            path="/admin/order/:id"
+            component={ProcessOrder}
           />
         </Switch>
         <Footer />
