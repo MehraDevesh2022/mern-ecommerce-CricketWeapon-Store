@@ -31,7 +31,7 @@ import Dashboard from "./component/Admin/Dashboard";
 import ProductList from "./component/Admin/ProductList"; 
 import NewProduct from "./component/Admin/NewProduct";
 import UpdateProduct from "./component/Admin/UpdateProduct";
-
+import OrderList from "./component/Admin/OrderList";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
@@ -137,6 +137,13 @@ function App() {
             exact
             path="/admin/product/:id"
             component={UpdateProduct}
+          />
+
+          <PrivateRoute
+            isAdmin={true}
+            exact
+            path="/admin/orders"
+            component={OrderList}
           />
         </Switch>
         <Footer />
