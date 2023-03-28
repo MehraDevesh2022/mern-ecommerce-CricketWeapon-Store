@@ -34,8 +34,8 @@ import UpdateProduct from "./component/Admin/UpdateProduct";
 import OrderList from "./component/Admin/OrderList";
 import ProcessOrder from "./component/Admin/ProcessOrder";
 import UserList from "./component/Admin/UserList";
+import UpdateUser from "./component/Admin/UpdateUser";
 function App() {
-  
   const { isAuthenticated, user } = useSelector((state) => state.userData);
   const [stripeApiKey, setStripeApiKey] = useState("");
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ function App() {
   useEffect(() => {
     // this is for user data load for profile section if user logged in
     dispatch(load_UserProfile());
-   
+
     getStripeApiKey();
   }, [dispatch]);
 
@@ -150,6 +150,12 @@ function App() {
             exact
             path="/admin/users"
             component={UserList}
+          />
+          <PrivateRoute
+            isAdmin={true}
+            exact
+            path="/admin/user/:id"
+            component={UpdateUser}
           />
         </Switch>
         <Footer />
