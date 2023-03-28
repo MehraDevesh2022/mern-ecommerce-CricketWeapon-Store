@@ -9,8 +9,8 @@ import Products from "./component/Product/Products";
 import LoginSignUp from "./component/User/LoginSignUp";
 import Profile from "./component/User/Profile";
 import { load_UserProfile } from "./actions/userAction";
-import store from "./store";
-import { useSelector } from "react-redux";
+// import store from "./store";
+import { useSelector, useDispatch } from "react-redux";
 import UserOptions from "./component/layouts/Header/UserOptions";
 import PrivateRoute from "./component/Route/PrivateRoute";
 import UpdateProfile from "./component/User/UpdateProfile";
@@ -33,10 +33,12 @@ import NewProduct from "./component/Admin/NewProduct";
 import UpdateProduct from "./component/Admin/UpdateProduct";
 import OrderList from "./component/Admin/OrderList";
 import ProcessOrder from "./component/Admin/ProcessOrder";
+import UserList from "./component/Admin/UserList";
 function App() {
+  
   const { isAuthenticated, user } = useSelector((state) => state.userData);
   const [stripeApiKey, setStripeApiKey] = useState("");
-
+  const dispatch = useDispatch();
   // get STRIPE_API_KEY for payment from backend for cnnection to stripe payment gateWaY
   async function getStripeApiKey() {
     const { data } = await axios.get("/api/v1/stripeapikey");
@@ -45,10 +47,10 @@ function App() {
 
   useEffect(() => {
     // this is for user data load for profile section if user logged in
-    store.dispatch(load_UserProfile());
-
+    dispatch(load_UserProfile());
+   
     getStripeApiKey();
-  }, [stripeApiKey]);
+  }, [dispatch]);
 
   return (
     <>
@@ -142,6 +144,12 @@ function App() {
             exact
             path="/admin/order/:id"
             component={ProcessOrder}
+          />
+          <PrivateRoute
+            isAdmin={true}
+            exact
+            path="/admin/users"
+            component={UserList}
           />
         </Switch>
         <Footer />

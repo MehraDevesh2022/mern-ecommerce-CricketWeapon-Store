@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { DataGrid, GridRowsProp } from "@mui/x-data-grid";
-import { XGrid } from "@material-ui/x-grid";
+import { DataGrid } from "@material-ui/data-grid";
+
 import "./Myorder.css";
 import { useSelector, useDispatch } from "react-redux";
 import { myOrders, clearErrors } from "../../actions/orderAction";
@@ -10,7 +10,7 @@ import MetaData from "../layouts/MataData/MataData";
 import LaunchIcon from "@material-ui/icons/Launch";
 import { Link } from "react-router-dom";
 import Loader from "../layouts/loader/Loader";
-import { fontSize } from "@mui/system";
+
 
 function MyOrder() {
   const dispatch = useDispatch();
@@ -88,22 +88,24 @@ function MyOrder() {
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
-
     {
       field: "status",
       headerName: "Status",
       minWidth: 150,
       flex: 0.5,
       cellClassName: (params) => {
-        return params.title === "Delivered" ? "greenColor" : "redColor";
+        return params.getValue(params.id, "status") === "Delivered"
+          ? "greenColor"
+          : "redColor";
       },
     },
+
     {
       field: "itemsQty",
       headerName: "Items Qty",
       type: "number",
       minWidth: 150,
-      flex: 0.3,
+      flex: 0.4,
     },
 
     {
@@ -136,9 +138,9 @@ function MyOrder() {
   orders &&
     orders.forEach((item) => {
       rows.push({
-        itemsQty: item.orderItems.length, // targeting all fileds of colom
         id: item._id,
         status: item.orderStatus,
+        itemsQty: item.orderItems.length, // targeting all fileds of colom
         amount: item.totalPrice,
       });
     });
@@ -153,8 +155,8 @@ function MyOrder() {
           {/* <div>Hello orders</div> */}
           <div className="myOrdersPage">
             <DataGrid
-              columns={columns}
               rows={rows}
+              columns={columns}
               pageSize={10}
               disableSelectionOnClick
               className="myOrdersTable"

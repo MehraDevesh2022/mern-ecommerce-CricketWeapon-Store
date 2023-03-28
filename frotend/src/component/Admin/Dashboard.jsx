@@ -79,7 +79,7 @@ function Dashboard() {
           {
             name: "In Stock",
             y: products.length - OutOfStock,
-            // y: 0 - OutOfStock,
+           
             color: "#6800B4",
           },
         ],
