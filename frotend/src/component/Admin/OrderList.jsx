@@ -3,7 +3,7 @@ import "./OrderList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllOrders, clearErrors } from "../../actions/orderAction";
+import { getAllOrders, clearErrors  , deleteOrder} from "../../actions/orderAction";
 import { useAlert } from "react-alert";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import MetaData from "../layouts/MataData/MataData";
@@ -12,23 +12,39 @@ import { Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Sidebar from "./Siderbar";
-
+import { DELETE_ORDER_RESET } from "../../constants/orderConstant";
 function OrderList() {
   const dispatch = useDispatch();
   const history = useHistory();
   const match = useRouteMatch();
   const alert = useAlert();
   const { error, laoding, orders } = useSelector((state) => state.allOrders);
+  const { error: deleteError, isDeleted } = useSelector(
+    (state) => state.deleteUpdateOrder
+  );
 
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getAllOrders());
-  }, [dispatch, error, alert]);
+    if(deleteError){
+      alert.error(deleteError)
+      dispatch(clearErrors())
+    }
+    if(isDeleted){
+          alert.success("Order Deleted Successfully");
+             history.push("/admin/orders");
+             dispatch({ type: DELETE_ORDER_RESET });
 
-  const deleteOrderHandler = (id) => {};
+    }
+    dispatch(getAllOrders());
+  }, [dispatch, error, alert , isDeleted , deleteError]);
+
+  // delet order handler
+  const deleteOrderHandler = (id) => {
+    dispatch(deleteOrder(id))
+  };
 
   // DATA GRID VALUE
   const columns = [
@@ -100,22 +116,28 @@ function OrderList() {
 
   return (
     <>
-      <MetaData title={`ALL ORDERS - Admin`} />
-      <div className="dashboard">
-        <Sidebar />
-        <div className="productListContainer">
-          <h1 id="productListHeading">ALL ORDERS</h1>
+      {laoding ? (
+        <Loader />
+      ) : (
+        <>
+          <MetaData title={`ALL ORDERS - Admin`} />
+          <div className="dashboard">
+            <Sidebar />
+            <div className="productListContainer">
+              <h1 id="productListHeading">ALL ORDERS</h1>
 
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            className="productListTable"
-            autoHeight
-          />
-        </div>
-      </div>
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={10}
+                disableSelectionOnClick
+                className="productListTable"
+                autoHeight
+              />
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

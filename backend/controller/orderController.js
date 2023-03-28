@@ -2,7 +2,7 @@ const asyncWrapper = require("../middleWare/asyncWrapper");
 const orderModel = require("../model/orderModel");
 const prdoductModel = require("../model/ProductModel");
 const ErrorHandler = require("../utils/errorHandler");
-   
+
 //>>>>>>>>>>>>>>>  create a order    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.newOrder = asyncWrapper(async (req, res, next) => {
   const {
@@ -46,7 +46,7 @@ exports.getSingleOrder = asyncWrapper(async (req, res, next) => {
   res.status(200).json({
     success: true,
     order,
-  });  
+  });
 });
 
 // >>>>>>>>>>>>>>>> getUsers all orders >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -77,7 +77,7 @@ exports.getAllOrders = asyncWrapper(async (req, res, next) => {
     orders,
   });
 });
-   
+
 // update Order Status -- Admin
 exports.updateOrder = asyncWrapper(async (req, res, next) => {
   const order = await orderModel.findById(req.params.id);

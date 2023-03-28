@@ -12,6 +12,14 @@ import {
   ALL_ORDERS_REQUEST,
   ALL_ORDERS_SUCCESS,
   ALL_ORDERS_FAIL,
+  DELETE_ORDER_REQUEST,
+  DELETE_ORDER_SUCCESS,
+  DELETE_ORDER_FAIL,
+  DELETE_ORDER_RESET,
+  UPDATE_ORDER_REQUEST,
+  UPDATE_ORDER_SUCCESS,
+  UPDATE_ORDER_RESET,
+  UPDATE_ORDER_FAIL,
 } from "../constants/orderConstant";
 
 export const newOrderReducer = (state = {}, action) => {
@@ -76,20 +84,17 @@ export const orderDetialsReducer = (state = { order: {} }, action) => {
   switch (action.type) {
     case ORDER_DETAILS_REQUEST:
       return {
-
         loading: true,
       };
 
     case ORDER_DETAILS_SUCCESS:
       return {
-  
         loading: false,
         order: action.payload,
       };
 
     case ORDER_DETAILS_FAIL:
       return {
-
         loading: false,
         error: action.payload,
       };
@@ -98,36 +103,93 @@ export const orderDetialsReducer = (state = { order: {} }, action) => {
         ...state,
         error: null,
       };
-      default : return state
+    default:
+      return state;
   }
 };
 
 // All orders
 
 export const allOrdersReducer = (state = { orders: [] }, action) => {
-         switch (action.type) {
-           case ALL_ORDERS_REQUEST:
-             return {
-               loading: true,
-             };
-           case ALL_ORDERS_SUCCESS: {
-             return {
-               loading: false,
-               orders: action.payload,
-             };
-           }
+  switch (action.type) {
+    case ALL_ORDERS_REQUEST:
+      return {
+        loading: true,
+      };
+    case ALL_ORDERS_SUCCESS: {
+      return {
+        loading: false,
+        orders: action.payload,
+      };
+    }
 
-           case ALL_ORDERS_FAIL:
-             return {
-               loading: false,
-               error: action.payload,
-             };
-           case CLEAR_ERRORS:
-             return {
-               ...state,
-               error: null,
-             };
-           default:
-             return state;
-         }
-       };
+    case ALL_ORDERS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+// Delete and Upadte
+
+export const deletUpdateOrderReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_ORDER_REQUEST:
+    case UPDATE_ORDER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case UPDATE_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: action.payload,
+      };
+
+    case DELETE_ORDER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: true,
+      };
+
+    case DELETE_ORDER_FAIL:
+    case UPDATE_ORDER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case DELETE_ORDER_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+      
+    case UPDATE_ORDER_RESET:
+      return {
+        ...state,
+        isUpdated: false,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
