@@ -23,11 +23,9 @@ import {
   UPDATE_PRODUCT_FAIL,
  ALL_REVIEW_REQUEST,
  ALL_REVIEW_SUCCESS,
- ALL_PRODUCT_FAIL,
  DELETE_REVIEW_REQUEST,
  DELETE_REVIEW_SUCCESS,
  DELETE_REVIEW_FAIL,
- DELETE_REVIEW_RESET,
   CLEAR_ERRORS,
   ALL_REVIEW_FAIL,
 } from "../constants/productsConstatns";
@@ -213,7 +211,7 @@ export const deleteProductReview = (reviewId , productId) => async (dispatch) =>
   dispatch({type : DELETE_REVIEW_REQUEST})
 
     const { data } = await axios.delete(
-      `/api/v1/product/reviews/delete?reviewId=${reviewId}&productId=${productId}`
+      `/api/v1/product/reviews/delete?id=${reviewId}&productId=${productId}`
     );
 
      dispatch({ type: DELETE_REVIEW_SUCCESS, payload: data.success });

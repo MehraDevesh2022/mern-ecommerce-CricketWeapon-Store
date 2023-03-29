@@ -258,12 +258,12 @@ exports.deleteReview = asyncWrapper(async (req, res, next) => {
   const product = await ProductModel.findById(req.query.productId);
 
   if (!product) {
-    return next(new ErrorHandler("Product not found", 404));
+    return next(new ErrorHandler("Product not found", 404)); 
   }
 
   // check if ther any review avalible with given reviwe id. then filter the review array store inside reviews without that review
   const reviews = product.reviews.filter(
-    (rev) => rev._id.toString() !== req.query.id.toString()
+    (rev) => { return rev._id.toString() !== req.query.id.toString()}
   );
   // once review filterd then update new rating from prdoduct review
   let avg = 0;
@@ -272,6 +272,8 @@ exports.deleteReview = asyncWrapper(async (req, res, next) => {
     avg += rev.ratings;
   });
 
+
+  
   let ratings = 0;
   if (reviews.length === 0) {
     ratings = 0;

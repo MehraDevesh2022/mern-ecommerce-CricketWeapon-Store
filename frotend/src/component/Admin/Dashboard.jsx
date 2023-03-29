@@ -11,15 +11,17 @@ import MetaData from "../layouts/MataData/MataData";
 import Loader from "../layouts/loader/Loader";
 import { useAlert } from "react-alert";
 import { getAllOrders } from "../../actions/orderAction";
-import { getAllUsers  } from "../../actions/userAction";
+import { getAllUsers } from "../../actions/userAction";
 import Sidebar from "./Siderbar";
 import { Link } from "react-router-dom";
 
 function Dashboard() {
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
-  const {orders , error : ordersError} = useSelector(state => state.allOrders);
-  const {users , error : usersError} = useSelector(state => state.allUsers);
+  const { orders, error: ordersError } = useSelector(
+    (state) => state.allOrders
+  );
+  const { users, error: usersError } = useSelector((state) => state.allUsers);
   const alert = useAlert();
 
   let OutOfStock = 0;
@@ -36,18 +38,25 @@ function Dashboard() {
       alert.error(error);
       dispatch(clearErrors);
     }
-    if(usersError){
-      alert.error(usersError)
+    if (usersError) {
+      alert.error(usersError);
       dispatch(clearErrors);
     }
- if(ordersError){
-   alert.error(ordersError);
-   dispatch(clearErrors);
- }
- dispatch(getAllOrders());
- dispatch(getAllUsers());
+    if (ordersError) {
+      alert.error(ordersError);
+      dispatch(clearErrors);
+    }
+    dispatch(getAllOrders());
+    dispatch(getAllUsers());
     dispatch(getAdminProducts());
-  }, [dispatch, error, alert, ordersError , usersError]);
+  }, [dispatch, error, alert, ordersError, usersError]);
+
+  // total Amount Earned
+  let totalAmmount = 0;
+  orders &&
+    orders.forEach((item) => {
+      totalAmmount += item.totalPrice;
+    });
 
   // chart js values for Line component
   const lineOptions = {
@@ -65,7 +74,7 @@ function Dashboard() {
     series: [
       {
         name: "TOTAL AMOUNT",
-        data: [0, 2000],
+        data: [0, totalAmmount],
       },
     ],
   };
@@ -115,7 +124,7 @@ function Dashboard() {
               <div className="dashboardSummary">
                 <div>
                   <p>
-                    Total Amount <br /> ₹{7777}
+                    Total Amount <br /> ₹{totalAmmount}
                   </p>
                 </div>
                 <div className="dashboardSummaryBox2">
