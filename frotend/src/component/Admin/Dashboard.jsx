@@ -10,15 +10,20 @@ import { getAdminProducts, clearErrors } from "../../actions/productAction";
 import MetaData from "../layouts/MataData/MataData";
 import Loader from "../layouts/loader/Loader";
 import { useAlert } from "react-alert";
-
+import { getAllOrders } from "../../actions/orderAction";
+import { getAllUsers } from "../../actions/userAction";
 import Sidebar from "./Siderbar";
 import { Link } from "react-router-dom";
 
 function Dashboard() {
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
+  const { orders, error: ordersError } = useSelector(
+    (state) => state.allOrders
+  );
+  const { users, error: usersError } = useSelector((state) => state.allUsers);
   const alert = useAlert();
-  console.log(products);
+
   let OutOfStock = 0;
   products &&
     products.forEach((element) => {
@@ -33,9 +38,25 @@ function Dashboard() {
       alert.error(error);
       dispatch(clearErrors);
     }
-
+    if (usersError) {
+      alert.error(usersError);
+      dispatch(clearErrors);
+    }
+    if (ordersError) {
+      alert.error(ordersError);
+      dispatch(clearErrors);
+    }
+    dispatch(getAllOrders());
+    dispatch(getAllUsers());
     dispatch(getAdminProducts());
-  }, [dispatch, error, alert]);
+  }, [dispatch, error, alert, ordersError, usersError]);
+
+  // total Amount Earned
+  let totalAmmount = 0;
+  orders &&
+    orders.forEach((item) => {
+      totalAmmount += item.totalPrice;
+    });
 
   // chart js values for Line component
   const lineOptions = {
@@ -53,7 +74,7 @@ function Dashboard() {
     series: [
       {
         name: "TOTAL AMOUNT",
-        data: [0, 2000],
+        data: [0, totalAmmount],
       },
     ],
   };
@@ -79,7 +100,7 @@ function Dashboard() {
           {
             name: "In Stock",
             y: products.length - OutOfStock,
-           
+
             color: "#6800B4",
           },
         ],
@@ -103,7 +124,7 @@ function Dashboard() {
               <div className="dashboardSummary">
                 <div>
                   <p>
-                    Total Amount <br /> ₹{7777}
+                    Total Amount <br /> ₹{totalAmmount}
                   </p>
                 </div>
                 <div className="dashboardSummaryBox2">
@@ -113,11 +134,11 @@ function Dashboard() {
                   </Link>
                   <Link to="/admin/orders">
                     <p>Orders</p>
-                    <p>{44}</p>
+                    <p>{orders && orders.length}</p>
                   </Link>
                   <Link to="/admin/users">
                     <p>Users</p>
-                    <p>{11}</p>
+                    <p>{users && users.length}</p>
                   </Link>
                 </div>
               </div>
@@ -144,6 +165,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-
-

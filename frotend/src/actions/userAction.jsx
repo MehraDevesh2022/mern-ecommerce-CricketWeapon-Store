@@ -263,12 +263,18 @@ export const getUserDetails = (id) => async (dispatch) => {
 
 // upadte user role ---> admin
 export const updateUser = (id, userData) => async (dispatch) => {
-     
+       console.log(id);
   try {
      dispatch({type : UPDATE_USER_REQUEST})
 
+
      const config  = {headers : {"Content-Type" : "application/json"}}
-     const { data } = await axios.put(`/admin/user/${id}` , config , userData);
+     const { data } = await axios.put(
+       `/api/v1/admin/user/${id}`,userData,
+       config
+       
+     );
+     console.log(data);
     dispatch({ type: UPDATE_USER_SUCCESS, payload: data.success });
 
   } catch (error) {

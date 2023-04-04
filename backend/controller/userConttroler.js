@@ -289,7 +289,7 @@ exports.getSingleUser = asyncWrapper(async (req, res, next) => {
 
 //>>>> update User Role -- Admin {may admin can change any user to admin}>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.updateUserRole = asyncWrapper(async (req, res, next) => {
-  
+ 
   // add set new role of user
   const newUserData = {
     name: req.body.name,
