@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "backend/server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "backend/server.js",
-    "dev": "nodemon backend/server.js"
-  },
+"scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "node backend/server.js",
+  "start-client": "npm start --prefix frontend",
+  "dev": "concurrently \"npm run start\" \"npm run start-client\""
+},
+
   "author": "itsCodeWithDEv",
   "license": "ISC",
   "dependencies": {
@@ -19,13 +21,13 @@
     "chart.js": "^4.2.1",
     "cloudinary": "^1.34.0",
     "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "helmet": "^6.0.1",
+    "http-proxy-middleware": "^2.0.6",
     "jsonwebtoken": "^9.0.0",
     "jwt-simple": "^0.5.6",
     "material-ui-slider": "^3.0.8",
