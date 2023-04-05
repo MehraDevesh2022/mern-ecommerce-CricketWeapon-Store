@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Footer from "./component/layouts/Footer/Footer";
-import Header from "./component/layouts/Header/Header";
+// import Header from "./component/layouts/Header/Header";
+import Header from "./component/layouts/Header1.jsx/Header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./component/Home/Home";
 import ProductDetails from "./component/Product/ProductDetails";
@@ -17,25 +18,25 @@ import UpdateProfile from "./component/User/UpdateProfile";
 import UpdatePassword from "./component/User/UpdatePassword";
 import ForgetPassword from "./component/User/ForgetPassword";
 import ResetPassword from "./component/User/ResetPassword";
-import Shipping from "./component/Cart/Shipping";
+// import Shipping from "./component/Cart/Shipping";
 import Cart from "./component/Cart/Cart";
-import ConfirmOrder from "./component/Cart/ConfirmOrder";
+// import ConfirmOrder from "./component/Cart/ConfirmOrder";
 import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Payment from "./component/Cart/Payment";
-import OrderSuccess from "./component/Cart/OrderSuccess";
-import MyOrder from "./component/order/MyOrder";
-import OrderDetails from "./component/order/OrderDetails";
-import Dashboard from "./component/Admin/Dashboard";
-import ProductList from "./component/Admin/ProductList";
-import NewProduct from "./component/Admin/NewProduct";
-import UpdateProduct from "./component/Admin/UpdateProduct";
-import OrderList from "./component/Admin/OrderList";
-import ProcessOrder from "./component/Admin/ProcessOrder";
-import UserList from "./component/Admin/UserList";
-import UpdateUser from "./component/Admin/UpdateUser";
-import ProductReviews from "./component/Admin/ProductReviews";
+// import OrderSuccess from "./component/Cart/OrderSuccess";
+// import MyOrder from "./component/order/MyOrder";
+// import OrderDetails from "./component/order/OrderDetails";
+// import Dashboard from "./component/Admin/Dashboard";
+// import ProductList from "./component/Admin/ProductList";
+// import NewProduct from "./component/Admin/NewProduct";
+// import UpdateProduct from "./component/Admin/UpdateProduct";
+// import OrderList from "./component/Admin/OrderList";
+// import ProcessOrder from "./component/Admin/ProcessOrder";
+// import UserList from "./component/Admin/UserList";
+// import UpdateUser from "./component/Admin/UpdateUser";
+// import ProductReviews from "./component/Admin/ProductReviews";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.userData);
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -103,7 +104,7 @@ function App() {
             path="/password/update"
             component={UpdatePassword}
           />
-          <PrivateRoute exact path="/shipping" component={Shipping} />
+          {/* <PrivateRoute exact path="/shipping" component={Shipping} />
           <PrivateRoute exact path="/order/confirm" component={ConfirmOrder} />
           <PrivateRoute exact path="/success" component={OrderSuccess} />
           <PrivateRoute exact path="/orders" component={MyOrder} />
@@ -163,7 +164,7 @@ function App() {
             exact
             path="/admin/reviews"
             component={ProductReviews}
-          />
+          /> */}
         </Switch>
         <Footer />
       </Router>

@@ -17,7 +17,7 @@ function Header() {
     if (keyword.trim()) {
       history.push(`/products/${keyword}`);
     } else {
-      history.push("/products");
+        history.push("/products");
     }
   };
 

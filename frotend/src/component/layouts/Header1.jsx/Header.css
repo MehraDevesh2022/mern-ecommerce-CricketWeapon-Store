@@ -1,0 +1,231 @@
+
+.header {
+  background-color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.75rem;
+  padding: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  /* border: 2px solid; */
+  height: 7rem;
+-webkit-box-shadow: 10px 17px 20px -12px rgba(227,227,227,0.64);
+-moz-box-shadow: 10px 17px 20px -12px rgba(227,227,227,0.64);
+box-shadow: 10px 17px 20px -12px rgba(227,227,227,0.64);
+}
+
+.headerTop {
+  width: 100%;
+
+  background-color: rgb(37, 37, 37);
+  color: rgb(255, 255, 255);
+  display: grid;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  grid-template-columns: 1fr minmax(465px, 1fr);
+  height: 33px;
+  margin: 0px auto;
+  padding: 0px;
+  position: relative;
+  vertical-align: middle;
+  z-index: 999;
+}
+
+.headerTopLeft {
+  height: fit-content;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px !important;
+  font-weight: 500;
+  margin-left: 2.5rem;
+  padding-top: 5.5px;
+}
+
+.headerTopRight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 300;
+  font-size: 12px !important;
+  font-family: "Roboto", sans-serif;
+}
+
+.headerRetailer {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  
+}
+
+.headerFlag {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.headerLogin {
+  width: 110px;
+
+  background-color: rgb(75, 66, 66);
+  padding-right: 5px;
+  padding-left: 30px;
+}
+.headerLogin button {
+  font-family: "Roboto", sans-serif;
+  height: 33px;
+  border: none;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  background-color: rgb(75, 66, 66);
+  font-weight: 400;
+  font-size: 12px;
+}
+.headerLogin > button:hover {
+  color: #ed1c24;
+  transition: all 0.25s ease;
+}
+.headerBottom {
+  height: 100%;
+  /* border: 2px solid; */
+  display: flex;
+  justify-content: space-around;
+}
+.headerBottom__logo{
+  width:  auto;
+height: 52px;
+padding: auto;
+
+align-self: center;
+}
+
+
+.headerBottom__logo_main{
+  height: 3.4rem;
+align-self: center;
+ padding-left: 25px;
+ margin-top: 14px;
+}
+.header_mobile_menu{
+  display: none;
+}
+.headerBottom_navMenu{
+width: auto;
+height: 64px;
+
+}
+.headerBottom_navMenu ul{
+  display: flex;
+gap: .9rem;
+  height: 50px;
+  width: auto;
+  text-align: center;
+  margin-top: 5px;
+  
+}
+.headerBottom_navMenu ul li{
+padding: 18px 14px;
+  width: auto;
+list-style: none;
+  height: fit-content;
+     padding: 30px;
+     padding-bottom: 10px;
+    
+     
+
+}
+.headerBottom_navMenu ul li a{
+   color: #121212;
+   text-decoration: none;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 2px;
+    margin-top: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.headerBottom_navMenu ul li a:hover{
+  color: #E30605;
+  transition: .5s ease-in-out;
+
+
+}
+
+.headerBotttom_icons{
+  display: flex;
+  gap: 1.1rem;
+  align-items: center;
+  font-size: 14px;
+   width: auto;
+
+}
+
+.headerBotttom_icons>*:hover{
+  color: #E30605;
+  transition: .5s ease-in-out;
+
+
+}
+.makeStyles-flagIcon-1 {
+       width: 16px !important;
+    height: 16px !important;
+    align-self: center !important;
+    padding-right: 2px !important;
+    margin-bottom: -4px
+}
+.css-i4bv87-MuiSvgIcon-root
+{
+  height: 18px !important;
+}
+.css-6hp17o-MuiList-root-MuiMenu-list{
+  background-color: rgb(29, 28, 28);
+  /* border: none !important; */
+}
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover{
+  background-color: #E30605 !important;
+
+}
+
+@media (max-width: 899px) {
+ .headerTop{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+ }
+ .headerTopLeft{
+  margin-bottom: 3px;
+ }
+
+.headerRetailer{
+  display: none;
+}
+.headerLogin{
+  display: none;
+}
+
+
+ .headerBottom{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+ }
+ .headerBottom__logo{
+    display: flex;
+ }
+
+.header_mobile_menu{
+  display: flex;
+  gap: .9rem;
+  align-items: center;
+
+}
+  .search_Bar{
+    display: none;
+  }
+ .headerBottom_navMenu{
+  display: none;
+ }
+}

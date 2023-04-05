@@ -15,6 +15,7 @@ import {
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAIL,
   UPDATE_PROFILE_RESET,
+  UPDATE_PASSWORD_FAIL,
   UPDATE_PASSWORD_RESET,
   UPDATE_PASSWORD_SUCCESS,
   UPDATE_PASSWORD_REQUEST,
@@ -52,6 +53,7 @@ export const userReducer = (state = { user: {} }, action) => {
 
     case LOGIN_SUCCESS:
     case REGISTER_USER_SUCCESS:
+    case LOAD_USER_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -59,11 +61,11 @@ export const userReducer = (state = { user: {} }, action) => {
         user: action.payload,
       };
 
-    case LOAD_USER_SUCCESS:
+    case LOGOUT_SUCCESS:
       return {
         loading: false,
-        isAuthenticated: true,
-        user: action.payload,
+        user: null,
+        isAuthenticated: false,
       };
 
     case LOGIN_FAIL:
@@ -84,28 +86,16 @@ export const userReducer = (state = { user: {} }, action) => {
         error: action.payload,
       };
 
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
-      };
-    case LOGIN_SUCCESS:
-      return {
-        isAuthenticated: false,
-        loading: false,
-        user: null,
-      };
-    case LOGOUT_SUCCESS:
-      return {
-        loading: false,
-        user: null,
-        isAuthenticated: false,
-      };
     case LOGOUT_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
 
     default:
@@ -142,7 +132,7 @@ export const profileReducer = (state = {}, action) => {
       };
 
     case UPDATE_PROFILE_FAIL:
-    case UPDATE_PROFILE_FAIL:
+    case UPDATE_PASSWORD_FAIL:
     case UPDATE_USER_FAIL:
     case DELETE_USER_FAIL:
       return {
@@ -157,7 +147,7 @@ export const profileReducer = (state = {}, action) => {
     case UPDATE_USER_RESET:
       return {
         ...state,
-        loading: false,
+        isUpdated: false,
       };
 
     case DELETE_USER_RESET:

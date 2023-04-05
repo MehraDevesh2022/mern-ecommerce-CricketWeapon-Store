@@ -66,7 +66,7 @@ useEffect(() => {
  }
 
  // rating handler 
- const rantingHandler = (event, newRating) => {
+ const rantingHandler = (newRating) => {
 
    setRatings(newRating);
  

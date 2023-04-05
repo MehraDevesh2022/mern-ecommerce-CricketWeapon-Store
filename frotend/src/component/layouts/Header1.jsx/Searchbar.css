@@ -1,0 +1,10 @@
+.search_from{
+    width: 70vw;
+    height: 25px;
+    padding: auto;
+}
+@media (max-width: 899px){
+ .search_from{
+     width: 40vw;
+ }  
+}
