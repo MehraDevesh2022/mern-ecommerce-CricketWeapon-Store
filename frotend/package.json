@@ -22,13 +22,11 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.3.2",
-    "country-state-city": "^3.1.2",
     "highcharts": "^10.3.3",
     "highcharts-react-official": "^3.2.0",
     "i": "^0.3.7",
     "js": "^0.1.0",
     "material-ui-slider": "^3.0.8",
-    "overlay-navbar": "^1.2.3",
     "react": "^18.2.0",
     "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
@@ -37,16 +35,13 @@
     "react-icons": "^4.7.1",
     "react-js-pagination": "^3.0.3",
     "react-material-ui-carousel": "^3.4.2",
-    "react-rating-stars-component": "^2.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^2.1.3",
-    "react-star-rating-component": "^1.4.1",
     "react-stripe-js": "^1.1.3",
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
-    "stars-rating": "^1.1.0",
     "styled-components": "^5.3.8",
     "web-vitals": "^2.1.4"
   },
@@ -74,6 +69,5 @@
       "last 1 safari version"
     ]
   },
-
   "proxy": "http://localhost:5000"
 }
