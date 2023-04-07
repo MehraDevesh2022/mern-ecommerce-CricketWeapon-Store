@@ -3,8 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Carousel from "react-material-ui-carousel";
 import Button from "@material-ui/core/Button";
 import "../../Image/Cricket-wepon/03.jpg"
-
+import "./HeaderSlider.css"
 import "../../Image/Cricket-wepon/04.jpg"
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 const useStyles = makeStyles((theme) => ({
   slide: {
     height: "calc(100vh - 64px)",
@@ -93,26 +95,42 @@ export default function HeroSlider() {
     setActiveStep(step);
   };
 
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => (prevActiveStep + 1) % slides.length);
+  };
+
+  const handleBack = () => {
+    setActiveStep(
+      (prevActiveStep) => (prevActiveStep - 1 + slides.length) % slides.length
+    );
+  };
   return (
-    <Carousel
-      interval={3000}
-      animation="slide"
-      index={activeStep}
-      onChange={handleStepChange}
-      navButtonsAlwaysInvisible={true}
-    >
-      {slides.map((slide, index) => (
-        <div key={index} className={classes.slide}>
-          <img src={slide.image} alt="" className={classes.slideImage} />
-          <div className={classes.slideContent}>
-            <div className={classes.quote}>{slide.quote}</div>
-            <div className={classes.saleText}>{slide.saleText}</div>
-            <Button variant="outlined" className={classes.productButton}>
-              {slide.productText}
-            </Button>
-          </div>
-        </div>
-      ))}
-    </Carousel>
+    <>
+      <div className="heroSlider">
+        <ArrowForwardIosIcon className="right-icon" onClick={handleNext} />
+        <Carousel
+          interval={3000}
+          animation="slide"
+          index={activeStep}
+          onChange={handleStepChange}
+          navButtonsAlwaysInvisible={true}
+        >
+          {slides.map((slide, index) => (
+            <div key={index} className={classes.slide}>
+              <img src={slide.image} alt="" className={classes.slideImage} />
+              <div className={classes.slideContent}>
+                <div className={classes.quote}>{slide.quote}</div>
+                <div className={classes.saleText}>{slide.saleText}</div>
+                <Button variant="outlined" className={classes.productButton}>
+                  {slide.productText}
+                </Button>
+              </div>
+            </div>
+          ))}
+        </Carousel>
+        <ArrowBackIosIcon className="left-icon" onClick={handleBack} />
+      </div>
+    </>
   );
 }

@@ -1,0 +1,43 @@
+ .css-1m9128y{
+        position: absolute;
+        bottom: 23px;
+        z-index: 999;
+ }
+
+  .right-icon{ position: absolute;
+    z-index: 999;
+    top: 50%;
+    right: 2%;
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 800;
+
+}
+ .right-icon:hover{
+   font-size: 2.6rem;
+transition: 1ms ease-in-out;
+ }
+.left-icon{
+    position: absolute;
+     z-index: 999;
+    top: 50%;
+    left: 2%;
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 800; 
+
+}
+.left-icon:hover{
+       font-size: 2.6rem;
+transition: 1ms ease-in-out;
+}
+
+@media (max-width: 899px){
+    .right-icon{
+       top: 40%;
+        font-size: 2rem;
+    } .left-icon{
+       top: 40%;
+        font-size: 2rem;
+    } 
+}
