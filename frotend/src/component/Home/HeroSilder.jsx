@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Carousel from "react-material-ui-carousel";
 import Button from "@material-ui/core/Button";
-import "../../Image/Cricket-wepon/03.jpg"
-import "./HeaderSlider.css"
-import "../../Image/Cricket-wepon/04.jpg"
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import FeaturedSlider from "./FeatureSlider";
+
 const useStyles = makeStyles((theme) => ({
   slide: {
     height: "calc(100vh - 64px)",
@@ -30,12 +29,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   quote: {
+    fontSize: "14px",
+    width: "30vw",
     fontWeight: 300,
     marginBottom: theme.spacing(1),
   },
   saleText: {
-    fontSize : "18px",
-    fontWeight: "bolder",
+    fontSize: "24px",
+    fontFamily: "Roboto",
+    fontWeight: "800",
+    width: "45vw",
     marginBottom: theme.spacing(1),
   },
   productButton: {
@@ -55,46 +58,14 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     objectFit: "cover",
   },
+ 
 }));
 
-const slides = [
-  {
-    image: require("../../Image/Cricket-wepon/img2.png"),
-    quote: "Play with passion Play with passion",
-    saleText:
-      "Up to 50% off Play ",
-    productText: "Shop Now",
-  },
-  {
-    image: require("../../Image/Cricket-wepon/03.jpg"),
-    quote: "Experience the game",
-    saleText:
-      "Limited Time Offer ",
-    productText: "Buy Now",
-  },
-  {
-    image: require("../../Image/Cricket-wepon/01.jpg"),
-    quote: "Get ready to play Get ready to play ",
-    saleText:
-      "New Arrivals Get ",
-    productText: "Explore",
-  },
-  {
-    image: require("../../Image/Cricket-wepon/04.jpg"),
-    quote: "Get ready to play",
-    saleText: "New Arrivals",
-    productText: "Explore",
-  },
-];
+const slides = [  {    image: require("../../Image/Cricket-wepon/img2.png"),    quote: "Play with passion Play with passion",    saleText:      " Play with passion Play with passion Up to 50% off ",    productText: "Shop Now",  },  {    image: require("../../Image/Cricket-wepon/03.jpg"),    quote: "Experience the game",    saleText: "Limited Time Offer ",    productText: "Buy Now",  },  {    image: require("../../Image/Cricket-wepon/01.jpg"),    quote: "Get ready to play Get ready to play ",    saleText: "New Arrivals Get ",    productText: "Explore",  },  {    image: require("../../Image/Cricket-wepon/04.jpg"),    quote: "Get ready to play",    saleText: "New Arrivals",    productText: "Explore",  },];
 
 export default function HeroSlider() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
-
-  const handleStepChange = (step) => {
-    setActiveStep(step);
-  };
-
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => (prevActiveStep + 1) % slides.length);
@@ -105,31 +76,68 @@ export default function HeroSlider() {
       (prevActiveStep) => (prevActiveStep - 1 + slides.length) % slides.length
     );
   };
+
   return (
     <>
-      <div className="heroSlider">
-        <ArrowForwardIosIcon className="right-icon" onClick={handleNext} />
-        <Carousel
-          interval={3000}
-          animation="slide"
-          index={activeStep}
-          onChange={handleStepChange}
-          navButtonsAlwaysInvisible={true}
-        >
-          {slides.map((slide, index) => (
-            <div key={index} className={classes.slide}>
-              <img src={slide.image} alt="" className={classes.slideImage} />
-              <div className={classes.slideContent}>
-                <div className={classes.quote}>{slide.quote}</div>
-                <div className={classes.saleText}>{slide.saleText}</div>
-                <Button variant="outlined" className={classes.productButton}>
-                  {slide.productText}
-                </Button>
-              </div>
+      <Carousel
+        autoPlay={true}
+        navButtonsAlwaysVisible
+        indicators={false}
+        animation="slide"
+        interval={5000}
+        timeout={500}
+        cycleNavigation={true}
+        navButtonsProps={{
+          style: {
+            backgroundColor: "#00000088",
+            borderRadius: 0,
+            padding: 0,
+            margin: 0,
+            height: "100%",
+          },
+        }}
+        prevButton={
+          <Button
+            className="slider-nav-btn prev"
+            onClick={handleBack}
+            startIcon={<ArrowBackIosIcon />}
+          ></Button>
+        }
+        nextButton={
+          <Button
+            className="slider-nav-btn next"
+            onClick={handleNext}
+            endIcon={<ArrowForwardIosIcon />}
+          ></Button>
+        }
+        fullHeightHover={false}
+        className={classes.slide}
+        index={activeStep}
+        onChangeIndex={setActiveStep}
+      >
+        {slides.map((slide, index) => (
+          <div key={index} className={classes.slide}>
+            <img
+              src={slide.image}
+              alt="slider"
+              className={classes.slideImage}
+            />
+            <div className={classes.slideContent}>
+              <h2 className={classes.quote}>{slide.quote}</h2>
+              <h3 className={classes.saleText}>{slide.saleText}</h3>
+              <Button className={classes.productButton}>
+                {slide.productText}
+              </Button>
             </div>
-          ))}
-        </Carousel>
-        <ArrowBackIosIcon className="left-icon" onClick={handleBack} />
+          </div>
+        ))}
+      </Carousel>
+      <div className="feature" style={{ marginTop: "3rem" }}>
+        <h1
+          style={{ textAlign: "center", fontFamily: `"Archivo", sans-serif` , fontWeight : "800" }} >
+          Featured Products
+        </h1>
+        <FeaturedSlider />
       </div>
     </>
   );

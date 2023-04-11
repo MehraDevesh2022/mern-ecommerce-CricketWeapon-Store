@@ -1,105 +1,267 @@
-#featured {
-  margin-top: 3rem;
+/* FeaturedSlider Component */
+.featured_swiper {
+position: relative;
+padding: 60px 0;
+z-index: 1;
 }
 
 .featured_slides {
-  text-align: center;
-  overflow: hidden;
+position: relative;
+overflow: hidden;
+width: calc((100% - 100px) / 3);
+height: 370px;
+background-color: #fff;
+border-radius: 10px;
+transition: all 0.3s ease;
+border: 1px solid transparent;
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
-  .featured_slides {
-    width: 16rem;
-  }
+.featured_slides:hover {
+transform: scale(1.02);
+z-index: 2;
 }
 
-.featured_swiper {
-  padding-top: 3rem !important;
-  padding-bottom: 5rem !important;
+.featured_slides.swiper-slide-active, .featured_slides:hover {
+transform: scale(1.05);
+z-index: 2;
+box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+border: 1px solid rgba(255, 255, 255, 0.564);
 }
-
+ .swiper-pagination-bullet-active{
+background-color: black;
+}
 .featured_title {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 2rem;
+font-family: "Archivo", sans-serif;
+font-size: 16px;
+font-weight: 400;
+color: #000;
+margin-top: 30px;
+margin-bottom: 20px;
+text-align: center;
 }
+
 
 .featured_img {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  overflow: hidden;
+width: 100%;
+height: 220px;
+margin: 0 auto;
+background-color: transparent;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .featured_img img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide {
-  position: relative;
-}
-
-.swiper-slide:not(.swiper-slide-active) .featured_img img {
-  opacity: 0.5;
-}
-
-.swiper-slide-active .featured_img img {
-  max-width: 90%;
-  max-height: 90%;
+width: 100%;
+height: 100%;
+object-fit: contain;
+background-color: transparent;
+transition: all 0.3s ease;
 }
 
 .products_price {
-  font-family: "Roboto", sans-serif;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: 1rem;
-  margin-bottom: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-bottom: 30px;
 }
 
-.products_price small {
-  font-size: 0.8rem;
-  font-weight: normal;
-  color: rgb(75, 66, 66);
-  text-decoration: line-through;
-  margin-left: 1rem;
+.final_price {
+font-family: "Archivo", sans-serif;
+font-size: 26px;
+font-weight: 900;
+color: #000;
+margin-right: 5px;
 }
 
-.products_price small del {
-  color: rgb(75, 66, 66);
+.old_price {
+font-family: "Archivo", sans-serif;
+font-size: 18px;
+font-weight: 600;
+color: rgb(75, 66, 66);
+text-decoration: line-through;
+margin-left: 5px;
 }
-
-.featured_slides:hover .products_price small del {
-  color: #e30605;
-}
-
-.featured_slides:hover .products_price {
-  color: #e30605;
-}
-
-.featured_slides:hover .featured_title {
-  color: #e30605;
-}
-
 .featured_slides:hover .featured_title,
-.featured_slides:hover .products_price {
-  transition: all 0.2s ease;
+.featured_slides:hover .final_price,
+.featured_slides:hover .old_price {
+color: #e30605;
 }
 
+@media screen and (max-width: 1199px) {
+.featured_slides {
+width: calc((100% - 50px) / 2);
+margin-right: 50px;
+}
+}
+
+@media screen and (max-width: 992px) {
+.featured_slides {
+width: calc((100% - 30px) / 2);
+margin-right: 20px;
+}
+}
+
+@media screen and (max-width: 767px) {
+.featured_slides {
+   width: 45vw;
+    margin-right: 1px;
+    height: auto;
+
+}
+}
+
+@media screen and (max-width: 575px) {
+.featured_swiper {
+  padding: 55px 0;
+  z-index: 1;
+}
+
+.featured_slides {
+ width: 50vw;
+  height: fit-content;
+  margin-right: 1px;
+}
+.featured_slides:hover {
+  transform: scale(1.1);
+  z-index: 2;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border: 2px solid transparent;
+}
+
+.products_price {
+   display: flex;
+  justify-content: center;
+  align-items: center;
+margin-bottom: 20px;
+}
+
+
+
+/* Set font size based on screen size */
+@media screen and (max-width: 575px) {
+.featured_title {
+font-size: 18px;
+  font-weight: 400;
+   margin-top: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.featured_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+
+.final_price {
+  font-size: 1.8rem;
+  font-weight: bold;
+    margin-right: 5px;
+}
+
+.old_price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+
+@media screen and (min-width: 576px) and (max-width: 767px) {
+.featured_title {
+font-size: 18px;
+}
+
+.final_price {
+font-size: 1.8rem;
+font-weight: bold;
+}
+
+.old_price {
+font-size: 1.3rem;
+font-weight: bold;
+margin-left: 10px;
+}
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+.featured_title {
+font-size: 28px;
+}
+
+.final_price {
+font-size: 1.8rem;
+font-weight: bold;
+}
+
+.old_price {
+font-size: 1.4rem;
+font-weight: bold;
+margin-left: 10px;
+}
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+.featured_title {
+font-size: 32px;
+}
+
+.final_price {
+font-size: 1.8rem;
+font-weight: bold;
+}
+
+.old_price {
+font-size: 1.6rem;
+font-weight: bold;
+margin-left: 10px;
+}
+}
+
+@media screen and (min-width: 1200px) {
+.featured_title {
+font-size: 36px;
+}
+
+.final_price {
+font-size: 2rem;
+font-weight: bold;
+}
+
+.old_price {
+font-size: 1.8rem;
+font-weight: bold;
+margin-left: 10px;
+}
+}
+
+
+
+/* Show active product with left and right border in slider */
+.swiper-slide {
+opacity: 0.6;
+transition: opacity 0.5s ease;
+background-color: transparent;
+border: none;
+}
+
+.swiper-slide-active {
+opacity: 1;
+border-left: 5px solid #e30605;
+border-right: 5px solid #e30605;
+}
+
+/* Set transparent background for swiper dots */
+.swiper-pagination {
+background-color: transparent;
+}
+
+/* Set color for active swiper dot button */
 .swiper-pagination-bullet-active {
-  background: #e30605 !important;
+background-color: black;
 }
 
-.swiper-slide-active .featured_title {
-  color: #e30605;
 }
-
-.swiper-slide-active .products_price small del {
-  color: rgb(75, 66, 66);
-}
-
-.swiper-slide-active .products_price {
-  color: #e30605;
 }

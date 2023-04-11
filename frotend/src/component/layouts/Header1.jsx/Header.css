@@ -48,7 +48,7 @@ box-shadow: 10px 17px 20px -12px rgba(227,227,227,0.64);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 12px !important;
   font-family: "Roboto", sans-serif;
 }
