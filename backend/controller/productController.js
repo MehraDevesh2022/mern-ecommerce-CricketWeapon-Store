@@ -182,12 +182,15 @@ exports.getProductDetails = asyncWrapper(async (req, res, next) => {
 //>>>>>>>>>>>>> Create New Review or Update the review >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 exports.createProductReview = asyncWrapper(async (req, res, next) => {
-  const { ratings, comment, productId } = req.body;
+  const { ratings, comment, productId  , title , recommend} = req.body;
   const review = {
     userId: req.user._id, // from auth
     name: req.user.name,
     ratings: Number(ratings),
+    title  : title,
     comment: comment,
+    recommend : recommend
+
   };
 
   const product = await ProductModel.findById(productId);
@@ -211,8 +214,7 @@ exports.createProductReview = asyncWrapper(async (req, res, next) => {
   } else {
     product.reviews.push(review);
     product.numOfReviews = product.reviews.length;
-    console.log(product.reviews.length);
-  }
+  }   
 
   // now find total ratings for that product. based on all reviews
   let avg = 0;
