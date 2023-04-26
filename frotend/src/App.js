@@ -26,13 +26,13 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Payment from "./component/Cart/Payment";
 // import OrderSuccess from "./component/Cart/OrderSuccess";
-// import MyOrder from "./component/order/MyOrder";
+import MyOrder from "./component/order/MyOrder";
 // import OrderDetails from "./component/order/OrderDetails";
 // import Dashboard from "./component/Admin/Dashboard";
 // import ProductList from "./component/Admin/ProductList";
 // import NewProduct from "./component/Admin/NewProduct";
 // import UpdateProduct from "./component/Admin/UpdateProduct";
-// import OrderList from "./component/Admin/OrderList";
+import OrderList from "./component/Admin/OrderList";
 // import ProcessOrder from "./component/Admin/ProcessOrder";
 // import UserList from "./component/Admin/UserList";
 // import UpdateUser from "./component/Admin/UpdateUser";
@@ -105,6 +105,7 @@ function App() {
             path="/password/update"
             component={UpdatePassword}
           />
+          <PrivateRoute exact path="/orders" component={MyOrder} />
           {/* <PrivateRoute exact path="/shipping" component={Shipping} />
           <PrivateRoute exact path="/order/confirm" component={ConfirmOrder} />
           <PrivateRoute exact path="/success" component={OrderSuccess} />

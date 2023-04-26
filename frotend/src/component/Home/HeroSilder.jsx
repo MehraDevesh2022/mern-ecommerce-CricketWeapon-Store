@@ -132,7 +132,7 @@ export default function HeroSlider() {
           </div>
         ))}
       </Carousel>
-      <div className="feature" style={{ marginTop: "3rem" }}>
+      <div className="feature" style={{ marginTop: "3rem"  }}>
         <h1
           style={{ textAlign: "center", fontFamily: `"Archivo", sans-serif` , fontWeight : "800" }} >
           Featured Products

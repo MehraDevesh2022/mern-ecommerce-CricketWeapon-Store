@@ -10,7 +10,7 @@ const FeaturedSlider = () => {
     {
       id: 1,
       images: [
-        "https://offautan-uc1.azureedge.net/-/media/images/off/ph/products-en/products-landing/landing/off_overtime_product_collections_large_2x.jpg?la=en-ph",
+        "https://5.imimg.com/data5/TV/XG/MY-7466880/cricket-helmet-500x500.jpg",
       ],
       title: "Product 1",
       originalPrice: 100,
@@ -19,7 +19,7 @@ const FeaturedSlider = () => {
     {
       id: 2,
       images: [
-        "https://offautan-uc1.azureedge.net/-/media/images/off/ph/products-en/products-landing/landing/off_overtime_product_collections_large_2x.jpg?la=en-ph",
+        "https://cdnmedia.dsc-cricket.com/media/catalog/product/cache/f6804705d3c9b06dccd038949280b6b0/r/o/rory-burns-cricket-bat_1.jpg",
       ],
       title: "Product 2",
       originalPrice: 50,
@@ -28,7 +28,7 @@ const FeaturedSlider = () => {
     {
       id: 3,
       images: [
-        "https://offautan-uc1.azureedge.net/-/media/images/off/ph/products-en/products-landing/landing/off_overtime_product_collections_large_2x.jpg?la=en-ph",
+        "https://contents.mediadecathlon.com/p1805918/3affdf4be21ed02a174738d8a0958b12/p1805918.jpg",
       ],
       title: "Product 3",
       originalPrice: 200,

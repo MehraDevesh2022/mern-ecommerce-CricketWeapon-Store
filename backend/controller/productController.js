@@ -208,7 +208,7 @@ exports.createProductReview = asyncWrapper(async (req, res, next) => {
         rev.ratings = ratings;
         rev.comment = comment;
         product.numOfReviews = product.reviews.length;
-      }
+      }  
     });
     // not reviewd  before then add new one
   } else {

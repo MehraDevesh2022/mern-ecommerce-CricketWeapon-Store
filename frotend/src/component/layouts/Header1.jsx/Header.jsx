@@ -60,6 +60,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+  // for cartIcon material ui component
 function CartIcon({ cartItemCount }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -110,6 +112,8 @@ function CartIcon({ cartItemCount }) {
   );
 }
 
+
+// this for profile icon if user login then show image else icon. from material ui. 
 function ProfileIcon({ avatarSrc }) {
   const classes = useStyles();
   
@@ -131,24 +135,39 @@ function ProfileIcon({ avatarSrc }) {
   );
 }
 
+
+
+
+// !>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> header Component>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 function Header() {
   const history = useHistory();
+    const { isAuthenticated, user  , loading} = useSelector((state) => state.userData);
+
   const { cartItems } = useSelector((state) => state.cart);
   const [searchBarActive, setSearchBarActive] = useState(false);
-  const avatarSrc = "https://pbs.twimg.com/media/FjU2lkcWYAgNG6d.jpg"; // this is for  profile icon
+
+  const [avatarSrc, setAvatarSrc] = useState(
+    "	https://res.cloudinary.com/dliomowgf/image/upload/v1679243168/Avatar/fxolfcwxrwdefvksbrez.jpg"
+  );
   const [cartItemCount , setCartItemCount] = useState(0); // this is for cart
   const [country, setCountry] = useState("in"); // this is for flag
   const [sideMenu, setSideMenu] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
-  const { isAuthenticated, user } = useSelector((state) => state.userData);
 
 
+ console.log(user);
    
  useEffect(() => {
-   setCartItemCount(cartItems.length);
+  
+    if(isAuthenticated){
+      setAvatarSrc(user.avatar.url)
+    }
+  
+  setCartItemCount(cartItems.length);
    dispatch(load_UserProfile());
- }, [dispatch ,cartItems]);
+ }, [dispatch ,cartItems ]);
 
   // this is for handle sideBar
   const handleSideBarMenu = () => {
@@ -174,7 +193,6 @@ function Header() {
   const handleSearchFormSubmit = (event) => {
     event.preventDefault();
     if (searchValue.trim()) {
-      console.log("heelo");
       history.push(`/products/${searchValue}`);
     } else {
        history.push("/products");
@@ -267,7 +285,7 @@ function Header() {
           {!searchBarActive && (
             <Link to="/">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMtlFoYajHq1AuRRChUQ4oQISSvqn1j5lGVw&usqp=CAU"
+                src={require("../../../Image/logo.png")}
                 alt="logo"
                 className="headerBottom__logo_main"
               />

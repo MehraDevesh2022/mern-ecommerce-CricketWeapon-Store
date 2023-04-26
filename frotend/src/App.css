@@ -5,7 +5,9 @@
   font-family: 'Archivo', sans-serif;;
 }
 
-
+body{
+  background-color: #f5f5f5;
+}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

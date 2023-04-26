@@ -5,6 +5,7 @@ const sendJWtToken = require("../utils/JwtToken");
 const sendEmail = require("../utils/sendEmail")
 const crypto = require("crypto"); 
 const cloudinary = require("cloudinary");
+const { log } = require("console");
     
 // signUp controller>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.registerUser = asyncWrapper(async (req , res) =>{
@@ -81,17 +82,18 @@ exports.logoutUser  = asyncWrapper(async (req , res ) =>{
 
 })
 
-
+  
  //// Forgot Password >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.forgotPassword = asyncWrapper(async(req , res , next) =>{
  
  
   const user = await userModel.findOne({ email: req.body.email });
+  console.log(req);
  // when user with this email not found
   if (!user) {
     return next(new ErrorHandler("User not found", 404));
   }
-
+ 
 
   // Get ResetPassword Token
   const resetToken = user.getResetPasswordToken(); // we made this method into userModel for hash resetToken
