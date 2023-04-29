@@ -1,12 +1,12 @@
 import React from "react";
 import "./Home.css";
-import ProductCard from "./ProductCard";
-import { CgMouse } from "react-icons/cg";
+import ProductCard from "../Products/ProductCard";
 import MataData from "../layouts/MataData/MataData";
 import { clearErrors, getProduct } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../layouts/loader/Loader";
 import { useAlert } from "react-alert";
+import HeroSlider from "./HeroSilder";
 function Home() {
   // we provided all parameter for react-alert at index.js
   const alert = useAlert();
@@ -29,24 +29,25 @@ function Home() {
       ) : (
         <>
           <>
-            <MataData title="Ecart" />
-            <div className="banner">
-              <p>Welcome to Ecommerce</p>
-              <h1>FIND AMAZING PRODUCTS BELOW</h1>
-              <a href="#container">
-                <button>
-                  scroll <CgMouse />
-                </button>
-              </a>
-            </div>
+            <MataData title="Cricket Weapon" />
+            <div className="Home_Page">
+              <div className="heroSlider_Home">
+                <HeroSlider /> 
+              </div>
+              <h2 className="trending_heading">Trending Products</h2>
 
-            {/* Products */}
-            <h2 className="homeHeading">Featured Products</h2>
-            <div className="container" id="container">
-              {products &&
-                products.map((item) => (
-                  <ProductCard key={item._id} product={item} />
-                ))}
+              <div className="trending-products">
+             <ProductCard/>
+             <ProductCard/>
+             <ProductCard/>
+             <ProductCard/>
+             <ProductCard/>
+             <ProductCard/>
+             <ProductCard/>
+             <ProductCard/>
+        
+              
+              </div>
             </div>
           </>
         </>

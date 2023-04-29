@@ -1,8 +1,9 @@
 /* FeaturedSlider Component */
 .featured_swiper {
 position: relative;
-padding: 60px 0;
+padding: 30px 0;
 z-index: 1;
+
 }
 
 .featured_slides {
@@ -264,4 +265,14 @@ background-color: black;
 }
 
 }
+}
+
+.featured_swiper .swiper-slide-next,
+.featured_swiper .swiper-slide-prev {
+  margin-right: 10px;
+}
+
+.featured_swiper .swiper-slide-next + .swiper-slide,
+.featured_swiper .swiper-slide-prev + .swiper-slide {
+  margin-left: 10px;
 }
