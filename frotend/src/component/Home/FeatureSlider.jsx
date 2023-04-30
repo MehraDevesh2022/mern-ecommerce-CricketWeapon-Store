@@ -13,8 +13,8 @@ const FeaturedSlider = () => {
         "https://5.imimg.com/data5/TV/XG/MY-7466880/cricket-helmet-500x500.jpg",
       ],
       title: "Product 1",
-      originalPrice: 100,
-      finalPrice: 10,
+      originalPrice: 102220,
+      finalPrice: 12000,
     },
     {
       id: 2,
@@ -22,8 +22,8 @@ const FeaturedSlider = () => {
         "https://cdnmedia.dsc-cricket.com/media/catalog/product/cache/f6804705d3c9b06dccd038949280b6b0/r/o/rory-burns-cricket-bat_1.jpg",
       ],
       title: "Product 2",
-      originalPrice: 50,
-      finalPrice: 5,
+      originalPrice: 52200,
+      finalPrice: 5222,
     },
     {
       id: 3,
@@ -31,8 +31,8 @@ const FeaturedSlider = () => {
         "https://contents.mediadecathlon.com/p1805918/3affdf4be21ed02a174738d8a0958b12/p1805918.jpg",
       ],
       title: "Product 3",
-      originalPrice: 200,
-      finalPrice: 20,
+      originalPrice: 222200,
+      finalPrice: 2220,
     },
   ];
 
@@ -40,16 +40,16 @@ const FeaturedSlider = () => {
     <Swiper
       modules={[EffectCoverflow, Pagination, A11y, Autoplay]}
       loop={true}
-      speed={400}
-      spaceBetween={100}
+      speed={500}
+      spaceBetween={150}
       slidesPerView={"auto"}
       pagination={{ clickable: true }}
       effect={"coverflow"}
       centeredSlides={true}
       coverflowEffect={{
         rotate: 0,
-        stretch: 0,
-        depth: 70,
+        stretch: 10,
+        depth: 50,
         modifier: 3,
         slideShadows: false,
       }}
