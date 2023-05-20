@@ -1,57 +1,68 @@
-.drawer {
-width: 240px;
-flex-shrink: 0;
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
+  width: 240px;
+  background-color: rgb(37, 37, 37);
+   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  padding-top: 20px;
 }
 
-.drawerPaper {
-width: 240px;
-background-color: rgb(37, 37, 37) !important;
--webkit-box-shadow: 7px 10px 7px -2px rgba(79, 78, 79, 0.75) !important;
--moz-box-shadow: 7px 10px 7px -2px rgba(79, 78, 79, 0.75) !important;
-box-shadow: 7px 10px 7px -2px rgba(79, 78, 79, 0.75) !important;
+.sidebar-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 10px;
+  font-size: 20px;
+  color: #f2f2f2;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: larger;
+  transition: background-color 0.3s, transform 0.3s;
+  border-radius: 50%;
 }
 
-.closeBtn {
-position: absolute;
-top: -0.5rem;
-right: 0.1rem;
-color: #fff;
-font-size: 2px;
-border-radius: 50%;
+.sidebar-close-btn:hover {
+  background-color: #ed1c24;
+  transform: scale(1.1);
 }
 
-.closeBtn:hover {
-background-color: #e30605 !important;
-color: #fff !important;
+.sidebar-menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 3rem 0 0;
+
 }
 
-.listItem {
-margin-top: 16px;
-margin-bottom: 8px;
-margin-right: 0;
-margin-left: 0;
-border-radius: 5px;
-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+.sidebar-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+ 
 }
 
-.listItem:hover {
-background-color: #e30605 !important;
-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
-color: #fff !important;
+.sidebar-menu-item:hover {
+  background-color: #ed1c24;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-.listItemText {
-color: #fff !important;
+.sidebar-menu-item-text {
+  color: #f2f2f5;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 1rem;
+  text-decoration: none;
+  text-decoration-line: none
 }
 
-.listItemText svg {
-fill: #fff !important;
-}
-
-.listItemText:hover {
-color: #fff !important;
-}
-
-.icon {
-color: #fff !important;
+.sidebar-menu-item svg {
+  color: #f2f2f5;
+  font-size: 26px;
+  margin-right: 0.5rem;
 }
