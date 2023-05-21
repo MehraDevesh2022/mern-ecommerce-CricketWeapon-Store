@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-import "./Footer.css";
-
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-
- const footMenu = [
+import "./Footer.css";
+export const footMenu = [
   {
     id: 1,
     title: "Help",
@@ -105,7 +102,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
   },
 ];
 
- const footSocial = [
+export const footSocial = [
   {
     id: 1,
     icon: <FacebookIcon className="facebook_icon" />,
@@ -127,8 +124,6 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
     path: "/",
   },
 ];
-
-
 
 const Footer = () => {
   const [subValue, setSubValue] = useState("");
