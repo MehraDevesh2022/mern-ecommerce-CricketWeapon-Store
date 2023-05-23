@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import FeaturedSlider from "./FeatureSlider";
-
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   slide: {
     height: "calc(100vh - 64px)",
@@ -29,13 +29,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   quote: {
-    fontSize: "14px",
+    fontSize: "16px",
     width: "30vw",
-    fontWeight: 300,
+    fontWeight: 500,
     marginBottom: theme.spacing(1),
   },
   saleText: {
-    fontSize: "24px",
+    fontSize: "32px",
     fontFamily: "Roboto",
     fontWeight: "800",
     width: "45vw",
@@ -61,7 +61,34 @@ const useStyles = makeStyles((theme) => ({
  
 }));
 
-const slides = [  {    image: require("../../Image/Cricket-wepon/img2.png"),    quote: "Play with passion Play with passion",    saleText:      " Play with passion Play with passion Up to 50% off ",    productText: "Shop Now",  },  {    image: require("../../Image/Cricket-wepon/03.jpg"),    quote: "Experience the game",    saleText: "Limited Time Offer ",    productText: "Buy Now",  },  {    image: require("../../Image/Cricket-wepon/01.jpg"),    quote: "Get ready to play Get ready to play ",    saleText: "New Arrivals Get ",    productText: "Explore",  },  {    image: require("../../Image/Cricket-wepon/04.jpg"),    quote: "Get ready to play",    saleText: "New Arrivals",    productText: "Explore",  },];
+const slides = [
+  {
+    image: require("../../Image/Cricket-wepon/img2.png"),
+    quote: "Unleash Your Passion for Cricket and Embrace the Thrill of the Game",
+    saleText: "Get in the game with up to 50% off on a wide range of cricket gear",
+    productText: "Shop Now",
+  },
+  {
+    image: require("../../Image/Cricket-wepon/03.jpg"),
+    quote: "Experience the Unparalleled Excitement and Achieve Victory with Our Premium Cricket Equipment",
+    saleText: "Limited Time Offer: Don't miss out on the opportunity to upgrade your game",
+    productText: "Buy Now",
+  },
+  {
+    image: require("../../Image/Cricket-wepon/01.jpg"),
+    quote: "Gear up with the Latest Innovations and Dominate the Field like Never Before",
+    saleText: "Discover New Arrivals and stay ahead of the competition",
+    productText: "Explore",
+  },
+  {
+    image: require("../../Image/Cricket-wepon/04.jpg"),
+    quote: "Elevate Your Performance and Unleash Your True Cricketing Potential with Our Cutting-Edge Gear",
+    saleText: "New Arrivals: Enhance your skills and excel on the field",
+    productText: "Upgrade Now",
+  },
+];
+
+
 
 export default function HeroSlider() {
   const classes = useStyles();
@@ -125,9 +152,11 @@ export default function HeroSlider() {
             <div className={classes.slideContent}>
               <h2 className={classes.quote}>{slide.quote}</h2>
               <h3 className={classes.saleText}>{slide.saleText}</h3>
-              <Button className={classes.productButton}>
+              <Link to="/products">
+                <Button className={classes.productButton}>
                 {slide.productText}
               </Button>
+              </Link>
             </div>
           </div>
         ))}
