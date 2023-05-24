@@ -36,14 +36,14 @@ const Sidebar = ({ handleSideBarMenu, isAuthenticated, user }) => {
           >
             <li className="sidebar-menu-item">
               <DashboardIcon fontSize="large" />
-              <a className="sidebar-menu-item-text">Dashboard</a>
+              <span className="sidebar-menu-item-text">Dashboard</span>
             </li>
           </Link>
         )}
         <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
           <li className="sidebar-menu-item">
             <HomeIcon fontSize="large" />
-            <a className="sidebar-menu-item-text">Home</a>
+            <span className="sidebar-menu-item-text">Home</span>
           </li>
         </Link>
         <Link
@@ -52,7 +52,7 @@ const Sidebar = ({ handleSideBarMenu, isAuthenticated, user }) => {
         >
           <li className="sidebar-menu-item">
             <Inventory2Icon fontSize="large" />
-            <a className="sidebar-menu-item-text">Products</a>
+            <span className="sidebar-menu-item-text">Products</span>
           </li>
         </Link>
         <Link
@@ -61,7 +61,7 @@ const Sidebar = ({ handleSideBarMenu, isAuthenticated, user }) => {
         >
           <li className="sidebar-menu-item">
             <ContactPageIcon fontSize="large" />
-            <a className="sidebar-menu-item-text">Contact</a>
+            <span className="sidebar-menu-item-text">Contact</span>
           </li>
         </Link>
         <Link
@@ -70,7 +70,7 @@ const Sidebar = ({ handleSideBarMenu, isAuthenticated, user }) => {
         >
           <li className="sidebar-menu-item">
             <InfoIcon fontSize="large" />
-            <a className="sidebar-menu-item-text">About Us</a>
+            <span className="sidebar-menu-item-text">About Us</span>
           </li>
         </Link>
         <Link
@@ -79,7 +79,7 @@ const Sidebar = ({ handleSideBarMenu, isAuthenticated, user }) => {
         >
           <li className="sidebar-menu-item">
             <AccountCircleIcon fontSize="large" />
-            <a className="sidebar-menu-item-text">Account</a>
+            <span className="sidebar-menu-item-text">Account</span>
           </li>
         </Link>
 
@@ -87,7 +87,7 @@ const Sidebar = ({ handleSideBarMenu, isAuthenticated, user }) => {
           <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
             <li className="sidebar-menu-item" onClick={logOutHandler}>
             <ExitToAppIcon fontSize="large" />
-            <a className="sidebar-menu-item-text">Logout</a>
+            <span className="sidebar-menu-item-text">Logout</span>
           </li>
           </Link>
         ) : (
@@ -100,7 +100,7 @@ const Sidebar = ({ handleSideBarMenu, isAuthenticated, user }) => {
               style={{ textDecorationLine: "none", textDecoration: "none" }}
             >
               <LoginIcon fontSize="large" />
-              <a className="sidebar-menu-item-text">Login</a>
+              <span className="sidebar-menu-item-text">Login</span>
             </li>
           </Link>
         )}
