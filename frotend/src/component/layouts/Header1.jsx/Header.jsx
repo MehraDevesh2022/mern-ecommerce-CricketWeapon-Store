@@ -6,8 +6,8 @@ import { ShoppingCart } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Popover } from "@material-ui/core";
-import { Avatar } from "@material-ui/core";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
+
 import FlagSelect from "./Flag";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Link } from "react-router-dom";
@@ -15,9 +15,10 @@ import { useHistory } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { useSelector  , useDispatch} from "react-redux";
 import { load_UserProfile } from "../../../actions/userAction";
-
+import ProfileModal from "./ProfileModel"
 
 const useStyles = makeStyles((theme) => ({
+  
   badge: {
     backgroundColor: "#ed1c24",
     color: "#fff",
@@ -39,25 +40,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
 
-  avatar: {
-    width: theme.spacing(3.5),
-    height: theme.spacing(3.5),
-    backgroundColor: "white",
-    cursor: "pointer",
-    color: "#fff",
-    marginBottom: theme.spacing(0.8),
-    "&:hover": {
-      color: "#fff",
-    },
-    "& .MuiAvatar-colorDefault": {
-      backgroundColor: "#000",
-    },
-  },
-  root: {
-    "&:hover": {
-      color: "#ed1c24",
-    },
-  },
+  
 }));
 
 
@@ -113,43 +96,19 @@ function CartIcon({ cartItemCount }) {
 }
 
 
-// this for profile icon if user login then show image else icon. from material ui. 
-function ProfileIcon({ avatarSrc }) {
-  const classes = useStyles();
-  
-  return (
-    <Avatar className={classes.avatar} src={avatarSrc}>
-      {!avatarSrc && (
-        <AccountCircleIcon
-          sx={{
-            fontSize: 25,
-            color: "black",
-            "&:hover": {
-              color: "#e7070f",
-              cursor: "pointer",
-            },
-          }}
-        />
-      )}
-    </Avatar>
-  );
-}
 
 
 
-
-// !>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> header Component>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// !>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> header Component >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 function Header() {
   const history = useHistory();
-    const { isAuthenticated, user  , loading} = useSelector((state) => state.userData);
+    const { isAuthenticated, user  } = useSelector((state) => state.userData);
 
   const { cartItems } = useSelector((state) => state.cart);
   const [searchBarActive, setSearchBarActive] = useState(false);
 
-  const [avatarSrc, setAvatarSrc] = useState(
-    "	https://res.cloudinary.com/dliomowgf/image/upload/v1679243168/Avatar/fxolfcwxrwdefvksbrez.jpg"
-  );
+
   const [cartItemCount , setCartItemCount] = useState(0); // this is for cart
   const [country, setCountry] = useState("in"); // this is for flag
   const [sideMenu, setSideMenu] = useState(false);
@@ -157,17 +116,23 @@ function Header() {
   const dispatch = useDispatch();
 
 
- console.log(user);
+
    
  useEffect(() => {
-  
-    if(isAuthenticated){
-      setAvatarSrc(user.avatar.url)
-    }
-  
-  setCartItemCount(cartItems.length);
+
+   setCartItemCount(cartItems.length);
    dispatch(load_UserProfile());
  }, [dispatch ,cartItems ]);
+
+
+
+
+
+
+
+
+
+
 
   // this is for handle sideBar
   const handleSideBarMenu = () => {
@@ -336,12 +301,11 @@ function Header() {
               </Link>
             </span>
             <span>
-              <Link
-                to="/account"
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
-                <ProfileIcon avatarSrc={avatarSrc} />
-              </Link>
+             <ProfileModal
+             user ={user}
+
+             isAuthenticated ={isAuthenticated}
+             />
             </span>
           </div>
         </div>

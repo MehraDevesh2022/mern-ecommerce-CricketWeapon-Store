@@ -4,18 +4,16 @@
   font-family: "Roboto", sans-serif;
   font-size: 0.75rem;
   padding: 0;
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   top: 0;
   width: 100%;
-  z-index: 5;
+  z-index: 999;
   display: flex;
   flex-direction: column;
-
   height: 7rem;
- box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
- 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 
 
 .headerTop {
@@ -41,7 +39,11 @@
   font-size: 16px !important;
   font-weight: 500;
   margin-left: 2.5rem;
-  padding-top: 5.5px;
+ margin-bottom: -10px;
+}
+.headerTopLeft > p {
+ position: absolute;
+    top: -9px;
 }
 
 .headerTopRight {
@@ -68,7 +70,7 @@
 
 .headerLogin {
   width: 110px;
-
+ cursor: pointer;
   background-color: rgb(75, 66, 66);
   padding-right: 5px;
   padding-left: 30px;
@@ -82,6 +84,7 @@
   background-color: rgb(75, 66, 66);
   font-weight: 400;
   font-size: 12px;
+  cursor: pointer;
 }
 .headerLogin > button:hover {
   color: #ed1c24;
@@ -187,9 +190,7 @@ list-style: none;
   background-color: #E30605 !important;
 
 }
-.swiper-3d, .swiper-3d.swiper-css-mode .swiper-wrapper {
-    
-}
+
 @media (max-width: 899px) {
  .headerTop{
   display: flex;
@@ -200,6 +201,10 @@ list-style: none;
  .headerTopLeft{
   margin-bottom: 3px;
  }
+ .headerTopLeft > p {
+ position: absolute;
+    top: -13px;
+}
 
 .headerRetailer{
   display: none;

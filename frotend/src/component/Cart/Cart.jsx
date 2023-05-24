@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Cart.css";
-import CartItemCard from "./CartItemCard";
+import TextField from "@material-ui/core/TextField";
 import { useSelector, useDispatch } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../../actions/cartAction";
 import { Typography } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import CartItem from "./CartItem";
 
 const Cart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
-  console.log(cartItems);
+
+  // new code
+  const [couponCode, setCouponCode] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
+  const [isValid, setIsValid] = useState(true);
+    const [totalQuantity, setTotalQuantity] = useState(null);
+  // new code end
+
   const increaseQuantity = (id, quantity, stock) => {
     const newQty = quantity + 1;
     if (stock <= quantity) {
@@ -26,16 +35,32 @@ const Cart = () => {
   const decreaseQuantity = (id, quantity) => {
     const newQty = quantity - 1;
     if (1 >= quantity) {
-      console.log("hello");
       return;
     }
-    console.log("hello");
+
     dispatch(addItemToCart(id, newQty));
   };
+
+  // new code
+  const handleApplyCoupon = () => {
+    // handle apply coupon logic
+    setIsValid(false);
+  };
+
+  const handleFocus = (event) => {
+    setIsFocused(event.target.value !== "");
+  };
+
+  // new code end
 
   const deleteCartItems = (id) => {
     dispatch(removeItemFromCart(id));
   };
+
+
+   const handleQuantityChange = (event) => {
+     setTotalQuantity(event.target.value);
+   };
 
   const checkoutHandler = () => {
     // this url redirect us to loging page . if there if user authenticated(means logged in) then we will redirect to the shipping page else login form
@@ -44,71 +69,157 @@ const Cart = () => {
 
   return (
     <>
-      {cartItems.length === 0 ? (
-        <div className="emptyCart">
-          <RemoveShoppingCartIcon />
-
-          <Typography>No Product in Your Cart</Typography>
-          <Link to="/products">View Products</Link>
-        </div>
-      ) : (
-        <>
-          <div className="cartPage">
-            <div className="cartHeader">
-              <p>Product</p>
-              <p>Quantity</p>
-              <p>Subtotal</p>
-            </div>
-
-            {cartItems &&
-              cartItems.map((item) => (
-                <div className="cartContainer" key={item.productId}>
-                  <CartItemCard item={item} deleteCartItems={deleteCartItems} />
-                  <div className="cartInput">
-                    <button
-                      disabled={item.quantity < 1 ? true : false}
-                      onClick={() =>
-                        decreaseQuantity(item.productId, item.quantity)
-                      }
-                    >
-                      -
-                    </button>
-                    <input type="number" value={item.quantity} readOnly />
-                    <button
-                      disabled={item.Stock <= item.quantity ? true : false}
-                      onClick={() =>
-                        increaseQuantity(
-                          item.productId,
-                          item.quantity,
-                          item.stock
-                        )
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
-                  <p className="cartSubtotal">{`₹${item.price *
-                    item.quantity}`}</p>
-                </div>
-              ))}
-
-            <div className="cartGrossProfit">
-              <div></div>
-              <div className="cartGrossProfitBox">
-                <p>Gross Total</p>
-                <p>{`₹${cartItems.reduce(
-                  (acc, item) => acc + item.quantity * item.price,
-                  0
-                )}`}</p>
-              </div>
-              <div></div>
-              <div className="checkOutBtn">
-                <button onClick={checkoutHandler}>Check Out</button>
-              </div>
-            </div>
+      <div className="cartPage">
+        <div className="cart_HeaderTop">
+          <div className="headerLeft">
+            <Typography variant="h5" component="h1" className="cartHeading">
+              Shopping Cart
+            </Typography>
+            <Typography variant="body2" className="cartText3">
+              TOTAL ({cartItems.length} item) <b>₹16 148.30</b>
+            </Typography>
           </div>
-        </>
-      )}
+          <Typography variant="body2" className="cartText2">
+            Continue Shopping
+          </Typography>
+        </div>
+
+        <div className="separator_cart2"></div>
+
+        {cartItems.length === 0 ? (
+          <div className="emptyCartContainer">
+            <RemoveShoppingCartIcon className="cartIcon" />
+
+            <Typography variant="h5" component="h1" className="cartHeading">
+              Your Shopping Cart is Empty
+            </Typography>
+            <Typography variant="body" className="cartText">
+              Nothin' to see here.
+            </Typography>
+            <Typography variant="body" className="cartText">
+              Let's get shopping!
+            </Typography>
+            <Link to="/products">
+              <Button className="shopNowButton">Shop Now</Button>
+            </Link>
+          </div>
+        ) : (
+          <>
+            <div className="cart_content_wrapper">
+              <div className="cart_left_container">
+                {cartItems &&
+                  cartItems.map((item) => (
+                    <CartItem
+                      key={item.id}
+                      item={item}
+                      deleteCartItems={deleteCartItems}
+                      handleQuantityChange={handleQuantityChange}
+                      totalQuantity = {totalQuantity}
+                    />
+                  ))}
+              </div>
+
+              <div className="separator_cart3"></div>
+              <div className="cart_right_container">
+                <div className="order_summary">
+                  <h4>
+                    Order Summary &nbsp; ( {cartItems.length}{" "}
+                    {cartItems.length > 1 ? "items" : "item"} )
+                  </h4>
+                  <div className="order_summary_details">
+                    <div className="price order_Summary_Item">
+                      <span>Original Price</span>
+                      {/* ORIGINAL PRICE TOATAL */}
+                      <p>₹{23323.23}</p>
+                    </div>
+
+                    <div className="discount order_Summary_Item">
+                      <span>Discount</span>
+                      <p>
+                        <del>- ₹{1999.09}</del>
+                      </p>
+                    </div>
+
+                    <div className="delivery order_Summary_Item">
+                      <span>Delivery</span>
+                      <p>
+                        <b>Free</b>
+                      </p>
+                    </div>
+
+                    <div className="separator_cart"></div>
+                    <div className="total_price order_Summary_Item">
+                      <div>
+                        <h4>Total Price</h4>
+
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            marginTop: "-10px",
+                            color: "#414141",
+                          }}
+                        >
+                          (Inclusive of all taxes)
+                        </p>
+                      </div>
+                      <p>
+                        <b>₹{23323.23}</b>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="separator"></div>
+
+                <div className="coupon-box-wrapper">
+                  <div
+                    className={`coupon-box-content ${
+                      isFocused ? "focused" : ""
+                    }`}
+                  >
+                    <TextField
+                      label="Enter coupon code"
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value)}
+                      onFocus={handleFocus}
+                      onBlur={() => setIsFocused(false)}
+                      error={!isValid}
+                      helperText={!isValid && "Invalid coupon code"}
+                      variant="outlined"
+                      size="small"
+                      style={{ width: "200px", marginRight: "1rem" }}
+                    />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="coupon-box-apply-btn"
+                      onClick={handleApplyCoupon}
+                    >
+                      Apply
+                    </Button>
+                  </div>
+                </div>
+
+                <Button
+                  variant="contained"
+                  className="btn-custom"
+                  onClick={checkoutHandler}
+                >
+                  Checkout
+                </Button>
+
+                <div className="paymentLogoImg">
+                  <img
+                    src={require("../../Image/cart/cart_img.png")}
+                    alt="payemnt-icons"
+                    className="paymentImg"
+                  />
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 };

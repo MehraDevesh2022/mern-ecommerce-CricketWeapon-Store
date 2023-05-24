@@ -3,6 +3,7 @@
 position: relative;
 padding: 30px 0;
 z-index: 1;
+cursor: pointer;
 
 }
 
@@ -15,6 +16,7 @@ background-color: #fff !important;
 border-radius: 10px;
 transition: all 0.3s ease;
 border: 1px solid transparent;
+  
 }
 
 .featured_slides:hover {
