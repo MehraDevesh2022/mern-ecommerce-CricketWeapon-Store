@@ -1,0 +1,132 @@
+
+.profile-icon {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  margin-left: 2px;
+  margin-bottom: 7px;
+
+}
+
+.css-tzssek-MuiSvgIcon-root{
+  font-size: 28px !important;
+}
+.arrow-icon{
+  font-size: 20px !important;
+  
+}
+.modal-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+
+}
+
+.modal-container .modal-content {
+  background-color: #121212;
+  color: #f2f2f2;
+  padding: 20px 5px;
+  width: 220px;
+  position: absolute;
+  top: 110px;
+  right: 2.5rem;
+  border: none;
+  outline: none; 
+  box-shadow: none;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2), 0px 4px 12px rgba(0, 0, 0, 0.1);
+ 
+
+    
+}
+
+.MuiAvatar-colorDefault {
+  width: 68px !important;
+  height: 68px !important;
+}
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 2px;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+}
+
+.welcome-message {
+  text-align: center;
+  margin-bottom: 20px;
+   font-size: 14px;
+}
+
+.welcome-message strong {
+  font-weight: bold;
+   font-size: 14px !important;
+}
+
+.welcome-message p {
+  margin: 10px 0;
+  font-size: 14px !important;
+  
+}
+
+.user-id,
+.user-name,
+.user-email,
+.created-at {
+  margin-bottom: -8px;
+  font-size: 14px;
+  font-weight: 400px;
+
+}
+
+.divider {
+  height: 2px;
+  background-color: rgba(145, 142, 142, 0.168);
+  margin-bottom: 10px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0px;
+  gap: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+
+}
+
+.menu-item:hover {
+  background-color: #ed1c24;
+  /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2), 0px 4px 12px rgba(0, 0, 0, 0.1); */
+
+}
+
+.menu-icon {
+  color: #f2f2f2;
+  font-size: 26px;
+  margin-right: 0.5rem;
+}
+
+.menu-item span {
+  color: #f2f2f2;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  text-decoration-line: none;
+}
