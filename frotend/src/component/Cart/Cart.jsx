@@ -115,6 +115,7 @@ const Cart = () => {
                       deleteCartItems={deleteCartItems}
                       handleQuantityChange={handleQuantityChange}
                       totalQuantity = {totalQuantity}
+                      length={cartItems.length}
                     />
                   ))}
               </div>

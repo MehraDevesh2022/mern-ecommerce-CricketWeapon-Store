@@ -10,16 +10,35 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-
+import {dispalyMoney  ,generateDiscountedPrice} from "../DisplayMoney/DisplayMoney"
 const useStyles = makeStyles((theme) => ({
-  root: {
+  roots: {
     display: "flex",
     alignItems: "center",
     padding: "8rem 1rem",
     width: "fit-content",
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
     margin: "1rem 2rem",
-    height: "100%",
+    height: "auto",
+
+    [theme.breakpoints.down(899)]: {
+      padding: "8rem 3rem",
+      margin: "1rem 3rem",
+    },
+    [theme.breakpoints.down(699)]: {
+      padding: "8rem 2rem",
+      margin: "1rem",
+      width: "80%",
+    },
+  },
+  root: {
+    display: "flex",
+    alignItems: "center",
+    padding: "1rem 1rem",
+    width: "fit-content",
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+    margin: "1rem 2rem",
+    height: "auto",
 
     [theme.breakpoints.down(899)]: {
       padding: "8rem 3rem",
@@ -168,39 +187,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 function CartItem({
   deleteCartItems,
   item,
   handleQuantityChange,
   totalQuantity,
+  length,
 }) {
   const classes = useStyles();
 
-  const product = {
-    image:
-      "https://as2.ftcdn.net/v2/jpg/00/58/34/89/1000_F_58348981_qmOA8cngHBLOY4QxhNz4hP4LNcERn3JT.jpg",
-    title: "AWESOME PRdocut i ever see",
-    price: 2333,
-  };
+
 
   return (
-    <Card className={classes.root}>
+    <Card className={length < 2 ? classes.root : classes.roots}>
       <CardMedia
         className={classes.media}
         image={item.image}
-        title={product.title}
+        title={item.name}
       />
       <CardContent className={classes.content}>
         <div className={classes.contentTop}>
           <div className={classes.cartHeader}>
             <Typography variant="subtitle1" className={classes.title}>
-              {product.title}
+              {item.name}
             </Typography>
 
             <IconButton
               aria-label="delete"
               className={classes.cartDeleteIcon}
-              onClick={()=>deleteCartItems(item.productId)}
+              onClick={() => deleteCartItems(item.productId)}
             >
               <DeleteIcon />
             </IconButton>
@@ -211,7 +228,7 @@ function CartItem({
               Price :
             </Typography>
             <Typography variant="subtitle1" className={classes.itemPrice}>
-              ₹{product.price}
+              ₹{item.price}
             </Typography>
             <Typography
               variant="caption"
