@@ -1,32 +1,172 @@
-.productsHeading{
-  margin: 2vmax auto;
-  width: 15vw;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.171);
-  padding: 2vmax;
-  color: #000000ad;
-  font: 500 2vmax "Roboto";
-  text-align: center;
-  
+.productPage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8rem;
+
 }
+.prodcutPageTop{
+  display: flex;
+width: auto;
+gap: 1rem;
+  justify-content: space-around;
+
+  margin-bottom: 1rem;
+
+}
+
+
+
 
 .products {
  display: flex;
   flex-wrap: wrap;
-  padding: 0 5vmax;
   justify-content: center;
-  min-height: 30vh;
+height: fit-content;
+  width: 80%;
+  
 }
 
+.products1{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60vw;
+  
+  margin: 1rem 0;
+
+}
+.filterBox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  width: 20%;
+ margin: 1rem 0 0 .8rem;
+  background-color: white;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: fit-content;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.329);
+
+ 
+}
+
+.priceFilter{
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+.priceSlider{
+  width: 90%;
+
+}
+.priceSlider .css-187mznn-MuiSlider-root {
+  height: 3px !important;
+    color: #414141 !important;
+}
+
+
+.priceSelector{
+  display: flex;
+gap: 10px;
+  align-items: center;
+  width: 90%;
+  margin: 10px 0;
+}
+
+.priceOption{
+  width: 90%;
+  height: 2rem;
+  
+
+  
+}
+
+
+
+.toText {
+   font-size: 16px;
+    font-weight: 400;
+    color: #414141;
+  
+}
+.filter_divider{
+  width: 100%;
+  height: .8px;
+  margin: 1.5rem 0;
+  background-color: #d7d5d2d4;
+}
+.menu_item{
+  color: white !important;
+box-shadow: rgb(255, 255, 255) !important;
+
+}
+
+.categoriesFilter{
+  width: 90%;
+}
+.categoryBox{
+  display: flex;
+  flex-direction: column;
+  align-items:  flex-start;
+  width: 90%;
+
+}
+.category-link {
+ display: flex;
+  align-items: center;
+  list-style: none;
+  color: rgba(0, 0, 0, 0.61);
+  font: 400 0.8vmax "Roboto";
+  margin: 0.4vmax;
+  cursor: pointer;
+ 
+}
+.category-label{
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-checkbox {
+  width: 16px;
+  height: 16px;
+}
+
+.category-checkbox:checked + .category-label::before {
+  background-color: #414141;
+}
+
+
+.ratingsFilter{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.ratingsBox{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 80%;
+}
 .paginationBox {
   display: flex;
   justify-content: center;
-  margin: 6vmax;
+
 }
 
 .pagination {
   display: flex;
   justify-content: center;
-  padding: 0;
+  padding: 2rem 0 2rem 0; 
+
 }
 .page-item {
   background-color: rgb(255, 255, 255);
@@ -52,7 +192,7 @@
 }
 
 .page-item:hover {
-  background-color: rgb(230, 230, 230);
+  background-color: #414141;
 }
 
 .page-item:hover .page-link {
@@ -60,18 +200,13 @@
 }
 
 .pageItemActive {
-  background-color: tomato;
+  background-color: #ed1c24;
 }
 
 .pageLinkActive {
   color: white;
 }
-.filterBox {
-  width: 10vmax;
-  position: absolute;
-  top: 10vmax;
-  left: 4vmax;
-}
+
 
 .css-187mznn-MuiSlider-root {
   
@@ -94,14 +229,7 @@
   padding: 0%;
 }
 
-.category-link {
-  list-style: none;
-  color: rgba(0, 0, 0, 0.61);
-  font: 400 0.8vmax "Roboto";
-  margin: 0.4vmax;
-  cursor: pointer;
-  transition: all 0.5s;
-}
+
 .category-link:hover {
   color: tomato;
 }
@@ -112,17 +240,62 @@
   border: 1px solid rgba(0, 0, 0, 0.329);
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1100px) {
   .filterBox {
-    width: 20vmax;
-    position: static;
-    margin: auto;
+    width: 30vmax;
+  }
+  .page-link {
+    font: 300 1.2vmax "Roboto";
+  }
+  .products1 {
+    width: 55vw;
+  }
+  .category-link {
+    font: 400 1.3vmax "Roboto";
+  }
+} 
+
+  
+@media screen and (max-width: 800px) {
+  .filterBox {
+    width: 40vmax;
+  }
+  .products1 {
+    width: 45vw;
   }
 
   .page-link {
-    font: 300 1.7vmax "Roboto";
+    font: 300 1.5vmax "Roboto";
   }
   .category-link {
-    font: 400 1.8vmax "Roboto";
+    font: 400 1.6vmax "Roboto";
   }
+}
+ 
+  
+
+@media screen and (max-width: 600px) {
+.prodcutPageTop{
+  flex-direction: column-reverse;
+  align-items: center;
+  margin-top: 10px;
+  
+
+}
+.filterBox{
+  width: 60%;
+  margin: 1rem 0 0 0;
+}
+
+.products{
+  width: 100%;
+  margin: 1rem 0 0 0;
+}
+.products1 {
+  width: 100%;
+  margin: 1rem 0 0 0;
+
+  }
+
+
 }
