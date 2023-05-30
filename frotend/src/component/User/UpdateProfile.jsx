@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./UpdateProfile.css";
-import Loader from "../layouts/loader/Loader";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import FaceIcon from "@material-ui/icons/Face";
+import { Avatar, Button, TextField, Typography } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
+import CricketBallLoader from "../layouts/loader/Loader";
 import {
   clearErrors,
   updateProfile,
@@ -13,7 +11,10 @@ import { useAlert } from "react-alert";
 import { UPDATE_PROFILE_RESET } from "../../constants/userConstanat";
 import MetaData from "../layouts/MataData/MataData";
 import { useHistory } from "react-router-dom";
-import profile from "../../Image/Profile.png";
+import UpdateIcon from "@mui/icons-material/Update";
+import useStyles from "./LoginFromStyle";
+import { Link } from "react-router-dom";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 function UpdateProfile() {
   const history = useHistory();
@@ -22,15 +23,40 @@ function UpdateProfile() {
   const { error, isUpdated, loading } = useSelector(
     (state) => state.profileData
   );
- const {user} = useSelector(state =>state.userData)
-
-
+  const { user } = useSelector((state) => state.userData);
+  const classes = useStyles();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidName, setIsValidEName] = useState(true);
   const [avatar, setAvatar] = useState("");
-  const [avatarPreview, setAvatarPreview] = useState(profile);
+  const [avatarPreview, setAvatarPreview] = useState("");
 
-  // submit upadated profile detials such as avatar , email , name && fro pass we have seperte api for that
+  const handleEmailChange = (event) => {
+    const newEmail = event.target.value;
+    setEmail(newEmail);
+    setIsValidEmail(
+      newEmail !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)
+    );
+  };
+
+  const handleAvatarChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setAvatarPreview(reader.result);
+        setAvatar(reader.result);
+      };
+    }
+  };
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+    setIsValidEName(event.target.value.length >= 4);
+  };
+
   const UpdateProfileSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
@@ -41,22 +67,9 @@ function UpdateProfile() {
     dispatch(updateProfile(myForm));
   };
 
-  // if user wants change image so setAvatar from here
-  const updateProfileDataChange = (e) => {
-    const reader = new FileReader();
-    // async function invoked
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setAvatarPreview(reader.result);
-        setAvatar(reader.result);
-      }
-    };
-    reader.readAsDataURL(e.target.files[0]); // get first image if there multiple pic selected
-  };
-
   useEffect(() => {
-    // letsay if user not update name and change other data then we setting all data from prv user data initaily for name , email, avatar
-   
+    // let say if user not update name and change other data then we setting all data from prv user data initaily for name , email, avatar
+
     if (user) {
       // console.log(user, "user");
       setName(user.name);
@@ -70,78 +83,116 @@ function UpdateProfile() {
     }
     // isUpadted is nothing But success message from response. once user updated then pop the message and show profile data
     if (isUpdated) {
-                     console.log(isUpdated);
-                     alert.success("Profile Updated Successfully");
-                     // now get user New data from backend
-                     dispatch({
-                       type: UPDATE_PROFILE_RESET,
-                     });
+      alert.success("Profile Updated Successfully");
+      // now get user New data from backend
+      dispatch({
+        type: UPDATE_PROFILE_RESET,
+      });
 
-                     // now reset all value . eg : isUpdate : false and all
-                     dispatch({
-                       type: UPDATE_PROFILE_RESET,
-                     });
+      // now reset all value . eg : isUpdate : false and all
+      dispatch({
+        type: UPDATE_PROFILE_RESET,
+      });
 
-                    
-                     history.push("/account");
+      history.push("/account");
 
-                      dispatch(load_UserProfile());
-
-                   }
+      dispatch(load_UserProfile());
+    }
   }, [dispatch, error, alert, history, user, isUpdated]);
+
+  const isSignInDisabled = !(email && isValidEmail && name && isValidName);
 
   return (
     <>
+      <MetaData title="Update Profile" />
       {loading ? (
-        <Loader />
+        <CricketBallLoader />
       ) : (
-        <>
-          <MetaData title="Update Profile" />
-          <div className="updateProfileContainer">
-            <div className="updateProfileBox">
-              <h2 className="updateProfileHeading">Update Profile</h2>
-              <form
-                className="updateProfileForm"
-                encType="multipart/form-data" // for image
-                onSubmit={UpdateProfileSubmitHandler}
-              >
-                <div className="updateProfileName">
-                  <FaceIcon />
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    name="name"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div className="upadateProfileName">
-                  <MailOutlineIcon />
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
+        <div className={classes.formContainer}>
+          <form className={classes.form}>
+            <Avatar className={classes.avatar}>
+              <UpdateIcon />
+            </Avatar>
+            <Typography variant="h5" component="h1" className={classes.heading}>
+              Update Profile Deatils
+            </Typography>
+            <TextField
+              label="Name"
+              variant="outlined"
+              fullWidth
+              className={`${classes.nameInput} ${classes.textField}`}
+              value={name}
+              error={!isValidName && name !== ""}
+              helperText={
+                !isValidName && name !== ""
+                  ? "Name must be at least 4 characters long."
+                  : ""
+              }
+              onChange={handleNameChange}
+            />
 
-                <div id="updateProfileImage">
-                  <img src={avatarPreview} alt="Avatar Preview" />
-                  <input
-                    name="avatar"
-                    type="file"
-                    accept="image/*" // all type file
-                    onChange={updateProfileDataChange}
-                  />
-                </div>
-                <button className="updateProfileBtn">Update</button>
-              </form>
+            <TextField
+              label="Email"
+              variant="outlined"
+              fullWidth
+              className={`${classes.emailInput} ${classes.textField}`}
+              value={email}
+              onChange={handleEmailChange}
+              error={!isValidEmail && email !== ""}
+              helperText={
+                !isValidEmail && email !== ""
+                  ? "Please enter a valid email address."
+                  : ""
+              }
+            />
+
+            <div className={classes.root}>
+              <Avatar
+                alt="Avatar Preview"
+                src={avatarPreview}
+                className={classes.avatar2}
+              />
+              <input
+                accept="image/*"
+                className={classes.input}
+                id="avatar-input"
+                type="file"
+                onChange={handleAvatarChange}
+              />
+              <label htmlFor="avatar-input">
+                <Button
+                  variant="contained"
+                  color="default"
+                  startIcon={<CloudUploadIcon style={{ color: "#FFFFFF" }} />}
+                  component="span"
+                  className={classes.uploadAvatarButton}
+                >
+                  <p className={classes.uploadAvatarText}>Upload Avatar</p>
+                </Button>
+              </label>
             </div>
-          </div>
-        </>
+
+            <Button
+              variant="contained"
+              className={classes.loginButton}
+              fullWidth
+              disabled={isSignInDisabled}
+              style={{ marginTop: "3rem" }}
+              onClick={UpdateProfileSubmitHandler}
+            >
+              Update Profile
+            </Button>
+            <Typography
+              variant="body1"
+              align="center"
+              style={{ marginTop: ".5rem" }}
+            >
+              <Link to="/account" className={classes.createAccount}>
+                Cancel
+              </Link>
+            </Typography>
+          </form>
+        </div>
       )}
     </>
   );

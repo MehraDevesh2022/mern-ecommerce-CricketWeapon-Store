@@ -1,108 +1,199 @@
-import React ,{useState, useEffect} from 'react'
-import "./UpdatePassword.css";
-import Loader from "../layouts/loader/Loader"
+import React, { useState, useEffect } from "react";
+import { Avatar, Button, TextField, Typography } from "@material-ui/core";
+import SecurityUpdateGoodIcon from "@mui/icons-material/SecurityUpdateGood";
+import useStyles from "./LoginFromStyle";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Link } from "react-router-dom";
+import CricketBallLoader from "../layouts/loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePassword , clearErrors } from '../../actions/userAction';
+import { updatePassword, clearErrors } from "../../actions/userAction";
 import { useAlert } from "react-alert";
-import { UPDATE_PASSWORD_RESET } from '../../constants/userConstanat';
-import MetaData from "../layouts/MataData/MataData"
-
-import LockIcon from "@material-ui/icons/Lock";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import {useHistory} from "react-router-dom"
+import { UPDATE_PASSWORD_RESET } from "../../constants/userConstanat";
+import MetaData from "../layouts/MataData/MataData";
+import { useHistory } from "react-router-dom"; 
 
 function UpdatePassword() {
- 
-const history  = useHistory();
-const dispatch = useDispatch();
-const {loading , isUpdated , error } = useSelector(state => state.profileData);
-const alert  = useAlert();
- const [oldPassword, setOldPassword] = useState("");
- const [newPassword, setNewPassword] = useState("");
- const [confirmPassword, setConfirmPassword] = useState("");
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { loading, isUpdated, error } = useSelector(
+    (state) => state.profileData
+  );
+  const alert = useAlert();
 
- function updatePasswordSubmitHandler(e){
+  const classes = useStyles();
+  const [showPassword, setShowPassword] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
+  const [isValidPassword, setIsValidPassword] = useState(true);
+  const [isValidConfirmPassword, setisValidConfirmPassword] = useState(true);
+  const handleOldPassword = (event) => {
+    setOldPassword(event.target.value);
+  };
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    setIsValidPassword(event.target.value.length >= 8);
+  };
+  const handleConfirmPasswordChange = (event) => {
+    setconfirmPassword(event.target.value);
+    setisValidConfirmPassword(event.target.value.length >= 8);
+  };
+
+  const handleShowPasswordClick = () => {
+    setShowPassword(!showPassword);
+  };
+
+  function updatePasswordSubmitHandler(e) {
     e.preventDefault();
-    const myForm  = new FormData();
-      myForm.set("oldPassword", oldPassword);
-      myForm.set("newPassword", newPassword);
-      myForm.set("confirmPassword", confirmPassword);
 
-   dispatch(updatePassword(myForm));
+    if (password !== confirmPassword) {
+      alert.error("Password and Confirm Password do not match");
+      return;
+    }
+    const myForm = new FormData();
+    myForm.set("oldPassword", oldPassword);
+    myForm.set("password", password);
+    myForm.set("confirmPassword", confirmPassword);
 
- }
-useEffect(()=>{
-  if(error){
-    alert.error(error);
-    dispatch(clearErrors());
+    dispatch(updatePassword(myForm));
   }
-  if(isUpdated){
- alert.success("Profile Updated Successfully");
-   dispatch({
-     type: UPDATE_PASSWORD_RESET,
-   });
-        history.push("/account");
-  }
-},[dispatch , error , alert , isUpdated , loading])
 
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if (isUpdated) {
+      alert.success("Profile Updated Successfully");
+      dispatch({
+        type: UPDATE_PASSWORD_RESET,
+      });
+      history.push("/account");
+    }
+  }, [dispatch, error, alert, isUpdated, loading]);
+
+  const isSignInDisabled = !(
+    password &&
+    confirmPassword &&
+    oldPassword &&
+    isValidPassword
+  );
 
   return (
     <>
+      <MetaData title={"Update Password"} />
       {loading ? (
-        <Loader />
+        <CricketBallLoader />
       ) : (
-        <>
-          <MetaData title="Change Password" />
+        <div className={classes.formContainer}>
+          <form className={classes.form}>
+            <Avatar className={classes.avatar}>
+              <SecurityUpdateGoodIcon />
+            </Avatar>
+            <Typography variant="h5" component="h1" className={classes.heading}>
+              Update Password
+            </Typography>
 
-          <div className="updatePasswordContainer">
-            <div className="updatePasswordBox">
-              <h2 className="updatePasswordHeading">Update Profile</h2>
+            <TextField
+              style={{ marginTop: "1rem" }}
+              label="Old Password"
+              variant="outlined"
+              type={showPassword ? "text" : "password"}
+              fullWidth
+              className={`${classes.passwordInput} ${classes.textField}`}
+              InputProps={{
+                endAdornment: (
+                  <Button
+                    variant="outlined"
+                    className={classes.showPasswordButton}
+                    onClick={handleShowPasswordClick}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </Button>
+                ),
+              }}
+              value={oldPassword}
+              onChange={handleOldPassword}
+            />
+            <TextField
+              style={{ marginTop: "4rem" }}
+              label="Password"
+              variant="outlined"
+              type={showPassword ? "text" : "password"}
+              fullWidth
+              className={`${classes.passwordInput} ${classes.textField}`}
+              error={!isValidPassword && password !== ""}
+              helperText={
+                !isValidPassword && password !== ""
+                  ? "Password must be at least 8 characters"
+                  : ""
+              }
+              InputProps={{
+                endAdornment: (
+                  <Button
+                    variant="outlined"
+                    className={classes.showPasswordButton}
+                    onClick={handleShowPasswordClick}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </Button>
+                ),
+              }}
+              value={password}
+              onChange={handlePasswordChange}
+            />
+            <TextField
+              label="Confirm Password"
+              variant="outlined"
+              type={showPassword ? "text" : "password"}
+              fullWidth
+              error={!isValidConfirmPassword && confirmPassword !== ""}
+              helperText={
+                !isValidConfirmPassword && confirmPassword !== ""
+                  ? "Password must be at least 8 characters"
+                  : ""
+              }
+              className={`${classes.passwordInput} ${classes.textField}`}
+              InputProps={{
+                endAdornment: (
+                  <Button
+                    variant="outlined"
+                    className={classes.showPasswordButton}
+                    onClick={handleShowPasswordClick}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </Button>
+                ),
+              }}
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+            />
 
-              <form
-                className="updatePasswordForm"
-                onSubmit={updatePasswordSubmitHandler}
-              >
-                <div className="loginPassword">
-                  <VpnKeyIcon />
-                  <input
-                    type="password"
-                    placeholder="Old Password"
-                    required
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                  />
-                </div>
-
-                <div className="loginPassword">
-                  <LockIcon />
-                  <input
-                    type="password"
-                    placeholder="New Password"
-                    value={newPassword}
-                    name="newPassword"
-                    required
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                </div>
-
-                <div className="loginPassword">
-                  <LockIcon />
-                  <input
-                    type="password"
-                    placeholder="Confirm Password"
-                    required
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                </div>
-                <button className="updatePasswordBtn">Update</button>
-              </form>
-            </div>
-          </div>
-        </>
+            <Button
+              variant="contained"
+              className={classes.loginButton}
+              fullWidth
+              disabled={isSignInDisabled}
+              style={{ marginTop: "3.5rem" }}
+              onClick={updatePasswordSubmitHandler}
+            >
+              Update New Password
+            </Button>
+            <Typography
+              variant="body1"
+              align="center"
+              style={{ marginTop: ".5rem" }}
+            >
+              <Link to="/account" className={classes.createAccount}>
+                Cancel
+              </Link>
+            </Typography>
+          </form>
+        </div>
       )}
     </>
   );
 }
 
-export default UpdatePassword
+export default UpdatePassword;
