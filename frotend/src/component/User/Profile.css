@@ -1,129 +1,379 @@
-.profileContainer {
+.rootProfile {
   display: flex;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  top: 0%;
-  left: 0%;
-  max-width: 100%;
-  background-color: white;
-}
-
-.profileContainer > div {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  max-width: 100%;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
 }
 
-.profileContainer > div:first-child > h1 {
-  color: rgba(0, 0, 0, 0.555);
-  font: 500 2.2vmax "Roboto";
-  transform: translateX(-10vmax) translateY(-2vmax);
-}
-
-.profileContainer > div:first-child > img {
-  width: 20vmax;
-  border-radius: 100%;
-  transition: all 0.5s;
-}
-
-.profileContainer > div:first-child > img:hover {
-  transform: scale(1.05);
-}
-
-.profileContainer > div:first-child > a {
-  border: none;
-  background-color: tomato;
-  font: 400 1vmax "Roboto";
-  color: white;
-  text-decoration: none;
-  padding: 0.5vmax;
-  width: 30%;
-  margin: 4vmax;
+.header-root {
+  width: 100%;
   text-align: center;
-  transition: all 0.5s;
+  background-color: white;
+  padding: 3rem 0 2.5rem;
+ box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+
+ 
 }
 
-.profileContainer > div:first-child > a:hover {
-  background-color: rgb(204, 78, 56);
+.headingProfile{
+  text-align: center;
+  font-weight: 900 !important;
+  font-size: 30px !important;
+  text-transform: uppercase;
+  color: #414141;
+
 }
 
-.profileContainer > div:last-child {
-  justify-content: space-evenly;
-  align-items: flex-start;
-  padding: 5vmax;
-  box-sizing: border-box;
+.profileConatiner {
+  display: flex;
+  justify-content: space-around;
+  width: 97%;
+  align-items: center;
+  
 }
 
-.profileContainer > div:last-child > div > h4 {
-  color: black;
-  font: 400 1.2vmax "Roboto";
-}
 
-.profileContainer > div:last-child > div > p {
-  color: rgba(0, 0, 0, 0.418);
-  font: 400 1vmax cursive;
-  margin: 0.2vmax;
-}
 
-.profileContainer > div:last-child > div:last-child {
+.leftCotainer {
+  max-width: 27vmax;
   display: flex;
   flex-direction: column;
-  width: 60%;
+  align-items: center;
+  margin-bottom: 18rem;
+  padding: 0;
 }
 
-.profileContainer > div:last-child > div:last-child > a {
-  border: none;
-  background-color: rgb(68, 68, 68);
-  font: 400 1vmax "Roboto";
-  color: white;
-  text-decoration: none;
-  padding: 0.5vmax;
+
+.greeting {
+  font-size: 16px;
+  color: #414141;
+  font-weight: 500 !important;
+}
+
+.profileHeadingLeft {
+  font-size: 1.6rem !important;
+  font-weight: 800 !important;
+  margin-bottom: 1rem !important;
+  color: #212121 !important;
+  background-color: inherit !important;
+  text-transform: uppercase !important; 
+}
+
+
+
+.profileHeading {
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  margin-bottom: 1rem !important;
+  color: #212121 !important;
+  text-transform: uppercase !important;
+}
+
+
+.profileSection {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.5rem 2.5rem 3rem 0.5rem;
+;
+  border-radius: 3px;
+  margin-bottom: 1rem;
   text-align: center;
-  transition: all 0.5s;
-  margin: 1vmax 0;
+  padding-top: 1.5rem;
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.profileContainer > div:last-child > div:last-child > a:hover {
-  background-color: rgb(31, 31, 31);
+
+.profileAvatar {
+  width: 90px !important;
+  height: 90px !important;
+  margin-bottom: 8px !important;
+  font-size: 2rem !important;
+  font-weight: 800 !important;
+  background-color: #414141!important;
 }
 
-@media screen and (max-width: 600px) {
-  .profileContainer {
+
+.leftDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 23vmax;
+}
+
+.profileSubHeading {
+  font-size: 1rem !important;
+  color: black !important;
+  font-weight: bold !important;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.profileText {
+  font-size: 1rem !important;
+  color: #414141;
+  text-transform: uppercase;
+}
+
+
+
+.profileText2 {
+  font-size: 16px;
+  color: #414141;
+  font-weight: 500 !important;
+}
+
+.profileText3 {
+  font-size: 14px;
+  color: black;
+  font-weight: 400;
+  width: 80%;
+  margin-top: -14px;
+}
+
+.myOrder {
+  width: 28vmax ;
+  background-color: white !important;
+  text-align: center;
+  padding: 1rem;
+ box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 3px !important;
+}
+
+
+.ordersButton {
+  width: 100% ;
+  padding: 0.5rem !important;
+  margin-bottom: 8px !important;
+  background-color: #414141 !important;
+  color: #fff !important;
+}
+.profileButton {
+  width: 50%  !important;
+  padding: 0.5rem !important;
+  margin:  1rem !important;
+  background-color: #414141 !important;
+  color: #fff !important;
+}
+.ordersButton:hover {
+  background-color: #ed1c24 !important;
+}
+
+
+.profileButton:hover {
+  background-color: #ed1c24 !important;
+}
+
+
+
+.rightConatiner {
+  width: 58vmax;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 3rem;
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.righHeadings {
+  padding: 2rem;
+}
+
+.detials {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 2rem;
+  gap: 10px;
+}
+
+.mangeAccount {
+  display: flex;
+  margin-top: 2rem;
+  flex-direction: column;
+  padding: 0rem 2rem;
+  gap: 2px;
+}
+
+
+@media (max-width: 950px) {
+  .profileConatiner {
     flex-direction: column;
+    max-width: 100%;
   }
 
-  .profileContainer > div:first-child > h1 {
-    font: 500 3.2vmax "Roboto";
-    transform: translateY(-2vmax);
+   .leftCotainer {
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 0;
   }
 
-  .profileContainer > div:first-child > a {
-    font: 400 1.7vmax "Roboto";
-    padding: 1vmax;
-  }
-
-  .profileContainer > div:last-child {
+   .profileHeadingLeft {
+    width: 88vmax;
     text-align: center;
-    align-items: center;
   }
 
-  .profileContainer > div:last-child > div > h4 {
-    font: 400 2.5vmax "Roboto";
+   .profileHeading {
+    width: 100%;
   }
 
-  .profileContainer > div:last-child > div > p {
-    font: 400 2vmax cursive;
-    margin: 0.5vmax 0;
+  .profileSection {
+    width: 88vmax;
   }
 
-  .profileContainer > div:last-child > div:last-child > a {
-    font: 400 1.8vmax "Roboto";
-    padding: 1vmax;
-    margin: 2vmax 0;
+   .profileAvatar {
+    width: 110px;
+    height: 110px;
+    font-size: 3rem;
   }
+.profileText2{
+    width: 70%;
+}
+  
+.leftDetails {
+  gap: 20px;
+  width: 100%;
+}
+
+.profileSubHeading {
+  font-size: 1.8rem;
+}
+
+
+.profileText  {
+  font-size: 1.5rem;
+}
+
+
+.myOrder  {
+  width: 88vmax;
+  padding: 1.5rem;
+}
+
+.ordersButton  {
+  width: 70%;
+  padding: 1rem;
+}
+
+
+.rightConatiner  {
+  width: 88vmax;
+  padding: 3rem;
+  margin-top: 1rem;
+}
+@media (max-width : 870px) {
+    .rightConatiner{
+ width: 112vmax;
+    padding-left: 10rem;
+    }
+ 
+
+
+    .profileText3{
+        width: 60%;
+    }
+    .ordersButton{
+          width: 60%;
+    }
+    .profileButton{
+         width: 40% !important;
+    }
+}
+@media (max-width : 670px) {
+    .rightConatiner{
+     width: 112vmax;
+     padding-left: 15rem;
+    }
+
+    .profileText3{
+        width: 70%;
+    }
+    .ordersButton{
+          width: 50%;
+    }
+    .profileButton{
+         width: 35% !important;
+    }
+}
+@media (max-width : 599px) {
+    .rightConatiner{
+         width: 112vmax;
+            padding-left: 16rem;
+    }
+
+    .ordersButton{
+          width: 40%;
+    }
+    .profileButton{
+         width: 30% !important;
+    }
+}
+@media (max-width : 499px) {
+    .rightConatiner{
+        width: 112vmax;
+           padding-left: 18rem;
+       
+    }
+
+     .profileText2{
+         width: 55% !important;
+    }
+     .profileText3{
+        width: 55% !important;
+    }
+    .ordersButton{
+          width: 40%;
+    }
+    .profileButton{
+         width: 30% !important;
+    }
+}
+@media (max-width : 375px) {
+    .rightConatiner{
+        width: 112vmax;
+        padding-left: 26rem;
+    }
+
+     .profileText3{
+        width: 30%;
+    }
+     .profileText2{
+        width: 50% !important;
+    }
+    .ordersButton{
+          width: 40%;
+    }
+    .profileButton{
+         width: 30% !important;
+    }
+}
+@media (max-width : 350px) {
+    .rightConatiner{
+        width: 112vmax;
+        padding-left: 28rem;
+    }
+
+     .profileText3{
+        width: 50% !important;
+    }
+     .profileText2{
+        width: 50% !important;
+    }
+    .ordersButton{
+          width: 40%;
+    }
+    .profileButton{
+         width: 30% !important;
+    }
+}
+
 }
