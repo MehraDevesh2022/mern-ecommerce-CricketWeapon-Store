@@ -88,7 +88,7 @@ exports.forgotPassword = asyncWrapper(async(req , res , next) =>{
  
  
   const user = await userModel.findOne({ email: req.body.email });
-  console.log(req);
+ 
  // when user with this email not found
   if (!user) {
     return next(new ErrorHandler("User not found", 404));

@@ -43,8 +43,9 @@ class ApiFeatures {
   }
 
   // Pagintaion =>
-
+  
   Pagination(resulltPrrPage) {
+  
     // we are shwoing products resulltPrrPage{eg :5 item} in every page
     const currentPage = Number(this.queryString.page) || 1; // if there is no page value in query then show first page
     const skip = resulltPrrPage * (currentPage - 1); // here lets say we have 50 total product and we are showing 10 product  in one page so if page value is 2 then => 10 * (2-1) =  10, we will skip first 10 product for showing second page
