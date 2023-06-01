@@ -4,9 +4,10 @@ background-color: black;
   color: #fff;
   padding: 30px 0;
   height: auto;
-  overflow-x: hidden;
-  width: 100vw;
+  overflow-x: hidden !important;
+  width: auto;
     font-family: "Roboto", sans-serif;
+
 
 }
 
