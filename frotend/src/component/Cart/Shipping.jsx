@@ -1,124 +1,334 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Shipping.css";
 import { useSelector, useDispatch } from "react-redux";
 import { saveShippingInfo } from "../../actions/cartAction";
 import MetaData from "../layouts/MataData/MataData";
-import PinDropIcon from "@material-ui/icons/PinDrop";
-import HomeIcon from "@material-ui/icons/Home";
-import LocationCityIcon from "@material-ui/icons/LocationCity";
-import PublicIcon from "@material-ui/icons/Public";
-import PhoneIcon from "@material-ui/icons/Phone";
-import TransferWithinAStationIcon from "@material-ui/icons/TransferWithinAStation";
 import CheckoutSteps from "./CheckoutSteps ";
-
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
-function Shipping() {
+
+import {
+  Typography,
+  TextField,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+  shippingRoot: {
+    width: "60%",
+    margin: "auto",
+  },
+  heading: {
+    marginBottom: theme.spacing(2),
+    alignSelf: "flex-start",
+  },
+  formControl: {
+    marginBottom: theme.spacing(2),
+    minWidth: 200,
+  },
+  submitButton: {
+    marginTop: theme.spacing(2),
+    width: "50%",
+    backgroundColor: "#000000",
+    color: "#FFFFFF",
+    height: "3rem",
+    "&:hover": {
+      backgroundColor: "#ed1c24",
+      color: "#FFFFFF",
+    },
+  },
+  outlinedInput: {
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "#000000", // Set input box outline border color to black
+      },
+      "&:hover fieldset": {
+        borderColor: "#000000", // Set input box outline border color to black on hover
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#000000", // Set input box outline border color to black when focused
+      },
+    },
+    "& .MuiInputBase-input": {
+      color: "#000000", // Set input text color to black
+    },
+    "& .MuiInputLabel-root": {
+      color: "#000000", // Set label text color to black
+    },
+  },
+
+
+}));
+
+const Shipping = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
-  const history  = useHistory();
+  const history = useHistory();
   const { shippingInfo } = useSelector((state) => state.cart);
 
-  // now state for from input filed
-  const [address, setAddress] = useState(shippingInfo.address);
-  const [city, setCity] = useState(shippingInfo.city);
-  const [state, setState] = useState(shippingInfo.state);
-  const [country, setCountry] = useState(shippingInfo.country);
-  const [pinCode, setPinCode] = useState(shippingInfo.pinCode);
-  const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
+  const classes = useStyles();
+  const [address, setAddress] = React.useState(shippingInfo.address);
+  const [firstName, setFirstName] = React.useState(shippingInfo.firstName);
+  const [lastName, setLastName] = React.useState(shippingInfo.lastName);
+  const [city, setCity] = React.useState(shippingInfo.city);
+  const [pinCode, setPinCode] = React.useState(shippingInfo.pinCode);
+  const [state, setState] = React.useState(shippingInfo.state);
+  const [country, setCountry] = React.useState(shippingInfo.country || "India");
+  const [phoneNo, setPhone] = React.useState(shippingInfo.phoneNo);
+  const [email, setEmail] = React.useState(shippingInfo.email);
+  const [saveAddress, setSaveAddress] = React.useState(false);
+  const [sameBillingDelivery, setSameBillingDelivery] = React.useState(false);
+const [isValidEmail, setIsValidEmail] = React.useState(true);
+const [isPhoneNoValid, setIsPhoneNoValid] = React.useState(true);
+
+  const handleAddressChange = (event) => {
+    setAddress(event.target.value);
+  };
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handleCityChange = (event) => {
+    setCity(event.target.value);
+  };
+
+  const handlePincodeChange = (event) => {
+    setPinCode(event.target.value);
+  };
+
+  const handleStateChange = (event) => {
+
+    setState(event.target.value);
+  };
+
+  const handleCountryChange = (value) => {
+    setCountry(value.label);
+  };
+
+  const handlePhoneChange = (event) => {
+    const newPhoneNo = event.target.value;
+    setPhone(newPhoneNo);
+    setIsPhoneNoValid(newPhoneNo !== "" && newPhoneNo.length === 10);
+  };
+
+ const handleEmailChange = (event) => {
+   const newEmail = event.target.value;
+   if(email =="" || firstName == "" || lastName == "" || address == "" || city == "" || state == "" || country == "" || pinCode == "" || phoneNo == ""){  
+    alert.error("Please fill all the fields");
+    return;
+    }
+   setEmail(newEmail);
+   setIsValidEmail(
+     newEmail === "" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)
+   );
+ };
+
+  const handleSaveAddressChange = (event) => {
+    setSaveAddress(event.target.checked);
+  };
+
+  const handleSameBillingDeliveryChange = (event) => {
+    setSameBillingDelivery(event.target.checked);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (phoneNo  &&    phoneNo.length < 10 || phoneNo.length > 10) {
+      alert.error("Phone Number should be 10 digits Long");
+      return;
+    }
+    dispatch(
+      saveShippingInfo({
+        address,
+        city,
+        state,
+        country,
+        pinCode,
+        phoneNo,
+        email,
+        firstName,
+        lastName,
+      })
+    );
+ history.push("/process/payment");
+  };
 
 
-   const shippingInfoSubmitHandler =(e) =>{
-      e.preventDefault();
+  
 
-      // cheack lenght of phone number
-        if (phoneNo.length < 10 || phoneNo.length > 10) {
-          alert.error("Phone Number should be 10 digits Long");
-          return;
-        }
-         dispatch(saveShippingInfo({address , city , state , country , pinCode , phoneNo}))
-                history.push("/order/confirm");
-   }
 
 
   return (
     <>
-      <MetaData title="Shipping Details" />
-      <CheckoutSteps activeStep={2} />
-      <div className="shippingContainer">
-        <div className="shippingBox">
-          <h2 className="shippingHeading">Shipping Details</h2>
+      <div className="shippingPage">
+        <MetaData title={"Shipping Info"} />
+        <CheckoutSteps activeStep={1} />
 
-          <form className="shippingForm" onSubmit={shippingInfoSubmitHandler}>
-            <div>
-              <HomeIcon />
-              <input
-                type="text"
-                placeholder="address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </div>
+        <div className="shippingPage__container">
+          <div className="shippingPage__container__left">
+            <div className={classes.shippingRoot}>
+              <form onSubmit={handleSubmit}>
+                <Typography variant="h6" className={classes.heading}>
+                  SHIPPING ADDRESS
+                </Typography>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      label="First Name"
+                      variant="outlined"
+                      fullWidth
+                      value={firstName}
+                      onChange={handleFirstNameChange}
+                      className={classes.outlinedInput}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Last Name"
+                      variant="outlined"
+                      fullWidth
+                      value={lastName}
+                      onChange={handleLastNameChange}
+                      className={classes.outlinedInput}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Address"
+                      variant="outlined"
+                      fullWidth
+                      value={address}
+                      onChange={handleAddressChange}
+                      className={classes.outlinedInput}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="City"
+                      variant="outlined"
+                      fullWidth
+                      value={city}
+                      onChange={handleCityChange}
+                      className={classes.outlinedInput}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Pincode"
+                      variant="outlined"
+                      fullWidth
+                      value={pinCode}
+                      onChange={handlePincodeChange}
+                      className={classes.outlinedInput}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="State"
+                      variant="outlined"
+                      fullWidth
+                      value={state}
+                      onChange={handleStateChange}
+                      className={classes.outlinedInput}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="Country"
+                      variant="outlined"
+                      fullWidth
+                      value={country}
+                      onChange={handleCountryChange}
+                      className={classes.outlinedInput}
+                    />
+                  </Grid>
 
-            <div>
-              <LocationCityIcon />
-              <input
-                type="text"
-                placeholder="City"
-                required
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Phone"
+                      variant="outlined"
+                      fullWidth
+                      value={phoneNo}
+                      onChange={handlePhoneChange}
+                      className={classes.outlinedInput}
+                      error={!isPhoneNoValid && phoneNo !== ""}
+                      helperText={
+                        !isPhoneNoValid &&
+                        phoneNo &&
+                        "Please enter a valid phone number."
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      label="Email"
+                      variant="outlined"
+                      fullWidth
+                      value={email}
+                      onChange={handleEmailChange}
+                      className={classes.outlinedInput}
+                      error={!isValidEmail && email !== ""}
+                      helperText={
+                        !isValidEmail &&
+                        email &&
+                        "Please enter a valid email address."
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={saveAddress}
+                          style={{ color: "#000000" }}
+                          onChange={handleSaveAddressChange}
+                        />
+                      }
+                      label="Save Address to Address Book"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={sameBillingDelivery}
+                          style={{ color: "#000000" }}
+                          onChange={handleSameBillingDeliveryChange}
+                        />
+                      }
+                      label="My billing and delivery information are the same."
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      className={classes.submitButton}
+                     
+                    >
+                      Continue
+                    </Button>
+                  </Grid>
+                </Grid>
+              </form>
             </div>
-
-            <div>
-              <PinDropIcon />
-              <input
-                type="text"
-                placeholder="Pin Code"
-                value={pinCode}
-                onChange={(e) => setPinCode(e.target.value)}
-              />
-            </div>
-            <div>
-              <PhoneIcon />
-              <input
-                type="number"
-                placeholder="Phone number"
-                required
-                value={phoneNo}
-                onChange={(e) => setPhoneNo(e.target.value)}
-                size="10"
-              />
-            </div>
-            <div>
-              <PublicIcon />
-              <input
-                type="text"
-                placeholder="State"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <PublicIcon />
-              <input
-                type="text"
-                placeholder="Country"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-              />
-            </div>
-
-            <button className="shippingBtn " disabled={state ? false : true}>
-              Continue
-            </button>
-          </form>
+          </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Shipping;
