@@ -6,13 +6,16 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    marginBottom: theme.spacing(2), // Reduced spacing between steps
+    marginBottom: theme.spacing(2),
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: theme.spacing(1),
+    },
   },
 }));
 
 const ColorlibConnector = withStyles((theme) => ({
   alternativeLabel: {
-    top: 22,
+    top: 10,
   },
   active: {
     "& $line": {
@@ -27,7 +30,7 @@ const ColorlibConnector = withStyles((theme) => ({
   line: {
     height: 3,
     border: 0,
-    backgroundColor: "#dddddd", 
+    backgroundColor: "#dddddd",
     borderRadius: 1,
   },
 }))(StepConnector);
@@ -35,20 +38,23 @@ const ColorlibConnector = withStyles((theme) => ({
 const useColorlibStepIconStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#000000",
-
     zIndex: 1,
     color: "#FFFFFF",
- 
-    width: 40, // Reduced size of step icons
-    height: 40, // Reduced size of step icons
+    width: 40, 
+    height: 40, 
     display: "flex",
     borderRadius: "50%",
     justifyContent: "center",
     alignItems: "center",
-    border: `3px solid ${theme.palette.background.paper}`,
-    fontSize: 18, // Reduced size of step icons
-    cursor: "pointer", // Add pointer cursor to indicate clickability
-    margin: 0, // Set margin to zero for all steps
+    border: `2px solid ${theme.palette.background.paper}`,
+    fontSize: 16, 
+    cursor: "pointer",
+    margin: 0,
+    [theme.breakpoints.down("sm")]: {
+      width: 20, 
+      height: 20, 
+      fontSize: 14,
+    },
   },
   active: {
     backgroundColor: "#ed1c24",
@@ -80,16 +86,15 @@ const ColorlibStepIcon = ({ active, completed, icon, onClick }) => {
   );
 };
 
-
 const CheckoutSteps = ({ activeStep }) => {
   const classes = useStyles();
   const history = useHistory();
 
   const steps = [
-    { label: "BAG", icon: "1", link: "/bag" },
-    { label: "DELIVERY", icon: "2", link: "/delivery" },
-    { label: "PAYMENT", icon: "3", link: "/payment" },
-    { label: "ORDER COMPLETE", icon: "4", link: "/order-complete" },
+    { label: "BAG", icon: "1", link: "/cart" },
+    { label: "DELIVERY", icon: "2", link: "/shipping" },
+    { label: "PAYMENT", icon: "3", link: "/process/payment" },
+    { label: "ORDER COMPLETE", icon: "4", link: "/success" },
   ];
 
   const handleStepClick = (stepIndex) => {
@@ -99,7 +104,7 @@ const CheckoutSteps = ({ activeStep }) => {
   };
 
   return (
-    <div className="stepReader" style={{marginTop  : "7rem"}}>
+    <div className="stepReader" style={{ marginTop: "7rem" }}>
       <div className={classes.root}>
         <Stepper activeStep={activeStep} connector={<ColorlibConnector />}>
           {steps.map((step, index) => (
