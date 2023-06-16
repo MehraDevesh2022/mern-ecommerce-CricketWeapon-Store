@@ -1,0 +1,51 @@
+/* CSS for Terms and Conditions */
+
+
+
+.terms-container {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.terms-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.terms-content {
+  margin-top: 10px;
+}
+
+.contact-info {
+  margin-top: 30px;
+  font-style: italic;
+}
+
+.contact-info p {
+  margin-bottom: 10px;
+}
+
+.contact-info p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .terms-container {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .terms-title {
+    font-size: 20px;
+  }
+
+  .contact-info {
+    margin-top: 20px;
+  }
+}

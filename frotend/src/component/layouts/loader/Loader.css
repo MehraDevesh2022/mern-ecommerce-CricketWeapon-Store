@@ -4,6 +4,9 @@
   align-items: center;
   height: 100%;
   width: fit-content;
+  margin: 0 auto;
+  background-color: #f5f5f5;
+  
 }
 
 .cricket-ball-loader {

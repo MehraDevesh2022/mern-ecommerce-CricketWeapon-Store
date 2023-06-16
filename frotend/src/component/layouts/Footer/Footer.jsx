@@ -6,7 +6,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 import "./Footer.css";
-export const footMenu = [
+const footMenu = [
   {
     id: 1,
     title: "Help",
@@ -14,27 +14,27 @@ export const footMenu = [
       {
         id: 1,
         link: "FAQs",
-        path: "/",
+        path: "/terms/conditions",
       },
       {
         id: 2,
         link: "Track Order",
-        path: "/",
+        path: "/orders",
       },
       {
         id: 3,
         link: "Cancel Order",
-        path: "/",
+        path: "/policy/return",
       },
       {
         id: 4,
         link: "Return Order",
-        path: "/",
+        path: "/policy/return",
       },
       {
         id: 5,
         link: "Warranty Info",
-        path: "/",
+        path: "/policy/Terms",
       },
     ],
   },
@@ -45,27 +45,27 @@ export const footMenu = [
       {
         id: 1,
         link: "Return Policy",
-        path: "/",
+        path: "/policy/return",
       },
       {
         id: 2,
         link: "Security",
-        path: "/",
+        path: "/policy/privacy",
       },
       {
         id: 3,
         link: "Sitemap",
-        path: "/",
+        path: "policy/Terms",
       },
       {
         id: 4,
         link: "Privacy Policy",
-        path: "/",
+        path: "/policy/privacy",
       },
       {
         id: 5,
         link: "Terms & Conditions",
-        path: "/",
+        path: "/terms/conditions",
       },
     ],
   },
@@ -96,13 +96,13 @@ export const footMenu = [
       {
         id: 5,
         link: "Affiliates",
-        path: "/",
+        path: "/terms/conditions",
       },
     ],
   },
 ];
 
-export const footSocial = [
+ const footSocial = [
   {
     id: 1,
     icon: <FacebookIcon className="facebook_icon" />,
@@ -124,6 +124,7 @@ export const footSocial = [
     path: "/",
   },
 ];
+
 
 const Footer = () => {
   const [subValue, setSubValue] = useState("");

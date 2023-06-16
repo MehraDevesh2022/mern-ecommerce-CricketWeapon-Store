@@ -443,8 +443,72 @@ align-items: center;
 
 
 
+/* cartItem css  */
+
+.prod_details_additem {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.additem {
+  display: flex;
+  align-items: center;
+}
+
+.additem_decrease {
+  margin-right: 8px;
+  height: 24px;
+  font-size: 14px;
+  background-color: #161616;
+  border-color: #1a1a1a;
+  border-radius: 3px;
+  color: white;
+}
+
+.additem_increase {
+  margin-left: 8px;
+  height: 24px;
+  font-size: 14px;
+  background-color: #161616;
+  border-color: #1a1a1a;
+  border-radius: 3px;
+  color: white;
+}
+
+.additem_increase:hover {
+  background-color: #252525;
+  border-color: #252525;
+  transition: transform 0.3s ease 0s;
+  border-style: 2px solid;
+}
+
+.additem_decrease:hover {
+  background-color: #343434;
+  border-color: #494949;
+  transition: transform 0.3s ease 0s;
+  border-style: 2px solid;
+}
+
+input[type="number"] {
+  width: 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 
 
+ 
 
 
 

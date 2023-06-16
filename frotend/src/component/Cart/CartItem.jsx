@@ -6,11 +6,16 @@ import {
   CardContent,
   Typography,
   IconButton,
+  Input,
 } from "@material-ui/core";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import {dispalyMoney  ,generateDiscountedPrice} from "../DisplayMoney/DisplayMoney"
+import RemoveIcon from "@material-ui/icons/Remove";
+import AddIcon from "@material-ui/icons/Add";
+import {
+  dispalyMoney,
+  generateDiscountedPrice,
+
+} from "../DisplayMoney/DisplayMoney";
 const useStyles = makeStyles((theme) => ({
   roots: {
     display: "flex",
@@ -189,16 +194,24 @@ const useStyles = makeStyles((theme) => ({
 
 
 
+
 function CartItem({
   deleteCartItems,
   item,
-  handleQuantityChange,
-  totalQuantity,
+  decreaseQuantity,
+  increaseQuantity,
   length,
 }) {
   const classes = useStyles();
 
+  /// calculate price after discount
 
+  let finalPrice = generateDiscountedPrice(item.price);
+  let discountedPrice = item.price - finalPrice;
+  discountedPrice = dispalyMoney(discountedPrice);
+  let total = finalPrice * item.quantity;
+  total = dispalyMoney(total);
+  finalPrice = dispalyMoney(finalPrice);
 
   return (
     <Card className={length < 2 ? classes.root : classes.roots}>
@@ -228,7 +241,7 @@ function CartItem({
               Price :
             </Typography>
             <Typography variant="subtitle1" className={classes.itemPrice}>
-              ₹{item.price}
+              {finalPrice}
             </Typography>
             <Typography
               variant="caption"
@@ -236,33 +249,43 @@ function CartItem({
               color="black"
               className={classes.itemOldPrice}
             >
-              <del>₹{1355}</del>
+              <del>{discountedPrice}</del>
             </Typography>
           </div>
         </div>
         <div className={classes.contentBottom}>
-          <Typography variant="body2" className={classes.cartSubHeadings}>
-            QTY:
-          </Typography>
-          <span>
-            <Select
-              className={classes.select}
-              value={totalQuantity}
-              onChange={handleQuantityChange}
-            >
-              {[...Array(item.quantity)].map((_, i) => (
-                <MenuItem key={i + 1} value={i + 1}>
-                  {i + 1}
-                </MenuItem>
-              ))}
-            </Select>
-          </span>
+          <div className="prod_details_additem">
+            <h5>QTY :</h5>
+            <div className="additem">
+              <IconButton
+                onClick={() => decreaseQuantity(item.productId, item.quantity)}
+                className="additem_decrease"
+              >
+                <RemoveIcon />
+              </IconButton>
+              <Input
+                readOnly
+                type="number"
+                value={item.quantity}
+                className="input"
+              />
+              <IconButton
+                onClick={() =>
+                  increaseQuantity(item.productId, item.quantity, item.stock)
+                }
+                className="additem_increase"
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
+          </div>
+
           <div className={classes.priceItem}>
             <Typography variant="body2" className={classes.cartSubHeadings}>
               TOTAL:
             </Typography>
             <Typography variant="subtitle1" className={classes.price}>
-              ₹{item.price * item.quantity}
+              {total}
             </Typography>
           </div>
         </div>

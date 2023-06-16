@@ -201,7 +201,7 @@ function Header() {
                 </Link>
               ) : (
                 <Link
-                  to="/login"
+                  to="/signup"
                   style={{ color: "inherit", textDecoration: "none" }}
                 >
                   <button>Sign Up</button>

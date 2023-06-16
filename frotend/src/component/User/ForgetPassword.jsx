@@ -68,7 +68,11 @@ export default function ForgetPassowrd() {
             </Typography>
 
             {isDone && (
-              <Typography variant="body1" align="center">
+              <Typography
+                variant="body1"
+                align="center"
+                style={{ color: "#007500" }}
+              >
                 An email regarding your password change has been sent to your
                 email address.
               </Typography>

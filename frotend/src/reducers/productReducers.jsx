@@ -8,6 +8,7 @@ import {
   CLEAR_ERRORS,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
+  PRODUCT_DETAILS_RESET,
   PRODUCT_DETAILS_FAIL,
   NEW_REVIEW_REQUEST,
   NEW_REVIEW_SUCCESS,
@@ -91,12 +92,19 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
       return {
         loading: false,
         product: action.payload, // product details from backend
+        success: true,
       };
     case PRODUCT_DETAILS_FAIL:
       return {
         loading: false,
         error: action.payload,
+
       };
+      case PRODUCT_DETAILS_RESET:
+        return {
+         success: false,
+        ...state,
+        };
 
     // error msg clear
     case CLEAR_ERRORS:
@@ -127,7 +135,7 @@ export const newReviewReducer = (state = {}, action) => {
     case NEW_REVIEW_FAIL:
       return {
         loading: false,
-        success: action.payload,
+        error: action.payload,
       };
 
     case NEW_REVIEW_RESET:

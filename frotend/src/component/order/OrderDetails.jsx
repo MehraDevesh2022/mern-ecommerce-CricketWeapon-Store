@@ -23,8 +23,7 @@ function OrderDetails() {
     dispatch(getOrderDetails(match.params.id));
   }, [dispatch, alert, error, match.params.id]);
   
-  console.log(match.params.id);
-  console.log("hello wordl");
+ console.log(order) 
   return (
     <>
       {loading ? (

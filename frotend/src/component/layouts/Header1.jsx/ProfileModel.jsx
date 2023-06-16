@@ -121,6 +121,7 @@ const ProfileModal = ({ user, isAuthenticated }) => {
                     src={user.avatar.url}
                     alt="User Avatar"
                     className="avatar"
+                    style={{ width: "68px", height: "68px" }}
                   />
                   <p className="user-id">
                     <strong>ID :</strong> {user._id.substring(0, 8)}

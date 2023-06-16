@@ -10,7 +10,10 @@ import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import CartItem from "./CartItem";
-
+import {
+  dispalyMoney,
+  generateDiscountedPrice,
+} from "../DisplayMoney/DisplayMoney";
 const Cart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -20,7 +23,7 @@ const Cart = () => {
   const [couponCode, setCouponCode] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [isValid, setIsValid] = useState(true);
-    const [totalQuantity, setTotalQuantity] = useState(null);
+
   // new code end
 
   const increaseQuantity = (id, quantity, stock) => {
@@ -57,15 +60,22 @@ const Cart = () => {
     dispatch(removeItemFromCart(id));
   };
 
-
-   const handleQuantityChange = (event) => {
-     setTotalQuantity(event.target.value);
-   };
-
   const checkoutHandler = () => {
-    // this url redirect us to loging page . if there if user authenticated(means logged in) then we will redirect to the shipping page else login form
+   
     history.push("/login?redirect=/shipping");
   };
+
+  // claculte price after discount
+  let totalPrice = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+  let discountedPrice = generateDiscountedPrice(totalPrice);
+  let totalDiscount = totalPrice - discountedPrice;
+  let final = totalPrice - totalDiscount;
+  final = dispalyMoney(final);
+  totalDiscount = dispalyMoney(totalDiscount);
+  totalPrice = dispalyMoney(totalPrice);
 
   return (
     <>
@@ -76,10 +86,14 @@ const Cart = () => {
               Shopping Cart
             </Typography>
             <Typography variant="body2" className="cartText3">
-              TOTAL ({cartItems.length} item) <b>₹16 148.30</b>
+              TOTAL ({cartItems.length} item) <b>{final}</b>
             </Typography>
           </div>
-          <Typography variant="body2" className="cartText2">
+          <Typography
+            variant="body2"
+            className="cartText2"
+            onClick={() => history.push("/product")}
+          >
             Continue Shopping
           </Typography>
         </div>
@@ -113,8 +127,8 @@ const Cart = () => {
                       key={item.id}
                       item={item}
                       deleteCartItems={deleteCartItems}
-                      handleQuantityChange={handleQuantityChange}
-                      totalQuantity = {totalQuantity}
+                      decreaseQuantity={decreaseQuantity}
+                      increaseQuantity={increaseQuantity}
                       length={cartItems.length}
                     />
                   ))}
@@ -131,13 +145,13 @@ const Cart = () => {
                     <div className="price order_Summary_Item">
                       <span>Original Price</span>
                       {/* ORIGINAL PRICE TOATAL */}
-                      <p>₹{23323.23}</p>
+                      <p>{totalPrice}</p>
                     </div>
 
                     <div className="discount order_Summary_Item">
                       <span>Discount</span>
                       <p>
-                        <del>- ₹{1999.09}</del>
+                        <del>{totalDiscount}</del>
                       </p>
                     </div>
 
@@ -164,7 +178,7 @@ const Cart = () => {
                         </p>
                       </div>
                       <p>
-                        <b>₹{23323.23}</b>
+                        <b>{final}</b>
                       </p>
                     </div>
                   </div>

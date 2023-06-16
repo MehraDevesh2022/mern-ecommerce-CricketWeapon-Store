@@ -15,9 +15,19 @@ export const calculateDiscount = (discountedPrice, originalPrice) => {
   return disCountPercent;
 };
 
-// calculate Total  Ammount
 
+
+// calculate Total  Ammount
 export const calculateTotal = (arr) => {
   const total = arr.reduce((accum, curr) => accum + curr, 0);
   return total;
 };
+
+
+export function generateDiscountedPrice(price) {
+  var discountPercentage = 35;
+  var discountAmount = (discountPercentage / 100) * price;
+  var discountedPrice = price - discountAmount;
+  return discountedPrice.toFixed(2); 
+}
+

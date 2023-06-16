@@ -23,6 +23,7 @@ function ConfirmOrder() {
   const gst = subTotal * 0.18;
 
   const totalFinalPrice = subTotal + gst + shippingCharges;
+  
 
   const address = `${shippingInfo.address} , ${shippingInfo.city} ${shippingInfo.state} , ${shippingInfo.pinCode} , ${shippingInfo.country}`;
 
@@ -33,10 +34,10 @@ function ConfirmOrder() {
       gst,
       totalFinalPrice,
     };
-    // session storage allowd save data untill broser tab is opend
+    // session storage allowd save data untill  browser tab is opend
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
 
-    history.push("/process/payment");
+   
   }
 
   return (

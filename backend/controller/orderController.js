@@ -16,7 +16,7 @@ exports.newOrder = asyncWrapper(async (req, res, next) => {
   } = req.body;
 
   // create order :
-  const order = await orderModel.create({
+  const order = await orderModel.create({  
     shippingInfo,
     orderItems,
     paymentInfo,

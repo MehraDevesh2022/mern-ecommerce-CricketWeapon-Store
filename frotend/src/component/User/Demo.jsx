@@ -1,36 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { resetPassword, clearErrors } from "../../actions/userAction";
-import { useAlert } from "react-alert";
-import MetaData from "../layouts/MataData/MataData";
-import { useHistory, useRouteMatch } from "react-router-dom";
-import CricketBallLoader from "../layouts/loader/Loader";
 import { Avatar, Button, TextField, Typography } from "@material-ui/core";
-import LockResetIcon from "@mui/icons-material/LockReset";
+import MetaData from  "../layouts/MataData/MataData"
+import SecurityUpdateGoodIcon from "@mui/icons-material/SecurityUpdateGood";
 import useStyles from "./LoginFromStyle";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
+import CricketBallLoader from "../layouts/loader/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePassword, clearErrors } from "../../actions/userAction";
+import { useAlert } from "react-alert";
+import { UPDATE_PASSWORD_RESET } from "../../constants/userConstanat";
+import MetaData from "../layouts/MataData/MataData";
+import { useHistory } from "react-router-dom";
 
-function ResetPassword() {
+function UpdatePassword() {
   const history = useHistory();
-  const match = useRouteMatch();
-
   const dispatch = useDispatch();
-  const alert = useAlert();
-
-  const { error, success, loading } = useSelector(
-    (state) => state.forgetPassword
+  const { loading, isUpdated, error } = useSelector(
+    (state) => state.profileData
   );
-
-
-
+  const alert = useAlert();
 
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [isValidPassword, setIsValidPassword] = useState(true);
+  const handleOldPassword = (event) => {
+    setOldPassword(event.target.value);
+  };
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
     setIsValidPassword(event.target.value.length >= 8);
@@ -40,61 +40,81 @@ function ResetPassword() {
   };
 
   const handleShowPasswordClick = () => {
-
     setShowPassword(!showPassword);
-   
   };
 
-
-  
-  useEffect(() => {
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors());
-    }
-
-    if (success) {
-      alert.success("Password Updated Successfully");
-      history.push("/login");
-    }
-  }, [dispatch, error, alert, success, history]);
-
-
-   // submit handler
-  function resetPasswordSubmitHandler(e) {
-    e.preventDefault();
-
+   function updatePasswordSubmitHandler(e) {
+     e.preventDefault();
+     
    if (password !== confirmPassword) {
      alert.error("Password and Confirm Password do not match");
      return;
    }
-   const myForm = new FormData();
-   myForm.set("password", password);
-    myForm.set("confirmPassword", confirmPassword);
+     const myForm = new FormData();
+     myForm.set("oldPassword", oldPassword);
+     myForm.set("newPassword", newPassword);
+     myForm.set("confirmPassword", confirmPassword);
 
-    dispatch(resetPassword(match.params.token, myForm));
+     dispatch(updatePassword(myForm));
+   }
+
+useEffect(() => {
+  if (error) {
+    alert.error(error);
+    dispatch(clearErrors());
   }
+  if (isUpdated) {
+    alert.success("Profile Updated Successfully");
+    dispatch({
+      type: UPDATE_PASSWORD_RESET,
+    });
+    history.push("/account");
+  }
+}, [dispatch, error, alert, isUpdated, loading]);
 
 
-  const isSignInDisabled = !(password && confirmPassword && isValidPassword) ;
+
+
+  const isSignInDisabled = !(password && confirmPassword && oldPassword && isValidPassword );
 
   return (
     <>
-      <MetaData title="Reset Password" />
+      <MetaData title={"Update Password"} />
       {loading ? (
         <CricketBallLoader />
       ) : (
         <div className={classes.formContainer}>
           <form className={classes.form}>
             <Avatar className={classes.avatar}>
-              <LockResetIcon />
+              <SecurityUpdateGoodIcon />
             </Avatar>
             <Typography variant="h5" component="h1" className={classes.heading}>
-              Reset Password
+              Update Password
             </Typography>
 
             <TextField
               style={{ marginTop: "1rem" }}
+              label="Old Password"
+              variant="outlined"
+              type={showPassword ? "text" : "password"}
+              fullWidth
+              className={`${classes.passwordInput} ${classes.textField}`}
+              InputProps={{
+                endAdornment: (
+                  <Button
+                    variant="outlined"
+                    className={classes.showPasswordButton}
+                    onClick={handleOldPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </Button>
+                ),
+              }}
+              value={password}
+              onChange={handlePasswordChange}
+            />
+            <TextField
+              style={{ marginTop: "4rem" }}
               label="Password"
               variant="outlined"
               type={showPassword ? "text" : "password"}
@@ -103,7 +123,7 @@ function ResetPassword() {
               error={!isValidPassword && password !== ""}
               helperText={
                 !isValidPassword && password !== ""
-                  ? "Password must be at least 8 characters."
+                  ? "Password must be at least 8 characters"
                   : ""
               }
               InputProps={{
@@ -120,11 +140,17 @@ function ResetPassword() {
               value={password}
               onChange={handlePasswordChange}
             />
-            <TextField 
+            <TextField
               label="Confirm Password"
               variant="outlined"
               type={showPassword ? "text" : "password"}
               fullWidth
+              error={!isValidPassword && password !== ""}
+              helperText={
+                !isValidPassword && password !== ""
+                  ? "Password must be at least 8 characters"
+                  : ""
+              }
               className={`${classes.passwordInput} ${classes.textField}`}
               InputProps={{
                 endAdornment: (
@@ -147,17 +173,16 @@ function ResetPassword() {
               fullWidth
               disabled={isSignInDisabled}
               style={{ marginTop: "3.5rem" }}
-              onClick={resetPasswordSubmitHandler}
-              
+              onClick={updatePasswordSubmitHandler}
             >
-              Confirm New Password
+              Update New Password
             </Button>
             <Typography
               variant="body1"
               align="center"
               style={{ marginTop: ".5rem" }}
             >
-              <Link to="/login" className={classes.createAccount}>
+              <Link to="/account" className={classes.createAccount}>
                 Cancel
               </Link>
             </Typography>
@@ -168,4 +193,4 @@ function ResetPassword() {
   );
 }
 
-export default ResetPassword;
+export default UpdatePassword;

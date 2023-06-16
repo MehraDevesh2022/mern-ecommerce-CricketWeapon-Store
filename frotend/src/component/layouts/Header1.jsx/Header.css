@@ -142,9 +142,9 @@ list-style: none;
 .headerBottom_navMenu ul li a{
    color: #121212;
    text-decoration: none;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 2px;
+    font-size: 15px;
+    font-weight: 500;
+
     margin-top: 20px;
     font-family: 'Roboto', sans-serif;
 }
