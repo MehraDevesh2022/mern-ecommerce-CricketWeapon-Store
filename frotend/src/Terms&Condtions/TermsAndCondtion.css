@@ -1,7 +1,8 @@
 .terms-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 70%;
+  padding: 25px 2px;
+  background-color: white;
+  margin: 5rem  auto  0;
 }
 
 .terms-image {
@@ -13,12 +14,12 @@
 .terms-overlay {
   position: absolute;
   top: 50%;
-  left: 20px;
+  left: 25%;
   transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.8);
+ text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   padding: 10px;
-  color: #000000;
-  font-size: 24px;
+  color: white;
+  font-size: 32px;
   font-weight: bold;
   text-align: center;
   z-index: 1;
@@ -28,6 +29,13 @@
   font-size: 16px;
   line-height: 1.6;
   color: #333333;
+  width: 80%;
+ font-family: "Roboto", sans-serif;
+ display: block;
+ gap: 1rem;
+ padding: 23px;
+ margin: 0 auto;
+ 
 }
 
 .terms-title {

@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Return.css"
 const ReturnPolicyPage = () => {
   return (
-    <div className="container">
+    <div className="container__0">
       <div className="image-container">
         <img
           src="https://images.unsplash.com/photo-1594470117722-de4b9a02ebed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1129&q=80"
@@ -51,16 +52,28 @@ const ReturnPolicyPage = () => {
         <p>
           Customer Service Department
           <br />
-          Email: support@cricketweapon.com
+          <span style={{ fontWeight: "500" }}>Email </span>: 
+          support@cricketweapon.com
           <br />
-          Phone: 123-456-7890
+          <span style={{ fontWeight: "500" }}>Phone  </span>:  123-456-7890
           <br />
-          Hours of Operation: Monday to Friday, 9:00 AM to 5:00 PM (GMT)
+      <span style={{ fontWeight: "500" }}>    Hours of Operation: Monday to Friday, 9:00 AM to 5:00 PM (GMT) </span>
         </p>
         <p>
           Please reach out to us if you have any concerns or require any
-          clarifications regarding our return policy. We strive to provide
-          excellent customer service and ensure your satisfaction.
+          clarifications regarding our{" "}
+          <Link
+            to="/policy/return"
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              fontWeight: "500",
+            }}
+          >
+            return policy
+          </Link>
+          . We strive to provide excellent customer service and ensure your
+          satisfaction.
         </p>
       </div>
     </div>

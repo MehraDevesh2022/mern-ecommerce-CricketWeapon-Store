@@ -1,7 +1,8 @@
-.container___ {
-  max-width: 800px;
-  margin: 0 auto;
+.container__0 {
+  max-width: 900px;
+  margin: 5rem auto 0;
   padding: 20px;
+  background-color: white;
 }
 
 .image-container {
@@ -30,6 +31,11 @@
   font-size: 16px;
   line-height: 1.6;
   color: #333333;
+  width: 90%;
+  font-family: "Roboto", sans-serif;
+  display: block;
+margin: 0 auto;
+  gap: 1rem;
 }
 
 h1 {
@@ -51,11 +57,13 @@ p {
 
 .contact-info {
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .email {
   color: #007bff;
   text-decoration: none;
+  font-weight: 700;
 }
 
 .email:hover {
