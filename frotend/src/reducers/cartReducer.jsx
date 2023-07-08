@@ -8,11 +8,11 @@ export function cartReducer(state = { cartItems: [], shippingInfo: {} }, action)
       const item = action.payload;
       // find if product exist in cartItem already
       const isExist = state.cartItems.find(cartItem => {
-        return cartItem.productId == item.productId
+        return cartItem.productId === item.productId
 
       })
-
-      console.log(action.payload);
+   
+      console.log(action.payload);  
       // if exist alerady then replace same product 
       if (isExist) {
         return {
