@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     margin: 0,
     padding: 0,
+    [theme.breakpoints.between("sm", "md")]: {
+      flexDirection: "row",
+    },
+    [theme.breakpoints.down("xs")]: {},
   },
   firstBox: {
     width: "20%",
@@ -39,22 +43,27 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     borderRadius: "5px",
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
+    [theme.breakpoints.between("sm", "md")]: {
+      width: "20%",
+    },
   },
-
   secondBox: {
     width: "75%",
     height: "fit-content",
-
     display: "flex",
     flexDirection: "column",
     gap: "1rem",
     justifyContent: "center",
+    [theme.breakpoints.between("sm", "md")]: {
+      width: "70%",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
   },
-
   navBar: {
     margin: "0rem",
   },
-
   summaryCard: {
     display: "flex",
     justifyContent: "center",
@@ -62,7 +71,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "15rem",
     gap: "1rem",
-
     margin: "1rem 0 0 0",
   },
   cardContainer: {
@@ -70,20 +78,28 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-
     margin: "0 1rem ",
     width: "30%",
     height: "10rem",
     backgroundColor: "black",
     borderRadius: "5px",
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
-    transition: "background-color 0.3s",
+    transition: "transform 0.2s ease-in-out",
     cursor: "pointer",
     "&:hover": {
-      backgroundColor: "#ed1c24",
+      transform: "scale(1.1) !important",
+      boxShadow: "0px 0px 10px rgba(0, 0, 0, black) !important",
+    },
+    [theme.breakpoints.between("sm", "md")]: {
+      width: "30%",
+      marginBottom: "1rem",
+      padding: "1rem 2rem",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      marginBottom: "1rem",
     },
   },
-
   textContainer: {
     marginTop: "0.5rem",
     textAlign: "center",
@@ -107,7 +123,50 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     color: "white",
   },
-
+  revenue: {
+    width: "100%",
+    height: "fit-content",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: "-2.5rem auto 0",
+  },
+  doughnutChart: {
+    height: "fit-content",
+    width: "42%",
+    backgroundColor: "white",
+    borderRadius: "5px",
+    boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
+    padding: "1rem 2rem",
+    margin: "0 1rem",
+    [theme.breakpoints.between("sm", "md")]: {
+      width: "30%",
+      padding: "1rem 3rem",
+      "& .highcharts-background": {
+        height: "350px !important",
+      },
+    },
+  },
+  revnueContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: "0 1rem",
+    height: "400px",
+    backgroundColor: "black",
+    borderRadius: "5px",
+    padding: "1rem 2rem",
+    boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
+    transition: "background-color 0.3s",
+    [theme.breakpoints.between("sm", "md")]: {
+      width: "30%",
+      padding: "1rem 3rem",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
+  },
   lineChart: {
     width: "90%",
     height: "fit-content",
@@ -116,40 +175,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "5px",
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
     padding: "2rem",
-    margin: "-2rem auto 0",
-  },
-
-  revenue: {
-    width: "100%",
-    height: "fit-content",
-    display: "flex",
-    justifyContent: "center",
-  },
-  doughnutChart: {
-    height: "fit-content",
-    width: "40%",
- 
-    backgroundColor: "white",
-    borderRadius: "5px",
-    boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
-    padding: "1rem",
-    margin: "1rem 2rem",
-  },
-
-  revnueContainer: {
-  
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-
-    margin: "0 1rem ",
-    width: "40%",
-    height: "10rem",
-    padding: "1rem",
-    borderRadius: "5px",
-    boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
-    transition: "background-color 0.3s",
+    margin: "1rem auto",
   },
 }));
 
@@ -197,6 +223,7 @@ function Dashboard() {
     orders.forEach((item) => {
       totalAmmount += item.totalPrice;
     });
+
 
   // chart js values for Line component
   const lineOptions = {
@@ -420,13 +447,6 @@ function Dashboard() {
                 </div>
               </div>
 
-              <div className={classes.lineChart}>
-                <HighchartsReact
-                  highcharts={Highcharts}
-                  options={lineOptions}
-                />
-              </div>
-
               <div className={classes.revenue}>
                 <div className={classes.doughnutChart}>
                   <HighchartsReact
@@ -441,11 +461,9 @@ function Dashboard() {
                     backgroundImage: `url("https://assets.leetcode.com/explore/cards/cheatsheets/img-1674082113.png")`,
                     backgroundSize: "cover",
                     transition: "transform 0.2s ease-in-out",
-                    cursor: "pointer",
-                    width: "50%",
-                    ":hover": {
-                      transform: "scale(1.1)",
-                    },
+                    borderRadius: "5px",
+
+                    width: "42%",
                   }}
                   onClick={() => history.push("/admin/revenue")}
                 >
@@ -464,10 +482,17 @@ function Dashboard() {
                   </div>
                   <div className={classes.textContainer}>
                     <Typography variant="body2" className={classes.number}>
-                      {totalAmmount}
+                      ₹{totalAmmount.toFixed(2)}
                     </Typography>
                   </div>
                 </div>
+              </div>
+
+              <div className={classes.lineChart}>
+                <HighchartsReact
+                  highcharts={Highcharts}
+                  options={lineOptions}
+                />
               </div>
             </div>
           </div>
