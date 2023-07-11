@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 import { BarChart } from "@material-ui/icons";
 import Highcharts from "highcharts";
@@ -31,10 +31,6 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     margin: 0,
     padding: 0,
-    [theme.breakpoints.between("sm", "md")]: {
-      flexDirection: "row",
-    },
-    [theme.breakpoints.down("xs")]: {},
   },
   firstBox: {
     width: "20%",
@@ -43,9 +39,24 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     borderRadius: "5px",
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
-    [theme.breakpoints.between("sm", "md")]: {
-      width: "20%",
+    display: "block",
+    [theme.breakpoints.down("999")]: {
+      display: "none",
     },
+  },
+
+  toggleBox: {
+    width: "16rem",
+    margin: "0rem",
+    height: "fit-content",
+    backgroundColor: "white",
+    borderRadius: "5px",
+    boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
+    display: "block",
+    zIndex: "100",
+    position: "absolute",
+    top: "58px",
+    left: "17px",
   },
   secondBox: {
     width: "75%",
@@ -54,10 +65,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     gap: "1rem",
     justifyContent: "center",
-    [theme.breakpoints.between("sm", "md")]: {
-      width: "70%",
-    },
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down("999")]: {
       width: "100%",
     },
   },
@@ -72,12 +80,20 @@ const useStyles = makeStyles((theme) => ({
     height: "15rem",
     gap: "1rem",
     margin: "1rem 0 0 0",
+
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      height: "20rem",
+      alignItems: "center",
+      marginTop: "7rem !important",
+    },
   },
   cardContainer: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#414141",
     margin: "0 1rem ",
     width: "30%",
     height: "10rem",
@@ -88,16 +104,28 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     "&:hover": {
       transform: "scale(1.1) !important",
+      backgroundColor: "#ed1c24 ",
       boxShadow: "0px 0px 10px rgba(0, 0, 0, black) !important",
     },
     [theme.breakpoints.between("sm", "md")]: {
-      width: "30%",
-      marginBottom: "1rem",
-      padding: "1rem 2rem",
+      width: "32% !important",
+      marginBottom: "1rem !important",
+      padding: "1rem 2rem ! important",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "85% !important",
+      marginBottom: "1rem !important",
+      padding: "2rem 2rem ! important",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "100%",
+      width: "85%",
+
+      padding: "1.2rem",
+      margin: "0   auto",
       marginBottom: "1rem",
+      "&:hover": {
+        transform: "scale(1.05) !important",
+      },
     },
   },
   textContainer: {
@@ -111,6 +139,12 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 800,
     marginBottom: "0.5rem",
     textShadow: "1px 1px 2px black",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "18px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "22px",
+    },
   },
   number: {
     fontSize: "1.5rem",
@@ -122,6 +156,18 @@ const useStyles = makeStyles((theme) => ({
     gap: "1rem",
     alignItems: "center",
     color: "white",
+
+    [theme.breakpoints.down("md")]: {
+      "& svg": {
+        fontSize: "2rem",
+      },
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      "& svg": {
+        fontSize: "3rem",
+      },
+    },
   },
   revenue: {
     width: "100%",
@@ -130,6 +176,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     margin: "-2.5rem auto 0",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      marginTop: "5rem !important",
+    },
   },
   doughnutChart: {
     height: "fit-content",
@@ -139,15 +189,27 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
     padding: "1rem 2rem",
     margin: "0 1rem",
-    [theme.breakpoints.between("sm", "md")]: {
+    [theme.breakpoints.down("md")]: {
       width: "30%",
       padding: "1rem 3rem",
-      "& .highcharts-background": {
+      ".highcharts-background": {
         height: "350px !important",
       },
     },
+    [theme.breakpoints.down("sm")]: {
+      width: "85%",
+      padding: "2rem",
+      marginTop: "2rem",
+    },
+
+    [theme.breakpoints.down("xs")]: {
+      width: "85%",
+      marginBottom: "1rem",
+      padding: "1.2rem",
+    },
   },
   revnueContainer: {
+    width: "42%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -159,12 +221,28 @@ const useStyles = makeStyles((theme) => ({
     padding: "1rem 2rem",
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
     transition: "background-color 0.3s",
-    [theme.breakpoints.between("sm", "md")]: {
+
+    [theme.breakpoints.down("sm")]: {
+      width: "85% !important",
+      padding: "1rem",
+      height: "250px",
+    },
+
+    [theme.breakpoints.down("md")]: {
       width: "30%",
       padding: "1rem 3rem",
     },
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "1rem",
+      width: "85% !important",
+      padding: "2rem !important",
+      height: "250px",
+    },
+
     [theme.breakpoints.down("xs")]: {
-      width: "100%",
+      width: "85%",
+      marginBottom: "1rem",
+      padding: "1rem !important",
     },
   },
   lineChart: {
@@ -176,13 +254,27 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
     padding: "2rem",
     margin: "1rem auto",
+
+    [theme.breakpoints.down("sm")]: {
+      width: "85%",
+    },
+
+    [theme.breakpoints.down("xs")]: {
+      width: "85%",
+      marginBottom: "1rem",
+      padding: "1.2rem",
+    },
   },
 }));
+
+
+
 
 function Dashboard() {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+  const [toggle, setToggle] = useState(false);
   const { products, loading, error } = useSelector((state) => state.products);
   const { orders, error: ordersError } = useSelector(
     (state) => state.allOrders
@@ -217,13 +309,19 @@ function Dashboard() {
     dispatch(getAdminProducts());
   }, [dispatch, error, alert, ordersError, usersError]);
 
+  // togle handler =>
+  const toggleHandler = () => {
+    
+    console.log("toggle");
+    setToggle(!toggle);
+  };
+
   // total Amount Earned
   let totalAmmount = 0;
   orders &&
     orders.forEach((item) => {
       totalAmmount += item.totalPrice;
     });
-
 
   // chart js values for Line component
   const lineOptions = {
@@ -331,6 +429,24 @@ function Dashboard() {
     ],
   };
 
+
+  // to close the sidebar when the screen size is greater than 1000px
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 999 && toggle) {
+        setToggle(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [toggle]);
+
+
+
   return (
     <>
       {loading ? (
@@ -339,13 +455,17 @@ function Dashboard() {
         <>
           <MetaData title="Dashboard - Admin Panel" />
           <div className={classes.dashboard}>
-            <div className={classes.firstBox}>
+            <div
+              className={
+                !toggle ? `${classes.firstBox}` : `${classes.toggleBox}`
+              }
+            >
               <Sidebar />
             </div>
 
             <div className={classes.secondBox}>
               <div className={classes.navBar}>
-                <Navbar />
+                <Navbar toggleHandler={toggleHandler} />
               </div>
 
               <div className={classes.summaryCard}>
@@ -400,7 +520,7 @@ function Dashboard() {
                       fontSize="large"
                       style={{
                         fontSize: "3rem",
-                        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                       }}
                     />
                     <Typography variant="h6" className={classes.heading}>
@@ -432,7 +552,7 @@ function Dashboard() {
                       fontSize="large"
                       style={{
                         fontSize: "3rem",
-                        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                       }}
                     />
                     <Typography variant="h6" className={classes.heading}>
@@ -465,14 +585,13 @@ function Dashboard() {
 
                     width: "42%",
                   }}
-                  onClick={() => history.push("/admin/revenue")}
                 >
                   <div className={classes.headerConetnt}>
                     <BarChart
                       fontSize="large"
                       style={{
                         fontSize: "3rem",
-                        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+                        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                       }}
                     />
 
