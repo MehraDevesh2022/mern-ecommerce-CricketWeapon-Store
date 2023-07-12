@@ -1,54 +1,148 @@
-.productListContainer {
+.product-list {
+  display: flex;
+  align-items: flex-start;
+  background-color: #f1f1f1;
+  justify-content: center;
   width: 100%;
-  box-sizing: border-box;
-  background-color: rgb(255, 255, 255);
-  border-left: 1px solid rgba(0, 0, 0, 0.158);
+  gap: 1rem;
+  overflow: hidden;
+  margin-top: -1rem !important;
+  padding: 0;
+}
+
+.listSidebar {
+  width: 20%;
+  margin: 0;
+  height: fit-content;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  display: block;
+}
+
+
+
+  .toggleBox {
+    width: 16rem;
+    margin: 0;
+    height: fit-content;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    display: block;
+    z-index: 100;
+    position: absolute;
+    top: 58px;
+    left: 17px;
+  }
+@media only screen and (max-width: 999px) {
+  .listSidebar {
+    display: none;
+  }
+}
+
+
+.list-table {
+  width: 80%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  gap: 10px;
+  justify-content: center;
 }
 
-#productListHeading {
-  font: 400 2rem "Roboto";
-  padding: 0.5vmax;
-  box-sizing: border-box;
-  color: rgba(0, 0, 0, 0.637);
-  transition: all 0.5s;
-  margin: 2rem;
-  text-align: center;
+@media only screen and (max-width: 999px) {
+  .list-table {
+    width: 100%;
+  }
 }
 
+.productListContainer
+{ background-color: white ;
+  width: 96%;
+  height: fit-content;
+  padding: 1rem;
+  border-radius: 1px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+
+}
 .productListTable {
-  background-color: white;
-  border: none !important;
+ width: 100%;
+  overflow: scroll;
+
 }
 
-.productListTable div {
-  font: 300 1vmax "Roboto";
-  color: rgba(0, 0, 0, 0.678);
-  border: none !important;
+.productListHeading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 10px;
+  margin: 0;
+  padding: 0;
+  color: #414141;
+  width: 100%;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  text-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) ;
+}
+.column-header{
+  width: fit-content  ;
+  padding: 0px 10px ;
+  font-size: 16px ;
+  font-weight: 600 ;
+  align-items: center;
+  margin: 0px 0px 0px 15px ;
 }
 
-.productListTable a,
-.productListTable button {
-  color: rgba(0, 0, 0, 0.527);
-  transition: all 0.5s;
+.column-header:hover{
+  color: #ed1c24;
+  background-color: #f2f2f2c1;
+  cursor: pointer;
 }
 
-.productListTable a:hover {
-  color: tomato;
+
+.column-header1 {
+  width: fit-content ;
+  padding: 0px 10px ;
+  font-size: 16px ;
+  font-weight: 600 ;
+  margin-left: 3rem ;
 }
 
-.productListTable button:hover {
-  color: rgb(236, 30, 30);
+
+
+.icon-{
+  font-size: 20px;
+  color: #fff;
+  background-color: #414141;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 3rem ;
+}
+.iconbtn {
+   font-size: 20px;
+  color: #fff;
+  background-color: #414141;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+.icon:hover{
+ background-color: #ed1c24;
+
+}
+.iconbtn:hover{
+ background-color: #ed1c24;
+
 }
 
-.MuiDataGrid-columnHeader div {
-  color: rgb(255, 255, 255);
+.MuiDataGrid-root .MuiDataGrid-cell--textLeft{
+  margin-left: 1.2rem !important;
+  color: #000 !important;
 }
 
-@media screen and (max-width: 600px) {
-  .productListTable div {
-    font: 300 4vw "Roboto";
+@media (max-width: 699px) {
+  .hide-on-mobile {
+    display: none;
   }
 }
