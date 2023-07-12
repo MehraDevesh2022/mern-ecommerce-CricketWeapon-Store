@@ -127,7 +127,7 @@
   cursor: pointer;
   margin-left: 0.5rem;
 }
-.icon:hover{
+.icon-:hover{
  background-color: #ed1c24;
 
 }
@@ -145,4 +145,16 @@
   .hide-on-mobile {
     display: none;
   }
+}
+
+
+/* orderList status  */
+.greenColor {
+  color: green !important;
+  font-weight: 600;
+}
+
+.redColor {
+  color: red !important;
+  font-weight: 600;
 }

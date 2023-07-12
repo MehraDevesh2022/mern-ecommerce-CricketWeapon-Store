@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import "./OrderList.css";
+import React, {useState , useEffect } from "react";
+import "./ProductList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,20 +8,48 @@ import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
 import MetaData from "../layouts/MataData/MataData";
 import Loader from "../layouts/loader/Loader";
-import { Button } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Sidebar from "./Siderbar";
+import Navbar from "./Navbar";
 import { DELETE_ORDER_RESET } from "../../constants/orderConstant";
 function OrderList() {
   const dispatch = useDispatch();
   const history = useHistory();
   const alert = useAlert();
-  const { error, laoding, orders } = useSelector((state) => state.allOrders);
+ 
+  const { error, loading, orders } = useSelector((state) => state.allOrders);
   const { error: deleteError, isDeleted } = useSelector(
     (state) => state.deleteUpdateOrder
   );
+   const [toggle, setToggle] = useState(false);
 
+  // togle handler =>
+  const toggleHandler = () => {
+    console.log("toggle");
+    setToggle(!toggle);
+  };
+
+  // to close the sidebar when the screen size is greater than 1000px
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 999 && toggle) {
+        setToggle(false);
+      
+
+      }
+    };
+       
+          
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [toggle]);
+
+
+  // dispatching the action
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -46,61 +74,66 @@ function OrderList() {
   };
 
   // DATA GRID VALUE
-  const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
-    {
-      field: "status",
-      headerName: "Status",
-      minWidth: 150,
-      flex: 0.5,
-      cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
-      },
+const columns = [
+  {
+    field: "id",
+    headerName: "Order ID",
+    minWidth: 120,
+    flex: 0.7,
+    headerClassName: "column-header",
+  },
+  {
+    field: "status",
+    headerName: "Status",
+    minWidth: 100,
+    flex: 0.8,
+    headerClassName: "column-header hide-on-mobile",
+    renderCell: (params) => {
+      const color = params.value === "Delivered" ? "green" : "red";
+      return <div style={{ color, fontWeight: 600 }}>{params.value}</div>;
     },
+  },
+  {
+    field: "itemsQty",
+    headerName: "Items Qty",
+    type: "number",
+    minWidth: 120,
+    flex: 0.8,
+    headerClassName: "column-header hide-on-mobile",
+  },
+  {
+    field: "amount",
+    headerName: "Amount",
+    type: "number",
+    minWidth: 120,
+    flex: 0.8,
+    headerClassName: "column-header hide-on-mobile",
+  },
+  {
+    field: "actions",
+    headerName: "Actions",
+    flex: 1.5,
+    sortable: false,
+    minWidth: 150,
+    headerClassName: "column-header1",
+    renderCell: (params) => {
+      return (
+        <>
+          <Link to={`/admin/order/${params.getValue(params.id, "id")}`}>
+            <EditIcon className="icon-" />
+          </Link>
+          <Link
+            onClick={() => deleteOrderHandler(params.getValue(params.id, "id"))}
+          >
+            <DeleteIcon className="iconbtn" />
+          </Link>
+        </>
+      );
+    },
+  },
+];
 
-    {
-      field: "itemsQty",
-      headerName: "Items Qty",
-      type: "number",
-      minWidth: 150,
-      flex: 0.4,
-    },
 
-    {
-      field: "amount",
-      headerName: "Amount",
-      type: "number",
-      minWidth: 270,
-      flex: 0.5,
-    },
-    {
-      field: "actions",
-      flex: 0.3,
-      headerName: "Actions",
-      minWidth: 150,
-      type: "number",
-      sortable: false,
-
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={`/admin/order/${params.getValue(params.id, "id")}`}>
-              <EditIcon />
-            </Link>
-            <Button
-              onClick={() =>
-                deleteOrderHandler(params.getValue(params.id, "id"))
-              }
-            >
-              <DeleteIcon />
-            </Button>
-          </>
-        );
-      },
-    },
-  ];
  
 
   const rows =[];
@@ -114,32 +147,39 @@ function OrderList() {
     });
   })
 
-  return (
-    <>
-      {laoding ? (
-        <Loader />
-      ) : (
-        <>
-          <MetaData title={`ALL ORDERS - Admin`} />
-          <div className="dashboard">
-            <Sidebar />
-            <div className="productListContainer">
-              <h1 id="productListHeading">ALL ORDERS</h1>
+   return (
+     <>
+       {loading ? (
+         <Loader />
+       ) : (
+         <>
+           <MetaData title={`ALL PRODUCTS - Admin`} />
 
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                pageSize={10}
-                disableSelectionOnClick
-                className="productListTable"
-                autoHeight
-              />
-            </div>
-          </div>
-        </>
-      )}
-    </>
-  );
+           <div className="product-list" style={{ marginTop: 0 }}>
+             <div className={!toggle ? "listSidebar" : "toggleBox"}>
+               <Sidebar />
+             </div>
+
+             <div className="list-table">
+               <Navbar toggleHandler={toggleHandler} />
+               <div className="productListContainer">
+                 <h4 id="productListHeading">ALL ORDERS</h4>
+
+                 <DataGrid
+                   rows={rows}
+                   columns={columns}
+                   pageSize={10}
+                   disableSelectionOnClick
+                   className="productListTable"
+                   autoHeight
+                 />
+               </div>
+             </div>
+           </div>
+         </>
+       )}
+     </>
+   );
 }
 
 export default OrderList;
