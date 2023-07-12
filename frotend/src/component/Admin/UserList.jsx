@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./ProductList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,13 +9,15 @@ import MetaData from "../layouts/MataData/MataData";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Sidebar from "./Siderbar";
+import Navbar from "./Navbar";
+import Loader from "../layouts/loader/Loader";
 import { getAllUsers, clearErrors, deleteUser } from "../../actions/userAction";
 import { DELETE_USER_RESET } from "../../constants/userConstanat";
 import { useHistory } from "react-router-dom";
 
 function UserList() {
   const dispatch = useDispatch();
-  const { error, users } = useSelector((state) => state.allUsers);
+  const { error, users, loading } = useSelector((state) => state.allUsers);
   const { error: deleteError, isDeleted, message } = useSelector(
     (state) => state.profileData
   );
@@ -25,6 +27,7 @@ function UserList() {
     dispatch(deleteUser(id));
   };
 
+  const [toggle, setToggle] = useState(false);
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -47,20 +50,20 @@ function UserList() {
   // Datagrid  values  and schema
 
   const columns = [
-    { field: "id", headerName: "User ID", minWidth: 180, flex: 0.8 },
-
-    {
-      field: "email",
-      headerName: "Email",
-      minWidth: 200,
-      flex: 1,
-    },
-
     {
       field: "name",
       headerName: "Name",
       minWidth: 150,
       flex: 0.5,
+      headerClassName: "column-header hide-on-mobile",
+    },
+
+    {
+      field: "email",
+      headerName: "Email",
+      minWidth: 150,
+      flex: 0.7,
+      headerClassName: "column-header hide-on-mobile",
     },
 
     {
@@ -69,6 +72,7 @@ function UserList() {
       type: "number",
       minWidth: 150,
       flex: 0.3,
+      headerClassName: "column-header hide-on-mobile",
       cellClassName: (params) => {
         return params.getValue(params.id, "role") === "admin"
           ? "greenColor"
@@ -81,12 +85,13 @@ function UserList() {
       headerName: "Actions",
       minWidth: 150,
       type: "number",
-      sortable: false,
+
+      headerClassName: "column-header hide-on-mobile",
       renderCell: (params) => {
         return (
           <>
             <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
-              <EditIcon />
+              <EditIcon className="icon-" />
             </Link>
 
             <Button
@@ -94,11 +99,19 @@ function UserList() {
                 deleteUserHandler(params.getValue(params.id, "id"))
               }
             >
-              <DeleteIcon />
+              <DeleteIcon className="iconbtn" />
             </Button>
           </>
         );
       },
+    },
+    {
+      field: "id",
+      headerName: "User ID",
+      minWidth: 180,
+      flex: 0.8,
+      sortable: false,
+      headerClassName: "column-header hide-on-mobile",
     },
   ];
 
@@ -114,23 +127,58 @@ function UserList() {
       });
     });
 
+  // togle handler =>
+  const toggleHandler = () => {
+    console.log("toggle");
+    setToggle(!toggle);
+  };
+
+  // to close the sidebar when the screen size is greater than 1000px
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 999 && toggle) {
+        setToggle(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [toggle]);
+
   return (
     <>
-      <MetaData title={`ALL USERS - Admin`} />
-      <div className="dashboard">
-        <Sidebar />
-        <div className="productListContainer">
-          <h1 id="productListHeading">ALL USERS</h1>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            className="productListTable"
-            autoHeight
-          />
-        </div>
-      </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <MetaData title={`ALL PRODUCTS - Admin`} />
+
+          <div className="product-list" style={{ marginTop: 0 }}>
+            <div className={!toggle ? "listSidebar" : "toggleBox"}>
+              <Sidebar />
+            </div>
+
+            <div className="list-table">
+              <Navbar toggleHandler={toggleHandler} />
+              <div className="productListContainer">
+                <h4 id="productListHeading">ALL USERS</h4>
+
+                <DataGrid
+                  rows={rows}
+                  columns={columns}
+                  pageSize={10}
+                  disableSelectionOnClick
+                  className="productListTable"
+                  autoHeight
+                />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }
