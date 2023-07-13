@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   introText: {
     maxWidth: "800px",
-    margin: "0 auto",
+
     lineHeight: "1.5",
     margin: "1.5rem 0",
     color: "#292929",
