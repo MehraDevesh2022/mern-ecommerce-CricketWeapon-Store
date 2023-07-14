@@ -1,29 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./NewProduct.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import MetaData from "../layouts/MataData/MataData";
 import Loader from "../layouts/loader/Loader";
-import { Button } from "@material-ui/core";
-import AccountTreeIcon from "@material-ui/icons/AccountTree";
 import DescriptionIcon from "@material-ui/icons/Description";
 import StorageIcon from "@material-ui/icons/Storage";
-import SpellcheckIcon from "@material-ui/icons/Spellcheck";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import {
+  Avatar,
+  Button,
+  TextField,
+  Typography,
+  FormControl,
+} from "@material-ui/core";
 import Sidebar from "./Siderbar";
-import { updateProduct, clearErrors , getProductDetails } from "../../actions/productAction";
+import {
+  updateProduct,
+  clearErrors,
+  getProductDetails,
+} from "../../actions/productAction";
 import { useHistory } from "react-router-dom";
 import { UPDATE_PRODUCT_RESET } from "../../constants/productsConstatns";
 import { useRouteMatch } from "react-router-dom";
-import { render } from "react-dom";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Box from "@material-ui/core/Box";
+import SearchIcon from "@material-ui/icons/Search";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import CollectionsIcon from "@mui/icons-material/Collections";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
-
+import useStyles from "../User/LoginFromStyle";
 function UpdateProduct() {
   const dispatch = useDispatch();
   const history = useHistory();
   const alert = useAlert();
+  const classes = useStyles();
   const productId = useRouteMatch().params.id;
-   console.log(productId);
   const { error, product } = useSelector((state) => state.productDetails);
 
   const { loading, error: updateError, isUpdated } = useSelector(
@@ -38,6 +53,7 @@ function UpdateProduct() {
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
   const [oldImages, setOldImages] = useState([]);
+    const fileInputRef = useRef();
   const categories = [
     "Laptop",
     "Footwear",
@@ -49,9 +65,7 @@ function UpdateProduct() {
   ];
 
   useEffect(() => {
-   
     if (product && product._id !== productId) {
-   
       dispatch(getProductDetails(productId));
     } else {
       setName(product.name);
@@ -88,6 +102,9 @@ function UpdateProduct() {
     updateError,
   ]);
 
+
+   
+
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
@@ -100,25 +117,36 @@ function UpdateProduct() {
       myForm.append("images", currImg);
     });
 
-    dispatch(updateProduct(productId ,myForm));
+    dispatch(updateProduct(productId, myForm));
   };
 
-  const updateProductImagesChange = (e) => {
-    const files = Array.from(e.target.files);
-    setImages([]);
-    setImagesPreview([]);
-      setOldImages([]);
-    files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setImagesPreview((prv) => [...prv, reader.result]);
-          setImages((prv) => [...prv, reader.result]);
-        }
-      };
-      reader.readAsDataURL(file);
-    });
-  };
+
+     const handleImageUpload = () => {
+       fileInputRef.current.click();
+     };
+
+const updateProductImagesChange = (e) => {
+  const files = Array.from(e.target.files);
+  setImages([]);
+  setImagesPreview([]);
+  setOldImages([]);
+  files.forEach((file) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImagesPreview((prev) => [...prev, reader.result]);
+        setImages((prev) => [...prev, reader.result]);
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+};
+    const [displayLabel, setDisplayLabel] = useState(true);
+
+    const handleChange = (event) => {
+      setCategory(event.target.value);
+      setDisplayLabel(false);
+    };
 
   return (
     <>
@@ -128,110 +156,194 @@ function UpdateProduct() {
         <>
           <>
             <MetaData title="Create Product" />
-            <div className="dashboard">
-              <Sidebar />
-              <div className="newProductContainer">
-                <form
-                  className="createProductForm"
-                  encType="multipart/form-data"
-                  onSubmit={createProductSubmitHandler}
+            <div className={classes.formContainer}>
+              {/* <Sidebar /> */}
+
+              <form
+                className={classes.form}
+                encType="multipart/form-data"
+                onSubmit={createProductSubmitHandler}
+              >
+                <Avatar className={classes.avatar}>
+                  <AddCircleOutlineIcon />
+                </Avatar>
+                <Typography
+                  variant="h5"
+                  component="h1"
+                  className={classes.heading}
                 >
-                  <h1>Create Product</h1>
-
-                  <div>
-                    <SpellcheckIcon />
-                    <input
-                      type="text"
-                      placeholder="Product Name"
-                      required
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <AttachMoneyIcon />
-                    <input
-                      type="number"
-                      placeholder="Price"
-                      value={price}
-                      required
-                      onChange={(e) => setPrice(e.target.value)}
-                    />
-                  </div>
-
-                  <div>
-                    <DescriptionIcon />
-
-                    <textarea
-                      placeholder="Product Description"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      cols="30"
-                      rows="1"
-                    ></textarea>
-                  </div>
-
-                  <div>
-                    <AccountTreeIcon />
-                    <select
-                      onChange={(e) => setCategory(e.target.value)}
-                      value={category}
-                    >
-                      <option value="">Choose Category</option>
-                      {categories.map((cate) => (
-                        <option key={cate} value={cate}>
-                          {cate}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <StorageIcon />
-                    <input
-                      type="number"
-                      placeholder="Stock"
-                      value={Stock}
-                      required
-                      onChange={(e) => setStock(e.target.value)}
-                    />
-                  </div>
-
-                  <div id="createProductFormFile">
-                    <input
-                      type="file"
-                      name="avatar"
-                      accept="image/*"
-                      onChange={updateProductImagesChange}
-                      multiple
-                    />
-                  </div>
-                  <div id="createProductFormImage">
-                    {oldImages &&
-                      oldImages.map((image, index) => (
-                        <img
-                          key={index}
-                          src={image.url}
-                          alt="Old Product Preview"
+                  Create Product
+                </Typography>
+                {/* SpellcheckIcon */}
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  className={`${classes.nameInput} ${classes.textField}`}
+                  label="Product Name"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <SearchIcon
+                          style={{ fontSize: 20, color: "#414141" }}
                         />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                <TextField
+                  variant="outlined"
+                  label="Price"
+                  value={price}
+                  required
+                  fullWidth
+                  className={`${classes.passwordInput} ${classes.textField}`}
+                  onChange={(e) => setPrice(e.target.value)}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment
+                        position="end"
+                        style={{ fontSize: 20, color: "#414141" }}
+                      >
+                        <AttachMoneyIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  className={classes.descriptionInput}
+                  label="Product Description"
+                  multiline
+                  rows={1}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <DescriptionIcon className={classes.descriptionIcon} />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+
+                <div className={classes.selectOption}>
+                  <Typography variant="body2" className={classes.labelText}>
+                    Choose Category
+                  </Typography>
+                  <FormControl className={classes.formControl}>
+                    <Select
+                      variant="outlined"
+                      fullWidth
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className={classes.select}
+                      inputProps={{
+                        name: "category",
+                        id: "category-select",
+                      }}
+                      MenuProps={{
+                        classes: { paper: classes.menu },
+                        anchorOrigin: {
+                          vertical: "bottom",
+                          horizontal: "left",
+                        },
+                        transformOrigin: {
+                          vertical: "top",
+                          horizontal: "left",
+                        },
+                        getContentAnchorEl: null,
+                      }}
+                    >
+                      <MenuItem value="">
+                        <em>Choose Category</em>
+                      </MenuItem>
+                      {categories.map((cate) => (
+                        <MenuItem key={cate} value={cate}>
+                          {cate}
+                        </MenuItem>
                       ))}
+                    </Select>
+                  </FormControl>
+                </div>
+
+                <TextField
+                  variant="outlined"
+                  label="Stock"
+                  value={Stock}
+                  required
+                  className={`${classes.passwordInput} ${classes.textField}`}
+                  onChange={(e) => setStock(e.target.value)}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment
+                        position="end"
+                        style={{ fontSize: 20, color: "#414141" }}
+                      >
+                        <StorageIcon />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+
+                <div className={classes.root}>
+                  <div className={classes.imgIcon}>
+                    <CollectionsIcon fontSize="large" />
                   </div>
 
-                  <div id="createProductFormImage">
-                    {imagesPreview.map((image, index) => (
-                      <img key={index} src={image} alt="Product Preview" />
+                  <input
+                    type="file"
+                    name="avatar"
+                    className={classes.input}
+                    accept="image/*"
+                    onChange={updateProductImagesChange}
+                    multiple
+                    style={{ display: "none" }}
+                    ref={fileInputRef}
+                  />
+                  <label htmlFor="avatar-input">
+                    <Button
+                      variant="contained"
+                      color="default"
+                      className={classes.uploadAvatarButton}
+                      startIcon={
+                        <CloudUploadIcon style={{ color: "#FFFFFF" }} />
+                      }
+                      onClick={handleImageUpload}
+                    >
+                      <p className={classes.uploadAvatarText}>Upload Images</p>
+                    </Button>
+                  </label>
+                </div>
+                <Box className={classes.imageArea}>
+                  {oldImages &&
+                    oldImages.map((image, index) => (
+                      <img
+                        key={index}
+                        src={image.url}
+                        alt="Old Product Preview"
+                        className={classes.image}
+                      />
                     ))}
-                  </div>
-
-                  <Button
-                    id="createProductBtn"
-                    type="submit"
-                    disabled={loading ? true : false}
-                  >
-                    Create
-                  </Button>
-                </form>
-              </div>
+                </Box>
+                <Box className={classes.imageArea}>
+                  {imagesPreview.map((image, index) => (
+                    <img key={index} src={image} alt="Product Preview" />
+                  ))}
+                </Box>
+                <Button
+                  variant="contained"
+                  className={classes.loginButton}
+                  fullWidth
+                  disabled={loading ? true : false}
+                >
+                  Create
+                </Button>
+              </form>
             </div>
           </>
         </>
