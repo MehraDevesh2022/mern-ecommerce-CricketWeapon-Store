@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./Dashboard.css";
 import { BarChart } from "@material-ui/icons";
 import Highcharts from "highcharts";
 import { ShoppingCart, AssignmentInd, People } from "@material-ui/icons";
