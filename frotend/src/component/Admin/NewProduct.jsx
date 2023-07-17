@@ -1,19 +1,33 @@
-import React, { useEffect, useState } from "react";
-import "./NewProduct.css";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import MetaData from "../layouts/MataData/MataData";
 import Loader from "../layouts/loader/Loader";
-import { Button } from "@material-ui/core";
-import AccountTreeIcon from "@material-ui/icons/AccountTree";
-import DescriptionIcon from "@material-ui/icons/Description";
-import StorageIcon from "@material-ui/icons/Storage";
-import SpellcheckIcon from "@material-ui/icons/Spellcheck";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import Sidebar from "./Siderbar";
 import { createProduct, clearErrors } from "../../actions/productAction";
 import { useHistory } from "react-router-dom";
 import { NEW_PRODUCT_RESET } from "../../constants/productsConstatns";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Box from "@material-ui/core/Box";
+import DescriptionIcon from "@material-ui/icons/Description";
+import StorageIcon from "@material-ui/icons/Storage";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import CollectionsIcon from "@mui/icons-material/Collections";
+import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import Navbar from "./Navbar";
+
+import useStyles from "../User/LoginFromStyle";
+import {
+  Avatar,
+  TextField,
+  Typography,
+  FormControl,
+  Button,
+} from "@material-ui/core";
 
 function NewProduct() {
   const dispatch = useDispatch();
@@ -30,7 +44,24 @@ function NewProduct() {
   const [Stock, setStock] = useState(0);
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
+  const [isCategory, setIsCategory] = useState(false);
+  const fileInputRef = useRef();
+  const [toggle, setToggle] = useState(false);
+  const classes = useStyles();
+  // togle handler =>
+  const toggleHandler = () => {
+    console.log("toggle");
+    setToggle(!toggle);
+  };
 
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+    setIsCategory(true);
+  };
+
+  const handleImageUpload = () => {
+    fileInputRef.current.click();
+  };
   const categories = [
     "Laptop",
     "Footwear",
@@ -92,90 +123,225 @@ function NewProduct() {
         <Loader />
       ) : (
         <>
-          <>
-            <MetaData title="Create Product" />
-            <div className="dashboard">
+          <MetaData title={"New Product"} />
+          <div className={classes.updateProduct}>
+            <div
+              className={
+                !toggle ? `${classes.firstBox1}` : `${classes.toggleBox1}`
+              }
+            >
               <Sidebar />
-              <div className="newProductContainer">
+            </div>
+
+            <div className={classes.secondBox1}>
+              <div className={classes.navBar1}>
+                <Navbar toggleHandler={toggleHandler} />
+              </div>
+
+              <div
+                className={`${classes.formContainer} ${classes.formContainer2}`}
+              >
                 <form
-                  className="createProductForm"
+                  className={`${classes.form} ${classes.form2}`}
                   encType="multipart/form-data"
                   onSubmit={createProductSubmitHandler}
                 >
-                  <h1>Create Product</h1>
+                  <Avatar className={classes.avatar}>
+                    <AddCircleOutlineIcon />
+                  </Avatar>
+                  <Typography
+                    variant="h5"
+                    component="h1"
+                    className={classes.heading}
+                  >
+                    Create Product
+                  </Typography>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    className={`${classes.nameInput} ${classes.textField}`}
+                    label="Product Name"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <ShoppingCartOutlinedIcon
+                            style={{
+                              fontSize: 20,
+                              color: "#414141",
+                            }}
+                          />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
 
-                  <div>
-                    <SpellcheckIcon />
-                    <input
-                      type="text"
-                      placeholder="Product Name"
-                      required
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
+                  <TextField
+                    variant="outlined"
+                    label="Price"
+                    value={price}
+                    required
+                    fullWidth
+                    className={`${classes.passwordInput} ${classes.textField}`}
+                    onChange={(e) => setPrice(e.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment
+                          position="end"
+                          style={{
+                            fontSize: 20,
+                            color: "#414141",
+                          }}
+                        >
+                          <AttachMoneyIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    variant="outlined"
+                    label="Stock"
+                    value={Stock}
+                    required
+                    className={`${classes.passwordInput} ${classes.textField}`}
+                    onChange={(e) => setStock(e.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment
+                          position="end"
+                          style={{
+                            fontSize: 20,
+                            color: "#414141",
+                          }}
+                        >
+                          <StorageIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+
+                  <div className={classes.selectOption}>
+                    {!isCategory && (
+                      <Typography variant="body2" className={classes.labelText}>
+                        Choose Category
+                      </Typography>
+                    )}
+                    <FormControl className={classes.formControl}>
+                      <Select
+                        variant="outlined"
+                        fullWidth
+                        value={category}
+                        onChange={handleCategoryChange}
+                        className={classes.select}
+                        inputProps={{
+                          name: "category",
+                          id: "category-select",
+                        }}
+                        MenuProps={{
+                          classes: {
+                            paper: classes.menu,
+                          },
+                          anchorOrigin: {
+                            vertical: "bottom",
+                            horizontal: "left",
+                          },
+                          transformOrigin: {
+                            vertical: "top",
+                            horizontal: "left",
+                          },
+                          getContentAnchorEl: null,
+                        }}
+                      >
+                        {!category && (
+                          <MenuItem value="">
+                            <em>Choose Category</em>
+                          </MenuItem>
+                        )}
+                        {categories.map((cate) => (
+                          <MenuItem key={cate} value={cate}>
+                            {cate}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                   </div>
-                  <div>
-                    <AttachMoneyIcon />
-                    <input
-                      type="number"
-                      placeholder="Price"
-                      required
-                      onChange={(e) => setPrice(e.target.value)}
-                    />
-                  </div>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    className={classes.descriptionInput}
+                    label="Product Description"
+                    multiline
+                    rows={1}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <DescriptionIcon
+                            className={classes.descriptionIcon}
+                          />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
 
-                  <div>
-                    <DescriptionIcon />
+                  <div className={classes.root}>
+                    <div className={classes.imgIcon}>
+                      <CollectionsIcon
+                        fontSize="large"
+                        style={{ fontSize: 40 }}
+                      />
+                    </div>
 
-                    <textarea
-                      placeholder="Product Description"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      cols="30"
-                      rows="1"
-                    ></textarea>
-                  </div>
-
-                  <div>
-                    <AccountTreeIcon />
-                    <select onChange={(e) => setCategory(e.target.value)}>
-                      <option value="">Choose Category</option>
-                      {categories.map((cate) => (
-                        <option key={cate} value={cate}>
-                          {cate}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <StorageIcon />
-                    <input
-                      type="number"
-                      placeholder="Stock"
-                      required
-                      onChange={(e) => setStock(e.target.value)}
-                    />
-                  </div>
-
-                  <div id="createProductFormFile">
                     <input
                       type="file"
                       name="avatar"
+                      className={classes.input}
                       accept="image/*"
                       onChange={createProductImagesChange}
                       multiple
+                      style={{ display: "none" }}
+                      ref={fileInputRef}
                     />
+                    <label htmlFor="avatar-input">
+                      <Button
+                        variant="contained"
+                        color="default"
+                        className={classes.uploadAvatarButton}
+                        startIcon={
+                          <CloudUploadIcon
+                            style={{
+                              color: "#FFFFFF",
+                            }}
+                          />
+                        }
+                        onClick={handleImageUpload}
+                      >
+                        <p className={classes.uploadAvatarText}>
+                          Upload Images
+                        </p>
+                      </Button>
+                    </label>
                   </div>
 
-                  <div id="createProductFormImage">
-                    {imagesPreview.map((image, index) => (
-                      <img key={index} src={image} alt="Product Preview" />
-                    ))}
-                  </div>
+                  <Box className={classes.imageArea}>
+                    {imagesPreview &&
+                      imagesPreview.map((image, index) => (
+                        <img
+                          key={index}
+                          src={image}
+                          alt="Product Preview"
+                          className={classes.image}
+                        />
+                      ))}
+                  </Box>
 
                   <Button
-                    id="createProductBtn"
+                    variant="contained"
+                    className={classes.loginButton}
+                    fullWidth
                     type="submit"
                     disabled={loading ? true : false}
                   >
@@ -184,7 +350,7 @@ function NewProduct() {
                 </form>
               </div>
             </div>
-          </>
+          </div>
         </>
       )}
     </>
