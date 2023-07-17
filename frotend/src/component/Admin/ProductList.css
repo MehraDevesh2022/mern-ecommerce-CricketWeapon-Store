@@ -67,10 +67,13 @@
 
 }
 .productListTable {
- width: 100%;
-  overflow: scroll;
-
+  width: 100%;
+  overflow-x: auto; 
+  scrollbar-width: thin; 
+  scrollbar-color: #000 #f1f1f1; 
+  width: calc(100% - 30px); 
 }
+
 
 .productListHeading {
   font-size: 1.5rem;
