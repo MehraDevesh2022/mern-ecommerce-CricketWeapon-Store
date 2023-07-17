@@ -250,32 +250,6 @@ const useStyles = makeStyles((theme) => ({
   redFont: {
     color: "red",
   },
-
-  placeOrderBtn_prodcessOrder: {
-    backgroundColor: "#000",
-    color: "#fff",
-    fontWeight: "500",
-    fontSize: "1rem",
-    padding: "0.5rem 1rem",
-    borderRadius: "0.5rem",
-    width: "50%",
-    marginBottom: "1rem",
-    marginTop: "-1rem",
-    "&:hover": {
-      backgroundColor: "#00000080",
-    },
-    [theme.breakpoints.down("sm")]: {
-      width: "90%",
-      padding: "1rem",
-      marginLeft: "1rem",
-    },
-
-    [theme.breakpoints.down("xs")]: {
-      width: "90%",
-      padding: "1rem",
-      marginLeft: "0rem",
-    },
-  },
   updateOrderForm__prodcessOrder: {
     backgroundColor: "white",
     marginLeft: "3rem",
@@ -301,17 +275,37 @@ const useStyles = makeStyles((theme) => ({
         color: "rgba(0, 0, 0, 0.623)",
       },
     },
-    [theme.breakpoints.down("sm")]: {
-      width: "90%",
+    [theme.breakpoints.down("799")]: {
+      width: "100%",
       padding: "1rem",
-      marginLeft: "1rem",
+      marginLeft: "0rem",
       "& > div > select": {
-        padding: "2vmax 2vmax",
+        padding: "2.5vmax 2.5vmax",
         font: "300 1.7vmax cursive",
       },
       "& > div > svg": {
         fontSize: "2.8vmax",
       },
+    },
+  },
+
+  placeOrderBtn_prodcessOrder: {
+    backgroundColor: "#000",
+    color: "#fff",
+    fontWeight: "500",
+    fontSize: "1rem",
+    padding: "0.5rem 1rem",
+    borderRadius: "0.5rem",
+    width: "50%",
+    marginBottom: "1rem",
+    marginTop: "-1rem",
+    "&:hover": {
+      backgroundColor: "#00000080",
+    },
+    [theme.breakpoints.down("799")]: {
+      width: "50%",
+      padding: "0.5rem 1rem",
+      marginLeft: "0rem",
     },
   },
 
