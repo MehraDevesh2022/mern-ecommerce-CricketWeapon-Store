@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import PersonIcon from "@material-ui/icons/Person";
-import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layouts/MataData/MataData";
 import Navbar from "./Navbar";
@@ -297,18 +296,7 @@ function UpdateUser() {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <PersonIcon
-                            style={{
-                              fontSize: 20,
-                              color: "#414141",
-                            }}
-                          />
-                        </InputAdornment>
-                      ),
-                    }}
+                 
                   />
 
                   <TextField
