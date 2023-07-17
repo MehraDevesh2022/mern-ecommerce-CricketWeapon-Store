@@ -19,7 +19,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import useStyles from "./LoginFromStyle";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 function Signup() {
