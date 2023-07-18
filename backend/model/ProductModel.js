@@ -14,11 +14,11 @@ const productSchema = mongoose.Schema({
     required: [true, "Please Enter product Price"],
     maxLength: [8, "Price cannot exceed 9 characters"],
   },
-  info : {
-    type : String,
-    required : [true , "Please Enter product info"]
-  } ,
-  
+  info: {
+    type: String,
+    required: [true, "Please Enter product info"],
+  },
+
   ratings: {
     type: Number,
     default: 0,
@@ -52,7 +52,7 @@ const productSchema = mongoose.Schema({
   reviews: [
     {
       userId: {
-        type: mongoose.Schema.ObjectId, // this will add user id who gonna add review on product
+        type: mongoose.Schema.ObjectId,
         ref: "userModel",
         required: true,
       },
@@ -80,9 +80,12 @@ const productSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
       },
+      avatar: {
+        type: String,
+        required: true,
+      },
     },
   ],
-
   // when two admins are there. tab ye pta chalgea kiss admin ne product add kiya hai
   user: {
     type: mongoose.Schema.ObjectId, //  this is for admin who will add the prduct to the db
