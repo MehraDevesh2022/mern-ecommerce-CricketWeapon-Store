@@ -1,6 +1,6 @@
 const asyncWrapper = require("../middleWare/asyncWrapper");
 const orderModel = require("../model/orderModel");
-const prdoductModel = require("../model/ProductModel");
+const productModel = require("../model/ProductModel");
 const ErrorHandler = require("../utils/errorHandler");
 
 //>>>>>>>>>>>>>>>  create a order    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -80,8 +80,10 @@ exports.getAllOrders = asyncWrapper(async (req, res, next) => {
 
 // update Order Status -- Admin
 exports.updateOrder = asyncWrapper(async (req, res, next) => {
+   
   const order = await orderModel.findById(req.params.id);
-  
+
+    
   if (!order) {
     return next(new ErrorHandler("Order not found with this id", 400));
   }
@@ -115,12 +117,19 @@ exports.updateOrder = asyncWrapper(async (req, res, next) => {
 
 // update status function with. productId and quantity params
 async function updateStock(id, quantity) {
-  const product = await prdoductModel.findById(id);
- 
-  // update the stock of the product using order quantity
-  product.Stock -= quantity;
+  try {
+    const product = await productModel.findById(id);
+    if (!product) {
+      throw new ErrorHandler("Product not found", 404); 
+    }
 
-  await product.save({ validateBeforeSave: false });
+    // Update the stock of the product using the order quantity
+    product.Stock -= quantity;
+
+    await product.save({ validateBeforeSave: false });
+  } catch (error) {
+    throw new ErrorHandler("Product not found", 404); 
+  }
 }
 
 //>>>>>>>>>>>>>>>>>>>>> delete Order -- Admin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
