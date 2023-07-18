@@ -7,10 +7,6 @@ const cloudinary = require("cloudinary");
 // >>>>>>>>>>>>>>>>>>>>> createProduct Admin route  >>>>>>>>>>>>>>>>>>>>>>>>
 exports.createProduct = asyncWrapper(async (req, res) => {
   let images = [];
-  /**
-   * !if user add 1 pic to Product data then req.body.images has only 1 url as string form else array of images url were stored
-   * @images will store all image of Product from clint side
-   * */
 
   if (req.body.images) {
     if (typeof req.body.images === "string") {
@@ -19,23 +15,34 @@ exports.createProduct = asyncWrapper(async (req, res) => {
       images = req.body.images;
     }
 
-    // for cloudinary url and public_id of each image
     const imagesLinks = [];
 
-    for (let img of images) {
-      const result = await cloudinary.v2.uploader.upload(img, {
-        folder: "Products",
-      });
-
-      imagesLinks.push({
-        product_id: result.public_id,
-        url: result.secure_url,
-      });
+    // Split images into chunks due to cloudinary upload limits only 3 images can be uploaded at a time so we are splitting into chunks and uploading them separately eg: 9 images will be split into 3 chunks and uploaded separately
+    const chunkSize = 3;
+    const imageChunks = [];
+    while (images.length > 0) {
+      imageChunks.push(images.splice(0, chunkSize));
     }
-    // ! When we have multiple admin .
-    // console.log(imagesLinks);
-    req.body.user = req.user.id; // will ref to products to there respected admin
-    req.body.images = imagesLinks; // now add cloud images link and id to image for db
+
+    // Upload images in separate requests. for loop will run 3 times if there are 9 images to upload each time uploading 3 images at a time
+    for (let chunk of imageChunks) {
+      const uploadPromises = chunk.map((img) =>
+        cloudinary.v2.uploader.upload(img, {
+          folder: "Products",
+        })
+      );
+      const results = await Promise.all(uploadPromises); // wait for all the promises to resolve and store the results in results array eg: [{}, {}, {}] 3 images uploaded successfully and their details are stored in results array
+
+      for (let result of results) { 
+        imagesLinks.push({
+          product_id: result.public_id,
+          url: result.secure_url,
+        });
+      }
+    }
+
+    req.body.user = req.user.id;
+    req.body.images = imagesLinks;
   }
 
   const data = await ProductModel.create(req.body);
@@ -44,33 +51,35 @@ exports.createProduct = asyncWrapper(async (req, res) => {
 });
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> get all product >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-exports.getAllProducts = asyncWrapper(async (req, res, next) => {
+exports.getAllProducts = asyncWrapper(async (req, res) => {
+  const resultPerPage = 6; // Number of products visible per page
+  const productsCount = await ProductModel.countDocuments(); // Get total number of products
 
-  const resultPerPage = 6; // per page products visibile
-  // const products = await ProductModel.find();
-  const productsCount = await ProductModel.countDocuments(); // it returns product length
+  // Create an instance of the ApiFeatures class, passing the ProductModel.find() query and req.query (queryString)
+  const apiFeature = new ApiFeatures(ProductModel.find(), req.query)
+    .search() // Apply search filter based on the query parameters
+    .filter(); // Apply additional filters based on the query parameters
 
-  // ApiFeatures is class and we making here intsance of that . and passing 2 args : => agr : ProductModel.find() ==> reciving as  query in constructor , and   req.query ==> reciving as  queryString in constructor
-   
-  const apiFeature = new ApiFeatures(ProductModel.find(), req.query) 
-    .search() 
-    .filter();
+  let products = await apiFeature.query; // Fetch the products based on the applied filters and search
 
-  let products = await apiFeature.query; // whatever data is return base on filter fetching here using apiFeature.query where apiFeature is complete object of ApiFeatures class with req data. and query is property form ApiFeatures class same like queryString , query storing req data here
-  // if  there is no value in query string then all prodcut is return here in apiFeature.query
+  let filteredProductCount = products.length; // Number of products after filtering (for pagination)
 
-  let filterdProductCount = products.length; // this is for pagination in frontend . if  filterdProductCount < resultperPage then dont show pagination
-  apiFeature.Pagination(resultPerPage); //now products with pagination
-  //Mongoose no longer allows executing the same query object twice => so use .clone()
-  products = await apiFeature.query.clone(); // get products
+  apiFeature.Pagination(resultPerPage); // Apply pagination to the products
+
+  // Mongoose no longer allows executing the same query object twice, so use .clone() to retrieve the products again
+  products = await apiFeature.query.clone(); // Retrieve the paginated products
+
   res.status(201).json({
-    succes: true,
+    success: true,
     products: products,
     productsCount: productsCount,
     resultPerPage: resultPerPage,
-    filterdProductCount: filterdProductCount,
+    filteredProductCount: filteredProductCount,
   });
 });
+
+
+
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> get all product admin route>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -88,10 +97,9 @@ exports.getAllProductsAdmin = asyncWrapper(async (req, res) => {
 
 //>>>>>>>>>>>>>>>>>> Update Admin Route >>>>>>>>>>>>>>>>>>>>>>>
 exports.updateProduct = asyncWrapper(async (req, res, next) => {
+  let product = await ProductModel.findById(req.params.id);
 
-  let Product = await ProductModel.findById(req.params.id);
- 
-  if (!Product) {
+  if (!product) {
     return next(new ErrorHandler("Product not found", 404));
   }
 
@@ -103,17 +111,13 @@ exports.updateProduct = asyncWrapper(async (req, res, next) => {
     images = req.body.images;
   }
 
-
-
   if (images !== undefined) {
     // Deleting Images From Cloudinary
-    for (let i = 0; i < Product.images.length; i++) {
-
-      await cloudinary.v2.uploader.destroy(Product.images[i].product_id);
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(product.images[i].product_id);
     }
 
     const imagesLinks = [];
-  
     for (let img of images) {
       const result = await cloudinary.v2.uploader.upload(img, {
         folder: "Products",
@@ -124,28 +128,21 @@ exports.updateProduct = asyncWrapper(async (req, res, next) => {
         url: result.secure_url,
       });
     }
-    
-   
+
     req.body.images = imagesLinks;
   }
-  
 
-
-  Product = await ProductModel.findByIdAndUpdate(req.params.id, req.body, {
+  product = await ProductModel.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
   });
 
-
   res.status(201).json({
     success: true,
-    product: Product,
+    product: product,
   });
-
 });
-
-
 
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  delete product --admin  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -185,53 +182,50 @@ exports.getProductDetails = asyncWrapper(async (req, res, next) => {
 //>>>>>>>>>>>>> Create New Review or Update the review >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 exports.createProductReview = asyncWrapper(async (req, res, next) => {
-  const { ratings, comment, productId  , title , recommend} = req.body;
+  const { ratings, comment, productId, title, recommend } = req.body;
   const review = {
-    userId: req.user._id, // from auth
+    userId: req.user._id,
     name: req.user.name,
     ratings: Number(ratings),
-    title  : title,
+    title: title,
     comment: comment,
-    recommend : recommend
-
+    recommend: recommend,
+    avatar: req.user.avatar.url, // Add user avatar URL to the review object
   };
 
   const product = await ProductModel.findById(productId);
 
-  // check if user di review already
+  // check if user already reviewed
   const isReviewed = product.reviews.find((rev) => {
     return rev.userId.toString() === req.user._id.toString();
   });
 
-  // agar  isReviewd ==true iska mtlv user ne pehle review kiya then update. else add new
   if (isReviewed) {
-    // find that user in reviews array
+    // Update the existing review
     product.reviews.forEach((rev) => {
       if (rev.userId.toString() === req.user._id.toString()) {
         rev.ratings = ratings;
         rev.comment = comment;
+        rev.recommend = recommend;
+        
+        rev.title = title;
         product.numOfReviews = product.reviews.length;
-      }  
+      }
     });
-    // not reviewd  before then add new one
   } else {
+    // Add a new review
     product.reviews.push(review);
     product.numOfReviews = product.reviews.length;
-  }   
+  }
 
-  // now find total ratings for that product. based on all reviews
-  let avg = 0;
-
-  // caluclate all reviews sum of  all ratings then calculate avg of that review
+  // Calculate average ratings
+  let totalRatings = 0;
   product.reviews.forEach((rev) => {
-    avg += rev.ratings;
+    totalRatings += rev.ratings;
   });
-  // console.log(avg);
-  // update rating avg
+  product.ratings = totalRatings / product.reviews.length;
 
-  product.ratings = avg / product.reviews.length;
-
-  // save to db
+  // Save to the database
   await product.save({ validateBeforeSave: false });
 
   res.status(200).json({
@@ -239,7 +233,8 @@ exports.createProductReview = asyncWrapper(async (req, res, next) => {
   });
 });
 
-// >>>>>>>>>>>>>>>>>>>>>> Get All Reviews of a product>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+// >>>>>>>>>>>>>>>>>>>>>> Get All Reviews of a product>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.getProductReviews = asyncWrapper(async (req, res, next) => {
   // we need product id for all reviews of the product
 
@@ -273,7 +268,7 @@ exports.deleteReview = asyncWrapper(async (req, res, next) => {
   // once review filterd then update new rating from prdoduct review
   let avg = 0;
   reviews.forEach((rev) => {
-    console.log(rev.ratings, " rev");
+   
     avg += rev.ratings;
   });
 
