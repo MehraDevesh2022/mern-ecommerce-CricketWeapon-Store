@@ -124,7 +124,7 @@ export function createProduct(productData) {
       dispatch({
         type: NEW_PRODUCT_REQUEST,
       });
-
+         
       const config = {
         headers: { "Content-Type": "multipart/form-data" },
       };
@@ -156,7 +156,7 @@ export function deleteProduct(id) {
       dispatch({ type: DELETE_PRODUCT_REQUEST });
 
       const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
-      console.log(data);
+    
       dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: data.success });
     } catch (error) {
       dispatch({ type: DELETE_PRODUCT_FAIL, payload: error.message });
