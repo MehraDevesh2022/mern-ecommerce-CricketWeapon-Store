@@ -9,6 +9,7 @@ import OrderDetailsSection from "./OrderDetails";
 import DummyCard from "./DummyCard";
 import { clearErrors, createOrder } from "../../actions/orderAction";
 import CheckoutSteps from "./CheckoutSteps ";
+
 // for cardDetails for card detials input section and hooks for accessing strip and element from App.js route
 import {
   CardNumberElement,
@@ -330,10 +331,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  shipping_heading: {
-    fontWeight: "800",
-    fontSize: "1.5rem",
-  },
+ 
 }));
 
 const PaymentComponent = () => {
@@ -728,12 +726,14 @@ const PaymentComponent = () => {
                 <h5 className={classes.orderSub_heading}>ORDER DETAILS</h5>
                 {cartItems &&
                   cartItems.map((item, idx) => (
-                    <OrderDetailsSection
-                      key={idx}
-                      item={item}
-                      totalDiscount={totalDiscount}
-                      totalPrice={totalPrice}
-                    />
+                    <Link to={`/product/${item.productId}`} style ={{textDecoration : "none" , color : "inherit"}}>
+                      <OrderDetailsSection
+                        key={idx}
+                        item={item}
+                        totalDiscount={totalDiscount}
+                        totalPrice={totalPrice}
+                      />
+                    </Link>
                   ))}
               </div>
               <Divider className={classes.boldDivider} />

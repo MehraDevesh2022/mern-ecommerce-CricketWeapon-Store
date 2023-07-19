@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     position: "relative",
     [theme.breakpoints.down("sm")]: {
-      height: "50vh",
+      // // height: "50vh",
+      // marginTop : "5rem",
     },
   },
   slideContent: {
@@ -33,6 +34,14 @@ const useStyles = makeStyles((theme) => ({
     width: "30vw",
     fontWeight: 500,
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "14px",
+      width: "80vw",
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "12px",
+      width: "90vw",
+    },
   },
   saleText: {
     fontSize: "32px",
@@ -40,6 +49,14 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "800",
     width: "45vw",
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "24px",
+      width: "80vw",
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "20px",
+      width: "90vw",
+    },
   },
   productButton: {
     backgroundColor: "transparent",
@@ -52,13 +69,20 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.common.white,
       color: "#000",
     },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "16px",
+      padding: theme.spacing(0.5, 2),
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "14px",
+      padding: theme.spacing(0.5, 1.5),
+    },
   },
   slideImage: {
     width: "100%",
     height: "100%",
     objectFit: "cover",
   },
- 
 }));
 
 const slides = [

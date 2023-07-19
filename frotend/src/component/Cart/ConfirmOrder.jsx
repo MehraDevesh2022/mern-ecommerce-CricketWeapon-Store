@@ -5,10 +5,10 @@ import MetaData from "../layouts/MataData/MataData";
 import "./ConfirmOrder.css";
 import { Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+
 import Loader from "../layouts/loader/Loader"
 function ConfirmOrder() {
-  const history = useHistory();
+
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
 

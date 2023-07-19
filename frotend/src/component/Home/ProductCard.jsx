@@ -17,14 +17,14 @@ import { addItemToCart } from "../../actions/cartAction";
 import { useDispatch } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "300px",
+    width: "280px",
     height: FitScreen,
     margin: theme.spacing(2),
     backgroundColor: "white",
     currsor: "pointer",
   },
   media: {
-    height: 150,
+  
     height: 200,
     width: "90%",
     objectFit: "cover",

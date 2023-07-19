@@ -45,20 +45,20 @@ const useStyles = makeStyles((theme) => ({
   outlinedInput: {
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "#000000", // Set input box outline border color to black
+        borderColor: "#000000",
       },
       "&:hover fieldset": {
-        borderColor: "#000000", // Set input box outline border color to black on hover
+        borderColor: "#000000", 
       },
       "&.Mui-focused fieldset": {
-        borderColor: "#000000", // Set input box outline border color to black when focused
+        borderColor: "#000000", 
       },
     },
     "& .MuiInputBase-input": {
-      color: "#000000", // Set input text color to black
+      color: "#000000", 
     },
     "& .MuiInputLabel-root": {
-      color: "#000000", // Set label text color to black
+      color: "#000000", 
     },
   },
 
@@ -119,11 +119,11 @@ const [isPhoneNoValid, setIsPhoneNoValid] = React.useState(true);
     const newPhoneNo = event.target.value;
     setPhone(newPhoneNo);
     setIsPhoneNoValid(newPhoneNo !== "" && newPhoneNo.length === 10);
-  };
+  }; 
 
  const handleEmailChange = (event) => {
    const newEmail = event.target.value;
-   if(email =="" || firstName == "" || lastName == "" || address == "" || city == "" || state == "" || country == "" || pinCode == "" || phoneNo == ""){  
+   if(email === "" || firstName === "" || lastName === "" || address === "" || city === "" || state === "" || country === "" || pinCode === "" || phoneNo === ""){  
     alert.error("Please fill all the fields");
     return;
     }
@@ -144,12 +144,12 @@ const [isPhoneNoValid, setIsPhoneNoValid] = React.useState(true);
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (phoneNo  &&    phoneNo.length < 10 || phoneNo.length > 10) {
+    if (phoneNo  &&    phoneNo.length < 10 && phoneNo.length > 10) {
       alert.error("Phone Number should be 10 digits Long");
       return;
     }
     dispatch(
-      saveShippingInfo({
+      saveShippingInfo({ 
         address,
         city,
         state,
