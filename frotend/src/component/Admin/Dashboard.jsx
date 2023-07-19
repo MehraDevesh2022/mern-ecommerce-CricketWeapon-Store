@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 1rem ",
     width: "30%",
     height: "10rem",
-    backgroundColor: "black",
+    
     borderRadius: "5px",
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
     transition: "transform 0.2s ease-in-out",
