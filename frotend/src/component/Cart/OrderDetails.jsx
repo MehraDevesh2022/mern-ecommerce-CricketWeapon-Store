@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     gap: "2.5rem",
     padding: "1rem 0rem 0rem 0rem",
+    
+      
+
 
   },
   image: {
@@ -54,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   paymentValue: {
-    color: "black",
+
     fontWeight: 400,
     marginRight: "10px",
     color: "#00000080",
