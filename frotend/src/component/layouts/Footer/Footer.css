@@ -259,18 +259,38 @@ display: flex;
 .foot_copyright a:hover{
     color: #f00;
 }
+ .facebook_icon {
+ 
+  font-size: 18px;
+ }
+
 .facebook_icon:hover{
   color: #3b5998 ;
 }
+.twitter_icon {
+ 
+  font-size: 18px;
+
+}
+
 .twitter_icon:hover{
   color: #1DA1F2 ;
+}
+.insta_icon {
+ 
+  font-size: 18px;
+
 }
 .insta_icon:hover{
  color: #c13584;
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); */
 }
 
+.likedin_icon {
+ 
+  font-size: 18px ;
 
+}
 .likedin_icon:hover{
   color: #0A66C2 ;
 }
@@ -286,6 +306,9 @@ text-align: justify;
 margin-left: -15px;
 }
 
+.separatorFooter {
+  margin-top: -10px;
+}
 .wrapper_footer {
       display: flex;
     flex-direction: column;

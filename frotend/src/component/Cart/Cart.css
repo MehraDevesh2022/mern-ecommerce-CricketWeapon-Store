@@ -451,10 +451,25 @@ align-items: center;
   align-items: center;
 }
 
+
+
+@media (max-width: 499px) {
+  .prod_details_additem h5 {
+    font-size: 12px;
+  }
+  .makeStyles-cartSubHeadings-13 {
+    font-size: 12px !important;
+  }
+  del {
+    font-size: 12px !important;
+  }
+}
+
 .additem {
   display: flex;
   align-items: center;
 }
+
 
 .additem_decrease {
   margin-right: 8px;

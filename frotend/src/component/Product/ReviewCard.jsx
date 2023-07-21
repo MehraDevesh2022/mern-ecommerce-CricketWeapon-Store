@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useState  } from "react";
 import { Typography, Grid, Select, MenuItem, Button } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import DialogBox from "./DialogBox";
 import { useStyles } from "./ReviewStyle";
 import MyCard from "./Card";
-const ReviewCard = ({ product }) => {
-  const classes = useStyles();
+import { useSelector } from "react-redux";
+import { useAlert } from "react-alert";
+import { useHistory } from "react-router-dom";
 
+
+const ReviewCard = ({ product }) => { 
+  const classes = useStyles();
+  const { isAuthenticated } = useSelector((state) => state.userData);
+  const alert = useAlert();
+  const history = useHistory();
   const [sortValue, setSortValue] = useState("highest");
 
   const handleSortChange = (event) => {
+
     setSortValue(event.target.value);
   };
+
+
   // const sortedData = yourData.sort((a, b) => {
   //   switch (sortValue) {
   //     case "highest":
@@ -27,9 +37,16 @@ const ReviewCard = ({ product }) => {
   //   }
   // });
 
+
+
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
+     if (!isAuthenticated) {
+      alert.error("Please Login to write a review");
+     history.push("/login");
+    }
     setOpen(true);
   };
 
@@ -57,6 +74,7 @@ const ReviewCard = ({ product }) => {
         open={open}
         handleClose={handleClose}
         className={classes.dialog}
+       
       />
       <Grid container alignItems="center" style={{ marginTop: "2rem" }}>
         <Grid item className={classes.ratingContainer}>
@@ -110,8 +128,9 @@ const ReviewCard = ({ product }) => {
         </Grid>
       </Grid>
       <div className={classes.container}>
-        <MyCard />
-        <MyCard />
+        {product.reviews && product.reviews.map((review) => (
+          <MyCard review={review} />
+        ))} 
       </div>
     </div>
   );

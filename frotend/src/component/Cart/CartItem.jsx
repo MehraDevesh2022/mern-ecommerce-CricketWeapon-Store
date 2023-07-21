@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -16,6 +16,8 @@ import {
   generateDiscountedPrice,
 
 } from "../DisplayMoney/DisplayMoney";
+
+
 const useStyles = makeStyles((theme) => ({
   roots: {
     display: "flex",
@@ -155,9 +157,10 @@ const useStyles = makeStyles((theme) => ({
   contentBottom: {
     display: "flex",
     justifyContent: "space-around",
-    marginTop: "5rem",
+    marginTop: "1rem",
     alignItems: "baseline",
     width: "fit-content",
+    flexDirection: "column",
     [theme.breakpoints.down(599)]: {
       marginLeft: "0rem",
       marginRight: "-1rem",

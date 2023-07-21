@@ -55,7 +55,7 @@ const footMenu = [
       {
         id: 3,
         link: "Sitemap",
-        path: "policy/Terms",
+        path: "/policy/Terms",
       },
       {
         id: 4,
@@ -76,12 +76,12 @@ const footMenu = [
       {
         id: 1,
         link: "About Us",
-        path: "/",
+        path: "/about",
       },
       {
         id: 2,
         link: "Contact Us",
-        path: "/",
+        path: "/contact",
       },
       {
         id: 3,
@@ -103,27 +103,28 @@ const footMenu = [
 ];
 
  const footSocial = [
-  {
-    id: 1,
-    icon: <FacebookIcon className="facebook_icon" />,
-    path: "/",
-  },
-  {
-    id: 2,
-    icon: <TwitterIcon className="twitter_icon" />,
-    path: "/",
-  },
-  {
-    id: 3,
-    icon: <InstagramIcon className="insta_icon" />,
-    path: "/",
-  },
-  {
-    id: 4,
-    icon: <LinkedInIcon className="likedin_icon" />,
-    path: "/",
-  },
-];
+   {
+     id: 1,
+     icon: <FacebookIcon className="facebook_icon" fontSize="medium" />,
+     path: "/",
+   },
+   {
+     id: 2,
+     icon: <TwitterIcon className="twitter_icon" fontSize="medium" />,
+     path: "/",
+   },
+   {
+     id: 3,
+     icon: <InstagramIcon className="insta_icon" fontSize="medium" />,
+     path: "/",
+   },
+   {
+     id: 4,
+     icon: <LinkedInIcon className="likedin_icon" fontSize="medium" />,
+     path: "/",
+   },
+ ];
+
 
 
 const Footer = () => {
@@ -243,17 +244,17 @@ const Footer = () => {
             <div className="foot_policyLink">
               <ul>
                 <li className="subfoot_link_text1">
-                  <Link to="/">
+                  <Link to="/policy/privacy">
                     <p>Privacy Policy</p>
                   </Link>
                 </li>
                 <li className="subfoot_link_text2">
-                  <Link to="/">
+                  <Link to="/terms/conditions">
                     <p>TERMS & CONDITIONS</p>
                   </Link>
                 </li>
                 <li className="subfoot_link_text3">
-                  <Link to="/">
+                  <Link to="/policy/Terms">
                     <p>TERMS OF USE</p>
                   </Link>
                 </li>

@@ -85,7 +85,7 @@ const handleRatingChange = (event) => {
   
 };
 
-  console.log(products);
+ 
 
   return (
     <>

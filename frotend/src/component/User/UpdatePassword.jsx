@@ -71,7 +71,7 @@ function UpdatePassword() {
       });
       history.push("/account");
     }
-  }, [dispatch, error, alert, isUpdated, loading]);
+  }, [dispatch, error, alert, isUpdated, loading, history]);
 
   const isSignInDisabled = !(
     password &&

@@ -240,7 +240,7 @@ export const allUsersReducer = (state = { users: [] }, action) => {
 
 // get user Details --> admin
 
-export const userDetailsReducer = (state = (state = { user: {} }), action) => {
+export const userDetailsReducer =  (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
       return {

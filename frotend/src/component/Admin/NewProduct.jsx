@@ -18,6 +18,8 @@ import CollectionsIcon from "@mui/icons-material/Collections";
 import ShoppingCartOutlinedIcon from "@material-ui/icons/ShoppingCartOutlined";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import InfoIcon from "@mui/icons-material/Info";
+
 import Navbar from "./Navbar";
 
 import useStyles from "../User/LoginFromStyle";
@@ -42,11 +44,13 @@ function NewProduct() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [Stock, setStock] = useState(0);
+  const [info , setInfo] = useState("")
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
   const [isCategory, setIsCategory] = useState(false);
   const fileInputRef = useRef();
   const [toggle, setToggle] = useState(false);
+
   const classes = useStyles();
   // togle handler =>
   const toggleHandler = () => {
@@ -93,6 +97,7 @@ function NewProduct() {
     myForm.set("description", description);
     myForm.set("category", category);
     myForm.set("Stock", Stock);
+    myForm.set("info", info);
     images.forEach((currImg) => {
       myForm.append("images", currImg);
     });
@@ -217,6 +222,27 @@ function NewProduct() {
                           }}
                         >
                           <StorageIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <TextField
+                    variant="outlined"
+                    label="Product info"
+                    value={info}
+                    required
+                    className={`${classes.passwordInput} ${classes.textField}`}
+                    onChange={(e) => setInfo(e.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment
+                          position="end"
+                          style={{
+                            fontSize: 20,
+                            color: "#414141",
+                          }}
+                        >
+                          <InfoIcon />
                         </InputAdornment>
                       ),
                     }}

@@ -29,6 +29,7 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import Select from "@material-ui/core/Select";
+import InfoIcon from "@mui/icons-material/Info";
 import MenuItem from "@material-ui/core/MenuItem";
 import Navbar from "./Navbar";
 import useStyles from "../User/LoginFromStyle";
@@ -52,6 +53,7 @@ function UpdateProduct() {
   const [isCategory, setIsCategory] = useState(false);
   const [Stock, setStock] = useState(0);
   const [images, setImages] = useState([]);
+  const [info , setInfo] = useState('');
   const [imagesPreview, setImagesPreview] = useState([]);
   const [oldImages, setOldImages] = useState([]);
   const fileInputRef = useRef();
@@ -78,7 +80,7 @@ function UpdateProduct() {
       setName(product.name);
       setDescription(product.description);
       setPrice(product.price);
-      setCategory(product.category);
+      setCategory("");
       setStock(product.Stock);
       setOldImages(product.images);
     }
@@ -117,17 +119,12 @@ function UpdateProduct() {
     myForm.set("description", description);
     myForm.set("category", category);
     myForm.set("Stock", Stock);
+    myForm.set("info", info);
     images.forEach((currImg) => {
       myForm.append("images", currImg);
     });
 
-      console.log("Name: ", name);
-      console.log("Price: ", price);
-      console.log("Description: ", description);
-      console.log("Category: ", category);
-      console.log("Stock: ", Stock);
-      console.log("Images: ", images);
- 
+
     dispatch(updateProduct(productId, myForm));
   };
 
@@ -258,6 +255,27 @@ function UpdateProduct() {
                             }}
                           >
                             <StorageIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <TextField
+                      variant="outlined"
+                      label="Prodcut Info"
+                      value={info}
+                      required
+                      className={`${classes.passwordInput} ${classes.textField}`}
+                      onChange={(e) => setInfo(e.target.value)}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment
+                            position="end"
+                            style={{
+                              fontSize: 20,
+                              color: "#414141",
+                            }}
+                          >
+                            <InfoIcon />
                           </InputAdornment>
                         ),
                       }}
