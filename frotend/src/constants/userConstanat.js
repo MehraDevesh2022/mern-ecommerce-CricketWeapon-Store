@@ -12,7 +12,7 @@ export  const REGISTER_USER_FAIL = "REGITSER_USER_FAIL";
 export const LOAD_USER_REQUEST = "LOAD_USER_REQUEST";
 export const LOAD_USER_SUCCESS = "LOAD_USER_SUCCESS";
 export const LOAD_USER_FAIL = "LOAD_USER_FAIL";
-
+export const LOAD_USER_RESET = "LOAD_USER_RESET";
 // LogOut user
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_FAIL = "LOGOUT_FAIL";

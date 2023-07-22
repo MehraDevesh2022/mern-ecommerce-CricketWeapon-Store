@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 1rem ",
     width: "30%",
     height: "10rem",
-    
+
     borderRadius: "5px",
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.5)",
     transition: "transform 0.2s ease-in-out",
@@ -266,9 +266,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-
 function Dashboard() {
   const classes = useStyles();
   const history = useHistory();
@@ -310,7 +307,6 @@ function Dashboard() {
 
   // togle handler =>
   const toggleHandler = () => {
-    
     console.log("toggle");
     setToggle(!toggle);
   };
@@ -428,7 +424,6 @@ function Dashboard() {
     ],
   };
 
-
   // to close the sidebar when the screen size is greater than 1000px
   useEffect(() => {
     const handleResize = () => {
@@ -443,8 +438,6 @@ function Dashboard() {
       window.removeEventListener("resize", handleResize);
     };
   }, [toggle]);
-
-
 
   return (
     <>

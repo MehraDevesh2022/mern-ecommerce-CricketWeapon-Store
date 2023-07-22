@@ -342,7 +342,9 @@ const PaymentComponent = () => {
   const elements = useElements();
   const dispatch = useDispatch();
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
-  const { user, loading } = useSelector((state) => state.userData);
+  // const { user, loading } = useSelector((state) => state.userData);
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  console.log(user);
   const { error } = useSelector((state) => state.newOrder);
   const [isFocused, setIsFocused] = useState(false);
   const [nameOnCard, setNameOnCard] = React.useState("");
@@ -473,6 +475,7 @@ const PaymentComponent = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
+
   }, [dispatch, alert, error]);
 
   // claculte price after discount
@@ -487,12 +490,13 @@ const PaymentComponent = () => {
   let totalDiscount = totalPrice - discountedPrice;
   let final = totalPrice - totalDiscount;
   final = dispalyMoney(final);
-  totalDiscount = dispalyMoney(totalDiscount);
+  totalDiscount = dispalyMoney(totalDiscount); 
   totalPrice = dispalyMoney(totalPrice);
-
+  console.log(user)
+  console.log(user.name)
   return (
     <>
-      {loading ? (
+      {!user ? (
         <CricketBallLoader />
       ) : (
         <div className={classes.payemntPage}>
@@ -748,7 +752,7 @@ const PaymentComponent = () => {
                       variant="subtitle2"
                       style={{ fontSize: "16px", fontWeight: 400 }}
                     >
-                      {user.name}
+                      {user.name && user.name}
                     </Typography>
                     <Typography
                       variant="subtitle2"

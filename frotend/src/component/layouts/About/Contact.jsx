@@ -208,7 +208,9 @@ const ContactForm = () => {
         </Typography>
 
         <Typography variant="body2" className={classes.address}>
-          <span style={{fontWeight : "500" , paddingBottom : "0.5rem"}}>CricketWeapon Store, Pvt Ltd.</span>
+          <span style={{ fontWeight: "500", paddingBottom: "0.5rem" }}>
+            CricketWeapon Store, Pvt Ltd.
+          </span>
           <br />
           15130 Sec 22
           <br />
@@ -218,7 +220,7 @@ const ContactForm = () => {
         </Typography>
 
         <div className={classes.buttonGroup}>
-          <a href="#issue-label" style={{ textDecoration: "none" }}>
+          <a href="#issue-select" style={{ textDecoration: "none" }}>
             <Button variant="contained" className={classes.supportButton}>
               Support Form
             </Button>

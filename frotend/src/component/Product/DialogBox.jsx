@@ -22,7 +22,7 @@ import Rating from "@material-ui/lab/Rating";
 import { NEW_REVIEW_RESET } from "../../constants/productsConstatns";
 import { useSelector, useDispatch } from "react-redux";
 
-import { useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { clearErrors, newReview } from "../../actions/productAction";
 
@@ -41,8 +41,10 @@ const DialogBox = ({ open, handleClose, id }) => {
   });
 
   const dispatch = useDispatch();
+  const params = useParams();
+  const productId = params.id;
   const alert = useAlert();
-  const match = useRouteMatch();
+
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -69,9 +71,10 @@ const DialogBox = ({ open, handleClose, id }) => {
     if(id){
           myForm.set("productId", id);
     }else{
-          myForm.set("productId", match.params.id);
+          myForm.set("productId", productId);
     }
     dispatch(newReview(myForm));
+      alert.success("Review posted successfully");
     handleClose();
   };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -16,27 +16,29 @@ import {
   generateDiscountedPrice,
 
 } from "../DisplayMoney/DisplayMoney";
+
+
 const useStyles = makeStyles((theme) => ({
-  roots: {
+  roots11: {
     display: "flex",
     alignItems: "center",
-    padding: "8rem 1rem",
+    padding: "1.5rem 2rem",
     width: "fit-content",
     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
     margin: "1rem 2rem",
     height: "auto",
 
     [theme.breakpoints.down(899)]: {
-      padding: "8rem 3rem",
+      padding: "3rem 3rem",
       margin: "1rem 3rem",
     },
     [theme.breakpoints.down(699)]: {
-      padding: "8rem 2rem",
+      padding: "3rem 2rem",
       margin: "1rem",
       width: "80%",
     },
   },
-  root: {
+  root11: {
     display: "flex",
     alignItems: "center",
     padding: "1rem 1rem",
@@ -155,9 +157,10 @@ const useStyles = makeStyles((theme) => ({
   contentBottom: {
     display: "flex",
     justifyContent: "space-around",
-    marginTop: "5rem",
+    marginTop: "1rem",
     alignItems: "baseline",
     width: "fit-content",
+    flexDirection: "column",
     [theme.breakpoints.down(599)]: {
       marginLeft: "0rem",
       marginRight: "-1rem",
@@ -214,7 +217,7 @@ function CartItem({
   finalPrice = dispalyMoney(finalPrice);
 
   return (
-    <Card className={length < 2 ? classes.root : classes.roots}>
+    <Card className={length < 2 ? classes.root11 : classes.roots11}>
       <CardMedia
         className={classes.media}
         image={item.image}

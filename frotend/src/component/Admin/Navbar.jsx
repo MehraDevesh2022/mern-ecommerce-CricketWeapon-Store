@@ -3,13 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 import MenuIcon from "@mui/icons-material/Menu";
 import { IconButton } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-
+   zIndex: 999,
     background: "#ffffff",
 
     width: "100%",
@@ -56,9 +57,8 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: 0,
     },
     [theme.breakpoints.down("xs")]: {
-      marginRight: "1.3rem",
+      marginRight: "1.5rem",
       fontSize: "1.8rem",
-
     },
   },
   contactButton: {
@@ -90,7 +90,17 @@ const useStyles = makeStyles((theme) => ({
       background: "#ed1c24",
     },
   },
-}));
+  headerBottom__logo_main: {
+    height: "3.5rem",
+    alignSelf: "center",
+    paddingLeft: "25px",
+  "& img": {
+    height: "100%",
+    width: "auto",
+  },
+
+  },
+})); 
 
 const Navbar = ({ toggleHandler }) => {
   const classes = useStyles();
@@ -100,8 +110,24 @@ const Navbar = ({ toggleHandler }) => {
       <IconButton className={classes.menuIcon} onClick={toggleHandler}>
         <MenuIcon fontSize="2rem" />
       </IconButton>
-      <div className={classes.dashboardHead}>Dashbord</div>
-      <Button className={classes.contactButton}>Contact Us</Button>
+      <div className={classes.dashboardHead}>
+        <Link
+          to="/admin/dashboard"
+          style={{ textDecoration: "none", color: "none" , width: "100%" , height: "100%"}}
+        >
+          <img
+            src={require("../../Image/logo.png")}
+            alt="logo"
+            className={classes.headerBottom__logo_main}
+          />
+        </Link>
+      </div>
+      <Link
+        to="/contact"
+        style={{ textDecoration: "none", color: "none" }}
+      >
+        <Button className={classes.contactButton}>Contact Us</Button>
+      </Link>
     </nav>
   );
 };

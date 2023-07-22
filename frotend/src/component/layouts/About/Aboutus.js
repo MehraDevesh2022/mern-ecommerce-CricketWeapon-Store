@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
   image: {
     width: "100%",
     height: "auto",
+    marginTop : "3rem",
     marginBottom: "2rem",
   },
   title: {

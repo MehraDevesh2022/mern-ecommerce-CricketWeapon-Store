@@ -14,6 +14,7 @@ import {useAlert} from "react-alert";
 import { addItemToCart } from "../../actions/cartAction";
 import {useHistory} from "react-router-dom";
 import DialogBox from "../Product/DialogBox";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: "1rem",
@@ -344,7 +345,7 @@ const classes = useStyles();
                   <img
                     src={product.image}
                     alt={product.name}
-                    style={{ width: "100%" , height: "160px"}}
+                    style={{ width: "100%", height: "160px" }}
                   />
                 </div>
 
@@ -385,9 +386,7 @@ const classes = useStyles();
                     <Button
                       variant="outlined"
                       className={classes.button}
-                      onClick={() =>
-                        history.push(`/product/${product.productId}`)
-                      }
+                      onClick={() => history.push(`/product/${product.productId}`)}
                     >
                       View item
                     </Button>
@@ -396,8 +395,10 @@ const classes = useStyles();
               </div>
               <Divider className={classes.divider} />
               <div style={{ padding: "1rem" }}>
-                <Button variant="outlined" className={classes.reviewButton}
-                onClick={handleClickOpen}
+                <Button
+                  variant="outlined"
+                  className={classes.reviewButton}
+                  onClick={handleClickOpen}
                 >
                   <EditIcon style={{ marginRight: "8px" }} />
                   Write A Product Review

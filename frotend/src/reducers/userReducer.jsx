@@ -41,48 +41,56 @@ import {
   USER_DETAILS_FAIL,
 } from "../constants/userConstanat";
 
-export const userReducer = (state = { user: {} }, action) => {
+
+const initialState = {
+  loading: false,
+  isAuthenticated: false,
+  user: {},
+  error: null,
+};
+
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
     case REGISTER_USER_REQUEST:
     case LOAD_USER_REQUEST:
       return {
+        ...state,
         loading: true,
         isAuthenticated: false,
+        error: null,
       };
 
     case LOGIN_SUCCESS:
     case REGISTER_USER_SUCCESS:
     case LOAD_USER_SUCCESS:
+ 
       return {
         ...state,
         loading: false,
         isAuthenticated: true,
         user: action.payload,
+        error: null,
       };
 
     case LOGOUT_SUCCESS:
+        sessionStorage.removeItem("user");
       return {
+        ...state,
         loading: false,
-        user: null,
+        user: {},
         isAuthenticated: false,
+        error: null,
       };
 
     case LOGIN_FAIL:
     case REGISTER_USER_FAIL:
+    case LOAD_USER_FAIL:
       return {
         ...state,
         loading: false,
         isAuthenticated: false,
-        user: null,
-        error: action.payload,
-      };
-
-    case LOAD_USER_FAIL:
-      return {
-        loading: false,
-        isAuthenticated: false,
-        user: null,
+        user: {},
         error: action.payload,
       };
 
@@ -92,11 +100,15 @@ export const userReducer = (state = { user: {} }, action) => {
         loading: false,
         error: action.payload,
       };
+
     case CLEAR_ERRORS:
       return {
         ...state,
         error: null,
       };
+
+    // This case will handle the scenario where loading the user profile fails, and you need to reset the user state
+   
 
     default:
       return state;
@@ -240,7 +252,7 @@ export const allUsersReducer = (state = { users: [] }, action) => {
 
 // get user Details --> admin
 
-export const userDetailsReducer = (state = (state = { user: {} }), action) => {
+export const userDetailsReducer =  (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
       return {

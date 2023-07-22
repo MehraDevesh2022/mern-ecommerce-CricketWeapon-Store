@@ -1,9 +1,12 @@
-import { ADD_TO_CART, REMOVE_CART_ITEM ,SAVE_SHIPPING_INFO } from "../constants/cartConstant";
+import {
+  ADD_TO_CART,
+  REMOVE_CART_ITEM,
+  SAVE_SHIPPING_INFO,
+} from "../constants/cartConstant";
 import axios from "axios";
 
 // Add to Cart
 export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
-  //getState method used for getting state value at action action
   const { data } = await axios.get(`/api/v1/product/${id}`);
   dispatch({
     type: ADD_TO_CART,
@@ -17,30 +20,25 @@ export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
     },
   });
 
-  // getState().cart.cartItem using this we are accessing cartItem from state directly and stroing at local storage .  because humne koi api nhi bnayi backend main for cartItem
-
+  // Save cart data to localStorage after dispatching the action
   localStorage.setItem("cartItem", JSON.stringify(getState().cart.cartItems));
 };
 
-
-
-
-
-// remove item action =>
+// Remove item from Cart
 export const removeItemFromCart = (id) => async (dispatch, getState) => {
   dispatch({ type: REMOVE_CART_ITEM, payload: id });
+
+  // Save cart data to localStorage after dispatching the action
   localStorage.setItem("cartItem", JSON.stringify(getState().cart.cartItems));
 };
 
-
-
-// Shipping info =>
+// Save Shipping Info
 export const saveShippingInfo = (data) => async (dispatch, getState) => {
-         dispatch({
-           type: SAVE_SHIPPING_INFO,
-           payload: data,
-         });
-         localStorage.setItem("shippingInfo", JSON.stringify(data));
+  dispatch({
+    type: SAVE_SHIPPING_INFO,
+    payload: data,
+  });
 
-         // localStorage.setItem("shippingInfo" , json.stringify(getState.cart.shippingInfo))
-       };
+  // Save shipping info data to localStorage after dispatching the action
+  localStorage.setItem("shippingInfo", JSON.stringify(data));
+};

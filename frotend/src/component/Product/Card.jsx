@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState  } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
@@ -82,21 +82,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MyCard = () => {
+const MyCard = ({ review }) => {
   const classes = useStyles();
 
-
- 
   const [helpful, setHelpful] = useState(10);
   const [unhelpful, setUnHelpful] = useState(5);
   const [helpfulClicked, setHelpfulClicked] = useState(false);
   const [unhelpfulClicked, setUnhelpfulClicked] = useState(false);
-
-
-  
-
-
-  
 
   const helpfulHandler = (type) => {
     if (type === "up" && !helpfulClicked) {
@@ -118,19 +110,27 @@ const MyCard = () => {
     }
   };
 
+  function formateDate(dateString){
+    const date = new Date(dateString);
 
-   
+    const formattedDate = new Intl.DateTimeFormat("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }).format(date);
+    return formattedDate;
+  }
 
   return (
     <div className={classes.cardRoot}>
       <div className={classes.cardheader}>
         <Avatar
           alt="User Avatar"
-          src="/user-avatar.png"
+          src={review.avatar || "https://i.imgur.com/JSW6mEk.png"}
           className={classes.avatar}
         />
         <Typography variant="body1" className={classes.subHeadings}>
-          John Doe
+          {review.name}
         </Typography>
         <Typography
           variant="body1"
@@ -138,7 +138,7 @@ const MyCard = () => {
           style={{ marginLeft: "12rem" }}
           className={classes.bodyText}
         >
-          April 22, 2023
+          {formateDate(review.createdAt)}
         </Typography>
       </div>
       <div>
@@ -151,15 +151,14 @@ const MyCard = () => {
         />
       </div>
       <Typography variant="h6" className={classes.title}>
-        Great product!
+        {review.title}
       </Typography>
       <Typography variant="body1" className={classes.commentTxt}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
-        lectus eu nunc pharetra suscipit. In hac habitasse platea dictumst.
+        {review.comment}
       </Typography>
       <Typography variant="body1" className={classes.recommend}>
         Would you recommend this product?{" "}
-        <span style={{ color: "#4CAF50" }}>Yes!</span>
+        <span style={{ color: "#4CAF50" }}>{review.recommend ? "Yes!" : "No!"} </span>
       </Typography>
       <div className={classes.helpful}>
         <Typography

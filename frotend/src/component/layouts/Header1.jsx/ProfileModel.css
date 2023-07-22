@@ -126,3 +126,8 @@
   text-decoration: none;
   text-decoration-line: none;
 }
+
+.profile-icon > .css-tzssek-MuiSvgIcon-root:hover {
+background: white !important;
+}
+

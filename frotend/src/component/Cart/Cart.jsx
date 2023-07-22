@@ -92,7 +92,7 @@ const Cart = () => {
           <Typography
             variant="body2"
             className="cartText2"
-            onClick={() => history.push("/product")}
+            onClick={() => history.push("/products")}
           >
             Continue Shopping
           </Typography>
@@ -123,14 +123,19 @@ const Cart = () => {
               <div className="cart_left_container">
                 {cartItems &&
                   cartItems.map((item) => (
-                    <CartItem
-                      key={item.id}
-                      item={item}
-                      deleteCartItems={deleteCartItems}
-                      decreaseQuantity={decreaseQuantity}
-                      increaseQuantity={increaseQuantity}
-                      length={cartItems.length}
-                    />
+                    <Link
+                      to={`/product/${item.productId}`}
+                      style={{ textDecoration: "none", color: "none" }}
+                    >
+                      <CartItem
+                        key={item.productId}
+                        item={item}
+                        deleteCartItems={deleteCartItems}
+                        decreaseQuantity={decreaseQuantity}
+                        increaseQuantity={increaseQuantity}
+                        length={cartItems.length}
+                      />
+                    </Link>
                   ))}
               </div>
 

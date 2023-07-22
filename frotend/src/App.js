@@ -1,200 +1,499 @@
-import React, { useState, useEffect } from "react";
-import Header from "./component/layouts/Header1.jsx/Header";
-import Home from "./component/Home/Home";
-import Footer from "./component/layouts/Footer/Footer";
-import Services from "./component/layouts/Footer/Service";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-import ProductDetails from "./component/Product/ProductDetails";
-import "./App.css";
-import Products from "./component/Product/Products";
-import Signup from "./component/User/SignUp";
-import Login from "./component/User/Login";
-import Profile from "./component/User/Profile";
+import React, { useState, useEffect, Suspense } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  
+} from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { load_UserProfile } from "./actions/userAction";
-import { useSelector, useDispatch } from "react-redux";
-
-import PrivateRoute from "./component/Route/PrivateRoute";
-import UpdateProfile from "./component/User/UpdateProfile";
-import UpdatePassword from "./component/User/UpdatePassword";
-import ForgetPassword from "./component/User/ForgetPassword";
-import ResetPassword from "./component/User/ResetPassword";
-import Shipping from "./component/Cart/Shipping";
-import Cart from "./component/Cart/Cart";
-import ConfirmOrder from "./component/Cart/ConfirmOrder";
 import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import CricketBallLoader from "./component/layouts/loader/Loader";
+import PrivateRoute from "./component/Route/PrivateRoute";
 import Payment from "./component/Cart/Payment";
-import OrderSuccess from "./component/Cart/OrderSuccess";
-import MyOrder from "./component/order/MyOrder";
-// import OrderDetails from "./component/order/OrderDetails";
-// import Dashboard from "./component/Admin/Dashboard";
-// import ProductList from "./component/Admin/ProductList";
-// import NewProduct from "./component/Admin/NewProduct";
-// import UpdateProduct from "./component/Admin/UpdateProduct";
-import OrderList from "./component/Admin/OrderList";
-// import ProcessOrder from "./component/Admin/ProcessOrder";
-// import UserList from "./component/Admin/UserList";
-// import UpdateUser from "./component/Admin/UpdateUser";
-// import ProductReviews from "./component/Admin/ProductReviews";
-// import HeroSlider from "./component/Home/HeroSilder";
+import "./App.css";
 
 
-import ReturnPolicyPage from "./Terms&Condtions/Return"
-import TermsUse from "./Terms&Condtions/TermsAndUse"
-import TermsAndConditions from "./Terms&Condtions/TermsAndUse";
-import PrivacyPolicy from "./Terms&Condtions/Privacy"
+
+
+const LazyHeader = React.lazy(() =>
+  import("./component/layouts/Header1.jsx/Header")
+);
+const LazyHome = React.lazy(() => import("./component/Home/Home"));
+const LazyFooter = React.lazy(() =>
+  import("./component/layouts/Footer/Footer")
+);
+const LazyServices = React.lazy(() =>
+  import("./component/layouts/Footer/Service")
+);
+const LazyProductDetails = React.lazy(() =>
+  import("./component/Product/ProductDetails")
+);
+const LazyProducts = React.lazy(() => import("./component/Product/Products"));
+const LazySignup = React.lazy(() => import("./component/User/SignUp"));
+const LazyLogin = React.lazy(() => import("./component/User/Login"));
+const LazyProfile = React.lazy(() => import("./component/User/Profile"));
+const LazyUpdateProfile = React.lazy(() =>
+  import("./component/User/UpdateProfile")
+);
+const LazyUpdatePassword = React.lazy(() =>
+  import("./component/User/UpdatePassword")
+);
+const LazyForgetPassword = React.lazy(() =>
+  import("./component/User/ForgetPassword")
+);
+const LazyResetPassword = React.lazy(() =>
+  import("./component/User/ResetPassword")
+);
+const LazyShipping = React.lazy(() => import("./component/Cart/Shipping"));
+const LazyCart = React.lazy(() => import("./component/Cart/Cart"));
+const LazyConfirmOrder = React.lazy(() =>
+  import("./component/Cart/ConfirmOrder")
+);
+
+
+
+const LazyOrderSuccess = React.lazy(() =>
+  import("./component/Cart/OrderSuccess")
+);
+const LazyMyOrder = React.lazy(() => import("./component/order/MyOrder"));
+const LazyContactForm = React.lazy(() =>
+  import("./component/layouts/About/Contact")
+);
+const LazyAboutUsPage = React.lazy(() =>
+  import("./component/layouts/About/Aboutus")
+);
+const LazyDashboard = React.lazy(() => import("./component/Admin/Dashboard"));
+const LazyProductList = React.lazy(() =>
+  import("./component/Admin/ProductList")
+);
+const LazyOrderList = React.lazy(() => import("./component/Admin/OrderList"));
+const LazyUserList = React.lazy(() => import("./component/Admin/UserList"));
+const LazyUpdateProduct = React.lazy(() =>
+  import("./component/Admin/UpdateProduct")
+);
+const LazyProcessOrder = React.lazy(() =>
+  import("./component/Admin/ProcessOrder")
+);
+const LazyUpdateUser = React.lazy(() => import("./component/Admin/UpdateUser"));
+const LazyNewProduct = React.lazy(() => import("./component/Admin/NewProduct"));
+const LazyProductReviews = React.lazy(() =>
+  import("./component/Admin/ProductReviews")
+);
+const LazyReturnPolicyPage = React.lazy(() =>
+  import("./Terms&Condtions/Return")
+);
+const LazyTermsUse = React.lazy(() => import("./Terms&Condtions/TermsAndUse"));
+const LazyTermsAndConditions = React.lazy(() =>
+  import("./Terms&Condtions/TermsCondtion")
+);
+const LazyPrivacyPolicy = React.lazy(() => import("./Terms&Condtions/Privacy"));
+
 function App() {
-  const { isAuthenticated, user } = useSelector((state) => state.userData);
   const [stripeApiKey, setStripeApiKey] = useState("");
+
+
+ 
   const dispatch = useDispatch();
-  // get STRIPE_API_KEY for payment from backend for cnnection to stripe payment gateWaY
+
+
+  // get STRIPE_API_KEY for payment from backend for connection to stripe payment gateway
   async function getStripeApiKey() {
     const { data } = await axios.get("/api/v1/stripeapikey");
     setStripeApiKey(data.stripeApiKey);
   }
 
   useEffect(() => {
-    // this is for user data load for profile section if user logged in
+    // this is for user data load for profile section if the user is logged in
     dispatch(load_UserProfile());
-
     getStripeApiKey();
-  }, [dispatch]);
+  }, []);
+
 
   return (
     <>
       <Router>
-        <Header />
+        <Suspense fallback={<CricketBallLoader />}>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyHome />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/product/:id"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyProductDetails />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/products"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyProducts />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              path="/products/:keyword"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyProducts />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/signup"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazySignup />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/login"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyLogin />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/password/forgot"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyForgetPassword />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/password/reset/:token"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyResetPassword />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/cart"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyCart />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/policy/return"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyReturnPolicyPage />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/policy/Terms"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyTermsUse />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/policy/privacy"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyPrivacyPolicy />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/terms/conditions"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyTermsAndConditions />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/contact"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyContactForm />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/about_us"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <LazyAboutUsPage />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/account"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <PrivateRoute exact path="/account" component={LazyProfile} />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/profile/update"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <PrivateRoute
+                    exact
+                    path="/profile/update"
+                    component={LazyUpdateProfile}
+                  />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/password/update"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <PrivateRoute
+                    exact
+                    path="/password/update"
+                    component={LazyUpdatePassword}
+                  />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/orders"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <PrivateRoute exact path="/orders" component={LazyMyOrder} />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/shipping"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <PrivateRoute
+                    exact
+                    path="/shipping"
+                    component={LazyShipping}
+                  />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/order/confirm"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <PrivateRoute
+                    exact
+                    path="/order/confirm"
+                    component={LazyConfirmOrder}
+                  />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+
+            <Route
+              exact
+              path="/success"
+              render={() => (
+                <>
+                  { <LazyHeader />}
+                  <PrivateRoute
+                    exact
+                    path="/success"
+                    component={LazyOrderSuccess}
+                  />
+                  { <LazyServices />}
+                  { <LazyFooter />}
+                </>
+              )}
+            />
+          </Switch>
+        </Suspense>
+
+        {/* Admin routes */}
+        <Suspense fallback={<CricketBallLoader />}>
+          <Switch>
+            <PrivateRoute
+              isAdmin={true}
+              exact
+              path="/admin/dashboard"
+              component={LazyDashboard}
+            />
+            <PrivateRoute
+              isAdmin={true}
+              exact
+              path="/admin/products"
+              component={LazyProductList}
+            />
+            <PrivateRoute
+              isAdmin={true}
+              exact
+              path="/admin/product/:id"
+              component={LazyUpdateProduct}
+            />
+            <PrivateRoute
+              isAdmin={true}
+              exact
+              path="/admin/reviews"
+              component={LazyProductReviews}
+            />
+            <PrivateRoute
+              isAdmin={true}
+              exact
+              path="/admin/orders"
+              component={LazyOrderList}
+            />
+            <PrivateRoute
+              isAdmin={true}
+              exact
+              path="/admin/order/:id"
+              component={LazyProcessOrder}
+            />
+            <PrivateRoute
+              isAdmin={true}
+              exact
+              path="/admin/new/product"
+              component={LazyNewProduct}
+            />
+            <PrivateRoute
+              isAdmin={true}
+              exact
+              path="/admin/users"
+              component={LazyUserList}
+            />
+            <PrivateRoute
+              isAdmin={true}
+              exact
+              path="/admin/user/:id"
+              component={LazyUpdateUser}
+            />
+          </Switch>
+        </Suspense>
 
         {stripeApiKey && (
           <Elements stripe={loadStripe(stripeApiKey)}>
-            <PrivateRoute exact path="/process/payment" component={Payment} />
+            <Route exact path="/process/payment">
+              { <LazyHeader />}
+              <PrivateRoute exact path="/process/payment" component={Payment} />
+              { <LazyServices />}
+              { <LazyFooter />}
+            </Route>
           </Elements>
         )}
-
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/product/:id">
-            <ProductDetails />
-          </Route>
-          <Route exact path="/products">
-            <Products />
-          </Route>
-          <Route path="/products/:keyword">
-            <Products />
-          </Route>
-          <Route exact path="/signup">
-            <Signup />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/password/forgot">
-            <ForgetPassword />
-          </Route>
-          <Route exact path="/password/reset/:token">
-            <ResetPassword />
-          </Route>
-          <Route exact path="/cart">
-            <Cart />
-          </Route>
-
-          <Route exact path="policy/return">
-            <ReturnPolicyPage />
-          </Route>
-          <Route exact path="policy/Terms">
-            <TermsUse />
-          </Route>
-          <Route exact path="policy/privacy">
-            <PrivacyPolicy />
-          </Route>
-          <Route exact path="terms/conditions">
-            <TermsAndConditions />
-          </Route>
-
-          <PrivateRoute exact path="/account" component={Profile} />
-          <PrivateRoute
-            exact
-            path="/profile/update"
-            component={UpdateProfile}
-          />
-          <PrivateRoute
-            exact
-            path="/password/update"
-            component={UpdatePassword}
-          />
-
-          <PrivateRoute exact path="/orders" component={MyOrder} />
-          <PrivateRoute exact path="/shipping" component={Shipping} />
-          <PrivateRoute exact path="/order/confirm" component={ConfirmOrder} />
-          <PrivateRoute exact path="/success" component={OrderSuccess} />
-          {/* <PrivateRoute exact path="/shipping" component={Shipping} />
-          <PrivateRoute exact path="/order/confirm" component={ConfirmOrder} />
-          <PrivateRoute exact path="/success" component={OrderSuccess} />
-          <PrivateRoute exact path="/orders" component={MyOrder} />
-          <PrivateRoute exact path="/order/:id" component={OrderDetails} />
-          <PrivateRoute
-            isAdmin={true}
-            exact
-            path="/admin/dashboard"
-            component={Dashboard}
-          />
-          <PrivateRoute
-            isAdmin={true}
-            exact
-            path="/admin/products"
-            component={ProductList}
-          />
-          <PrivateRoute
-            isAdmin={true}
-            exact
-            path="/admin/new/product"
-            component={NewProduct}
-          />
-
-          <PrivateRoute
-            isAdmin={true}
-            exact
-            path="/admin/product/:id"
-            component={UpdateProduct}
-          />
-
-          <PrivateRoute
-            isAdmin={true}
-            exact
-            path="/admin/orders"
-            component={OrderList}
-          />
-          <PrivateRoute
-            isAdmin={true}
-            exact
-            path="/admin/order/:id"
-            component={ProcessOrder}
-          />
-          <PrivateRoute
-            isAdmin={true}
-            exact
-            path="/admin/users"
-            component={UserList}
-          />
-          <PrivateRoute
-            isAdmin={true}
-            exact
-            path="/admin/user/:id"
-            component={UpdateUser}
-          />
-          <PrivateRoute
-            isAdmin={true}
-            exact
-            path="/admin/reviews"
-            component={ProductReviews}
-          /> */}
-        </Switch>
-        <Services />
-        <Footer />
       </Router>
     </>
   );

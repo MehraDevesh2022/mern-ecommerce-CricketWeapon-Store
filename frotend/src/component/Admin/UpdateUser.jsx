@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import PersonIcon from "@material-ui/icons/Person";
+
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layouts/MataData/MataData";
 import Navbar from "./Navbar";

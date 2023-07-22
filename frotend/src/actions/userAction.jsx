@@ -13,6 +13,7 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
   UPDATE_PROFILE_REQUEST,
+
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAIL,
   UPDATE_PASSWORD_FAIL,
@@ -93,20 +94,29 @@ export function signUp(signupData) {
 // Load User (user Profile) if logged in before
 
 export const load_UserProfile = () => async (dispatch) => {
-
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data } = await axios.get("api/v1/profile");
+    // Check if user data is available in session storage
+    const userData = sessionStorage.getItem("user");
+    if (userData) {
+      // Parse the user data from JSON format stored in session storage
+      const user = JSON.parse(userData);
+       dispatch({ type: LOAD_USER_SUCCESS, payload: user });
+    } else {
+      // If user data is not available in session storage, make a backend API call
+      const { data } = await axios.get("api/v1/profile");
+   
+      dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
 
-    dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
-
+      // Save the user data to session storage for future use
+      sessionStorage.setItem("user", JSON.stringify(data.user));
+    }
   } catch (error) {
-
-    dispatch({ type: LOAD_USER_FAIL, payload: error.message })
+    dispatch({ type: LOAD_USER_FAIL, payload: error.message });
   }
+};
 
-}
 
 // logout user 
 export function logout() {

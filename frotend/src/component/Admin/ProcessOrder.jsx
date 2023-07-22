@@ -15,7 +15,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AccountTreeIcon from "@material-ui/icons/AccountTree";
 import { Button } from "@material-ui/core";
 import { UPDATE_ORDER_RESET } from "../../constants/orderConstant";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import OrderDetailsSection from "../Cart/OrderDetails";
 
 
@@ -334,7 +334,9 @@ function ProcessOrder() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const classes = useStyles();
-  const match = useRouteMatch();
+  const params = useParams();
+  const productId = params.id;
+
 
   // for order status
   const [status, setStatus] = useState("");
@@ -359,15 +361,16 @@ function ProcessOrder() {
       alert.success("Order Updated Successfully");
       dispatch({ type: UPDATE_ORDER_RESET });
     }
-    dispatch(getOrderDetails(match.params.id));
+    dispatch(getOrderDetails(productId));
     console.log("order", order);
-  }, [dispatch, alert, error, isUpdated, updateError, match.params.id]);
+  }, [dispatch, alert, error, isUpdated, updateError, productId]);
 
   const updateOrderSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
+    console.log("status", status);
     myForm.set("status", status);
-    dispatch(updateOrder(match.params.id, myForm));
+    dispatch(updateOrder(productId, myForm));
   };
   return (
     <>
@@ -542,44 +545,54 @@ function ProcessOrder() {
                   </p>
                 </div>
 
-                <div
-                  style={{
-                    display:
-                      order.orderStatus === "Delivered" ? "none" : "block",
-                    padding: " 0 1rem 0 0",
-                  }}
-                >
-                  <Divider className={classes.boldDivider__prodcessOrder2} />
-                  <form className={classes.updateOrderForm__prodcessOrder}>
-                    <h1>Process Order</h1>
-
-                    <div style={{ marginTop: "-1rem" }}>
-                      <AccountTreeIcon />
-                      <select onChange={(e) => setStatus(e.target.value)}>
-                        <option value="">Choose Category</option>
-                        {order.orderStatus === "Processing" && (
-                          <option value="Shipped">Shipped</option>
-                        )}
-
-                        {order.orderStatus === "Shipped" && (
-                          <option value="Delivered">Delivered</option>
-                        )}
-                      </select>
-                    </div>
-
-                    <Button
-                      variant="contained"
-                      className={classes.placeOrderBtn_prodcessOrder}
-                      fullWidth
-                      onClick={updateOrderSubmitHandler}
-                      disabled={
-                        loading ? true : false || status === "" ? true : false
-                      }
+                {order.orderStatus && (
+                  <>
+                    <div
+                      style={{
+                        display:
+                          order.orderStatus === "Delivered" ? "none" : "block",
+                        padding: " 0 1rem 0 0",
+                      }}
                     >
-                      Process
-                    </Button>
-                  </form>
-                </div>
+                      <Divider
+                        className={classes.boldDivider__prodcessOrder2}
+                      />
+                      <form className={classes.updateOrderForm__prodcessOrder}>
+                        <h1>Process Order</h1>
+
+                        <div style={{ marginTop: "-1rem" }}>
+                          <AccountTreeIcon />
+                          <select onChange={(e) => setStatus(e.target.value)}>
+                            <option value="">Choose Category</option>
+                            {order.orderStatus === "Processing" && (
+                              <option value="Shipped">Shipped</option>
+                            )}
+
+                            {order.orderStatus === "Shipped" && (
+                              <option value="Delivered">Delivered</option>
+                            )}
+                          </select>
+                        </div>
+
+                        <Button
+                          variant="contained"
+                          className={classes.placeOrderBtn_prodcessOrder}
+                          fullWidth
+                          onClick={updateOrderSubmitHandler}
+                          disabled={
+                            loading
+                              ? true
+                              : false || status === ""
+                              ? true
+                              : false
+                          }
+                        >
+                          Process
+                        </Button>
+                      </form>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
