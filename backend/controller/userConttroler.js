@@ -16,8 +16,7 @@ exports.registerUser = asyncWrapper(async (req , res) =>{
    crop: "scale",
  });
 
- console.log(myCloud.public_id);
- console.log(myCloud.secure_url);
+
   
 
       const {name , email , password}  = req.body ;
@@ -101,8 +100,16 @@ exports.forgotPassword = asyncWrapper(async(req , res , next) =>{
   await user.save({ validateBeforeSave: false });  // now save
 
 
-    // for local host =>
-    const resetPasswordUrl  = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
+let resetPasswordUrl;
+
+if (process.env.NODE_ENV === "production") {
+  resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
+} else {
+  resetPasswordUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/password/reset/${resetToken}`;
+}
+
    
   // this will send to user for reset pass at the route where : req.protocol ==> http|| https, or req.get(Host) is host eg : google.co || github.in || fb.com  and reset token generted by us
   // const resetPasswordUrl = `${req.protocol}://${req.get(
