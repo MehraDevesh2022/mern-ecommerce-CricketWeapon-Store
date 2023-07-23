@@ -276,6 +276,7 @@ function Dashboard() {
     (state) => state.allOrders
   );
   const { users, error: usersError } = useSelector((state) => state.allUsers);
+
   const alert = useAlert();
 
   let OutOfStock = 0;
@@ -286,6 +287,8 @@ function Dashboard() {
         OutOfStock += 1;
       }
     });
+
+
 
   useEffect(() => {
     if (error) {
@@ -300,6 +303,7 @@ function Dashboard() {
       alert.error(ordersError);
       dispatch(clearErrors);
     }
+    
     dispatch(getAllOrders());
     dispatch(getAllUsers());
     dispatch(getAdminProducts());

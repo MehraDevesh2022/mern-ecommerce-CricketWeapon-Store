@@ -27,10 +27,16 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     color: "#414141",
-    fontSize: "1rem",
+    fontSize: "1rem !important",
     padding: "1rem 3rem",
     fontFamily: "Roboto",
-    fontWeight: "500 !important",
+    fontWeight: "700 !important",
+    letterSpacing: "2px",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "14px ",
+      padding: "1rem 0",
+    },
+
   },
   divider: {
     width: "90%",
@@ -64,6 +70,12 @@ const useStyles = makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(2),
     },
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "1rem",
+    },
   },
   supportButton: {
     backgroundColor: "#000000 !important",
@@ -76,6 +88,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#ed1c24 !important",
       color: "white !important",
     },
+
   },
   callButton: {
     backgroundColor: "#292929 !important",
@@ -88,14 +101,17 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#ed1c24 !important",
       color: "white !important",
     },
+    [theme.breakpoints.down("sm")]: {
+      padding: "0.8rem 3.2rem   !important",
+  },
   },
   formContainer: {
-    marginTop: "2rem",
+    marginTop: "1rem",
     display: "flex",
     flexDirection: "column",
   },
   formField: {
-    marginBottom: "2rem",
+    // marginBottom: "2rem",
     width: "100%",
   },
   submitButtons: {
@@ -241,6 +257,7 @@ const ContactForm = () => {
             variant="h4"
             className={classes.title}
             style={{ paddingBottom: "1rem" }}
+
           >
             Support Form
           </Typography>

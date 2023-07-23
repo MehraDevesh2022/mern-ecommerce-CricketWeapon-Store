@@ -10,8 +10,8 @@ import RateReviewIcon from "@mui/icons-material/RateReview";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
-import CricketBallLoader from "../layouts/loader/Loader";
 import { useSelector } from "react-redux";
+
 const useStyles = makeStyles((theme) => ({
   sidebar: {
     backgroundColor: "#fff",
@@ -109,21 +109,19 @@ function Sidebar() {
 
   return (
     <>
-      {loading ? (
-        <CricketBallLoader />
-      ) : (
+      {!loading && (
         <>
           <div className={classes.sidebar}>
             <Avatar
-              src={user.avatar.url}
+              src={user && user.avatar.url}
               alt="User Avatar"
               className={classes.avatar11}
             />
             <Typography variant="subtitle1" className={classes.name}>
-              {user.name}
+              {user && user.name}
             </Typography>
             <Typography variant="subtitle2" className={classes.email}>
-              {user.email}
+              {user && user.email}
             </Typography>
             <div className={classes.divider} />
             <ul className={classes.sideBarMenu}>
@@ -134,6 +132,7 @@ function Sidebar() {
                 <li className={classes.sideBarMenuItem}>
                   <DashboardIcon fontSize="large" />
                   <span className={classes.sideBarMenuItem_text}>
+                    {" "}
                     Dashboard
                   </span>
                 </li>
@@ -152,6 +151,7 @@ function Sidebar() {
               >
                 <li className={classes.sideBarMenuItem}>
                   <PostAddIcon fontSize="large" />
+
                   <span className={classes.sideBarMenuItem_text}>
                     {" "}
                     Products

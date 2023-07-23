@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import store from "./store";
-import App from "./App";
 import { Provider } from "react-redux";
 import { positions, transitions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter as Router } from "react-router-dom"; // Import BrowserRouter
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+import store from "./store";
+import App from "./App";
 
 const theme = createTheme();
 const options = {
@@ -17,7 +16,7 @@ const options = {
   transition: transitions.SCALE,
 };
 
-root.render(
+ReactDOM.render(
   <Router>
     {/* Wrap the entire application with BrowserRouter */}
     <ThemeProvider theme={theme}>
@@ -27,5 +26,6 @@ root.render(
         </AlertProvider>
       </Provider>
     </ThemeProvider>
-  </Router>
+  </Router>,
+  document.getElementById("root")
 );
