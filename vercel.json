@@ -21,7 +21,7 @@
         }
     ],
     "env": {
-        "PORT": "5000",
+    
         "DB_LINK": "mongodb+srv://itsCodeWithDEv:Ln6jpZ1ncLd9d9oJ@ecart.vhriyfd.mongodb.net/eCart?retryWrites=true&w=majority",
         "NODE_ENV": "production",
         "JWT_SECRET": "your_jwt_secret_here",
