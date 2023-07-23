@@ -1,11 +1,14 @@
 {
     "name": "major-project",
     "version": "1.0.0",
-    "description": "",
     "builds": [
         {
             "src": "backend/server.js",
             "use": "@vercel/node"
+        },
+        {
+            "src": "frontend/package.json",
+            "use": "@vercel/static-build"
         }
     ],
     "routes": [
@@ -22,7 +25,7 @@
         "PORT": "5000",
         "DB_LINK": "mongodb+srv://itsCodeWithDEv:Ln6jpZ1ncLd9d9oJ@ecart.vhriyfd.mongodb.net/eCart?retryWrites=true&w=majority",
         "NODE_ENV": "production",
-        "JWT_SECRET": "DDDBNDBCNDCDNBUDHDJKSIWJDMCCMCHDCMAEEFEFX",
+        "JWT_SECRET": "your_jwt_secret_here",
         "JWT_EXPIRE": "5d",
         "COOKIE_EXPIRE": "5",
         "SMTP_HOST": "smtp.gmail.com",
@@ -38,6 +41,5 @@
         "FRONTEND_URL": "http://localhost:3000",
         "STRIPE_API_KEY": "pk_test_51MjzFnSEW6nRpmoxPbXjQqv9oJNOWoFm12lsVbuGzMvWkCy623aX6QrjflABB29E4RWl3QLBHfdOQeyMx01VQmTW00rOeVaJ0D",
         "STRIPE_SECRET_KEY": "sk_test_51MjzFnSEW6nRpmoxkWP7sL05vFSbC9zgvmYDE11VhZ1mLJxDvUBqIzqj3gW4CqESlip0CCvJDSG0Q0TNJbCvLZmU00xkpBh58J"
-    },
-    "trailingSlash": false
+    }
 }
