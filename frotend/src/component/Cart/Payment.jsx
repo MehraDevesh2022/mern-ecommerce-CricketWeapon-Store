@@ -4,7 +4,6 @@ import MetaData from "../layouts/MataData/MataData";
 import { useAlert } from "react-alert";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import CricketBallLoader from "../layouts/loader/Loader";
 import OrderDetailsSection from "./OrderDetails";
 import DummyCard from "./DummyCard";
 import { clearErrors, createOrder } from "../../actions/orderAction";
@@ -497,9 +496,7 @@ const PaymentComponent = () => {
   console.log(user.name)
   return (
     <>
-      {!user ? (
-        <CricketBallLoader />
-      ) : (
+ 
         <div className={classes.payemntPage}>
           <CheckoutSteps activeStep={2} />
           <MetaData title={"Payment"} />
@@ -848,7 +845,7 @@ const PaymentComponent = () => {
             </div>
           </div>
         </div>
-      )}
+    
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense ,startTransition  } from "react";
+import React, { useState, useEffect, Suspense ,useTransition  } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -12,12 +12,12 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CricketBallLoader from "./component/layouts/loader/Loader";
 import PrivateRoute from "./component/Route/PrivateRoute";
-import Payment from "./component/Cart/Payment";
+
 import "./App.css";
 
 
 
-
+const Payment = React.lazy(() => import("./component/Cart/Payment"));
 const LazyHeader = React.lazy(() =>
   import("./component/layouts/Header1.jsx/Header")
 );
@@ -93,31 +93,26 @@ const LazyPrivacyPolicy = React.lazy(() => import("./Terms&Condtions/Privacy"));
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
-  const [loading, setLoading] = useState(true);
-
+ const [isPending, startTransition] = useTransition({ timeoutMs: 3000 });
  
   const dispatch = useDispatch();
 
 
   // get STRIPE_API_KEY for payment from backend for connection to stripe payment gateway
   async function getStripeApiKey() {
-    setLoading(true); 
+  
     try {
       const { data } = await axios.get("/api/v1/stripeapikey");
       setStripeApiKey(data.stripeApiKey);
     } catch (error) {
       // Handle error if the API call fails
       console.error("Error fetching Stripe API key:", error);
-    } finally {
-      setLoading(false); // Set loading to false after the API call is completed (success or failure)
+
     }
   }
 
   useEffect(() => {
-    // this is for user data load for profile section if the user is logged in
     dispatch(load_UserProfile());
-
-    // Wrap the asynchronous API call in the startTransition function
     startTransition(() => {
       getStripeApiKey();
     });
@@ -125,7 +120,7 @@ function App() {
     // eslint-disable-next-line
   }, []);
 
-if (loading) {
+if (isPending) {
   return <CricketBallLoader />;
 }
   return (
@@ -500,7 +495,9 @@ if (loading) {
           </Switch>
         </Suspense>
 
+
         {stripeApiKey && (
+          <Suspense fallback={<CricketBallLoader />}>
           <Elements stripe={loadStripe(stripeApiKey)}>
             <Route exact path="/process/payment">
               { <LazyHeader />}
@@ -509,7 +506,9 @@ if (loading) {
               { <LazyFooter />}
             </Route>
           </Elements>
+            </Suspense>
         )}
+        
       </Router>
     </>
   );
