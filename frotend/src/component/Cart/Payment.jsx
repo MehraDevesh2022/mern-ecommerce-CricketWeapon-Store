@@ -344,7 +344,7 @@ const PaymentComponent = () => {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   // const { user, loading } = useSelector((state) => state.userData);
   const user = JSON.parse(sessionStorage.getItem("user"));
-  console.log(user);
+
   const { error } = useSelector((state) => state.newOrder);
   const [isFocused, setIsFocused] = useState(false);
   const [nameOnCard, setNameOnCard] = React.useState("");
@@ -469,6 +469,7 @@ const PaymentComponent = () => {
       alert.error(error.message);
     }
   }
+  
 
   useEffect(() => {
     if (error) {

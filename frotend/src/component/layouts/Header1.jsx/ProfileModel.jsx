@@ -161,7 +161,7 @@ const ProfileModal = ({ user, isAuthenticated }) => {
                 <ShoppingCartIcon className="menu-icon" />
                 <span>Cart</span>
               </div>
-              {!user ? (
+              {!isAuthenticated ? (
                 <div className="menu-item" onClick={loginHandler}>
                   <LockOpenIcon className="menu-icon" />
                   <span>Login</span>

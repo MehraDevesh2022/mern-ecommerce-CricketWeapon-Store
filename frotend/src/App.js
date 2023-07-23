@@ -1,9 +1,9 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense ,startTransition  } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  
+ 
 } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { load_UserProfile } from "./actions/userAction";
@@ -93,7 +93,7 @@ const LazyPrivacyPolicy = React.lazy(() => import("./Terms&Condtions/Privacy"));
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
-
+  const [loading, setLoading] = useState(true);
 
  
   const dispatch = useDispatch();
@@ -101,17 +101,33 @@ function App() {
 
   // get STRIPE_API_KEY for payment from backend for connection to stripe payment gateway
   async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripeapikey");
-    setStripeApiKey(data.stripeApiKey);
+    setLoading(true); 
+    try {
+      const { data } = await axios.get("/api/v1/stripeapikey");
+      setStripeApiKey(data.stripeApiKey);
+    } catch (error) {
+      // Handle error if the API call fails
+      console.error("Error fetching Stripe API key:", error);
+    } finally {
+      setLoading(false); // Set loading to false after the API call is completed (success or failure)
+    }
   }
 
   useEffect(() => {
     // this is for user data load for profile section if the user is logged in
     dispatch(load_UserProfile());
-    getStripeApiKey();
+
+    // Wrap the asynchronous API call in the startTransition function
+    startTransition(() => {
+      getStripeApiKey();
+    });
+
+    // eslint-disable-next-line
   }, []);
 
-
+if (loading) {
+  return <CricketBallLoader />;
+}
   return (
     <>
       <Router>

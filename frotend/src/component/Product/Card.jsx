@@ -80,6 +80,12 @@ const useStyles = makeStyles((theme) => ({
   clicked: {
     color: "red",
   },
+  yes: {
+    color: "green",
+  },
+  no: {
+    color: "red",
+  },
 }));
 
 const MyCard = ({ review }) => {
@@ -158,7 +164,9 @@ const MyCard = ({ review }) => {
       </Typography>
       <Typography variant="body1" className={classes.recommend}>
         Would you recommend this product?{" "}
-        <span style={{ color: "#4CAF50" }}>{review.recommend ? "Yes!" : "No!"} </span>
+        <span className={review.recommend ? classes.yes : classes.no}>
+          {review.recommend ? "Yes!" : "No!"}
+        </span>
       </Typography>
       <div className={classes.helpful}>
         <Typography

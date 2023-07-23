@@ -29,7 +29,7 @@ import { clearErrors, newReview } from "../../actions/productAction";
 
 
 const DialogBox = ({ open, handleClose, id }) => {
-  console.log(open);
+
   const classes = useStyles();
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");

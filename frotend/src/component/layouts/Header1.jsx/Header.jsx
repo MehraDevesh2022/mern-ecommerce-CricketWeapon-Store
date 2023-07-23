@@ -231,7 +231,7 @@ function Header() {
                   <Sidebar
                     handleSideBarMenu={handleSideBarMenu}
                     isAuthenticated={isAuthenticated}
-                    user={user}
+                       user={user}
                   />
                 )}
               </span>

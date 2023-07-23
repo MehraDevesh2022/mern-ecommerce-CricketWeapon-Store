@@ -79,7 +79,7 @@ const Shipping = () => {
   const [pinCode, setPinCode] = React.useState(shippingInfo.pinCode);
   const [state, setState] = React.useState(shippingInfo.state);
   const [country, setCountry] = React.useState(shippingInfo.country || "India");
-  const [phoneNo, setPhone] = React.useState(shippingInfo.phoneNo);
+  const [phoneNo, setPhone] = React.useState(shippingInfo.phoneNo || "");
   const [email, setEmail] = React.useState(shippingInfo.email);
   const [saveAddress, setSaveAddress] = React.useState(false);
   const [sameBillingDelivery, setSameBillingDelivery] = React.useState(false);
@@ -123,10 +123,7 @@ const [isPhoneNoValid, setIsPhoneNoValid] = React.useState(true);
 
  const handleEmailChange = (event) => {
    const newEmail = event.target.value;
-   if(email === "" || firstName === "" || lastName === "" || address === "" || city === "" || state === "" || country === "" || pinCode === "" || phoneNo === ""){  
-    alert.error("Please fill all the fields");
-    return;
-    }
+   
    setEmail(newEmail);
    setIsValidEmail(
      newEmail === "" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)
@@ -141,28 +138,44 @@ const [isPhoneNoValid, setIsPhoneNoValid] = React.useState(true);
     setSameBillingDelivery(event.target.checked);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+ const handleSubmit = (event) => {
+   event.preventDefault();
 
-    if (phoneNo  &&    phoneNo.length < 10 && phoneNo.length > 10) {
-      alert.error("Phone Number should be 10 digits Long");
-      return;
-    }
-    dispatch(
-      saveShippingInfo({ 
-        address,
-        city,
-        state,
-        country,
-        pinCode,
-        phoneNo,
-        email,
-        firstName,
-        lastName,
-      })
-    );
- history.push("/process/payment");
-  };
+   if (
+     email === "" ||
+     firstName === "" ||
+     lastName === "" ||
+     address === "" ||
+     city === "" ||
+     state === "" ||
+     country === "" ||
+     pinCode === "" ||
+     phoneNo === ""
+   ) {
+     alert.error("Please fill all the fields");
+     return;
+   }
+
+   if (phoneNo && phoneNo.length !== 10) {
+     alert.error("Phone Number should be 10 digits Long");
+     return;
+   }
+
+   dispatch(
+     saveShippingInfo({
+       address,
+       city,
+       state,
+       country,
+       pinCode,
+       phoneNo,
+       email,
+       firstName,
+       lastName,
+     })
+   );
+   history.push("/process/payment");
+ };
 
 
   

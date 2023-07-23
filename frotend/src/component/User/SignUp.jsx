@@ -34,6 +34,7 @@ function Signup() {
   const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState("");
   const [loading, setLoading] = useState(false);
+
   const [areCheckboxesChecked, setAreCheckboxesChecked] = useState({
     checkbox1: false,
     checkbox2: false,
@@ -55,7 +56,7 @@ function Signup() {
       alert.success("User Registered Successfully");
       history.push("/account");
     }
-  }, [dispatch, isAuthenticated, loading, error, alert]);
+  }, [dispatch, isAuthenticated, loading, error, alert , history]);
 
   const handleEmailChange = (event) => {
     const newEmail = event.target.value;
@@ -103,7 +104,7 @@ function Signup() {
     }));
   };
 
-  const isSignInDisabled = !(
+  let isSignInDisabled = !(
     email &&
     password &&
     isValidEmail &&
@@ -115,6 +116,7 @@ function Signup() {
   );
 
   function handleSignUpSubmit(e) {
+    isSignInDisabled = false;
     e.preventDefault();
     setLoading(true);
 

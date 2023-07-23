@@ -70,7 +70,7 @@ export default function Login() {
      if (isAuthenticated) {
        history.push(redirect);
      }
-   }, [dispatch, isAuthenticated, loading, error, alert]);
+   }, [dispatch, isAuthenticated, loading, error, alert , history , redirect]);
 
      function handleLoginSubmit(e) {
        e.preventDefault();

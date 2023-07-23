@@ -284,8 +284,8 @@ ul {
 }
 
 .prod_details_addtocart_btn {
-      border-style: 2px solid;
-    cursor: pointer;
+      border-style: 2px solid !important;
+    cursor: pointer !important;
     line-height: inherit;
     padding: 0px 16px;
     position: relative;
@@ -298,18 +298,18 @@ ul {
     font-size: 16px;
     font-weight: inherit;
     min-height: 48px;
-       background: rgb(22, 22, 22);
-    border-color: rgb(19, 19, 19);
-    color: rgb(255, 255, 255);
+       background: rgb(22, 22, 22) !important;
+    border-color: rgb(19, 19, 19) !important;
+    color: rgb(255, 255, 255) !important;
 
 }
 
 
 .prod_details_addtocart_btn:hover{
-     background: rgba(222, 9, 9, 0.744); 
-  transform: scale(1.05);
- border: none;
-     transition: transform 0.3s ease 0s;
+     background: rgba(222, 9, 9, 0.744) !important;; 
+  transform: scale(1.05) !important;
+ border: none !important;
+     transition: transform 0.3s ease 0s !important;
      
 }
 button {

@@ -46,22 +46,28 @@ const ProductDetails = () => {
   );
 
 
+useEffect(() => {
+  if (error) {
+    alert.error(error);
+    dispatch(clearErrors);
+  }
+  if (success) {
+    setPreviewImg(product.images[0].url);
 
-  useEffect(() => {
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors);
-    }
-    if (success) {
- 
-      setPreviewImg(product.images[0].url);
-      handleActive(0);
-      dispatch({ type: PRODUCT_DETAILS_RESET });
-    }
- 
+    handleActive(0);
+    dispatch({ type: PRODUCT_DETAILS_RESET });
+  }
+  dispatch(getProductDetails(match.params.id));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [
+  dispatch,
+  error,
+  alert,
+  success,
+  match.params.id,
 
-    dispatch(getProductDetails(match.params.id));
-  }, [dispatch, error, alert, success ]);
+]);
+
 
   // handling Add-to-cart
   const handleAddItem = () => {

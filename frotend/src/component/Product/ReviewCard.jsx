@@ -1,12 +1,13 @@
-import React, { useState  } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { Typography, Grid, Select, MenuItem, Button } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
-import DialogBox from "./DialogBox";
+ import CricketBallLoader from "../layouts/loader/Loader";
 import { useStyles } from "./ReviewStyle";
 import MyCard from "./Card";
 import { useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
+const DialogBox = lazy(() => import("./DialogBox"));
 
 
 const ReviewCard = ({ product }) => { 
@@ -70,12 +71,14 @@ const ReviewCard = ({ product }) => {
         Write your Review
       </Button>
 
-      <DialogBox
+      <Suspense fallback={<CricketBallLoader />}>
+          <DialogBox
         open={open}
         handleClose={handleClose}
         className={classes.dialog}
        
       />
+      </Suspense>     
       <Grid container alignItems="center" style={{ marginTop: "2rem" }}>
         <Grid item className={classes.ratingContainer}>
           <Rating
