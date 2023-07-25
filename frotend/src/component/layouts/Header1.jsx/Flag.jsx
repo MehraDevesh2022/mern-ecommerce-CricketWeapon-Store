@@ -13,25 +13,25 @@ const countryOptions = [
 
 const useStyles = makeStyles(() => ({
   flagIcon: {
-    width: 15,
-    height: 15,
-    alignSelf: "center",
-    paddingRight: "1px",
+    width: "15  !import",
+    height: "15 !import",
+    alignSelf: "cente !importr",
+    paddingRight: "1px !import",
     
   },
   countryName: {
-    fontSize: 12,
-    color: "white",
-    alignSelf: "center",
-    fontFamily: "Roboto",
-    marginLeft: 5,
+    fontSize: "12 !import",
+    color: "white !import",
+    alignSelf: "center !import",
+    fontFamily: "Roboto !import",
+    marginLeft: "5 !import",
   },
   menuItem: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: "flex !import",
+    alignItems: "center !import",
+    justifyContent: "center !import",
     color: "white",
-    backgroundColor: "black",
+    backgroundColor: "black !import",
   },
 }));
 
@@ -47,15 +47,15 @@ const FlagSelect = ({ value = "in", onChange }) => {
       value={value}
       onChange={onChange}
       sx={{
-        display : "flex",
-        alignItems :"center",
-        border: "none",
-        "&:focus": { border: "none" },
+        display : "flex !important",
+        alignItems :"center !important",
+        border: "none !important",
+        "&:focus": { border: "none " },
         "&:before": { border: "none" },
-        height: 20,
-        width: "auto",
+        height: "20px !important",
+        width: "auto !important",
         "& .MuiSelect-icon": {
-          color: "white",
+          color: "white !important",
         },
       }}
     >
