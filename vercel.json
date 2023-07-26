@@ -6,20 +6,21 @@
             "use": "@vercel/node"
         },
         {
-            "src": "frontend/package.json",
-            "use": "@vercel/static-build"
+            "src": "frontend/build",
+            "use": "@vercel/static"
         }
     ],
-    "routes": [
+    "rewrites": [
         {
-            "src": "/api/v1/(.*)",
-            "dest": "backend/server.js"
+            "source": "/api/(.*)",
+            "destination": "/backend/server.js"
         },
         {
-            "src": "/(.*)",
-            "dest": "frontend/build/$1"
+            "source": "/(.*)",
+            "destination": "/frontend/build/$1"
         }
     ],
+ 
     "env": {
     
         "DB_LINK": "mongodb+srv://itsCodeWithDEv:Ln6jpZ1ncLd9d9oJ@ecart.vhriyfd.mongodb.net/eCart?retryWrites=true&w=majority",
