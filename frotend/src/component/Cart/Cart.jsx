@@ -134,6 +134,7 @@ const Cart = () => {
                         decreaseQuantity={decreaseQuantity}
                         increaseQuantity={increaseQuantity}
                         length={cartItems.length}
+                        id = {item.productId}
                       />
                     </Link>
                   ))}

@@ -1,0 +1,28 @@
+/* Cart Icon Styles */
+.cartIconWrapper {
+  position: relative;
+  margin-bottom: 4.5px;
+}
+
+.cartIcon {
+  font-size: 1.8rem;
+  cursor: pointer;
+
+  color: #000; /* Initial icon color (black) */
+  position: relative;
+}
+
+.cartIcon:hover {
+  color: #ed1c24; /* Hover icon color (red) */
+}
+.cartItemCount {
+  position: absolute;
+  top: -2px;
+  right: -8px;
+  background-color: #ed1c24;
+  color: #fff;
+  font-size: 12px;
+  line-height: 18px;
+  border-radius: 50%;
+  padding: 0 5px;
+}

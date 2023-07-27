@@ -6,6 +6,7 @@ import AlertTemplate from "react-alert-template-basic";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import store from "./store";
 import App from "./App";
+import {BrowserRouter} from "react-router-dom"; 
 
 const theme = createTheme();
 const options = {
@@ -17,6 +18,8 @@ const options = {
 ReactDOM.render(
   <>
     {/* Wrap the entire application with BrowserRouter */}
+    <BrowserRouter>
+    
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <AlertProvider template={AlertTemplate} {...options}>
@@ -24,6 +27,7 @@ ReactDOM.render(
         </AlertProvider>
       </Provider>
     </ThemeProvider>
+    </BrowserRouter>
   </>,
   document.getElementById("root")
 );

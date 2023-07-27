@@ -468,6 +468,7 @@ align-items: center;
 .additem {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 
@@ -475,32 +476,33 @@ align-items: center;
   margin-right: 8px;
   height: 24px;
   font-size: 14px;
-  background-color: #161616;
-  border-color: #1a1a1a;
+  background-color: none;
+  width: 0px;
+  border-color: none;
   border-radius: 3px;
-  color: white;
+  color: black;
+  margin-left: 5px;
 }
 
 .additem_increase {
-  margin-left: 8px;
+  margin-left: 10px;
   height: 24px;
-  font-size: 14px;
-  background-color: #161616;
-  border-color: #1a1a1a;
+ background-color: none;
+  width: 0px;
+  border-color: none;
   border-radius: 3px;
-  color: white;
+  color: black;
+
 }
 
 .additem_increase:hover {
-  background-color: #252525;
-  border-color: #252525;
+   color: #ed1c24;
   transition: transform 0.3s ease 0s;
   border-style: 2px solid;
 }
 
 .additem_decrease:hover {
-  background-color: #343434;
-  border-color: #494949;
+  color: #ed1c24;
   transition: transform 0.3s ease 0s;
   border-style: 2px solid;
 }
@@ -519,7 +521,9 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 input[type="number"] {
+
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 

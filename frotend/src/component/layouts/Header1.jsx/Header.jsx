@@ -1,99 +1,116 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import SearchBar from "./Searchbar";
 import "./Header.css";
-import { ShoppingCart } from "@material-ui/icons";
-import { Badge } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { Popover } from "@material-ui/core";
+// import { ShoppingCart } from "@material-ui/icons";
+// import { Badge } from "@material-ui/core";
+// import { makeStyles } from "@material-ui/core/styles";
+// import { Popover } from "@material-ui/core";
 
-
+import CartIcon from "./CartIcon";
 import FlagSelect from "./Flag";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import { useSelector  , useDispatch} from "react-redux";
-import { load_UserProfile } from "../../../actions/userAction";
+import { useSelector  } from "react-redux";
+
 import ProfileModal from "./ProfileModel"
 
-const useStyles = makeStyles((theme) => ({
-  
-  badge: {
-    backgroundColor: "#ed1c24",
-    color: "#fff",
-    "&:hover": {
-      backgroundColor: "#ed1c24",
-      color: "#fff",
-    },
-  },
-  cartIcon: {
-    fontSize: "1.7rem",
-    cursor: "pointer",
-    marginBottom: theme.spacing(0.8),
-  },
+// const useStyles = makeStyles((theme) => ({
+//   badge: {
+//     backgroundColor: "#ed1c24",
+//     color: "#fff",
+//     "&:hover": {
+//       backgroundColor: "#ed1c24",
+//       color: "#fff",
+//     },
+//   },
+//   cartIcon: {
+//     fontSize: "1.7rem",
+//     cursor: "pointer",
+//     marginBottom: theme.spacing(0.8),
+//   },
 
-  popover: {
-    pointerEvents: "none",
-  },
-  paper: {
-    padding: theme.spacing(1),
-  },
+//   popover: {
+//     pointerEvents: "none",
+//   },
+//   paper: {
+//     padding: theme.spacing(1),
+//   },
+//   flagIcon: {
+//     width: 15,
+//     height: 15,
+//     alignSelf: "center",
+//     paddingRight: "1px",
+//   },
+//   countryName: {
+//     fontSize: 12,
+//     color: "white",
+//     alignSelf: "center",
+//     fontFamily: "Roboto",
+//     marginLeft: 5,
+//   },
+//   menuItem: {
+//     display: "flex",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     color: "white",
+//     backgroundColor: "black",
+//   },
+// }));
 
-  
-}));
 
+//   // for cartIcon material ui component
+// function CartIcon({ cartItemCount }) {
+//   const classes = useStyles();
+//   const [anchorEl, setAnchorEl] = useState(null);
 
-  // for cartIcon material ui component
-function CartIcon({ cartItemCount }) {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
+//   const handlePopoverOpen = (event) => {
+//     setAnchorEl(event.currentTarget);
+//   };
 
-  const handlePopoverOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+//   const handlePopoverClose = () => {
+//     setAnchorEl(null);
+//   };
 
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
+//   const open = Boolean(anchorEl);
 
-  const open = Boolean(anchorEl);
-
-  return (
-    <div>
-      <Badge
-        badgeContent={cartItemCount}
-        color="primary"
-        classes={{ badge: classes.badge }}
-      >
-        <ShoppingCart
-          onMouseEnter={handlePopoverOpen}
-          onMouseLeave={handlePopoverClose}
-          className={classes.cartIcon}
-        />
-      </Badge>
-      {!cartItemCount && (
-        <Popover
-          className={classes.popover}
-          classes={{ paper: classes.paper }}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handlePopoverClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-        >
-          <div>Cart is empty</div>
-        </Popover>
-      )}
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <Badge
+//         badgeContent={cartItemCount}
+//         color="primary"
+//         classes={{ badge: classes.badge }}
+//       >
+//         <ShoppingCart
+//           onMouseEnter={handlePopoverOpen}
+//           onMouseLeave={handlePopoverClose}
+//           className={classes.cartIcon}
+//         />
+//       </Badge>
+//       {!cartItemCount && (
+//         <Popover
+//           className={classes.popover}
+//           classes={{ paper: classes.paper }}
+//           open={open}
+//           anchorEl={anchorEl}
+//           onClose={handlePopoverClose}
+//           anchorOrigin={{
+//             vertical: "bottom",
+//             horizontal: "center",
+//           }}
+//           transformOrigin={{
+//             vertical: "top",
+//             horizontal: "center",
+//           }}
+//         >
+//           <div>Cart is empty</div>
+//         </Popover>
+//       )}
+//     </div>
+//   );
+// }
 
 
 
@@ -105,29 +122,19 @@ function Header() {
   const history = useHistory();
     const { isAuthenticated, user  } = useSelector((state) => state.userData);
 
-  const { cartItems } = useSelector((state) => state.cart);
+  
   const [searchBarActive, setSearchBarActive] = useState(false);
 
 
-  const [cartItemCount , setCartItemCount] = useState(0); // this is for cart
+
   const [country, setCountry] = useState("in"); // this is for flag
   const [sideMenu, setSideMenu] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const dispatch = useDispatch();
+
 
 
 
    
- useEffect(() => {
-
-   setCartItemCount(cartItems.length);
-   dispatch(load_UserProfile());
- }, [dispatch ,cartItems ]);
-
-
-
-
-
 
 
 
@@ -295,9 +302,9 @@ function Header() {
             <span>
               <Link
                 to="/cart"
-                style={{ color: "inherit", textDecoration: "none" }}
+                style={{ color: "none", textDecoration: "none" }}
               >
-                <CartIcon cartItemCount={cartItemCount} />
+                <CartIcon  />
               </Link>
             </span>
             <span>

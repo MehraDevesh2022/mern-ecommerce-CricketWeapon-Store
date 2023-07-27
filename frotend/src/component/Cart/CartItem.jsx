@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
       margin: "1rem 3rem",
     },
     [theme.breakpoints.down(699)]: {
-      padding: "3rem 2rem",
+      padding: "2rem",
       margin: "1rem",
       width: "80%",
     },
@@ -48,11 +48,11 @@ const useStyles = makeStyles((theme) => ({
     height: "auto",
 
     [theme.breakpoints.down(899)]: {
-      padding: "8rem 3rem",
+      padding: "3rem",
       margin: "1rem 3rem",
     },
     [theme.breakpoints.down(699)]: {
-      padding: "8rem 2rem",
+      padding: "2rem",
       margin: "1rem",
       width: "80%",
     },
