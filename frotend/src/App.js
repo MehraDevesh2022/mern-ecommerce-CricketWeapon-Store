@@ -1,10 +1,5 @@
-import React, { useState, useEffect, Suspense ,useTransition  } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
- 
-} from "react-router-dom";
+import React, { useState, useEffect, Suspense, useTransition } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { load_UserProfile } from "./actions/userAction";
 import axios from "axios";
@@ -15,57 +10,30 @@ import PrivateRoute from "./component/Route/PrivateRoute";
 
 import "./App.css";
 
-
-
-const Payment = React.lazy(() => import("./component/Cart/Payment"));
-const LazyHeader = React.lazy(() =>
-  import("./component/layouts/Header1.jsx/Header")
-);
-
-
-
-const LazyHome = React.lazy(() => import("./component/Home/Home"));
-const LazyFooter = React.lazy(() =>
-  import("./component/layouts/Footer/Footer")
-);
-
-const LazyProductDetails = React.lazy(() =>
-  import("./component/Product/ProductDetails")
-);
-const LazyProducts = React.lazy(() => import("./component/Product/Products"));
-const LazySignup = React.lazy(() => import("./component/User/SignUp"));
-const LazyLogin = React.lazy(() => import("./component/User/Login"));
-const LazyProfile = React.lazy(() => import("./component/User/Profile"));
-const LazyUpdateProfile = React.lazy(() =>
-  import("./component/User/UpdateProfile")
-);
-const LazyUpdatePassword = React.lazy(() =>
-  import("./component/User/UpdatePassword")
-);
-const LazyForgetPassword = React.lazy(() =>
-  import("./component/User/ForgetPassword")
-);
-const LazyResetPassword = React.lazy(() =>
-  import("./component/User/ResetPassword")
-);
-const LazyShipping = React.lazy(() => import("./component/Cart/Shipping"));
-const LazyCart = React.lazy(() => import("./component/Cart/Cart"));
-const LazyConfirmOrder = React.lazy(() =>
-  import("./component/Cart/ConfirmOrder")
-);
-
-
-
-const LazyOrderSuccess = React.lazy(() =>
-  import("./component/Cart/OrderSuccess")
-);
-const LazyMyOrder = React.lazy(() => import("./component/order/MyOrder"));
-const LazyContactForm = React.lazy(() =>
-  import("./component/layouts/About/Contact")
-);
-const LazyAboutUsPage = React.lazy(() =>
-  import("./component/layouts/About/Aboutus")
-);
+import Payment from "./component/Cart/Payment";
+import Header from "./component/layouts/Header1.jsx/Header";
+import Home from "./component/Home/Home";
+import Footer from "./component/layouts/Footer/Footer";
+import ProductDetails from "./component/Product/ProductDetails";
+import Products from "./component/Product/Products";
+import Signup from "./component/User/SignUp";
+import Login from "./component/User/Login";
+import Profile from "./component/User/Profile";
+import UpdateProfile from "./component/User/UpdateProfile";
+import UpdatePassword from "./component/User/UpdatePassword";
+import ForgetPassword from "./component/User/ForgetPassword";
+import ResetPassword from "./component/User/ResetPassword";
+import Shipping from "./component/Cart/Shipping";
+import Cart from "./component/Cart/Cart";
+import ConfirmOrder from "./component/Cart/ConfirmOrder";
+import OrderSuccess from "./component/Cart/OrderSuccess";
+import MyOrder from "./component/order/MyOrder";
+import ContactForm from "./component/layouts/About/Contact";
+import AboutUsPage from "./component/layouts/About/Aboutus"
+import ReturnPolicyPage from "./Terms&Condtions/Return";
+import TermsUse from "./Terms&Condtions/TermsAndUse";
+import TermsAndConditions from "./Terms&Condtions/TermsCondtion";
+import PrivacyPolicy from "./Terms&Condtions/Privacy";
 const LazyDashboard = React.lazy(() => import("./component/Admin/Dashboard"));
 const LazyProductList = React.lazy(() =>
   import("./component/Admin/ProductList")
@@ -83,14 +51,6 @@ const LazyNewProduct = React.lazy(() => import("./component/Admin/NewProduct"));
 const LazyProductReviews = React.lazy(() =>
   import("./component/Admin/ProductReviews")
 );
-const LazyReturnPolicyPage = React.lazy(() =>
-  import("./Terms&Condtions/Return")
-);
-const LazyTermsUse = React.lazy(() => import("./Terms&Condtions/TermsAndUse"));
-const LazyTermsAndConditions = React.lazy(() =>
-  import("./Terms&Condtions/TermsCondtion")
-);
-const LazyPrivacyPolicy = React.lazy(() => import("./Terms&Condtions/Privacy"));
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -127,17 +87,17 @@ if (isPending) {
   return (
     <>
       <Router>
-        <Suspense fallback={<CricketBallLoader />}>
+     
           <Switch>
             <Route
               exact
               path="/"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyHome />
+                  { <Header />}
+                  <Home />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -147,10 +107,10 @@ if (isPending) {
               path="/product/:id"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyProductDetails />
+                  { <Header />}
+                  <ProductDetails />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -160,10 +120,10 @@ if (isPending) {
               path="/products"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyProducts />
+                  { <Header />}
+                  <Products />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -172,10 +132,10 @@ if (isPending) {
               path="/products/:keyword"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyProducts />
+                  { <Header />}
+                  <Products />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -185,10 +145,10 @@ if (isPending) {
               path="/signup"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazySignup />
+                  { <Header />}
+                  <Signup />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -198,10 +158,10 @@ if (isPending) {
               path="/login"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyLogin />
+                  { <Header />}
+                  <Login />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -211,10 +171,10 @@ if (isPending) {
               path="/password/forgot"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyForgetPassword />
+                  { <Header />}
+                  <ForgetPassword />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -224,10 +184,10 @@ if (isPending) {
               path="/password/reset/:token"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyResetPassword />
+                  { <Header />}
+                  <ResetPassword />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -237,10 +197,10 @@ if (isPending) {
               path="/cart"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyCart />
+                  { <Header />}
+                  <Cart />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -250,10 +210,10 @@ if (isPending) {
               path="/policy/return"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyReturnPolicyPage />
+                  { <Header />}
+                  <ReturnPolicyPage />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -263,10 +223,10 @@ if (isPending) {
               path="/policy/Terms"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyTermsUse />
+                  { <Header />}
+                  <TermsUse />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -276,10 +236,10 @@ if (isPending) {
               path="/policy/privacy"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyPrivacyPolicy />
+                  { <Header />}
+                  <PrivacyPolicy />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -289,10 +249,10 @@ if (isPending) {
               path="/terms/conditions"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyTermsAndConditions />
+                  { <Header />}
+                  <TermsAndConditions />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -302,10 +262,10 @@ if (isPending) {
               path="/contact"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyContactForm />
+                  { <Header />}
+                  <ContactForm />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -315,10 +275,10 @@ if (isPending) {
               path="/about_us"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <LazyAboutUsPage />
+                  { <Header />}
+                  <AboutUsPage />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -328,10 +288,10 @@ if (isPending) {
               path="/account"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <PrivateRoute exact path="/account" component={LazyProfile} />
+                  { <Header />}
+                  <PrivateRoute exact path="/account" component={Profile} />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -341,14 +301,14 @@ if (isPending) {
               path="/profile/update"
               render={() => (
                 <>
-                  { <LazyHeader />}
+                  { <Header />}
                   <PrivateRoute
                     exact
                     path="/profile/update"
-                    component={LazyUpdateProfile}
+                    component={UpdateProfile}
                   />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -358,14 +318,14 @@ if (isPending) {
               path="/password/update"
               render={() => (
                 <>
-                  { <LazyHeader />}
+                  { <Header />}
                   <PrivateRoute
                     exact
                     path="/password/update"
-                    component={LazyUpdatePassword}
+                    component={UpdatePassword}
                   />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -375,10 +335,10 @@ if (isPending) {
               path="/orders"
               render={() => (
                 <>
-                  { <LazyHeader />}
-                  <PrivateRoute exact path="/orders" component={LazyMyOrder} />
+                  { <Header />}
+                  <PrivateRoute exact path="/orders" component={MyOrder} />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -388,14 +348,14 @@ if (isPending) {
               path="/shipping"
               render={() => (
                 <>
-                  { <LazyHeader />}
+                  { <Header />}
                   <PrivateRoute
                     exact
                     path="/shipping"
-                    component={LazyShipping}
+                    component={Shipping}
                   />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -405,14 +365,14 @@ if (isPending) {
               path="/order/confirm"
               render={() => (
                 <>
-                  { <LazyHeader />}
+                  { <Header />}
                   <PrivateRoute
                     exact
                     path="/order/confirm"
-                    component={LazyConfirmOrder}
+                    component={ConfirmOrder}
                   />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
@@ -422,19 +382,19 @@ if (isPending) {
               path="/success"
               render={() => (
                 <>
-                  { <LazyHeader />}
+                  { <Header />}
                   <PrivateRoute
                     exact
                     path="/success"
-                    component={LazyOrderSuccess}
+                    component={OrderSuccess}
                   />
                  
-                  { <LazyFooter />}
+                  { <Footer />}
                 </>
               )}
             />
           </Switch>
-        </Suspense>
+       
 
         {/* Admin routes */}
         <Suspense fallback={<CricketBallLoader />}>
@@ -501,10 +461,10 @@ if (isPending) {
           <Suspense fallback={<CricketBallLoader />}>
           <Elements stripe={loadStripe(stripeApiKey)}>
             <Route exact path="/process/payment">
-              { <LazyHeader />}
+              { <Header />}
               <PrivateRoute exact path="/process/payment" component={Payment} />
              
-              { <LazyFooter />}
+              { <Footer />}
             </Route>
           </Elements>
             </Suspense>
