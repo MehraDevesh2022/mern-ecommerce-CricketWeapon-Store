@@ -15,13 +15,12 @@ import PrivateRoute from "./component/Route/PrivateRoute";
 
 import "./App.css";
 
-import LazyHeader from "./component/layouts/Header1.jsx/Header";
-import LazyServices from "./component/layouts/Footer/Service";  
+
 
 const Payment = React.lazy(() => import("./component/Cart/Payment"));
-// const LazyHeader = React.lazy(() =>
-//   import("./component/layouts/Header1.jsx/Header")
-// );
+const LazyHeader = React.lazy(() =>
+  import("./component/layouts/Header1.jsx/Header")
+);
 
 
 
@@ -29,9 +28,7 @@ const LazyHome = React.lazy(() => import("./component/Home/Home"));
 const LazyFooter = React.lazy(() =>
   import("./component/layouts/Footer/Footer")
 );
-// const LazyServices = React.lazy(() =>
-//   import("./component/layouts/Footer/Service")
-// );
+
 const LazyProductDetails = React.lazy(() =>
   import("./component/Product/ProductDetails")
 );
@@ -139,7 +136,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyHome />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -152,7 +149,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyProductDetails />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -165,7 +162,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyProducts />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -177,7 +174,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyProducts />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -190,7 +187,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazySignup />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -203,7 +200,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyLogin />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -216,7 +213,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyForgetPassword />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -229,7 +226,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyResetPassword />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -242,7 +239,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyCart />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -255,7 +252,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyReturnPolicyPage />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -268,7 +265,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyTermsUse />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -281,7 +278,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyPrivacyPolicy />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -294,7 +291,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyTermsAndConditions />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -307,7 +304,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyContactForm />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -320,7 +317,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <LazyAboutUsPage />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -333,7 +330,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <PrivateRoute exact path="/account" component={LazyProfile} />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -350,7 +347,7 @@ if (isPending) {
                     path="/profile/update"
                     component={LazyUpdateProfile}
                   />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -367,7 +364,7 @@ if (isPending) {
                     path="/password/update"
                     component={LazyUpdatePassword}
                   />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -380,7 +377,7 @@ if (isPending) {
                 <>
                   { <LazyHeader />}
                   <PrivateRoute exact path="/orders" component={LazyMyOrder} />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -397,7 +394,7 @@ if (isPending) {
                     path="/shipping"
                     component={LazyShipping}
                   />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -414,7 +411,7 @@ if (isPending) {
                     path="/order/confirm"
                     component={LazyConfirmOrder}
                   />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -431,7 +428,7 @@ if (isPending) {
                     path="/success"
                     component={LazyOrderSuccess}
                   />
-                  { <LazyServices />}
+                 
                   { <LazyFooter />}
                 </>
               )}
@@ -506,7 +503,7 @@ if (isPending) {
             <Route exact path="/process/payment">
               { <LazyHeader />}
               <PrivateRoute exact path="/process/payment" component={Payment} />
-              { <LazyServices />}
+             
               { <LazyFooter />}
             </Route>
           </Elements>
