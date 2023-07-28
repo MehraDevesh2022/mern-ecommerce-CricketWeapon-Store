@@ -13,6 +13,7 @@ import "./App.css";
 import Payment from "./component/Cart/Payment";
 import Header from "./component/layouts/Header1.jsx/Header";
 import Home from "./component/Home/Home";
+import Services from "./Terms&Condtions/Service";
 import Footer from "./component/layouts/Footer/Footer";
 import ProductDetails from "./component/Product/ProductDetails";
 import Products from "./component/Product/Products";
@@ -87,314 +88,304 @@ if (isPending) {
   return (
     <>
       <Router>
-     
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <>
-                  { <Header />}
-                  <Home />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <>
+                {<Header />}
+                <Home />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/product/:id"
-              render={() => (
-                <>
-                  { <Header />}
-                  <ProductDetails />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/product/:id"
+            render={() => (
+              <>
+                {<Header />}
+                <ProductDetails />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/products"
-              render={() => (
-                <>
-                  { <Header />}
-                  <Products />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/products"
+            render={() => (
+              <>
+                {<Header />}
+                <Products />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              path="/products/:keyword"
-              render={() => (
-                <>
-                  { <Header />}
-                  <Products />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            path="/products/:keyword"
+            render={() => (
+              <>
+                {<Header />}
+                <Products />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/signup"
-              render={() => (
-                <>
-                  { <Header />}
-                  <Signup />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/signup"
+            render={() => (
+              <>
+                {<Header />}
+                <Signup />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/login"
-              render={() => (
-                <>
-                  { <Header />}
-                  <Login />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/login"
+            render={() => (
+              <>
+                {<Header />}
+                <Login />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/password/forgot"
-              render={() => (
-                <>
-                  { <Header />}
-                  <ForgetPassword />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/password/forgot"
+            render={() => (
+              <>
+                {<Header />}
+                <ForgetPassword />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/password/reset/:token"
-              render={() => (
-                <>
-                  { <Header />}
-                  <ResetPassword />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/password/reset/:token"
+            render={() => (
+              <>
+                {<Header />}
+                <ResetPassword />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/cart"
-              render={() => (
-                <>
-                  { <Header />}
-                  <Cart />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/cart"
+            render={() => (
+              <>
+                {<Header />}
+                <Cart />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/policy/return"
-              render={() => (
-                <>
-                  { <Header />}
-                  <ReturnPolicyPage />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/policy/return"
+            render={() => (
+              <>
+                {<Header />}
+                <ReturnPolicyPage />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/policy/Terms"
-              render={() => (
-                <>
-                  { <Header />}
-                  <TermsUse />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/policy/Terms"
+            render={() => (
+              <>
+                {<Header />}
+                <TermsUse />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/policy/privacy"
-              render={() => (
-                <>
-                  { <Header />}
-                  <PrivacyPolicy />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/policy/privacy"
+            render={() => (
+              <>
+                {<Header />}
+                <PrivacyPolicy />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/terms/conditions"
-              render={() => (
-                <>
-                  { <Header />}
-                  <TermsAndConditions />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/terms/conditions"
+            render={() => (
+              <>
+                {<Header />}
+                <TermsAndConditions />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/contact"
-              render={() => (
-                <>
-                  { <Header />}
-                  <ContactForm />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/contact"
+            render={() => (
+              <>
+                {<Header />}
+                <ContactForm />
 
-            <Route
-              exact
-              path="/about_us"
-              render={() => (
-                <>
-                  { <Header />}
-                  <AboutUsPage />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/account"
-              render={() => (
-                <>
-                  { <Header />}
-                  <PrivateRoute exact path="/account" component={Profile} />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/about_us"
+            render={() => (
+              <>
+                {<Header />}
+                <AboutUsPage />
 
-            <Route
-              exact
-              path="/profile/update"
-              render={() => (
-                <>
-                  { <Header />}
-                  <PrivateRoute
-                    exact
-                    path="/profile/update"
-                    component={UpdateProfile}
-                  />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/password/update"
-              render={() => (
-                <>
-                  { <Header />}
-                  <PrivateRoute
-                    exact
-                    path="/password/update"
-                    component={UpdatePassword}
-                  />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/account"
+            render={() => (
+              <>
+                {<Header />}
+                <PrivateRoute exact path="/account" component={Profile} />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/orders"
-              render={() => (
-                <>
-                  { <Header />}
-                  <PrivateRoute exact path="/orders" component={MyOrder} />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/profile/update"
+            render={() => (
+              <>
+                {<Header />}
+                <PrivateRoute
+                  exact
+                  path="/profile/update"
+                  component={UpdateProfile}
+                />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/shipping"
-              render={() => (
-                <>
-                  { <Header />}
-                  <PrivateRoute
-                    exact
-                    path="/shipping"
-                    component={Shipping}
-                  />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/password/update"
+            render={() => (
+              <>
+                {<Header />}
+                <PrivateRoute
+                  exact
+                  path="/password/update"
+                  component={UpdatePassword}
+                />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/order/confirm"
-              render={() => (
-                <>
-                  { <Header />}
-                  <PrivateRoute
-                    exact
-                    path="/order/confirm"
-                    component={ConfirmOrder}
-                  />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
+          <Route
+            exact
+            path="/orders"
+            render={() => (
+              <>
+                {<Header />}
+                <PrivateRoute exact path="/orders" component={MyOrder} />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
 
-            <Route
-              exact
-              path="/success"
-              render={() => (
-                <>
-                  { <Header />}
-                  <PrivateRoute
-                    exact
-                    path="/success"
-                    component={OrderSuccess}
-                  />
-                 
-                  { <Footer />}
-                </>
-              )}
-            />
-          </Switch>
-       
+          <Route
+            exact
+            path="/shipping"
+            render={() => (
+              <>
+                {<Header />}
+                <PrivateRoute exact path="/shipping" component={Shipping} />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
+
+          <Route
+            exact
+            path="/order/confirm"
+            render={() => (
+              <>
+                {<Header />}
+                <PrivateRoute
+                  exact
+                  path="/order/confirm"
+                  component={ConfirmOrder}
+                />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
+
+          <Route
+            exact
+            path="/success"
+            render={() => (
+              <>
+                {<Header />}
+                <PrivateRoute exact path="/success" component={OrderSuccess} />
+                <Services />
+                {<Footer />}
+              </>
+            )}
+          />
+        </Switch>
 
         {/* Admin routes */}
         <Suspense fallback={<CricketBallLoader />}>
@@ -456,20 +447,16 @@ if (isPending) {
           </Switch>
         </Suspense>
 
-
         {stripeApiKey && (
-         
           <Elements stripe={loadStripe(stripeApiKey)}>
             <Route exact path="/process/payment">
-              { <Header />}  
+              {<Header />}
               <PrivateRoute exact path="/process/payment" component={Payment} />
-             
-              { <Footer />}
+
+              {<Footer />}
             </Route>
           </Elements>
-         
         )}
-        
       </Router>
     </>
   );

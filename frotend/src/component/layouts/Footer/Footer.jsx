@@ -4,7 +4,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import Services from "../../../Terms&Condtions/Service";
+
 import "./Footer.css";
 const footMenu = [
   {
@@ -140,7 +140,7 @@ const Footer = () => {
 
   return (
     <>
-    <Services/>
+
       <footer className="footer">
         <div className="container">
           <div className="wrapper_footer footer_wrapper ">
