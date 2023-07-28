@@ -358,17 +358,17 @@ function ProcessOrder() {
     }
     if (isUpdated) {
       console.log("isUpdated", order);
-      alert.success("Order Updated Successfully");
+      alert.success("Order Updated Successfully");  
       dispatch({ type: UPDATE_ORDER_RESET });
     }
-    dispatch(getOrderDetails(productId));
-    console.log("order", order);
+    dispatch(getOrderDetails(productId)); 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, alert, error, isUpdated, updateError, productId]);
 
   const updateOrderSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
-    console.log("status", status);
+    console.log("status", status); 
     myForm.set("status", status);
     dispatch(updateOrder(productId, myForm));
   };

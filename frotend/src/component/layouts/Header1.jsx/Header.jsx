@@ -8,7 +8,7 @@ import "./Header.css";
 // import { Popover } from "@material-ui/core";
 
 import CartIcon from "./CartIcon";
-import FlagSelect from "./Flag";
+import FlagSelect from "../../Home/Flag";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";

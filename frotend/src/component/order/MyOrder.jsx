@@ -47,7 +47,8 @@ const MyOrder = () => {
     }
 
     dispatch(myOrders());
-    console.log(orders);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [dispatch, alert, error]);
 
   return (

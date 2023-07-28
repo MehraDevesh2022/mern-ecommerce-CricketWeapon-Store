@@ -28,8 +28,8 @@ import Cart from "./component/Cart/Cart";
 import ConfirmOrder from "./component/Cart/ConfirmOrder";
 import OrderSuccess from "./component/Cart/OrderSuccess";
 import MyOrder from "./component/order/MyOrder";
-import ContactForm from "./component/layouts/About/Contact";
-import AboutUsPage from "./component/layouts/About/Aboutus"
+import ContactForm from "./Terms&Condtions/Contact";
+import AboutUsPage from "./Terms&Condtions/Aboutus";
 import ReturnPolicyPage from "./Terms&Condtions/Return";
 import TermsUse from "./Terms&Condtions/TermsAndUse";
 import TermsAndConditions from "./Terms&Condtions/TermsCondtion";
@@ -458,16 +458,16 @@ if (isPending) {
 
 
         {stripeApiKey && (
-          <Suspense fallback={<CricketBallLoader />}>
+         
           <Elements stripe={loadStripe(stripeApiKey)}>
             <Route exact path="/process/payment">
-              { <Header />}
+              { <Header />}  
               <PrivateRoute exact path="/process/payment" component={Payment} />
              
               { <Footer />}
             </Route>
           </Elements>
-            </Suspense>
+         
         )}
         
       </Router>
