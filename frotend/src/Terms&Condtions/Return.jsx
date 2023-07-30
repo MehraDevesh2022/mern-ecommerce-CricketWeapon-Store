@@ -1,12 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Return.css"
+import MetaData from "../component/layouts/MataData/MataData";
+import TermsImage from "../Image/about/tc.jpg";
 const ReturnPolicyPage = () => {
   return (
     <div className="container__0">
+      <MetaData title="Return Policy" />
       <div className="image-container">
         <img
-          src="https://images.unsplash.com/photo-1594470117722-de4b9a02ebed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1129&q=80"
+          src={TermsImage}
           alt="Background"
         />
         <h1 className="policy-text">RETURN POLICY</h1>

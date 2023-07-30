@@ -169,7 +169,7 @@ const Footer = () => {
                   />
                   <p>
                     By submitting your email address you agree to the{" "}
-                    <Link to="/" className="foot_subs_text">
+                    <Link to="/terms/conditions" className="foot_subs_text">
                       Terms & Conditions
                     </Link>
                   </p>
@@ -206,16 +206,12 @@ const Footer = () => {
                 <h5>Download app</h5>
                 <div className="app_links">
                   <span className="googlePlayStore_link">
-                    <a href="https://play.google.com/store/games?hl=en-IN">
-                      <img
-                    
-                        src={GooglePlay}
-                        alt="play Store svg"
-                      />
+                    <a href="/">
+                      <img src={GooglePlay} alt="play Store svg" />
                     </a>
                   </span>
                   <span className="appleStore_link">
-                    <a href="https://apple.com/in/app-store/">
+                    <a href="/">
                       <img src={AppStore} alt="Apple Store svg" />
                     </a>
                   </span>

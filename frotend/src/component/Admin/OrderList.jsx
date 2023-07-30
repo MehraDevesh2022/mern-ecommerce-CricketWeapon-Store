@@ -154,7 +154,7 @@ const columns = [
          <Loader />
        ) : (
          <>
-           <MetaData title={`ALL PRODUCTS - Admin`} />
+           <MetaData title={`ALL Orders - Admin`} />
 
            <div className="product-list" style={{ marginTop: 0 }}>
              <div className={!toggle ? "listSidebar" : "toggleBox"}>

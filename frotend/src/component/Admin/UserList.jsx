@@ -154,7 +154,7 @@ function UserList() {
         <Loader />
       ) : (
         <>
-          <MetaData title={`ALL PRODUCTS - Admin`} />
+          <MetaData title={`ALL Users - Admin`} />
 
           <div className="product-list" style={{ marginTop: 0 }}>
             <div className={!toggle ? "listSidebar" : "toggleBox"}>

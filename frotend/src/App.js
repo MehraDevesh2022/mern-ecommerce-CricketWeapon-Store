@@ -12,6 +12,7 @@ import "./App.css";
 
 
 import Header from "./component/layouts/Header1.jsx/Header";
+import Payment from "./component/Cart/Payment";
 import Home from "./component/Home/Home";
 import Services from "./Terms&Condtions/Service";
 import Footer from "./component/layouts/Footer/Footer";
@@ -35,7 +36,7 @@ import ReturnPolicyPage from "./Terms&Condtions/Return";
 import TermsUse from "./Terms&Condtions/TermsAndUse";
 import TermsAndConditions from "./Terms&Condtions/TermsCondtion";
 import PrivacyPolicy from "./Terms&Condtions/Privacy";
-const LazyPayment = React.lazy(() => import("./component/Cart/Payment"));
+// const LazyPayment = React.lazy(() => import("./component/Cart/Payment"));
 const LazyDashboard = React.lazy(() => import("./component/Admin/Dashboard"));
 const LazyProductList = React.lazy(() =>
   import("./component/Admin/ProductList")
@@ -449,20 +450,20 @@ if (isPending) {
         </Suspense>
 
         {stripeApiKey && (
-          <Suspense fallback={<CricketBallLoader />}>
+    
             <Elements stripe={loadStripe(stripeApiKey)}>
               <Route exact path="/process/payment">
                 {<Header />}
                 <PrivateRoute
                   exact
                   path="/process/payment"
-                  component={LazyPayment}
+                  component={Payment}
                 />
 
                 {<Footer />}
               </Route>
             </Elements>
-          </Suspense>
+     
         )}
       </Router>
     </>

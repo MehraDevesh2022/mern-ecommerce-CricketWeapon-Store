@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
   },
   countryName_product: {
     fontSize: 12,
-    color: "white",
+    color: "#F5F5F5",
     alignSelf: "center",
     fontFamily: "Roboto",
     marginLeft: 5,
@@ -33,8 +33,10 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-
-    backgroundColor: "#292929 !important",
+    
+    ":hover": {
+      backgroundColor: "#e30605 !important",
+    },
   },
 
   customSelect: {
@@ -56,7 +58,7 @@ const FlagSelect = ({ value = "in", onChange }) => {
   const classes = useStyles();
 
   const handleImageError = (event) => {
-    event.target.src = "https://via.placeholder.com/16x12?text=?";
+    event.target.src = "#";
   };
 
   return (

@@ -12,7 +12,7 @@ import {
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
-
+import MetaData from "../component/layouts/MataData/MataData";
 const useStyles = makeStyles((theme) => ({
   root_contactus: {
     padding: "8rem 0",
@@ -186,6 +186,7 @@ const ContactForm = () => {
 
   return (
     <Box className={classes.root_contactus}>
+      <MetaData  title={"Contact Us"}/>
       <div className={classes.contact_Container_contactus}>
         <Typography variant="h2" className={classes.title_contact_us}>
           Contact Us

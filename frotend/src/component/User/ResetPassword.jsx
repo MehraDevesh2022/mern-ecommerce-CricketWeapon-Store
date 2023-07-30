@@ -12,10 +12,11 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
 
-function ResetPassword() {
-  const history = useHistory();
-  const match = useRouteMatch();
 
+function ResetPassword() {
+
+  const match = useRouteMatch();
+const history = useHistory();
   const dispatch = useDispatch();
   const alert = useAlert();
 
@@ -73,6 +74,7 @@ function ResetPassword() {
     myForm.set("confirmPassword", confirmPassword);
 
     dispatch(resetPassword(match.params.token, myForm));
+    
   }
 
 

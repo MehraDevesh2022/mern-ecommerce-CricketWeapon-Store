@@ -7,11 +7,12 @@ import { forgetPassword, clearErrors } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import MetaData from "../layouts/MataData/MataData";
 import CricketBallLoader from "../layouts/loader/Loader";
+
 import { Link } from "react-router-dom";
 
 export default function ForgetPassowrd() {
   const classes = useStyles();
-
+ 
   const dispatch = useDispatch();
   const alert = useAlert();
   const { error, message, loading } = useSelector(
@@ -37,6 +38,10 @@ export default function ForgetPassowrd() {
     dispatch(forgetPassword(myForm));
     
   }
+
+  function foregetPassHandler(){
+  setIsDone(!isDone);
+  } 
 
   useEffect(() => {
     if (error) {
@@ -99,7 +104,7 @@ export default function ForgetPassowrd() {
               fullWidth
               disabled={isSignInDisabled}
               style={{ marginTop: "3rem" }}
-              onClick={() => setIsDone(!isDone)}
+              onClic ={ foregetPassHandler}
             >
               Send email
             </Button>

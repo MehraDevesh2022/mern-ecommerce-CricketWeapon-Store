@@ -1,9 +1,12 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import "./Privacy.css";
+import MetaData from "../component/layouts/MataData/MataData";
+
 const PrivacyPolicy = () => {
   return (
     <div className="privacy-policy-container">
+     <MetaData title={"Privacy Policy"} />
       <div className="container___">
         <h1>Privacy Policy of CricketWeapon</h1>
         <p style={{ fontSize: "16px", fontWeight: "600" }}>

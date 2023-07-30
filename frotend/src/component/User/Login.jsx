@@ -148,7 +148,7 @@ export default function Login() {
             >
               I accept the Cricket Weapon Terms of Use and acknowledge Cricket
               Weapon will use my information in accordance with its
-              <Link href="#" className={classes.privacyText}>
+              <Link to="/policy/privacy" className={classes.privacyText}>
                 Privacy Policy.
               </Link>
             </Typography>
@@ -167,8 +167,7 @@ export default function Login() {
               style={{ marginTop: "1rem" }}
             >
               Don't have an account?
-              <Link to
-              ="/signup" className={classes.createAccount}>
+              <Link to="/signup" className={classes.createAccount}>
                 Create Account
               </Link>
             </Typography>
