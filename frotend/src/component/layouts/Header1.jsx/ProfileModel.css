@@ -17,6 +17,10 @@
   font-size: 20px !important;
   
 }
+.profile-icon > svg {
+  font-size: 2rem;
+}
+
 .modal-container {
   display: flex;
   align-items: flex-start;

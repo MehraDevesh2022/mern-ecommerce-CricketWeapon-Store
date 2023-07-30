@@ -199,6 +199,7 @@ background-color: black;
 .app_links{
   margin-top: -2rem;
 }
+
 .foot_social a {
   color: #fff;
   font-size: 14px;
@@ -251,6 +252,8 @@ display: flex;
     font-weight: 400;
     font-size: 12px;
     margin-left: 38px;
+ 
+    align-content: center;
 }
 .foot_copyright a{
     text-decoration: none;
@@ -442,4 +445,78 @@ width: 119%;
 
 }
 
+
+/* Responsive button and input field width */
+@media screen and (max-width: 499px) {
+  .foot_form .input_field_footer {
+    width: 100%;
+  }
+
+  .foot_form .btnFooter {
+    width: 100%;
+  }
+}
+
+/* Responsive font size and margins */
+@media screen and (max-width: 499px) {
+  .footer .Foot_heading {
+    font-size: 20px;
+  }
+
+  .foot_subs p {
+    font-size: 10px;
+    margin-top: 5px;
+  }
+
+  .foot_menu_container {
+    margin-left: 0;
+  }
+
+  .foot_subs p {
+    font-size: 12px;
+  }
+
+.foot_form .input_field_footer {
+  width: 93%;
+}
+
+.foot_form .btnFooter {
+  width: 100%;
+}
+  .foot_menu {
+    margin-left: 3px;
+  }
+  .foot_menu ul li,
+  .foot_social a {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .sub_footer_wrapper ul li {
+    font-size: 10px;
+  }
+  .foot_policyLink ul {
+    justify-content: space-around;
+  }
+  .foot_policyLink ul {
+    margin-left: -31px;
+  }
+.foot_policyLink_p{
+  font-size: 13px;
+}
+.foot_copyright>* {
+ gap: 2px;
+  font-size: 11px;
+  margin-left: 15px;
+}
+.app_links {
+  gap: 1rem;
+}
+
+  .Foot_heading {
+    margin-left: 36px;
+  }
+ 
+ 
+}
 

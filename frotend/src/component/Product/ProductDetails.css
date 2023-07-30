@@ -427,7 +427,7 @@ padding: 0px;
 
 }
 .reviewCard {
-  overflow-x: scroll !important;
+  overflow-x: hidden ;
 }
 
 @media (min-width: 1200px) {

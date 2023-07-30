@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
+
+import { SearchOutlined, CloseOutlined } from "@mui/icons-material";
+
 import "./Searchbar.css";
 
 const SearchBar = styled.div`
@@ -34,23 +36,8 @@ const SearchButton = styled.button`
   cursor: pointer;
 `;
 
-const GrSearchIcon = styled(AiOutlineSearch)`
-  color: #000000;
-  font-size: 1.7rem;
-  transition: color 0.2s ease-in-out;
-  &:hover {
-    color: #E30605;
-  }
-`;
 
-const RxCross1 = styled(AiOutlineClose)`
-  color: #000000;
-  font-size: 1.7rem;
-  transition: color 0.2s ease-in-out;
-  &:hover {
-    color: #E30605;
-  }
-`;
+
 
 const Search = ({
   handleSearchButtonClick,
@@ -64,13 +51,13 @@ const Search = ({
     <>
       {!searchBarActive && (
         <SearchButton onClick={handleSearchButtonClick}>
-          <GrSearchIcon />
+          <SearchOutlined fontSize="large" className="closeIcon" />
         </SearchButton>
       )}
       {searchBarActive && (
         <SearchBar>
           <SearchButton onClick={handleSearchFormSubmit}>
-            <GrSearchIcon />
+            <SearchOutlined fontSize="large" className="closeIcon" />
           </SearchButton>
           <form onSubmit={handleSearchFormSubmit} className="search_from">
             <SearchInput
@@ -81,7 +68,7 @@ const Search = ({
             />
           </form>
           <SearchButton onClick={handleCrossButtonClick}>
-            <RxCross1 />
+            <CloseOutlined fontSize="large" className="closeIcon" />
           </SearchButton>
         </SearchBar>
       )}

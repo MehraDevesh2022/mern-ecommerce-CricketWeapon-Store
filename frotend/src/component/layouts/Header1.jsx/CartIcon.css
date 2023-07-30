@@ -11,6 +11,9 @@
   color: #000; /* Initial icon color (black) */
   position: relative;
 }
+.cartIcon > svg {
+  font-size: 1.7rem;
+}
 
 .cartIcon:hover {
   color: #ed1c24; /* Hover icon color (red) */

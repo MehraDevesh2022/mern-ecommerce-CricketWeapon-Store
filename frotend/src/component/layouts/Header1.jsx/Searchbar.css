@@ -8,3 +8,15 @@
      width: 40vw;
  }  
 }
+
+.closeIcon  {
+  color: #000000;
+  font-size: 1.8rem;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Apply the hover effect on the CloseOutlined icon */
+.closeIcon:hover {
+  color: #e30605;
+}
+

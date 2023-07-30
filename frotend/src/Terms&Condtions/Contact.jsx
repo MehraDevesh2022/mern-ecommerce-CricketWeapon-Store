@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title_contact_us: {
     color: "#414141",
-    fontSize: "1rem !important",
+    fontSize: "1.5rem !important",
     padding: "1rem 3rem",
     fontFamily: "Roboto",
     fontWeight: "700 !important",
@@ -54,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "16px !important",
     width: "90%",
     letterSpacing: "2px",
+    [theme.breakpoints.down("sm")] :{
+      width : "100%"
+    }
   },
   address_contacts: {
     paddingBottom: "3rem",
@@ -76,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   supportButton: {
-    backgroundColor: "#000000 !important",
+    backgroundColor: "#292929 !important",
     color: "white !important",
     width: "fit-content !important",
     padding: "0.8rem 2rem   !important",
@@ -85,6 +88,9 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: "#ed1c24 !important",
       color: "white !important",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "15px !important",
     },
   },
   callButton: {
@@ -99,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
       color: "white !important",
     },
     [theme.breakpoints.down("sm")]: {
-      padding: "0.8rem 3.2rem   !important",
+      padding: "0.8rem 3.4rem   !important",
     },
   },
   formContainer_container: {
@@ -247,7 +253,7 @@ const ContactForm = () => {
           </Button>
         </div>
 
-        <Divider className={classes.divider} />
+        <Divider className={classes.divider_contact} />
         <div className={classes.supportForm}>
           <Typography
             variant="h4"
@@ -289,7 +295,7 @@ const ContactForm = () => {
               <Typography variant="body2" className={classes.lableText_contact}>
                 DETAIL *
               </Typography>
-              <FormControl className={classes.formField}>
+              <FormControl className={classes.formField_contact}>
                 <Select
                   labelId="detail-label"
                   id="detail-select"

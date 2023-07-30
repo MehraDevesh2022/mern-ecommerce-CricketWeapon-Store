@@ -4,7 +4,8 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-
+import GooglePlay from "../../../Image/Footer/google-play-black.svg";
+import AppStore from "../../../Image/Footer/app-store-black.svg";
 import "./Footer.css";
 const footMenu = [
   {
@@ -13,14 +14,15 @@ const footMenu = [
     menu: [
       {
         id: 1,
-        link: "FAQs",
-        path: "/terms/conditions",
-      },
-      {
-        id: 2,
         link: "Track Order",
         path: "/orders",
       },
+      {
+        id: 2,
+        link: "FAQs",
+        path: "/terms/conditions",
+      },
+
       {
         id: 3,
         link: "Cancel Order",
@@ -64,7 +66,7 @@ const footMenu = [
       },
       {
         id: 5,
-        link: "Terms & Conditions",
+        link: "T&C",
         path: "/terms/conditions",
       },
     ],
@@ -105,22 +107,22 @@ const footMenu = [
  const footSocial = [
    {
      id: 1,
-     icon: <FacebookIcon className="facebook_icon" fontSize="medium" />,
+     icon: <FacebookIcon className="facebook_icon" fontSize="large" />,
      path: "/",
    },
    {
      id: 2,
-     icon: <TwitterIcon className="twitter_icon" fontSize="medium" />,
+     icon: <TwitterIcon className="twitter_icon" fontSize="large" />,
      path: "/",
    },
    {
      id: 3,
-     icon: <InstagramIcon className="insta_icon" fontSize="medium" />,
+     icon: <InstagramIcon className="insta_icon" fontSize="large" />,
      path: "/",
    },
    {
      id: 4,
-     icon: <LinkedInIcon className="likedin_icon" fontSize="medium" />,
+     icon: <LinkedInIcon className="likedin_icon" fontSize="large" />,
      path: "/",
    },
  ];
@@ -140,7 +142,6 @@ const Footer = () => {
 
   return (
     <>
-
       <footer className="footer">
         <div className="container">
           <div className="wrapper_footer footer_wrapper ">
@@ -205,19 +206,17 @@ const Footer = () => {
                 <h5>Download app</h5>
                 <div className="app_links">
                   <span className="googlePlayStore_link">
-                    <a href="google.com/play">
+                    <a href="https://play.google.com/store/games?hl=en-IN">
                       <img
-                        src="https://www.specialized.com/_ui/addons/specializedstorefrontaddon/desktop/common/images/apps/google-play-black.svg"
+                    
+                        src={GooglePlay}
                         alt="play Store svg"
                       />
                     </a>
                   </span>
                   <span className="appleStore_link">
-                    <a href="apple.com/store">
-                      <img
-                        src="https://www.specialized.com/_ui/addons/specializedstorefrontaddon/desktop/common/images/apps/app-store-black.svg"
-                        alt="Apple Store svg"
-                      />
+                    <a href="https://apple.com/in/app-store/">
+                      <img src={AppStore} alt="Apple Store svg" />
                     </a>
                   </span>
                 </div>
@@ -247,17 +246,17 @@ const Footer = () => {
                 <ul>
                   <li className="subfoot_link_text1">
                     <Link to="/policy/privacy">
-                      <p>Privacy Policy</p>
+                      <p className="foot_policyLink_p">Privacy Policy</p>
                     </Link>
                   </li>
                   <li className="subfoot_link_text2">
                     <Link to="/terms/conditions">
-                      <p>TERMS & CONDITIONS</p>
+                      <p className="foot_policyLink_p">TERMS & CONDITIONS</p>
                     </Link>
                   </li>
                   <li className="subfoot_link_text3">
                     <Link to="/policy/Terms">
-                      <p>TERMS OF USE</p>
+                      <p className="foot_policyLink_p">TERMS OF USE</p>
                     </Link>
                   </li>
                 </ul>

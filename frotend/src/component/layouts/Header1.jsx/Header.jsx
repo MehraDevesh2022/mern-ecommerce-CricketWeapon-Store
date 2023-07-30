@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import SearchBar from "./Searchbar";
 import "./Header.css";
-// import { ShoppingCart } from "@material-ui/icons";
-// import { Badge } from "@material-ui/core";
-// import { makeStyles } from "@material-ui/core/styles";
-// import { Popover } from "@material-ui/core";
 
 import CartIcon from "./CartIcon";
 import FlagSelect from "../../Home/Flag";
@@ -13,133 +9,19 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import { useSelector  } from "react-redux";
+import { useSelector } from "react-redux";
 
-import ProfileModal from "./ProfileModel"
-
-// const useStyles = makeStyles((theme) => ({
-//   badge: {
-//     backgroundColor: "#ed1c24",
-//     color: "#fff",
-//     "&:hover": {
-//       backgroundColor: "#ed1c24",
-//       color: "#fff",
-//     },
-//   },
-//   cartIcon: {
-//     fontSize: "1.7rem",
-//     cursor: "pointer",
-//     marginBottom: theme.spacing(0.8),
-//   },
-
-//   popover: {
-//     pointerEvents: "none",
-//   },
-//   paper: {
-//     padding: theme.spacing(1),
-//   },
-//   flagIcon: {
-//     width: 15,
-//     height: 15,
-//     alignSelf: "center",
-//     paddingRight: "1px",
-//   },
-//   countryName: {
-//     fontSize: 12,
-//     color: "white",
-//     alignSelf: "center",
-//     fontFamily: "Roboto",
-//     marginLeft: 5,
-//   },
-//   menuItem: {
-//     display: "flex",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     color: "white",
-//     backgroundColor: "black",
-//   },
-// }));
-
-
-//   // for cartIcon material ui component
-// function CartIcon({ cartItemCount }) {
-//   const classes = useStyles();
-//   const [anchorEl, setAnchorEl] = useState(null);
-
-//   const handlePopoverOpen = (event) => {
-//     setAnchorEl(event.currentTarget);
-//   };
-
-//   const handlePopoverClose = () => {
-//     setAnchorEl(null);
-//   };
-
-//   const open = Boolean(anchorEl);
-
-//   return (
-//     <div>
-//       <Badge
-//         badgeContent={cartItemCount}
-//         color="primary"
-//         classes={{ badge: classes.badge }}
-//       >
-//         <ShoppingCart
-//           onMouseEnter={handlePopoverOpen}
-//           onMouseLeave={handlePopoverClose}
-//           className={classes.cartIcon}
-//         />
-//       </Badge>
-//       {!cartItemCount && (
-//         <Popover
-//           className={classes.popover}
-//           classes={{ paper: classes.paper }}
-//           open={open}
-//           anchorEl={anchorEl}
-//           onClose={handlePopoverClose}
-//           anchorOrigin={{
-//             vertical: "bottom",
-//             horizontal: "center",
-//           }}
-//           transformOrigin={{
-//             vertical: "top",
-//             horizontal: "center",
-//           }}
-//         >
-//           <div>Cart is empty</div>
-//         </Popover>
-//       )}
-//     </div>
-//   );
-// }
-
-
-
-
-
-// !>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> header Component >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+import ProfileModal from "./ProfileModel";
 
 function Header() {
   const history = useHistory();
-    const { isAuthenticated, user  } = useSelector((state) => state.userData);
+  const { isAuthenticated, user } = useSelector((state) => state.userData);
 
-  
   const [searchBarActive, setSearchBarActive] = useState(false);
-
-
 
   const [country, setCountry] = useState("in"); // this is for flag
   const [sideMenu, setSideMenu] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-
-
-
-
-   
-
-
-
-
-
 
   // this is for handle sideBar
   const handleSideBarMenu = () => {
@@ -167,7 +49,7 @@ function Header() {
     if (searchValue.trim()) {
       history.push(`/products/${searchValue}`);
     } else {
-       history.push("/products");
+      history.push("/products");
     }
   };
 
@@ -182,14 +64,14 @@ function Header() {
       <div className="header">
         <div className="headerTop">
           <div className="headerTopLeft">
-            <p>Free Shipping over SGD100</p>
+            <p>We Offer's Free Shipping </p>
           </div>
           <div className="headerTopRight">
             <div className="headerRetailer">
               <span>
                 <LocationOnIcon className="headerRetailer_Svg" />
               </span>
-              <span>FIND A RETAILER</span>
+              <span>FIND LOCATION</span>
             </div>
 
             <div className="headerFlag">
@@ -226,7 +108,7 @@ function Header() {
                 <ReorderIcon
                   onClick={() => setSideMenu(!sideMenu)}
                   sx={{
-                    fontSize: 26,
+                    fontSize: 29,
                     color: "black",
                     "&:hover": {
                       color: "#e7070f",
@@ -238,7 +120,7 @@ function Header() {
                   <Sidebar
                     handleSideBarMenu={handleSideBarMenu}
                     isAuthenticated={isAuthenticated}
-                       user={user}
+                    user={user}
                   />
                 )}
               </span>
@@ -304,15 +186,11 @@ function Header() {
                 to="/cart"
                 style={{ color: "none", textDecoration: "none" }}
               >
-                <CartIcon  />
+                <CartIcon />
               </Link>
             </span>
             <span>
-             <ProfileModal
-             user ={user}
-
-             isAuthenticated ={isAuthenticated}
-             />
+              <ProfileModal user={user} isAuthenticated={isAuthenticated} />
             </span>
           </div>
         </div>

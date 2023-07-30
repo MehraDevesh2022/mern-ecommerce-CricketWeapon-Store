@@ -72,13 +72,12 @@ const ReviewCard = ({ product }) => {
       </Button>
 
       <Suspense fallback={<CricketBallLoader />}>
-          <DialogBox
-        open={open}
-        handleClose={handleClose}
-        className={classes.dialog}
-       
-      />
-      </Suspense>     
+        <DialogBox
+          open={open}
+          handleClose={handleClose}
+          className={classes.dialog}
+        />
+      </Suspense>
       <Grid container alignItems="center" style={{ marginTop: "2rem" }}>
         <Grid item className={classes.ratingContainer}>
           <Rating
@@ -93,14 +92,19 @@ const ReviewCard = ({ product }) => {
         </Typography>
         <Grid item>
           <Typography variant="body2">
-            Total Reviews: {product.numOfReviews}
+            <strong> Total Reviews : </strong>
+            {product.numOfReviews}
           </Typography>
         </Grid>
       </Grid>
 
       <Grid container justify="flex-end" className={classes.selectContainer}>
         <Grid item>
-          <Typography variant="body2" style={{ fontSize: "12px" }}>
+          <Typography
+            variant="body2"
+            style={{ fontSize: "12px" }}
+            className={classes.sortBy}
+          >
             SortBy :
           </Typography>
         </Grid>
@@ -131,9 +135,8 @@ const ReviewCard = ({ product }) => {
         </Grid>
       </Grid>
       <div className={classes.container}>
-        {product.reviews && product.reviews.map((review) => (
-          <MyCard review={review} />
-        ))} 
+        {product.reviews &&
+          product.reviews.map((review) => <MyCard review={review} />)}
       </div>
     </div>
   );

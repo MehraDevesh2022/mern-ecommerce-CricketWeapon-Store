@@ -33,8 +33,8 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "white",
-    backgroundColor: "black",
+
+    backgroundColor: "#292929 !important",
   },
 
   customSelect: {
@@ -44,6 +44,7 @@ const useStyles = makeStyles(() => ({
     border: "none",
     outline: "none",
     height: 20,
+
     width: "auto",
     "& .MuiSelect-icon": {
       color: "white",

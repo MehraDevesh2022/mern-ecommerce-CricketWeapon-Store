@@ -96,7 +96,6 @@ exports.forgotPassword = asyncWrapper(async(req , res , next) =>{
 
   // Get ResetPassword Token
   const resetToken = user.getResetPasswordToken(); // we made this method into userModel for hash resetToken
- //when we call this metod  getResetPasswordToken  . so in userModel resetPasswordToken has reset token added and resetPasswordExprie also exprie value added but not saved to data base
   await user.save({ validateBeforeSave: false });  // now save
 
 
@@ -110,11 +109,7 @@ if (process.env.NODE_ENV === "production") {
   )}/password/reset/${resetToken}`;
 }
 
-   
-  // this will send to user for reset pass at the route where : req.protocol ==> http|| https, or req.get(Host) is host eg : google.co || github.in || fb.com  and reset token generted by us
-  // const resetPasswordUrl = `${req.protocol}://${req.get(
-  //   "host"
-  // )}/password/reset/${resetToken}`;
+  
 
   
   const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
@@ -148,7 +143,7 @@ exports.resetPassword  = asyncWrapper(async (req , res , next) =>{
 
   // creating token hash because we save resetPasswordToken  in hash form. and we send to user resetToken in hex bytes form in url . now converting that byte form to hex form for matching does user given reset token is same or not which one save in Database
   // we will extract reset token from req.params.token because we sended that token inside nodemailer message url when user will click on that link he will redirect on that  url
-   console.log(req.params.token);
+
   const resetPasswordToken =
     crypto.createHash("sha256").update(req.params.token).toString("hex");
 
@@ -174,15 +169,15 @@ exports.resetPassword  = asyncWrapper(async (req , res , next) =>{
     return next(new ErrorHandler("Password does not equal to confirmPassword", 400));
   }
 
- // set that new password
+
   user.password = req.body.password;
-  //once pass set then no need token in data base untll user not reset the pass
+
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
 
- // savw change to db
+
   await user.save();
-  // this will send new token to user  bcz user succesfully logged in with new pass
+  
   sendJWtToken(user, 200, res);
  
 }) 
@@ -190,11 +185,11 @@ exports.resetPassword  = asyncWrapper(async (req , res , next) =>{
 
 //// Get User Detail  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.getUserDetails  = asyncWrapper( async(req , res) =>{
-  console.log("user");
-  const user = await userModel.findById(req.user.id); // user.id because we set that user into as user.req when user gose autentiction. becauae all data of users set into req.user. only user when logged in then access this function
+
+  const user = await userModel.findById(req.user.id);
   res.status(200).json({
     success: true,
-    user, // profile details of user
+    user,
   });
 })
 
@@ -206,7 +201,7 @@ exports.getUserDetails  = asyncWrapper( async(req , res) =>{
 exports.updatePassword = asyncWrapper(async(req, res, next) =>{
   const user = await userModel.findById(req.user.id).select("+password"); // + password because pass not allowed in shcema to acsess
 
-  const isPasswordMatched = await user.comparePassword(req.body.oldPassword); // user.comparePassword this method define in user Schema  for comapre given normal pass to savde hash pass
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword); // user.comparePassword this method define in user Schema  for compare given normal pass to saved hash pass
  // when user not found
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Old password is incorrect", 400));
