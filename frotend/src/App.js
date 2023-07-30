@@ -460,7 +460,7 @@ if (isPending) {
                   component={Payment}
                 />
 
-                {<Footer />}
+       
               </Route>
             </Elements>
      
