@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
       margin: "1rem",
       width: "80%",
     },
+    [theme.breakpoints.down(499)]: {
+      padding: "2rem",
+      margin: "1rem",
+      width: "65%",
+    },
   },
   root11: {
     display: "flex",
@@ -56,6 +61,12 @@ const useStyles = makeStyles((theme) => ({
       margin: "1rem",
       width: "80%",
     },
+
+    [theme.breakpoints.down(499)]: {
+      padding: "2rem",
+      margin: "1rem",
+      width: "65%",
+    },
   },
   media: {
     width: "200px",
@@ -69,6 +80,11 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down(599)]: {
       with: "30%",
+      marginLeft: "-2rem",
+      paddingRight: "1rem",
+    },
+    [theme.breakpoints.down(499)]: {
+      with: "20%",
       marginLeft: "-2rem",
       paddingRight: "1rem",
     },
@@ -119,6 +135,9 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       color: "#ed1c24",
     },
+    [theme.breakpoints.down(499)]: {
+      marginRight: "-2rem",
+    },
   },
 
   priceItem: {
@@ -140,6 +159,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(599)]: {
       fontSize: "14px",
     },
+    [theme.breakpoints.down(499)]: {
+      fontSize: "12px",
+    },
   },
   itemPrice: {
     fontSize: "16px",
@@ -147,11 +169,18 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(599)]: {
       fontSize: "14px",
     },
+    [theme.breakpoints.down(499)]: {
+      fontSize: "13px",
+    },
   },
   itemOldPrice: {
     marginLeft: "-8px",
     fontSize: "14px",
     fontWeight: 400,
+
+    [theme.breakpoints.down(499)]: {
+      fontSize: "12px",
+    },
   },
 
   contentBottom: {
@@ -170,29 +199,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: "0rem",
     },
   },
-  select: {
-    marginLeft: "1.2rem",
-    width: "fit-content",
-    marginRight: "3rem",
-    padding: "0 1rem",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-    [theme.breakpoints.down(599)]: {
-      marginRight: "10px",
-      marginLeft: "5px",
-      padding: "0 5px",
-    },
-    "& .MuiList-root": {
-      border: "1px solid #ccc",
-      borderRadius: "4px",
-    },
-
-    [theme.breakpoints.down(599)]: {
-      "& .MuiSelect-select.MuiSelect-select": {
-        paddingRight: "0px",
-      },
-    },
-  },
+ 
 }));
 
 
@@ -241,7 +248,7 @@ function CartItem({
 
           <div className={classes.priceItem}>
             <Typography className={classes.cartSubHeadings} variant="body2">
-              Price :
+              Price:
             </Typography>
             <Typography variant="subtitle1" className={classes.itemPrice}>
               {finalPrice}
@@ -258,7 +265,7 @@ function CartItem({
         </div>
         <div className={classes.contentBottom}>
           <div className="prod_details_additem">
-            <h5>QTY :</h5>
+            <h5>QTY:</h5>
             <div className="additem">
               <IconButton
                 onClick={() => decreaseQuantity(item.productId, item.quantity)}

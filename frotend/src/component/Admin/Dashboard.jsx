@@ -16,7 +16,9 @@ import Sidebar from "./Siderbar";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-
+import ProductImg from "../../Image/admin/products.png";
+import ordersImg from "../../Image/admin/order.png";
+import usersImg from "../../Image/admin/user.png"; 
 Highcharts3D(Highcharts);
 
 const useStyles = makeStyles((theme) => ({
@@ -468,7 +470,7 @@ function Dashboard() {
                 <div
                   className={classes.cardContainer}
                   style={{
-                    backgroundImage: `url("https://assets.leetcode.com/explore/cards/cheatsheets/img-1674082113.png")`,
+                    backgroundImage: `url(${ProductImg})`,
                     backgroundSize: "cover",
                     transition: "transform 0.2s ease-in-out",
                     cursor: "pointer",
@@ -501,7 +503,7 @@ function Dashboard() {
                 <div
                   className={classes.cardContainer}
                   style={{
-                    backgroundImage: `url("https://assets.leetcode.com/explore/cards/introduction-to-the-beginners-guide/img-1652222288.png")`,
+                    backgroundImage: `url(${ordersImg})`,
                     backgroundSize: "cover",
                     transition: "transform 0.2s ease-in-out",
                     cursor: "pointer",
@@ -533,7 +535,7 @@ function Dashboard() {
                 <div
                   className={classes.cardContainer}
                   style={{
-                    backgroundImage: `url("https://assets.leetcode.com/explore/cards/sql-language/img-1657328656.png")`,
+                    backgroundImage: `url(${usersImg})`,
                     backgroundSize: "cover",
                     transition: "transform 0.2s ease-in-out",
                     cursor: "pointer",
@@ -574,7 +576,7 @@ function Dashboard() {
                 <div
                   className={classes.revnueContainer}
                   style={{
-                    backgroundImage: `url("https://assets.leetcode.com/explore/cards/cheatsheets/img-1674082113.png")`,
+                    backgroundImage: `url(${ProductImg})`,
                     backgroundSize: "cover",
                     transition: "transform 0.2s ease-in-out",
                     borderRadius: "5px",

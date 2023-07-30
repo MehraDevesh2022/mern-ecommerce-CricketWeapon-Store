@@ -10,6 +10,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       marginBottom: theme.spacing(1),
     },
+    [theme.breakpoints.down("xm")]: {
+      fontSize: 12,
+   
+    },
   },
 }));
 
@@ -36,24 +40,39 @@ const ColorlibConnector = withStyles((theme) => ({
 }))(StepConnector);
 
 const useColorlibStepIconStyles = makeStyles((theme) => ({
+  stepReader :{
+   
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: "-2rem",
+    },
+  },
   root: {
     backgroundColor: "#000000",
     zIndex: 1,
     color: "#FFFFFF",
-    width: 40, 
-    height: 40, 
+    width: 40,
+    height: 40,
     display: "flex",
     borderRadius: "50%",
     justifyContent: "center",
     alignItems: "center",
     border: `2px solid ${theme.palette.background.paper}`,
-    fontSize: 16, 
+    fontSize: 16,
     cursor: "pointer",
     margin: 0,
     [theme.breakpoints.down("sm")]: {
-      width: 20, 
-      height: 20, 
+      width: 20,
+      height: 20,
       fontSize: 14,
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: 15,
+      height: 15,
+      fontSize: 12,
+       
+      "& .MuiStepLabel-label": {
+        fontSize: 12,
+      },
     },
   },
   active: {
@@ -64,6 +83,16 @@ const useColorlibStepIconStyles = makeStyles((theme) => ({
   completed: {
     backgroundColor: "#000000",
     margin: "0rem",
+  },
+
+  stepLabel: {
+    cursor: "pointer",
+    [theme.breakpoints.down("xs")]: {
+      "&.MuiStepLabel-label ": {
+        fontSize: 12,
+      },
+      fontSize: 12,
+    },
   },
 }));
 
@@ -104,7 +133,7 @@ const CheckoutSteps = ({ activeStep }) => {
   };
 
   return (
-    <div className="stepReader" style={{ marginTop: "7rem" }}>
+    <div className={classes.stepReader} style={{ marginTop: "7rem" }}>
       <div className={classes.root}>
         <Stepper activeStep={activeStep} connector={<ColorlibConnector />}>
           {steps.map((step, index) => (
@@ -112,6 +141,7 @@ const CheckoutSteps = ({ activeStep }) => {
               <StepLabel
                 StepIconComponent={ColorlibStepIcon}
                 onClick={() => handleStepClick(index)}
+                className={classes.stepLabel}
               >
                 {step.label}
               </StepLabel>

@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "1rem 0",
     width: "100%",
     backgroundColor: "white",
+    overFlow : "hidden",
   },
 
   paymentPage__container: {
@@ -492,8 +493,7 @@ const PaymentComponent = () => {
   final = dispalyMoney(final);
   totalDiscount = dispalyMoney(totalDiscount); 
   totalPrice = dispalyMoney(totalPrice);
-  console.log(user)
-  console.log(user.name)
+
   return (
     <>
  
