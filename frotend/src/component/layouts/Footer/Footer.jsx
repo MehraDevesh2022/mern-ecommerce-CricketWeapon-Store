@@ -118,7 +118,7 @@ const footMenu = [
    {
      id: 3,
      icon: <InstagramIcon className="insta_icon" fontSize="large" />,
-     path: "/",
+     path: "https://www.instagram.com/cricket_weapon_store17/",
    },
    {
      id: 4,
@@ -262,7 +262,7 @@ const Footer = () => {
                 <p>
                   &copy; {currYear} | Cricket weapon, All Rights Reserved.
                   <span>
-                    <a href="/"> | Built by Iam_Coder</a>
+                    <a href="/"> | Built by Iam_DEv</a>
                   </span>
                 </p>
               </div>

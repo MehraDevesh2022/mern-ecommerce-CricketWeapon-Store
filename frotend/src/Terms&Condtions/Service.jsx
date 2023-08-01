@@ -89,13 +89,13 @@ const Services = () => {
       <div  className={classes.Services_section}>
         <div className={classes.Services_wrapper} style={{ width: "100%" }}>
           {servicesData.map((item) => {
-            const { id, icon, title, info } = item;
+            
             return (
-              <div className={classes.Services_card} key={id}>
-                <div className={classes.Services_icon}>{icon}</div>
+              <div className={classes.Services_card} key={item.id}>
+                <div className={classes.Services_icon}>{item.icon}</div>
                 <div>
-                  <div className={classes.Services_cardTitle}>{title}</div>
-                  <div className={classes.Services_cardInfo}>{info}</div>
+                  <div className={classes.Services_cardTitle}>{item.title}</div>
+                  <div className={classes.Services_cardInfo}>{item.info}</div>
                 </div>
               </div>
             );

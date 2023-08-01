@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, useTransition } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { load_UserProfile } from "./actions/userAction";
@@ -57,7 +57,7 @@ const LazyProductReviews = React.lazy(() =>
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
- const [isPending, startTransition] = useTransition({ timeoutMs: 3000 });
+
  
   const dispatch = useDispatch();
 
@@ -77,16 +77,14 @@ function App() {
 
   useEffect(() => {
     dispatch(load_UserProfile());
-    startTransition(() => {
+  
       getStripeApiKey();
-    });
+   
 
     // eslint-disable-next-line
   }, []);
 
-if (isPending) {
-  return <CricketBallLoader />;
-}
+
   return (
     <>
       <Router>
@@ -449,7 +447,7 @@ if (isPending) {
           </Switch>
         </Suspense>
 
-        {stripeApiKey && (
+      
     
             <Elements stripe={loadStripe(stripeApiKey)}>
               <Route exact path="/process/payment">
@@ -464,7 +462,7 @@ if (isPending) {
               </Route>
             </Elements>
      
-        )}
+
       </Router>
     </>
   );
