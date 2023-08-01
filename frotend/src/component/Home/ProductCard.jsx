@@ -76,8 +76,9 @@ const ProductCard = ({ product }) => {
   const truncated =
     product.description
       .split(" ")
-      .slice(0, 8)
+      .slice(0, 5)
       .join(" ") + "...";
+      const  nameTruncated = product.name.split(" ").slice(0, 3).join(" ") + "...";
 
 
       const addTocartHandler = (id , qty) => {
@@ -100,7 +101,7 @@ const ProductCard = ({ product }) => {
               fontWeight="bold"
               style={{ fontWeight: "700" }}
             >
-              {product.name}
+              {nameTruncated}
             </Typography>
             <Box display="flex" alignItems="center">
               <Rating
