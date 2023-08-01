@@ -24,13 +24,17 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const categories = [
-  "Laptop",
-  "Footwear",
-  "Bottom",
-  "Tops",
-  "Attire",
-  "Camera",
-  "SmartPhones",
+  "Cricket Kits",
+  "Batting Gloves",
+  "Batting Pads",
+  "Bats",
+  "Bags",
+  "Helmets",
+  "Balls",
+  "Stumps",
+  "Shoes",
+  "Clothing",
+  "Accessories",
 ];
 
 function Products() {
@@ -43,7 +47,7 @@ function Products() {
     productsCount,
     error,
     resultPerPage,
-    filterdProductCount,
+    // filterdProductCount,
   } = useSelector((state) => state.products);
   const alert = useAlert();
 
@@ -281,7 +285,7 @@ const handleRatingChange = (event) => {
               </div>
 
               {/* Pagination */}
-              {resultPerPage < filterdProductCount && (
+       
                 <div className="paginationBox">
                   <Pagination
                     activePage={currentPage}
@@ -298,7 +302,7 @@ const handleRatingChange = (event) => {
                     activeLinkClass="pageLinkActive"
                   />
                 </div>
-              )}
+             
             </div>
           )}
         </>

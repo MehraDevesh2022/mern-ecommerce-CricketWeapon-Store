@@ -66,16 +66,19 @@ function NewProduct() {
   const handleImageUpload = () => {
     fileInputRef.current.click();
   };
-  const categories = [
-    "Laptop",
-    "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
-    "Camera",
-    "SmartPhones",
-  ];
-
+ const categories = [
+   "Cricket Kits",
+   "Batting Gloves",
+   "Batting Pads",
+   "Bats",
+   "Bags",
+   "Helmets",
+   "Balls",
+   "Stumps",
+   "Shoes",
+   "Clothing",
+   "Accessories",
+ ];
   useEffect(() => {
     if (error) {
       alert.error(error);
