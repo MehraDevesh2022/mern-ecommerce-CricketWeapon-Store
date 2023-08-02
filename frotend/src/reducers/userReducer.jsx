@@ -74,7 +74,7 @@ export const userReducer = (state = initialState, action) => {
       };
 
     case LOGOUT_SUCCESS:
-        sessionStorage.removeItem("user");
+      
       return {
         ...state,
         loading: false,

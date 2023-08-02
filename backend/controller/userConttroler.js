@@ -15,8 +15,7 @@ exports.registerUser = asyncWrapper(async (req, res) => {
     crop: "scale",
   });
 
-  console.log(myCloud.public_id);
-  console.log(myCloud.secure_url);
+
 
   const { name, email, password } = req.body;
   const user = await userModel.create({
@@ -126,7 +125,7 @@ exports.forgotPassword = asyncWrapper(async (req, res, next) => {
 exports.resetPassword = asyncWrapper(async (req, res, next) => {
   // creating token hash because we save resetPasswordToken  in hash form. and we send to user resetToken in hex bytes form in url . now converting that byte form to hex form for matching does user given reset token is same or not which one save in Database
   // we will extract reset token from req.params.token because we sended that token inside nodemailer message url when user will click on that link he will redirect on that  url
-  console.log(req.params.token);
+
   const resetPasswordToken = crypto
     .createHash("sha256")
     .update(req.params.token)
@@ -170,7 +169,7 @@ exports.resetPassword = asyncWrapper(async (req, res, next) => {
 
 //// Get User Detail  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.getUserDetails = asyncWrapper(async (req, res) => {
-  console.log("user");
+
   const user = await userModel.findById(req.user.id); // user.id because we set that user into as user.req when user gose autentiction. becauae all data of users set into req.user. only user when logged in then access this function
   res.status(200).json({
     success: true,

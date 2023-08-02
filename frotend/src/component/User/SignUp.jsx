@@ -67,7 +67,7 @@ function Signup() {
   };
 
   const handleAvatarChange = (event) => {
-    setLoading(true);
+
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -75,7 +75,7 @@ function Signup() {
       reader.onload = () => {
         setAvatarPreview(reader.result);
         setAvatar(reader.result);
-        setLoading(false);
+    
       };
     }
   };
@@ -116,9 +116,9 @@ function Signup() {
   );
 
   function handleSignUpSubmit(e) {
-    isSignInDisabled = false;
+      setLoading(true);
     e.preventDefault();
-    setLoading(true);
+  
 
     if (password !== confirmPassword) {
       alert.error("Password and Confirm Password do not match");
@@ -288,7 +288,7 @@ function Signup() {
               className={classes.loginButton}
               fullWidth
               onClick={handleSignUpSubmit}
-              disabled={isSignInDisabled}
+              disabled={isSignInDisabled || loading}
             >
               Create Account
             </Button>

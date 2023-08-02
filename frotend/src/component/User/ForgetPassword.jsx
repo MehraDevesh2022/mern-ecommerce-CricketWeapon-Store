@@ -32,16 +32,16 @@ export default function ForgetPassowrd() {
   };
 
   function handleforgotPasswordSubmit(e) {
-    e.preventDefault();
+     e.preventDefault();
+    setIsDone(!isDone);
+ 
     const myForm = new FormData();
     myForm.set("email", email);
     dispatch(forgetPassword(myForm));
     
   }
 
-  function foregetPassHandler(){
-  setIsDone(!isDone);
-  } 
+  
 
   useEffect(() => {
     if (error) {
@@ -104,7 +104,7 @@ export default function ForgetPassowrd() {
               fullWidth
               disabled={isSignInDisabled}
               style={{ marginTop: "3rem" }}
-              onClic ={ foregetPassHandler}
+              onClick={handleforgotPasswordSubmit}
             >
               Send email
             </Button>

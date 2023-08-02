@@ -113,17 +113,17 @@ const footMenu = [
    {
      id: 2,
      icon: <TwitterIcon className="twitter_icon" fontSize="large" />,
-     path: "/",
+     path: "https://twitter.com/Iam_DEv22",
    },
    {
      id: 3,
      icon: <InstagramIcon className="insta_icon" fontSize="large" />,
-     path: "https://www.instagram.com/cricket_weapon_store17/",
+     path: "https://www.instagram.com/cricket_weapon_store17",
    },
    {
      id: 4,
      icon: <LinkedInIcon className="likedin_icon" fontSize="large" />,
-     path: "/",
+     path: "https://www.linkedin.com/in/iam-devesh/",
    },
  ];
 
@@ -223,9 +223,13 @@ const Footer = () => {
                 {footSocial.map((item) => {
                   const { id, icon, path } = item;
                   return (
-                    <Link to={path} key={id}>
+                    <a
+                      href={path}
+                      key={id}
+                     
+                    >
                       {icon}
-                    </Link>
+                    </a>
                   );
                 })}
               </div>
