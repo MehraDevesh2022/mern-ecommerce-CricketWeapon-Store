@@ -330,7 +330,8 @@ const classes = useStyles();
                   Total:
                 </Typography>
                 <Typography variant="body2" color="141414">
-                  ${product.price * product.quantity}
+                  <strong> ₹</strong>
+                  {product.price * product.quantity}
                 </Typography>
               </div>
             )}
@@ -386,7 +387,9 @@ const classes = useStyles();
                     <Button
                       variant="outlined"
                       className={classes.button}
-                      onClick={() => history.push(`/product/${product.productId}`)}
+                      onClick={() =>
+                        history.push(`/product/${product.productId}`)
+                      }
                     >
                       View item
                     </Button>

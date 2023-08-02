@@ -763,7 +763,7 @@ const PaymentComponent = () => {
                     <EditIcon
                       className={classes.editIcon}
                       onClick={() => {
-                        history.push("/profile");
+                        history.push("/shipping");
                       }}
                     />
                   </div>
@@ -817,7 +817,7 @@ const PaymentComponent = () => {
                     <EditIcon
                       className={classes.editIcon}
                       onClick={() => {
-                        history.push("/profile");
+                        history.push("/shipping");
                       }}
                     />
                   </div>

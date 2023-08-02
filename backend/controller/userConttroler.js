@@ -180,7 +180,7 @@ exports.getUserDetails = asyncWrapper(async (req, res) => {
 // update User password>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 exports.updatePassword = asyncWrapper(async (req, res, next) => {
   const user = await userModel.findById(req.user.id).select("+password"); // + password because pass not allowed in shcema to acsess
-
+   
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword); // user.comparePassword this method define in user Schema  for comapre given normal pass to savde hash pass
   // when user not found
   if (!isPasswordMatched) {

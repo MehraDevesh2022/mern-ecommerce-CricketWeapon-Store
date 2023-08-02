@@ -24,7 +24,7 @@ function UpdatePassword() {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
-  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isValidConfirmPassword, setisValidConfirmPassword] = useState(true);
@@ -32,7 +32,7 @@ function UpdatePassword() {
     setOldPassword(event.target.value);
   };
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+    setNewPassword(event.target.value);
     setIsValidPassword(event.target.value.length >= 8);
   };
   const handleConfirmPasswordChange = (event) => {
@@ -47,13 +47,13 @@ function UpdatePassword() {
   function updatePasswordSubmitHandler(e) {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
+    if (newPassword !== confirmPassword) {
       alert.error("Password and Confirm Password do not match");
       return;
     }
     const myForm = new FormData();
     myForm.set("oldPassword", oldPassword);
-    myForm.set("password", password);
+    myForm.set("newPassword", newPassword);
     myForm.set("confirmPassword", confirmPassword);
 
     dispatch(updatePassword(myForm));
@@ -74,7 +74,7 @@ function UpdatePassword() {
   }, [dispatch, error, alert, isUpdated, loading, history]);
 
   const isSignInDisabled = !(
-    password &&
+    newPassword &&
     confirmPassword &&
     oldPassword &&
     isValidPassword
@@ -123,9 +123,9 @@ function UpdatePassword() {
               type={showPassword ? "text" : "password"}
               fullWidth
               className={`${classes.passwordInput} ${classes.textField}`}
-              error={!isValidPassword && password !== ""}
+              error={!isValidPassword && newPassword !== ""}
               helperText={
-                !isValidPassword && password !== ""
+                !isValidPassword && newPassword !== ""
                   ? "Password must be at least 8 characters"
                   : ""
               }
@@ -140,7 +140,7 @@ function UpdatePassword() {
                   </Button>
                 ),
               }}
-              value={password}
+              value={newPassword}
               onChange={handlePasswordChange}
             />
             <TextField

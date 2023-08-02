@@ -7,6 +7,6 @@ const router  = express.Router();
 
 router.route("/payment/process").post(isAuthentictedUser , processPayment);
 
-router.route("/stripeapikey").get(isAuthentictedUser,  sendStripeApiKey);
+router.route("/stripeapikey").get(sendStripeApiKey);
 
 module.exports = router

@@ -10,7 +10,6 @@ import PrivateRoute from "./component/Route/PrivateRoute";
 
 import "./App.css";
 
-
 import Header from "./component/layouts/Header1.jsx/Header";
 import Payment from "./component/Cart/Payment";
 import Home from "./component/Home/Home";
@@ -58,32 +57,44 @@ const LazyProductReviews = React.lazy(() =>
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
 
-
   const dispatch = useDispatch();
-
 
   // get STRIPE_API_KEY for payment from backend for connection to stripe payment gateway
   async function getStripeApiKey() {
-  
     try {
       const { data } = await axios.get("/api/v1/stripeapikey");
+      if (
+        data.stripeApiKey !== undefined &&
+        data.stripeApiKey !== null &&
+        data.stripeApiKey !== ""
+      ) {
+        sessionStorage.setItem(
+          "stripeApiKey",
+          JSON.stringify(data.stripeApiKey)
+        );
+      }
       setStripeApiKey(data.stripeApiKey);
     } catch (error) {
       // Handle error if the API call fails
       console.error("Error fetching Stripe API key:", error);
-
     }
   }
 
   useEffect(() => {
-    dispatch(load_UserProfile());
-  
+    const stripeApiKey = sessionStorage.getItem("stripeApiKey");
+    if (stripeApiKey) {
+      setStripeApiKey(stripeApiKey);
+    } else {
       getStripeApiKey();
-   
-
+    }
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    dispatch(load_UserProfile());
+
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
@@ -447,22 +458,12 @@ function App() {
           </Switch>
         </Suspense>
 
-      
-    
-            <Elements stripe={loadStripe(stripeApiKey)}>
-              <Route exact path="/process/payment">
-                {<Header />}
-                <PrivateRoute
-                  exact
-                  path="/process/payment"
-                  component={Payment}
-                />
-
-       
-              </Route>
-            </Elements>
-     
-
+        <Elements stripe={loadStripe(stripeApiKey)}>
+          <Route exact path="/process/payment">
+            {<Header />}
+            <PrivateRoute exact path="/process/payment" component={Payment} />
+          </Route>
+        </Elements>
       </Router>
     </>
   );
