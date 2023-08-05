@@ -357,7 +357,7 @@ function ProcessOrder() {
       dispatch(clearErrors());
     }
     if (isUpdated) {
-      console.log("isUpdated", order);
+      
       alert.success("Order Updated Successfully");  
       dispatch({ type: UPDATE_ORDER_RESET });
     }
@@ -368,7 +368,7 @@ function ProcessOrder() {
   const updateOrderSubmitHandler = (e) => {
     e.preventDefault();
     const myForm = new FormData();
-    console.log("status", status); 
+
     myForm.set("status", status);
     dispatch(updateOrder(productId, myForm));
   };

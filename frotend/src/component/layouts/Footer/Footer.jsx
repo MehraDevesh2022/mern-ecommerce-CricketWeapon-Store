@@ -108,7 +108,7 @@ const footMenu = [
    {
      id: 1,
      icon: <FacebookIcon className="facebook_icon" fontSize="large" />,
-     path: "/",
+     path: "https://www.instagram.com/iam_nightbot/",
    },
    {
      id: 2,
@@ -226,7 +226,8 @@ const Footer = () => {
                     <a
                       href={path}
                       key={id}
-                     
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       {icon}
                     </a>
@@ -266,7 +267,7 @@ const Footer = () => {
                 <p>
                   &copy; {currYear} | Cricket weapon, All Rights Reserved.
                   <span>
-                    <a href="/"> | Built by Iam_DEv</a>
+                    <a href="iam-devesh.tech"> | Built by Iam_DEv</a>
                   </span>
                 </p>
               </div>

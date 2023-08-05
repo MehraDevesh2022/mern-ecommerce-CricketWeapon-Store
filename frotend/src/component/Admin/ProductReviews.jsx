@@ -8,7 +8,7 @@ import {
   clearErrors,
   deleteProductReview,
 } from "../../actions/productAction";
-import {Link , useHistory } from "react-router-dom";
+import {useHistory } from "react-router-dom";
 import MetaData from "../layouts/MataData/MataData";
 import Loader from "../layouts/loader/Loader";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "black",
   },
   textField: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(2), 
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
       color: "black",
       padding: "12px 14px",
@@ -233,6 +233,7 @@ function ProductReviews() {
 
   // delet review from given prodcuts reviews =>
   const deleteReviewHandler = (reviewId) => {
+ 
     dispatch(deleteProductReview(reviewId, productId));
   };
 
@@ -299,13 +300,13 @@ function ProductReviews() {
       renderCell: (params) => {
         return (
           <>
-            <Link
+            <div 
               onClick={() =>
                 deleteReviewHandler(params.getValue(params.id, "id"))
               }
             >
               <DeleteIcon className="iconbtn" style={{ marginLeft: "1rem" }} />
-            </Link>
+            </div>
           </>
         );
       },

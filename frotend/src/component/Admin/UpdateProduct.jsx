@@ -84,6 +84,7 @@ function UpdateProduct() {
       setDescription(product.description);
       setPrice(product.price);
       setCategory("");
+      setInfo(product.info);  
       setStock(product.Stock);
       setOldImages(product.images);
     }

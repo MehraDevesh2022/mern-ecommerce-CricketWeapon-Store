@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link , useHistory } from "react-router-dom";
 import { Avatar, Typography, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -7,11 +7,10 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 import AddIcon from "@mui/icons-material/Add";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import RateReviewIcon from "@mui/icons-material/RateReview";
-import LogoutIcon from "@mui/icons-material/Logout";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import HomeIcon from "@mui/icons-material/Home";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
 import { useSelector } from "react-redux";
-
 const useStyles = makeStyles((theme) => ({
   sidebar: {
     backgroundColor: "#fff",
@@ -107,6 +106,13 @@ function Sidebar() {
   const { user, loading } = useSelector((state) => state.userData); 
 
 
+  const history = useHistory();
+
+function accountHandler() {
+
+  history.push("/account");
+}
+
   return (
     <>
       {!loading && (
@@ -200,9 +206,16 @@ function Sidebar() {
               </Link>
             </ul>
             <div className={classes.divider} />
-            <Button className={classes.button}>
-              <LogoutIcon fontSize="large" style={{ marginRight: "10px" }} />
-              Logout
+            <Button
+              className={classes.button}
+              onClick={accountHandler}
+              variant="contained"
+            >
+              <ManageAccountsIcon
+                fontSize="large"
+                style={{ marginRight: "10px" }}
+              />
+              Account
             </Button>
           </div>
         </>

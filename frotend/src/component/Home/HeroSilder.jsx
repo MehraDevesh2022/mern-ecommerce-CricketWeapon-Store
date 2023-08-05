@@ -88,109 +88,107 @@ const useStyles = makeStyles((theme) => ({
 const slides = [
   {
     image: require("../../Image/Cricket-wepon/img2.png"),
-    quote: "Unleash Your Passion for Cricket and Embrace the Thrill of the Game",
-    saleText: "Get in the game with up to 50% off on a wide range of cricket gear",
+    quote:
+      "Unleash Your Passion for Cricket and Embrace the Thrill of the Game",
+    saleText:
+      "Get in the game with up to 50% off on a wide range of cricket gear's",
     productText: "Shop Now",
   },
   {
     image: require("../../Image/Cricket-wepon/03.jpg"),
-    quote: "Experience the Unparalleled Excitement and Achieve Victory with Our Premium Cricket Equipment",
-    saleText: "Limited Time Offer: Don't miss out on the opportunity to upgrade your game",
+    quote:
+      "Experience the Unparalleled Excitement and Achieve Victory with Our Premium Cricket Equipment",
+    saleText:
+      "Limited Time Offer: Don't miss out on the opportunity to upgrade your game",
     productText: "Buy Now",
   },
   {
     image: require("../../Image/Cricket-wepon/01.jpg"),
-    quote: "Gear up with the Latest Innovations and Dominate the Field like Never Before",
+    quote:
+      "Gear up with the Latest Innovations and Dominate the Field like Never Before",
     saleText: "Discover New Arrivals and stay ahead of the competition",
     productText: "Explore",
   },
   {
     image: require("../../Image/Cricket-wepon/04.jpg"),
-    quote: "Elevate Your Performance and Unleash Your True Cricketing Potential with Our Cutting-Edge Gear",
+    quote:
+      "Elevate Your Performance and Unleash Your True Cricketing Potential with Our Cutting-Edge Gear",
     saleText: "New Arrivals: Enhance your skills and excel on the field",
     productText: "Upgrade Now",
   },
 ];
 
-
-
 export default function HeroSlider() {
-                 const classes = useStyles();
-                 const [activeStep, setActiveStep] = useState(0);
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = useState(0);
 
-                 const handleNext = () => {
-                   setActiveStep(
-                     (prevActiveStep) => (prevActiveStep + 1) % slides.length
-                   );
-                 };
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => (prevActiveStep + 1) % slides.length);
+  };
 
-                 const handleBack = () => {
-                   setActiveStep(
-                     (prevActiveStep) =>
-                       (prevActiveStep - 1 + slides.length) % slides.length
-                   );
-                 };
+  const handleBack = () => {
+    setActiveStep(
+      (prevActiveStep) => (prevActiveStep - 1 + slides.length) % slides.length
+    );
+  };
 
-                 return (
-                   <>
-                     <Carousel
-                       autoPlay={true}
-                       navButtonsAlwaysVisible
-                       indicators={false}
-                       animation="slide"
-                       interval={5000}
-                       timeout={500}
-                       cycleNavigation={true}
-                       navButtonsProps={{
-                         style: {
-                           backgroundColor: "#00000088",
-                           borderRadius: 0,
-                           padding: 0,
-                           margin: 0,
-                           height: "100%",
-                         },
-                       }}
-                       prevButton={
-                         <Button
-                           className="slider-nav-btn prev"
-                           onClick={handleBack}
-                           startIcon={<ArrowBackIosIcon />}
-                         ></Button>
-                       }
-                       nextButton={
-                         <Button
-                           className="slider-nav-btn next"
-                           onClick={handleNext}
-                           endIcon={<ArrowForwardIosIcon />}
-                         ></Button>
-                       }
-                       fullHeightHover={false}
-                       className={classes.slide}
-                       index={activeStep}
-                       onChangeIndex={setActiveStep}
-                     >
-                       {slides.map((slide, index) => (
-                         <div key={index} className={classes.slide}>
-                           <img
-                             src={slide.image}
-                             alt="slider"
-                             className={classes.slideImage}
-                           />
-                           <div className={classes.slideContent}>
-                             <h2 className={classes.quote}>{slide.quote}</h2>
-                             <h3 className={classes.saleText}>
-                               {slide.saleText}
-                             </h3>
-                             <Link to="/products">
-                               <Button className={classes.productButton}>
-                                 {slide.productText}
-                               </Button>
-                             </Link>
-                           </div>
-                         </div>
-                       ))}
-                     </Carousel>
-                    
-                   </>
-                 );
-               }
+  return (
+    <>
+      <Carousel
+        autoPlay={true}
+        navButtonsAlwaysVisible
+        indicators={false}
+        animation="slide"
+        interval={5000}
+        timeout={500}
+        cycleNavigation={true}
+        navButtonsProps={{
+          style: {
+            backgroundColor: "#00000088",
+            borderRadius: 0,
+            padding: 0,
+            margin: 0,
+            height: "100%",
+          },
+        }}
+        prevButton={
+          <Button
+            className="slider-nav-btn prev"
+            onClick={handleBack}
+            startIcon={<ArrowBackIosIcon />}
+          ></Button>
+        }
+        nextButton={
+          <Button
+            className="slider-nav-btn next"
+            onClick={handleNext}
+            endIcon={<ArrowForwardIosIcon />}
+          ></Button>
+        }
+        fullHeightHover={false}
+        className={classes.slide}
+        index={activeStep}
+        onChangeIndex={setActiveStep}
+      >
+        {slides.map((slide, index) => (
+          <div key={index} className={classes.slide}>
+            <img
+              src={slide.image}
+              alt="slider"
+              className={classes.slideImage}
+            />
+            <div className={classes.slideContent}>
+              <h2 className={classes.quote}>{slide.quote}</h2>
+              <h3 className={classes.saleText}>{slide.saleText}</h3>
+              <Link to="/products">
+                <Button className={classes.productButton}>
+                  {slide.productText}
+                </Button>
+              </Link>
+            </div>
+          </div>
+        ))}
+      </Carousel>
+    </>
+  );
+}

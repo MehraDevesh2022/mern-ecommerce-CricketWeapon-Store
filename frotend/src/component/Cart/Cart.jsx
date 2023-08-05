@@ -7,6 +7,7 @@ import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 import { Link } from "react-router-dom";
+import MetaData from "../layouts/MataData/MataData";
 // import { useNavigate } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import CartItem from "./CartItem";
@@ -80,6 +81,7 @@ const Cart = () => {
   return (
     <>
       <div className="cartPage">
+  <MetaData title="Your Cart" />  
         <div className="cart_HeaderTop">
           <div className="headerLeft">
             <Typography variant="h5" component="h1" className="cartHeading">

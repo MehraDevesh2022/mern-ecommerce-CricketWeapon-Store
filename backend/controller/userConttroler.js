@@ -88,13 +88,16 @@ exports.forgotPassword = asyncWrapper(async (req, res, next) => {
   //when we call this metod  getResetPasswordToken  . so in userModel resetPasswordToken has reset token added and resetPasswordExprie also exprie value added but not saved to data base
   await user.save({ validateBeforeSave: false }); // now save
 
-  // for local host =>
-  // const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
+  let resetPasswordUrl = "";
 
-  // this will send to user for reset pass at the route where : req.protocol ==> http|| https, or req.get(Host) is host eg : google.co || github.in || fb.com  and reset token generted by us
-  const resetPasswordUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/password/reset/${resetToken}`;
+  const isLocal = req.hostname === "localhost" || req.hostname === "127.0.0.1";
+  if (isLocal) {
+    resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
+  } else {
+    resetPasswordUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/password/reset/${resetToken}`;
+  }
 
   const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
 

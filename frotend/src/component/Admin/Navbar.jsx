@@ -12,9 +12,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
    zIndex: 999,
     background: "#ffffff",
-
+    
     width: "100%",
-    padding: "1rem",
+    padding: "1.5rem 1rem 1rem 1rem",
     boxShadow:
       "1px 1px 2px rgba(0, 0, 0, 0.1), 2px 2px 4px rgba(0, 0, 0, 0.2), 4px 4px 8px rgba(0, 0, 0, 0.3)",
 
