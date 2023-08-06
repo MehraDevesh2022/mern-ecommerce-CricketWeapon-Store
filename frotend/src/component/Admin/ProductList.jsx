@@ -98,13 +98,13 @@ const columns = [
             <EditIcon className="icon-" />
           </Link>
 
-          <Link
+          <div
             onClick={() =>
               deleteProductHandler(params.getValue(params.id, "id"))
             }
           >
             <DeleteIcon className="iconbtn" />
-          </Link>
+          </div>
         </>
       );
     },
@@ -126,7 +126,7 @@ const columns = [
 
   // togle handler =>
   const toggleHandler = () => {
-    console.log("toggle");
+
     setToggle(!toggle);
   };
 

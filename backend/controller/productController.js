@@ -6,7 +6,7 @@ const cloudinary = require("cloudinary");
 
 // >>>>>>>>>>>>>>>>>>>>> createProduct Admin route  >>>>>>>>>>>>>>>>>>>>>>>>
 exports.createProduct = asyncWrapper(async (req, res) => {
-  let images = [];
+  let images = []; 
 
   if (req.body.images) {
     if (typeof req.body.images === "string") {
@@ -24,6 +24,7 @@ exports.createProduct = asyncWrapper(async (req, res) => {
       imageChunks.push(images.splice(0, chunkSize));
     }
 
+
     // Upload images in separate requests. for loop will run 3 times if there are 9 images to upload each time uploading 3 images at a time
     for (let chunk of imageChunks) {
       const uploadPromises = chunk.map((img) =>
@@ -31,6 +32,8 @@ exports.createProduct = asyncWrapper(async (req, res) => {
           folder: "Products",
         })
       );
+
+      
       const results = await Promise.all(uploadPromises); // wait for all the promises to resolve and store the results in results array eg: [{}, {}, {}] 3 images uploaded successfully and their details are stored in results array
 
       for (let result of results) { 
