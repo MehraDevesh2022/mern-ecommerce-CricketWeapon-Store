@@ -8,17 +8,17 @@ Welcome to Cricket Weapon, an e-commerce shopping app built using the MERN (Mong
 
 ### Normal User Area
 
-<video controls width="100%">
-  <source src="./demo/user-demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/MehraDevesh2022/CricketWeapon-Store/assets/96515074/d8eb6147-aed7-42c5-8d1f-0afcf6d05689
 
 ### Admin Area
+https://github.com/MehraDevesh2022/CricketWeapon-Store/assets/96515074/bfc07258-0a0a-4840-b277-25dceafb4795
 
-<video controls width="100%">
-  <source src="./demo/admin-demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+## Dummy User Accounts
+
+| Email (Normal User) | Password | Email (Admin)     | Password  |
+| ------------------- | -------- | ----------------- | --------- |
+| user2@gmail.com     | user1234 | admin@gmail.com   | admin@123 |
+| user3@gmail.comm    | user1234 | admin01@gmail.com | user1234  |
 
 ## Tech Stack
 
@@ -310,8 +310,7 @@ This guide will walk you through the process of hosting your complete MERN stack
 
 ## Contributions
 
- | Contributor                                           |                                                
-| ------------------------------------------------------ |
-| [ImgBotApp](https://github.com/ImgBotApp)              |  
-| [MehraDevesh2022](https://github.com/MehraDevesh2022)  | 
-
+| Contributor                                           |
+| ----------------------------------------------------- |
+| [ImgBotApp](https://github.com/ImgBotApp)             |
+| [MehraDevesh2022](https://github.com/MehraDevesh2022) |
