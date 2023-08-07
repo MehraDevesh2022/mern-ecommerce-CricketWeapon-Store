@@ -95,7 +95,6 @@ https://github.com/MehraDevesh2022/CricketWeapon-Store/assets/96515074/bfc07258-
     STRIPE_API_KEY = <stripe-api-key>
     STRIPE_SECRET_KEY = <stripe-secret-key>
 
-        ```
 
     ````
 
