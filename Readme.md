@@ -6,8 +6,9 @@ Welcome to Cricket Weapon, an e-commerce shopping app built using the MERN (Mong
 
 ## Demo
 
-- Normal User Area: [Link to Demo]
-- Admin Area: [Link to Demo]
+- Normal User Area: [Link to Demo Video](./demo/user-demo.mp4)
+- Admin Area: [Link to Demo Video](./demo/admin-demo.mp4)
+
 
 ## Tech Stack
 
@@ -297,14 +298,10 @@ This guide will walk you through the process of hosting your complete MERN stack
 
 - Congratulations! Your app is now live and accessible.
 
-## License
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 ## Contributions
 
- | Contributor                                           |
-| ------------------------------------------------------ | 
-| [ImgBotApp](https://github.com/ImgBotApp)              | 
+ | Contributor                                           |                                                
+| ------------------------------------------------------ |
+| [ImgBotApp](https://github.com/ImgBotApp)              |  
 | [MehraDevesh2022](https://github.com/MehraDevesh2022)  | 
 
