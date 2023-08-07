@@ -6,9 +6,19 @@ Welcome to Cricket Weapon, an e-commerce shopping app built using the MERN (Mong
 
 ## Demo
 
-- Normal User Area: [Link to Demo Video](./demo/user-demo.mp4)
-- Admin Area: [Link to Demo Video](./demo/admin-demo.mp4)
+### Normal User Area
 
+<video controls width="100%">
+  <source src="./demo/user-demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+### Admin Area
+
+<video controls width="100%">
+  <source src="./demo/admin-demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Tech Stack
 
