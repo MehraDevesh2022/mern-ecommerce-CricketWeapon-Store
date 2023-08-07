@@ -1,4 +1,4 @@
-# Cricket Weapon E-Commerce MERN stack Web Shopping App
+# Cricket Weapon E-Commerce Shopping App
 
 ## Introduction
 
