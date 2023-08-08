@@ -27,7 +27,8 @@ https://github.com/MehraDevesh2022/CricketWeapon-Store/assets/96515074/bfc07258-
 
 ## Tech Stack
 
-![MongoDB](https://img.shields.io/badge/-MongoDB-green) ![Express](https://img.shields.io/badge/-Express-blue) ![React](https://img.shields.io/badge/-React-blue) ![Node.js](https://img.shields.io/badge/-Node.js-green) ![Material-UI](https://img.shields.io/badge/-Material--UI-blue) ![Stripe](https://img.shields.io/badge/-Stripe-blue)
+
+![MongoDB](https://img.shields.io/badge/-MongoDB-green) ![Express](https://img.shields.io/badge/-Express-blue) ![React](https://img.shields.io/badge/-React-blue) ![Node.js](https://img.shields.io/badge/-Node.js-green) ![Material-UI](https://img.shields.io/badge/-Material--UI-blue) ![Stripe](https://img.shields.io/badge/-Stripe-blue) ![Mongoose](https://img.shields.io/badge/-Mongoose-green) ![Redux](https://img.shields.io/badge/-Redux-purple) ![Redux-thunk](https://img.shields.io/badge/-Redux--thunk-purple) ![CSS3](https://img.shields.io/badge/-CSS3-blue)
 
 ## Project Configuration Guide
 
@@ -127,7 +128,7 @@ https://github.com/MehraDevesh2022/CricketWeapon-Store/assets/96515074/bfc07258-
 | Contact Form        | Contact form for user assistance                             |
 | Saved Addresses     | Save multiple shipping addresses                             |
 | Advanced Search     | Filter products by price range, category, and rating         |
-
+| State Management    | Global state management with Redux                           |
 ### Admin Mode
 
 | Feature                 | Description                                        |
