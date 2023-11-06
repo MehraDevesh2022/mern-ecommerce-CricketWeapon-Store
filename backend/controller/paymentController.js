@@ -5,7 +5,7 @@ exports.processPayment = asyncWrapper(async (req, res, next) => {
   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // asigning key as well
 
   const myPayment = await stripe.paymentIntents.create({
-    amount: req.body.ammount,
+    amount: req.body.amount,
     currency: "inr",
     metadata: {
       company: "Ecommerce", // not mandatory
