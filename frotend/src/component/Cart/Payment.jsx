@@ -397,7 +397,7 @@ const PaymentComponent = () => {
 
   const paymentData = {
     // stripe takes payment in pese there for multiply with 100 bcz 1rs == 100 pese
-    ammount: Math.round(totalFinalPrice * 100),
+    amount: Math.round(totalFinalPrice * 100),
   };
 
   async function paymentSubmitHandler(e) {

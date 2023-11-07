@@ -318,10 +318,10 @@ function Dashboard() {
   };
 
   // total Amount Earned
-  let totalAmmount = 0;
+  let totalAmount = 0;
   orders &&
     orders.forEach((item) => {
-      totalAmmount += item.totalPrice;
+      totalAmount += item.totalPrice;
     });
 
   // chart js values for Line component
@@ -354,7 +354,7 @@ function Dashboard() {
     series: [
       {
         name: "TOTAL AMOUNT",
-        data: [0, totalAmmount],
+        data: [0, totalAmount],
       },
     ],
     plotOptions: {
@@ -599,7 +599,7 @@ function Dashboard() {
                   </div>
                   <div className={classes.textContainer}>
                     <Typography variant="body2" className={classes.number}>
-                      ₹{totalAmmount.toFixed(2)}
+                      ₹{totalAmount.toFixed(2)}
                     </Typography>
                   </div>
                 </div>
