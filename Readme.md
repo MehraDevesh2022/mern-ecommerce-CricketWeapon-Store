@@ -5,6 +5,13 @@
 <a href="https://wakatime.com/badge/user/f7838f29-ea5b-42c9-a473-628c7d8bc934/project/bf69fe19-66f3-47fa-99e9-f9e2926856e5"><img src="https://wakatime.com/badge/user/f7838f29-ea5b-42c9-a473-628c7d8bc934/project/bf69fe19-66f3-47fa-99e9-f9e2926856e5.svg" alt="wakatime"></a>
 </p>
 
+---
+
+### If you find this project helpful, please consider giving it a star ⭐ and follow me on [GitHub](https://github.com/MehraDevesh2022) for more exciting projects like this! 🚀
+
+
+---
+
 ## Introduction
 ---
 Welcome to Cricket Weapon, an e-commerce shopping app built using the MERN (MongoDB, Express, React, Node.js) stack and Material-UI (MUI) for the user interface. This project provides both normal user and admin modes, offering a wide range of features to enhance the shopping experience.
