@@ -7,7 +7,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CricketBallLoader from "./component/layouts/loader/Loader";
 import PrivateRoute from "./component/Route/PrivateRoute";
-
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import "./App.css";
 
 import Header from "./component/layouts/Header1.jsx/Header";
@@ -100,6 +100,7 @@ function App() {
     <>
       <Router>
         <Switch>
+        <SpeedInsights/>
           <Route
             exact
             path="/"
