@@ -99,8 +99,9 @@ function App() {
   return (
     <>
       <Router>
+      <SpeedInsights/>
         <Switch>
-        <SpeedInsights/>
+       
           <Route
             exact
             path="/"
