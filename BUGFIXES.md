@@ -23,6 +23,11 @@
 - **Configuration template**: Added `config.env.example` file for easy setup
 - **Improved server startup logs**: Better logging with timestamps and environment info
 
+### 🔒 Security Fixes
+- **Backend dependencies**: Fixed all critical and high-severity vulnerabilities in backend
+- **Updated packages**: Updated vulnerable packages including crypto-js, express, body-parser, mongoose, etc.
+- **Note on frontend**: Frontend has dependency conflicts due to Material-UI v4 incompatibility with React 18
+
 ## Setup Instructions
 
 1. **Environment Configuration**:
@@ -67,6 +72,20 @@ All errors now include:
 4. **Poor error logging and debugging** ✅
 5. **No environment variable validation** ✅
 6. **Incomplete payment error handling** ✅
+7. **Critical security vulnerabilities in backend** ✅
+
+## Known Issues & Recommendations
+
+### Frontend Dependencies
+- Material-UI v4 is incompatible with React 18
+- Consider upgrading to MUI v5 for better React 18 support
+- Many vulnerabilities in frontend cannot be fixed without major dependency updates
+
+### Recommendations for Future Development
+1. **Upgrade to MUI v5**: Replace @material-ui packages with @mui packages
+2. **Update React Router**: Upgrade from v5 to v6 for better compatibility
+3. **Consider TypeScript**: Add TypeScript for better type safety
+4. **Add tests**: Implement unit and integration tests
 
 ## For Developers
 
@@ -74,3 +93,4 @@ All errors now include:
 - Payment processing includes validation and better error messages
 - Environment validation prevents common startup issues
 - Request logging can be enabled for API debugging
+- Backend security vulnerabilities have been resolved
