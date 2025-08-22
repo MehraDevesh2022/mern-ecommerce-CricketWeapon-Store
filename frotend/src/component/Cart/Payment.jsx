@@ -402,8 +402,28 @@ const PaymentComponent = () => {
 
   async function paymentSubmitHandler(e) {
     e.preventDefault();
-    if(nameOnCard === ""){
+    
+    // Validate form inputs
+    if(nameOnCard.trim() === ""){
       alert.error("Please enter name on card");
+      return;
+    }
+
+    if (!stripe || !elements) {
+      alert.error("Stripe has not loaded yet. Please try again.");
+      return;
+    }
+
+    // Validate card elements
+    const cardNumberElement = elements.getElement(CardNumberElement);
+    if (!cardNumberElement) {
+      alert.error("Please enter valid card details");
+      return;
+    }
+
+    // Validate amount
+    if (!paymentData.amount || paymentData.amount <= 0) {
+      alert.error("Invalid payment amount");
       return;
     }
 
@@ -464,9 +484,20 @@ const PaymentComponent = () => {
       }
     } catch (error) {
       // if error while payment then again enable payment button
-
-    
-      alert.error(error.message);
+      console.error('Payment Error:', error);
+      
+      // Provide more specific error messages
+      if (error.response) {
+        // Server responded with error status
+        const errorMessage = error.response.data?.message || 'Payment processing failed on server';
+        alert.error(errorMessage);
+      } else if (error.request) {
+        // Request was made but no response received
+        alert.error('Unable to connect to payment server. Please check your connection.');
+      } else {
+        // Something else happened
+        alert.error(error.message || 'An unexpected error occurred during payment');
+      }
     }
   }
   
