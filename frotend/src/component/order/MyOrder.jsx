@@ -42,7 +42,18 @@ const MyOrder = () => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      // Show user-friendly error message for order-related errors
+      let friendlyMessage = "Unable to load your orders. Please try again.";
+      
+      if (error.includes("401") || error.includes("unauthorized")) {
+        friendlyMessage = "Please login to view your orders.";
+      } else if (error.includes("404")) {
+        friendlyMessage = "Orders service is temporarily unavailable. Please try again later.";
+      } else if (error.includes("500") || error.includes("network")) {
+        friendlyMessage = "We're experiencing technical difficulties. Please try again later.";
+      }
+      
+      alert.error(friendlyMessage);
       dispatch(clearErrors());
     }
 

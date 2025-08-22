@@ -40,7 +40,7 @@ exports.getSingleOrder = asyncWrapper(async (req, res, next) => {
     .findById(req.params.id)
     .populate({ path: "user", select: "name email" });
   if (!order) {
-    return next(new ErrorHandler("Order not found with this Id", 404));
+    return next(new ErrorHandler("Order not found. Please check the order ID and try again.", 404));
   }
 
   res.status(200).json({
@@ -85,10 +85,10 @@ exports.updateOrder = asyncWrapper(async (req, res, next) => {
 
     
   if (!order) {
-    return next(new ErrorHandler("Order not found with this id", 400));
+    return next(new ErrorHandler("Order not found. Please check the order ID and try again.", 400));
   }
   if (order.orderStatus === "Delivered") {
-    return next(new ErrorHandler("You have already delivered this order", 400));
+    return next(new ErrorHandler("This order has already been delivered.", 400));
   }
 
   // when orderd is shipped and need to update order status to deliverd then. pass order id updateStock function and also pass quantity of the product

@@ -48,7 +48,18 @@ const ProductDetails = () => {
 
 useEffect(() => {
   if (error) {
-    alert.error(error);
+    // Show user-friendly error message for product loading errors
+    let friendlyMessage = "Product not found or unavailable.";
+    
+    if (error.includes("404") || error.includes("not found")) {
+      friendlyMessage = "This product is no longer available. Please check our other products.";
+    } else if (error.includes("500") || error.includes("network")) {
+      friendlyMessage = "Unable to load product details. Please try again later.";
+    } else if (error.includes("401")) {
+      friendlyMessage = "Please login to view product details.";
+    }
+    
+    alert.error(friendlyMessage);
     dispatch(clearErrors);
   }
   if (success) {
