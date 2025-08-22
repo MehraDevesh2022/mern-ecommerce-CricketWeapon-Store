@@ -63,7 +63,22 @@ export default function Login() {
       : "/account";
    useEffect(() => {
      if (error) {
-       alert.error(error);
+       // Show user-friendly error message for login
+       let friendlyMessage = "Login failed. Please check your credentials and try again.";
+       
+       if (error.includes("invalid") || error.includes("credentials") || error.includes("password")) {
+         friendlyMessage = "Invalid email or password. Please check your credentials and try again.";
+       } else if (error.includes("not found") || error.includes("user")) {
+         friendlyMessage = "Account not found. Please check your email or create a new account.";
+       } else if (error.includes("network") || error.includes("500")) {
+         friendlyMessage = "We're experiencing technical difficulties. Please try again later.";
+       } else if (error.includes("401") || error.includes("unauthorized")) {
+         friendlyMessage = "Invalid email or password. Please try again.";
+       } else if (error.includes("404")) {
+         friendlyMessage = "Service temporarily unavailable. Please try again later.";
+       }
+       
+       alert.error(friendlyMessage);
        dispatch(clearErrors());
      }
 

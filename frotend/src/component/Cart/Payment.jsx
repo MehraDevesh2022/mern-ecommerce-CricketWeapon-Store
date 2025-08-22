@@ -400,6 +400,36 @@ const PaymentComponent = () => {
     amount: Math.round(totalFinalPrice * 100),
   };
 
+  // Helper function to get user-friendly payment error messages
+  const getUserFriendlyPaymentError = (error) => {
+    if (error.response && error.response.status) {
+      switch (error.response.status) {
+        case 400:
+          return "Payment details are invalid. Please check your information and try again.";
+        case 401:
+          return "Please login to complete your payment.";
+        case 404:
+          return "Payment service is currently unavailable. Please try again later.";
+        case 500:
+          return "We're experiencing technical difficulties. Please try again later.";
+        default:
+          return "Payment could not be processed. Please try again.";
+      }
+    }
+    
+    // Handle Stripe-specific errors
+    if (error.message && error.message.includes("stripe")) {
+      return "Payment service is currently unavailable. Please try again later.";
+    }
+    
+    // Handle network errors
+    if (error.message && (error.message.includes("network") || error.message.includes("Network"))) {
+      return "Connection issue. Please check your internet connection and try again.";
+    }
+    
+    return "Payment could not be processed. Please try again.";
+  };
+
   async function paymentSubmitHandler(e) {
     e.preventDefault();
     if(nameOnCard === ""){
@@ -423,7 +453,10 @@ const PaymentComponent = () => {
       const client_secret = data.client_secret;
 
       // passed at App.js route statement
-      if (!stripe || !elements) return;
+      if (!stripe || !elements) {
+        alert.error("Payment system is not ready. Please refresh the page and try again.");
+        return;
+      }
 
       // this object is from stripe-js. only values need to put
       const result = await stripe.confirmCardPayment(client_secret, {
@@ -443,9 +476,16 @@ const PaymentComponent = () => {
       });
 
       if (result.error) {
-        // if error then again enable the button on
-
-        alert.error(result.error.message);
+        // Show user-friendly error message for Stripe errors
+        let errorMessage = "Payment could not be processed. Please check your card details and try again.";
+        
+        if (result.error.type === 'card_error') {
+          errorMessage = result.error.message || "Your card was declined. Please try a different card.";
+        } else if (result.error.type === 'validation_error') {
+          errorMessage = "Please check your card details and try again.";
+        }
+        
+        alert.error(errorMessage);
       } else {
         if (result.paymentIntent.status === "succeeded") {
           // add new property inside order object
@@ -453,30 +493,37 @@ const PaymentComponent = () => {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
           };
-          alert.success(result.paymentIntent.status);
+          alert.success("Payment successful! Your order has been placed.");
 
           dispatch(createOrder(order));
 
           history.push("/success");
         } else {
-          alert.error("There's some issue while processing payment");
+          alert.error("Payment is processing. Please wait a moment and check your order status.");
         }
       }
     } catch (error) {
-      // if error while payment then again enable payment button
-
-    
-      alert.error(error.message);
+      // Show user-friendly error message instead of technical error
+      const friendlyMessage = getUserFriendlyPaymentError(error);
+      alert.error(friendlyMessage);
     }
   }
   
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      // Show user-friendly error message instead of raw error
+      const friendlyMessage = error.includes("404") 
+        ? "Service temporarily unavailable. Please try again later."
+        : error.includes("401") 
+        ? "Please login to continue with your payment."
+        : error.includes("500")
+        ? "We're experiencing technical difficulties. Please try again later."
+        : error || "Something went wrong. Please try again.";
+      
+      alert.error(friendlyMessage);
       dispatch(clearErrors());
     }
-
   }, [dispatch, alert, error]);
 
   // claculte price after discount

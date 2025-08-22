@@ -48,12 +48,25 @@ function Signup() {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      // Show user-friendly error message for registration
+      let friendlyMessage = "Registration failed. Please try again.";
+      
+      if (error.includes("duplicate") || error.includes("already exists")) {
+        friendlyMessage = "An account with this email already exists. Please use a different email or try logging in.";
+      } else if (error.includes("validation") || error.includes("invalid")) {
+        friendlyMessage = "Please check your information and try again.";
+      } else if (error.includes("network") || error.includes("500")) {
+        friendlyMessage = "We're experiencing technical difficulties. Please try again later.";
+      } else if (error.includes("401") || error.includes("unauthorized")) {
+        friendlyMessage = "Registration is currently unavailable. Please try again later.";
+      }
+      
+      alert.error(friendlyMessage);
       dispatch(clearErrors());
     }
 
     if (isAuthenticated) {
-      alert.success("User Registered Successfully");
+      alert.success("Account created successfully! Welcome to Cricket Weapon Store.");
       history.push("/account");
     }
   }, [dispatch, isAuthenticated, loading, error, alert , history]);

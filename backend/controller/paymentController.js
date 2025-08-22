@@ -14,7 +14,7 @@ exports.processPayment = asyncWrapper(async (req, res, next) => {
 
   res
     .status(200)
-    .json({ sucess: true, client_secret: myPayment.client_secret });
+    .json({ success: true, client_secret: myPayment.client_secret });
 });
 
 // send STRIPE_API_KEY to user =>
