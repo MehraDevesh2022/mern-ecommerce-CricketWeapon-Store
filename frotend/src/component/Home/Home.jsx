@@ -9,7 +9,6 @@ import Loader from "../layouts/loader/Loader";
 import { useAlert } from "react-alert";
 import HeroSlider from "./HeroSilder";
 import FeaturedSlider from "./FeatureSlider";
-import { colors, typography } from "../theme";
 
 // Animation variants for sections
 const sectionVariants = {
