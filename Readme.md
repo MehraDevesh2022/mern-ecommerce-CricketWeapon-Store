@@ -7,7 +7,7 @@
 
 ---
 
-### If you find this project helpful, please consider giving it a star ⭐ and follow me on [GitHub](https://github.com/MehraDevesh2022) && [X](https://twitter.com/Iam_DEv22) for more exciting projects like this! 🚀
+### If you find this project helpful, please consider giving it a star ⭐ and follow me on [GitHub](https://github.com/MehraDevesh2022) && [X](https://twitter.com/Iam_DEv22) for more exciting projects like this! 
 
 
 ---
@@ -327,4 +327,5 @@ This guide will walk you through the process of hosting your complete MERN stack
 | [ImgBotApp](https://github.com/ImgBotApp)             |
 | [MehraDevesh2022](https://github.com/MehraDevesh2022) |
 | [0dayhunter](https://github.com/MehraDevesh2022) |
+
 
