@@ -39,6 +39,9 @@
     "swiper": "^8.4.7",
     "web-vitals": "^3.4.0"
   },
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",

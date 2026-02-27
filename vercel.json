@@ -1,5 +1,6 @@
 {
     "version": 2,
+    "nodeVersion": "24.x",
     "builds": [
         {
             "src": "./backend/server.js",

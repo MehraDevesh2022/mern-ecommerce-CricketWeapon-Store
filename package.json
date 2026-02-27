@@ -9,6 +9,9 @@
     "start-client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run start\" \"npm run start-client\""
   },
+  "engines": {
+    "node": "24.x"
+  },
   "author": "itsCodeWithDEv",
   "license": "ISC",
   "dependencies": {
