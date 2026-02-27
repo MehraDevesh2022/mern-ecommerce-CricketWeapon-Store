@@ -9,6 +9,7 @@ import Loader from "../layouts/loader/Loader";
 import { useAlert } from "react-alert";
 import HeroSlider from "./HeroSilder";
 import FeaturedSlider from "./FeatureSlider";
+import ErrorDisplay from "../layouts/ErrorDisplay/ErrorDisplay";
 
 // Animation variants for sections
 const sectionVariants = {
@@ -68,12 +69,28 @@ function Home() {
   const { loading, error, products } = useSelector((state) => state.products);
 
   React.useEffect(() => {
+    dispatch(getProduct());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  React.useEffect(() => {
     if (error) {
       alert.error(error);
-      dispatch(clearErrors);
+      dispatch(clearErrors());
     }
-    dispatch(getProduct());
-  }, [dispatch, error, alert]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
+
+  if (error) {
+    return (
+      <ErrorDisplay
+        message={error}
+        title="Failed to load products"
+        onRetry={() => dispatch(getProduct())}
+        showHome={false}
+      />
+    );
+  }
 
   return (
     <>

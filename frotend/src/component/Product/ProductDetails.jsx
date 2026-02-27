@@ -28,6 +28,7 @@ import { addItemToCart } from "../../actions/cartAction";
 import CricketBallLoader from "../layouts/loader/Loader";
 import Button from "@mui/material/Button";
 import { PRODUCT_DETAILS_RESET } from "../../constants/productsConstatns";
+import ErrorDisplay from "../layouts/ErrorDisplay/ErrorDisplay";
 
 const ProductDetails = () => {
   const match = useRouteMatch();
@@ -47,26 +48,18 @@ const ProductDetails = () => {
 
 
 useEffect(() => {
-  if (error) {
-    alert.error(error);
-    dispatch(clearErrors);
-  }
+  dispatch(getProductDetails(match.params.id));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [dispatch, match.params.id]);
+
+useEffect(() => {
   if (success) {
     setPreviewImg(product.images[0].url);
-
     handleActive(0);
     dispatch({ type: PRODUCT_DETAILS_RESET });
   }
-  dispatch(getProductDetails(match.params.id));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [
-  dispatch,
-  error,
-  alert,
-  success,
-  match.params.id,
-
-]);
+}, [success]);
 
 
   // handling Add-to-cart
@@ -109,6 +102,16 @@ useEffect(() => {
   const oldPrice = dispalyMoney(product.price);
   const savedPrice = dispalyMoney(discountedPrice);
   const savedDiscount = calculateDiscount(discountedPrice, product.price);
+
+  if (error) {
+    return (
+      <ErrorDisplay
+        message={error}
+        title="Product not found"
+        onRetry={() => dispatch(getProductDetails(match.params.id))}
+      />
+    );
+  }
 
   return (
     <>

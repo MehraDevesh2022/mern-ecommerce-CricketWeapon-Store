@@ -6,6 +6,7 @@ import { useAlert } from "react-alert";
 import { useRouteMatch } from "react-router-dom";
 import MetaData from "../layouts/MataData/MataData";
 import { clearErrors, getProduct } from "../../actions/productAction";
+import ErrorDisplay from "../layouts/ErrorDisplay/ErrorDisplay";
 import ProductCard from "../Home/ProductCard";
 import Pagination from "react-js-pagination";
 import Slider from "@mui/material/Slider";
@@ -58,13 +59,17 @@ function Products() {
   const [selectedCategory, setSelectedCategory] = React.useState("");
 
   useEffect(() => {
+    dispatch(getProduct(keyword, currentPage, price, category, ratings));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, keyword, currentPage, price, ratings, category]);
+
+  useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getProduct(keyword, currentPage, price, category, ratings));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, keyword, currentPage, price, ratings, category]);
+  }, [error]);
 
   const setCurrentPageNoHandler = (e) => {
     setCurrentPage(e); // e is the clicked page value
@@ -91,6 +96,16 @@ const handleRatingChange = (event) => {
 };
 
  
+
+  if (error) {
+    return (
+      <ErrorDisplay
+        message={error}
+        title="Failed to load products"
+        onRetry={() => dispatch(getProduct(keyword, currentPage, price, category, ratings))}
+      />
+    );
+  }
 
   return (
     <>

@@ -117,19 +117,15 @@ exports.updateOrder = asyncWrapper(async (req, res, next) => {
 
 // update status function with. productId and quantity params
 async function updateStock(id, quantity) {
-  try {
-    const product = await productModel.findById(id);
-    if (!product) {
-      throw new ErrorHandler("Product not found", 404); 
-    }
-
-    // Update the stock of the product using the order quantity
-    product.Stock -= quantity;
-
-    await product.save({ validateBeforeSave: false });
-  } catch (error) {
-    throw new ErrorHandler("Product not found", 404); 
+  const product = await productModel.findById(id);
+  if (!product) {
+    throw new ErrorHandler(`Product not found with id: ${id}`, 404, "NOT_FOUND");
   }
+
+  // Prevent negative stock
+  product.Stock = Math.max(0, product.Stock - quantity);
+
+  await product.save({ validateBeforeSave: false });
 }
 
 //>>>>>>>>>>>>>>>>>>>>> delete Order -- Admin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

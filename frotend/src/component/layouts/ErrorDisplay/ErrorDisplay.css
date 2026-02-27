@@ -1,0 +1,121 @@
+/* ── Inline Error Display Component ─────────────────────────────────────── */
+
+.error-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+
+.error-display__container {
+  max-width: 480px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.error-display__icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.error-display__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 0.75rem;
+}
+
+.error-display__message {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+}
+
+/* Action buttons */
+.error-display__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.error-display__btn {
+  padding: 0.6rem 1.4rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.error-display__btn--primary {
+  background-color: #e63946;
+  color: #ffffff;
+  border-color: #e63946;
+}
+
+.error-display__btn--primary:hover {
+  background-color: #c1121f;
+  border-color: #c1121f;
+}
+
+.error-display__btn--secondary {
+  background-color: transparent;
+  color: #e63946;
+  border-color: #e63946;
+}
+
+.error-display__btn--secondary:hover {
+  background-color: #e63946;
+  color: #ffffff;
+}
+
+/* ── Compact inline variant ─────────────────────────────────────────────── */
+
+.error-display--compact {
+  min-height: unset;
+  padding: 0.5rem 0;
+  background: transparent;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  display: flex;
+}
+
+.error-display__compact-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.error-display__compact-text {
+  font-size: 0.875rem;
+  color: #c1121f;
+  font-weight: 500;
+}
+
+.error-display__compact-retry {
+  font-size: 0.8rem;
+  color: #e63946;
+  background: none;
+  border: 1px solid #e63946;
+  border-radius: 4px;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.error-display__compact-retry:hover {
+  background-color: #e63946;
+  color: #ffffff;
+}

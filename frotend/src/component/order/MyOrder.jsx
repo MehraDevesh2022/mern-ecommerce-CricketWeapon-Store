@@ -7,6 +7,7 @@ import MetaData from "../layouts/MataData/MataData";
 import CricketBallLoader from "../layouts/loader/Loader";
 import { useAlert } from "react-alert";
 import OrderCard from "./OrderCard";
+import ErrorDisplay from "../layouts/ErrorDisplay/ErrorDisplay";
 
 const useStyles = makeStyles((theme) => ({
   orderPageContainer: {
@@ -41,15 +42,27 @@ const MyOrder = () => {
   const { user } = useSelector((state) => state.userData);
 
   useEffect(() => {
+    dispatch(myOrders());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-
-    dispatch(myOrders());
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
 
-  }, [dispatch, alert, error]);
+  if (error) {
+    return (
+      <ErrorDisplay
+        message={error}
+        title="Failed to load orders"
+        onRetry={() => dispatch(myOrders())}
+      />
+    );
+  }
 
   return (
     <>

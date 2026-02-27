@@ -20,8 +20,9 @@ import {
   UPDATE_ORDER_FAIL,
 } from "../constants/orderConstant";
 import axios from "axios";
+import { extractErrorMessage } from "../utils/apiErrorHandler";
 
-
+// Create Order
 export const createOrder = (order) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_ORDER_REQUEST });
@@ -31,11 +32,14 @@ export const createOrder = (order) => async (dispatch) => {
 
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
   } catch (error) {
-    dispatch({ type: CREATE_ORDER_FAIL, payload: error.message });
+    dispatch({
+      type: CREATE_ORDER_FAIL,
+      payload: extractErrorMessage(error),
+    });
   }
 };
 
-// get all orders
+// Get My Orders
 export const myOrders = () => async (dispatch) => {
   try {
     dispatch({ type: MY_ORDER_REQUEST });
@@ -44,12 +48,11 @@ export const myOrders = () => async (dispatch) => {
 
     dispatch({ type: MY_ORDER_SUCCESS, payload: data.userOrders });
   } catch (error) {
-    dispatch({ type: MY_ORDER_FAIL, payload: error.message });
+    dispatch({ type: MY_ORDER_FAIL, payload: extractErrorMessage(error) });
   }
 };
 
-// get single order
-
+// Get Single Order Details
 export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST });
@@ -58,10 +61,14 @@ export const getOrderDetails = (id) => async (dispatch) => {
 
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data.order });
   } catch (error) {
-    dispatch({ type: ORDER_DETAILS_FAIL, payload: error.message });
+    dispatch({
+      type: ORDER_DETAILS_FAIL,
+      payload: extractErrorMessage(error),
+    });
   }
 };
 
+// Admin: Get All Orders
 export const getAllOrders = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_ORDERS_REQUEST });
@@ -70,12 +77,11 @@ export const getAllOrders = () => async (dispatch) => {
 
     dispatch({ type: ALL_ORDERS_SUCCESS, payload: data.orders });
   } catch (error) {
-    dispatch({ type: ALL_ORDERS_FAIL, payload: error.message });
+    dispatch({ type: ALL_ORDERS_FAIL, payload: extractErrorMessage(error) });
   }
 };
 
-
-// delet Order --> admin
+// Admin: Delete Order
 export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_ORDER_REQUEST });
@@ -84,11 +90,14 @@ export const deleteOrder = (id) => async (dispatch) => {
 
     dispatch({ type: DELETE_ORDER_SUCCESS, payload: data.success });
   } catch (error) {
-    dispatch({ type: DELETE_ORDER_FAIL, payload: error.message });
+    dispatch({
+      type: DELETE_ORDER_FAIL,
+      payload: extractErrorMessage(error),
+    });
   }
 };
 
-// update order --> admin (status update) 
+// Admin: Update Order Status
 export const updateOrder = (id, productData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_ORDER_REQUEST });
@@ -100,12 +109,14 @@ export const updateOrder = (id, productData) => async (dispatch) => {
     );
     dispatch({ type: UPDATE_ORDER_SUCCESS, payload: data.success });
   } catch (error) {
-    dispatch({ type: UPDATE_ORDER_FAIL, payload: error.message });
+    dispatch({
+      type: UPDATE_ORDER_FAIL,
+      payload: extractErrorMessage(error),
+    });
   }
 };
 
-// clear errors
-
+// Clear Errors
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
 };

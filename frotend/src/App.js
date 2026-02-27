@@ -7,6 +7,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CricketBallLoader from "./component/layouts/loader/Loader";
 import PrivateRoute from "./component/Route/PrivateRoute";
+import ErrorBoundary from "./component/layouts/ErrorBoundary/ErrorBoundary";
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import "./App.css";
 
@@ -97,7 +98,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <ErrorBoundary>
       <Router>
       <SpeedInsights/>
         <Switch>
@@ -467,7 +468,7 @@ function App() {
           </Route>
         </Elements>
       </Router>
-    </>
+    </ErrorBoundary>
   );
 }
 

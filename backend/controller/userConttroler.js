@@ -247,7 +247,7 @@ exports.getSingleUser = asyncWrapper(async (req, res, next) => {
   // if user not found with that id
   if (!user) {
     return next(
-      new ErrorHandler(`User does not exist with Id: ${req.params.id}`)
+      new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 404)
     );
   }
 
@@ -304,7 +304,7 @@ exports.deleteUser = asyncWrapper(async (req, res, next) => {
 exports.getAllUser = asyncWrapper(async (req, res, next) => {
   const users = await userModel.find();
 
-  res.status(201).json({
+  res.status(200).json({
     success: true,
     users: users,
   });
