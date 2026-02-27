@@ -437,6 +437,24 @@ const PaymentComponent = () => {
       return;
     }
 
+    if (!stripe || !elements) {
+      alert.error("Stripe has not loaded yet. Please try again.");
+      return;
+    }
+
+    // Validate card elements
+    const cardNumberElement = elements.getElement(CardNumberElement);
+    if (!cardNumberElement) {
+      alert.error("Please enter valid card details");
+      return;
+    }
+
+    // Validate amount
+    if (!paymentData.amount || paymentData.amount <= 0) {
+      alert.error("Invalid payment amount");
+      return;
+    }
+
     try {
       const config = {
         headers: {
@@ -453,10 +471,7 @@ const PaymentComponent = () => {
       const client_secret = data.client_secret;
 
       // passed at App.js route statement
-      if (!stripe || !elements) {
-        alert.error("Payment system is not ready. Please refresh the page and try again.");
-        return;
-      }
+      if (!stripe || !elements) return;
 
       // this object is from stripe-js. only values need to put
       const result = await stripe.confirmCardPayment(client_secret, {
@@ -476,16 +491,9 @@ const PaymentComponent = () => {
       });
 
       if (result.error) {
-        // Show user-friendly error message for Stripe errors
-        let errorMessage = "Payment could not be processed. Please check your card details and try again.";
-        
-        if (result.error.type === 'card_error') {
-          errorMessage = result.error.message || "Your card was declined. Please try a different card.";
-        } else if (result.error.type === 'validation_error') {
-          errorMessage = "Please check your card details and try again.";
-        }
-        
-        alert.error(errorMessage);
+        // if error then again enable the button on
+
+        alert.error(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
           // add new property inside order object
@@ -493,19 +501,31 @@ const PaymentComponent = () => {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
           };
-          alert.success("Payment successful! Your order has been placed.");
+          alert.success(result.paymentIntent.status);
 
           dispatch(createOrder(order));
 
           history.push("/success");
         } else {
-          alert.error("Payment is processing. Please wait a moment and check your order status.");
+          alert.error("There's some issue while processing payment");
         }
       }
     } catch (error) {
-      // Show user-friendly error message instead of technical error
-      const friendlyMessage = getUserFriendlyPaymentError(error);
-      alert.error(friendlyMessage);
+      // if error while payment then again enable payment button
+      console.error('Payment Error:', error);
+      
+      // Provide more specific error messages
+      if (error.response) {
+        // Server responded with error status
+        const errorMessage = error.response.data?.message || 'Payment processing failed on server';
+        alert.error(errorMessage);
+      } else if (error.request) {
+        // Request was made but no response received
+        alert.error('Unable to connect to payment server. Please check your connection.');
+      } else {
+        // Something else happened
+        alert.error(error.message || 'An unexpected error occurred during payment');
+      }
     }
   }
   

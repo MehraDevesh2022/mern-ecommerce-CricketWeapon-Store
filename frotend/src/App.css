@@ -1,3 +1,4 @@
+/* Global Styles */
 html,
 body,
 #root {
@@ -5,13 +6,19 @@ body,
   width: 100%;
 }
 
-body{
-  background-color: #f1f1f1;
-  margin: 0px;
-  padding: 0px;
-
-  font-family: 'Archivo', sans-serif;;
+* {
+  box-sizing: border-box;
 }
+
+body {
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  font-family: 'Archivo', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -19,16 +26,35 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* Firefox */
-
-/* input[type="number"] {
-  
-  -moz-appearance: textfield;
-} */
-
-.greenColor {
-  color: green !important; 
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
-.redColor { 
-  color: red !important;
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Utility Classes */
+.greenColor {
+  color: #28A745 !important;
+}
+
+.redColor {
+  color: #E30605 !important;
+}
+
+/* Selection */
+::selection {
+  background-color: #E30605;
+  color: #ffffff;
 }
